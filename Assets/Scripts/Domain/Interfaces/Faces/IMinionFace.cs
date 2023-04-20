@@ -1,0 +1,1 @@
+﻿public interface IMinionFace : IFace, ILife, IScheme, IAttack, IBoost { }

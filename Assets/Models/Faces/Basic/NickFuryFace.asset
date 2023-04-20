@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faccafd5492556748811e15b8f3c1007, type: 3}
+  m_Name: NickFuryFace
+  m_EditorClassIdentifier: 
+  Unique: 1
+  Title: Nick Fury
+  SubTitle: 
+  Sprite: {fileID: 21300000, guid: 52464a121acac944daa15f67d3a6f564, type: 3}
+  CardType: 12
+  Classification: 9
+  Thwart: 2
+  Attack: 2
+  Life: 3
+  Cost: 4
+  Energy: 0
+  Mental: 1
+  Physic: 0
+  Wild: 0

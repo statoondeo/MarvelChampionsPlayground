@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a4f298cddbc8574fa82aaefddff4a6e, type: 3}
+  m_Name: CaptainMarvel
+  m_EditorClassIdentifier: 
+  Face: {fileID: 11400000, guid: e27836a7d8e9665488ee7c7cd9b81fbc, type: 2}
+  Back: {fileID: 11400000, guid: 6894e096207abc342bb7e653ba05ce58, type: 2}
+  Life: 12

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3678cf11e57bd5b4c923513d3a809938, type: 3}
+  m_Name: TheBreakInBFace
+  m_EditorClassIdentifier: 
+  Unique: 0
+  Title: L'Effraction
+  SubTitle: 
+  Sprite: {fileID: 21300000, guid: b7ad3b7c2bfaab64d8100e48f84506ae, type: 3}
+  CardType: 22
+  Classification: 2
+  Starting: 0
+  Acceleration: 1
+  Threshold: 7
+  Stade: 1

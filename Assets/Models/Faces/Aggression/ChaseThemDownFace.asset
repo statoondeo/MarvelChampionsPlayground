@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe023bc9dde10b44a21d3322d17beb5, type: 3}
+  m_Name: ChaseThemDownFace
+  m_EditorClassIdentifier: 
+  Unique: 0
+  Title: Poursuivons-les
+  SubTitle: 
+  Sprite: {fileID: 21300000, guid: d82ea91ece1b91f4c83c64daf06026ad, type: 3}
+  CardType: 13
+  Classification: 5
+  Cost: 0
+  Energy: 0
+  Mental: 1
+  Physic: 0
+  Wild: 0

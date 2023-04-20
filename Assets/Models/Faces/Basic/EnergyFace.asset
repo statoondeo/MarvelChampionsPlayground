@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 595e17f25e72942429f64afabda8f64f, type: 3}
+  m_Name: EnergyFace
+  m_EditorClassIdentifier: 
+  Unique: 0
+  Title: Energie
+  SubTitle: 
+  Sprite: {fileID: 21300000, guid: 995369ed8192d8047a507503dd1977c4, type: 3}
+  CardType: 14
+  Classification: 9
+  Energy: 2
+  Mental: 0
+  Physic: 0
+  Wild: 0

@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 564722f7d4e497b45a2f9679c711716e, type: 3}
+  m_Name: RhinoStandard
+  m_EditorClassIdentifier: 
+  HeroType: 1
+  CardModels:
+  - {fileID: 11400000, guid: ed0d854a6ddc4644286d32cc8f847b00, type: 2}
+  - {fileID: 11400000, guid: edec89f989c22a642b175409ed53b98b, type: 2}
+  - {fileID: 11400000, guid: ffc0c575bc0c5e043958129795a0ddea, type: 2}
+  - {fileID: 11400000, guid: 9df5b800596dd9345bc5db0857643a0e, type: 2}
+  - {fileID: 11400000, guid: 9df5b800596dd9345bc5db0857643a0e, type: 2}
+  - {fileID: 11400000, guid: dbaa213d134772a45b51efa566b2c6d7, type: 2}
+  - {fileID: 11400000, guid: 909684bf35a3317428d7c13759a71729, type: 2}
+  - {fileID: 11400000, guid: 909684bf35a3317428d7c13759a71729, type: 2}
+  - {fileID: 11400000, guid: abd34cfdc10840c4daf05cb273d98851, type: 2}
+  - {fileID: 11400000, guid: fae513085787d164d9940f68a304b0c0, type: 2}
+  - {fileID: 11400000, guid: 0792f8d8f611a644b82a9db03ea93265, type: 2}
+  - {fileID: 11400000, guid: 0792f8d8f611a644b82a9db03ea93265, type: 2}
+  - {fileID: 11400000, guid: 8597778ea27a7a2448c82c314752f67a, type: 2}
+  - {fileID: 11400000, guid: 8597778ea27a7a2448c82c314752f67a, type: 2}
+  - {fileID: 11400000, guid: fb77d1318a3dced40834f87654e4e750, type: 2}
+  - {fileID: 11400000, guid: fb77d1318a3dced40834f87654e4e750, type: 2}
+  - {fileID: 11400000, guid: fb77d1318a3dced40834f87654e4e750, type: 2}
+  - {fileID: 11400000, guid: 99a749711e310a048b05958d1bcca1bc, type: 2}
+  - {fileID: 11400000, guid: e05cfe109d9fd354aae291278539554d, type: 2}
+  HeroSetupModel: {fileID: 11400000, guid: 9f5c59c671185ee42940860f0e9b25c2, type: 2}
