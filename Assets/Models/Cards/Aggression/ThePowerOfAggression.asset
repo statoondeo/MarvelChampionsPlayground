@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d4c09e02f7a0344af35eeeb63f0428, type: 3}
+  m_Script: {fileID: 11500000, guid: 92c9924e703dc9b44b180377b6e6a578, type: 3}
   m_Name: ThePowerOfAggression
   m_EditorClassIdentifier: 
+  CardId: e8260288-3495-499f-b330-c7c4cd38e7a5
   Face: {fileID: 11400000, guid: 0ef8a325f241cce4794b33caa6d68c07, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

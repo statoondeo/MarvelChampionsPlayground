@@ -1538,9 +1538,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8510716935453018173}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f883159ce6f42cf4b9a1bd6cad0dba42, type: 3}
+  m_Script: {fileID: 11500000, guid: fa26d40b18fbdf540bb47f06f64535c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpriteRenderer: {fileID: 0}
+  ImageTransform: {fileID: 0}
+  AlterEgoFaceController: {fileID: 0}
+  HeroFaceController: {fileID: 0}
+  LifeController: {fileID: 0}
 --- !u!1 &8841263351709710133
 GameObject:
   m_ObjectHideFlags: 0

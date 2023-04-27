@@ -19,12 +19,6 @@ public sealed class BasicFace : IFace
     private readonly ICardType CardTypeComponent;
     public CardType CardType => CardTypeComponent.CardType;
     public bool IsCardType(CardType cardType) => CardTypeComponent.IsCardType(cardType);
-    public bool IsOneOfCardType(CardType cardType1, CardType cardType2)
-        => CardTypeComponent.IsOneOfCardType(cardType1, cardType2);
-    public bool IsOneOfCardType(CardType cardType1, CardType cardType2, CardType cardType3)
-        => CardTypeComponent.IsOneOfCardType(cardType1, cardType2, cardType3);
-    public bool IsOneOfCardType(CardType cardType1, CardType cardType2, CardType cardType3, CardType cardType4)
-        => CardTypeComponent.IsOneOfCardType(cardType1, cardType2, cardType3, cardType4);
 
     #endregion
 

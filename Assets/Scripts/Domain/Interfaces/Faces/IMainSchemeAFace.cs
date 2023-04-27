@@ -1,1 +1,1 @@
-﻿public interface IMainSchemeAFace : IFace { }
+﻿public interface IMainSchemeAFace : IFace, IStade, ISetup, IWhenRevealed { }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Cryptography.X509Certificates;
 
 public sealed class GameBuilder
 {
@@ -12,6 +11,7 @@ public sealed class GameBuilder
     public GameBuilder()
     {
         Game = new Game(new EventMediator());
+        Game.RegisterSetupCommand(GameSetupCommand.Get(Game));
         Battlefield = new BasicZone(Game, BATTLEFIELD, null);
         Game.Zones.Register(Battlefield.Id, Battlefield);
     }
@@ -33,24 +33,19 @@ public sealed class GameBuilder
 
         // Création des cartes du joueur
         Game.Zones.TryGetValue(player.GetZoneId(DECK), out IZone playerDeck);
+        CardFactory cardFactory = new CardFactory();
         foreach (CardModel cardModel in deckModel)
         {
-            ICard card = new CardBuilder(Game, player.Id)
-                .WithId(Guid.NewGuid().ToString())
-                .WithFace(new FaceBuilder(cardModel.Face.Title, cardModel.Face.Sprite)
-                    .WithCardType(new CardTypeComponent(cardModel.Face.CardType))
-                    .WithClassification(new ClassificationComponent(cardModel.Face.Classification))
-                    .Build())
-                .WithBack(new FaceBuilder(cardModel.Back.Title, cardModel.Back.Sprite)
-                    .WithCardType(new CardTypeComponent(cardModel.Back.CardType))
-                    .WithClassification(new ClassificationComponent(cardModel.Back.Classification))
-                    .Build())
-                .WithLocation(string.Empty)
-                .Build();
+            ICard card = cardFactory.Create(Game, Guid.NewGuid().ToString(), player.Id, cardModel); 
             Game.Cards.Register(card.Id, card);
             playerDeck.AddCard(card);
-            if (!card.IsOneOfCardType(CardType.Hero, CardType.AlterEgo, CardType.Villain, CardType.MainSchemeA)) card.FlipTo("BACK");
             card.UnTap();
+            if (card.IsCardType(CardType.AlterEgo)
+                || card.IsCardType(CardType.Hero)
+                || card.IsCardType(CardType.Villain)
+                || card.IsCardType(CardType.MainSchemeA)
+                || card.IsCardType(CardType.MainSchemeB)) continue;
+            card.FlipTo("BACK");
         }
 
         return this;

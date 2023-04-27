@@ -1,1 +1,1 @@
-﻿public interface ITreacheryFace : IFace, IBoost { }
+﻿public interface ITreacheryFace : IFace, IBoost, IWhenRevealed { }

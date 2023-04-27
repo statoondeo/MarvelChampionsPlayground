@@ -1,1 +1,1 @@
-﻿public interface IMinionFace : IFace, ILife, IScheme, IAttack, IBoost { }
+﻿public interface IMinionFace : IFace, ILife, IScheme, IAttack, IBoost, IWhenRevealed { }

@@ -14,4 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitialSetupModel: {fileID: 11400000, guid: 25f59bb327377504d9413972d5ddff54, type: 2}
   InGameSetupModel: {fileID: 11400000, guid: cfab0567eae4cf24dba917a92a25fc52, type: 2}
-  Zones: []
+  Zones:
+  - BATTLEFIELD
+  - HAND
+  - DECK
+  - DISCARD
+  - EXIL

@@ -1,1 +1,1 @@
-﻿public interface ISupportFace : IFace, IResource { }
+﻿public interface ISupportFace : IFace, IResource, ICost { }

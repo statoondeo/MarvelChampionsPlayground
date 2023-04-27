@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 2771696153538893789}
   - component: {fileID: 7680875786716520803}
   - component: {fileID: 2079641572116489816}
-  - component: {fileID: 304949673866872731}
-  - component: {fileID: 6269518201992066345}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -103,33 +101,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &304949673866872731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 239393785937039528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf2fc6c39e8329640be193310be620e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6269518201992066345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 239393785937039528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 426f04489e8a4fc40a35a68587335661, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LeftGridPosition: {x: 0, y: 0}
-  RightGridPosition: {x: 0, y: 0}
-  MaxGap: 0
 --- !u!1 &1224025706474262090
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,12 +220,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1691623795563556008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 426f04489e8a4fc40a35a68587335661, type: 3}
+  m_Script: {fileID: 11500000, guid: a569913be2d4d174bb12eb1aa5a516f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LeftGridPosition: {x: 3, y: 0}
+  LeftGridPosition: {x: 2, y: 0}
   RightGridPosition: {x: 7, y: 0}
-  MaxGap: 0.3
+  MaxGap: 0.25
 --- !u!1 &3130838862072679905
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d4c09e02f7a0344af35eeeb63f0428, type: 3}
+  m_Script: {fileID: 11500000, guid: bbc614e6ac04ff043b628256df3fa3b2, type: 3}
   m_Name: Explosion
   m_EditorClassIdentifier: 
+  CardId: 0fdb6115-cd6a-4ec9-aa0d-3666505fc72b
   Face: {fileID: 11400000, guid: d414bebe8ff5f1b438246ac9c8894126, type: 2}
   Back: {fileID: 11400000, guid: 95a88a0f11ed54a4591c96f0c8bbad5c, type: 2}

@@ -1,1 +1,1 @@
-﻿public interface IAttachmentFace : IFace, IBoost { }
+﻿public interface IAttachmentFace : IFace, IBoost, IWhenRevealed { }

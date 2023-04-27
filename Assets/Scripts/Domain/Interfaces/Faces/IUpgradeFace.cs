@@ -1,1 +1,1 @@
-﻿public interface IUpgradeFace : IFace, IResource { }
+﻿public interface IUpgradeFace : IFace, IResource, ICost { }

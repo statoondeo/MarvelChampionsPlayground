@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6d9cef9ed280d441921cc64018ac82f, type: 3}
   m_Name: Standard
   m_EditorClassIdentifier: 
-  Title: Standard
   CardModels:
-  - {fileID: 11400000, guid: 7cd8d0421c561b542beffe579b90f083, type: 2}
-  - {fileID: 11400000, guid: 7cd8d0421c561b542beffe579b90f083, type: 2}
   - {fileID: 11400000, guid: 6cf4df74225881c42ba6149d2506da48, type: 2}
   - {fileID: 11400000, guid: 6cf4df74225881c42ba6149d2506da48, type: 2}
+  - {fileID: 11400000, guid: 7cd8d0421c561b542beffe579b90f083, type: 2}
+  - {fileID: 11400000, guid: 7cd8d0421c561b542beffe579b90f083, type: 2}
+  - {fileID: 11400000, guid: 5b500b780dd851a45b28720b64cacfe3, type: 2}
   - {fileID: 11400000, guid: 5a9cac3bf8e6559459fa1e6f02eee674, type: 2}
   - {fileID: 11400000, guid: c01cf05be815b9f499d53a2c219f26d2, type: 2}
-  - {fileID: 11400000, guid: 5b500b780dd851a45b28720b64cacfe3, type: 2}

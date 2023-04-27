@@ -12,19 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6d9cef9ed280d441921cc64018ac82f, type: 3}
   m_Name: Aggression
   m_EditorClassIdentifier: 
-  Title: Aggression
   CardModels:
   - {fileID: 11400000, guid: 5feb67802951f9a458893db33b0d9584, type: 2}
+  - {fileID: 11400000, guid: 5feb67802951f9a458893db33b0d9584, type: 2}
+  - {fileID: 11400000, guid: eee315e789007dc49a26c659bbc8a7c3, type: 2}
   - {fileID: 11400000, guid: eee315e789007dc49a26c659bbc8a7c3, type: 2}
   - {fileID: 11400000, guid: 29403a2f66f698f4fb8e35df736008de, type: 2}
   - {fileID: 11400000, guid: 6d1017e0787c31c4b990c40e8d4648f0, type: 2}
+  - {fileID: 11400000, guid: 6d1017e0787c31c4b990c40e8d4648f0, type: 2}
   - {fileID: 11400000, guid: 222664dfe92f283498625532dbc77e5d, type: 2}
+  - {fileID: 11400000, guid: 222664dfe92f283498625532dbc77e5d, type: 2}
+  - {fileID: 11400000, guid: 843381bbd999c88499749f9784f879d3, type: 2}
   - {fileID: 11400000, guid: 843381bbd999c88499749f9784f879d3, type: 2}
   - {fileID: 11400000, guid: ed4f0c7d5ede0d74b9d7cdf241641ee9, type: 2}
   - {fileID: 11400000, guid: c6c9f9e75ae377c478491d7406dfc67e, type: 2}
-  - {fileID: 11400000, guid: 5feb67802951f9a458893db33b0d9584, type: 2}
   - {fileID: 11400000, guid: c6c9f9e75ae377c478491d7406dfc67e, type: 2}
-  - {fileID: 11400000, guid: 6d1017e0787c31c4b990c40e8d4648f0, type: 2}
-  - {fileID: 11400000, guid: 843381bbd999c88499749f9784f879d3, type: 2}
-  - {fileID: 11400000, guid: eee315e789007dc49a26c659bbc8a7c3, type: 2}
-  - {fileID: 11400000, guid: 222664dfe92f283498625532dbc77e5d, type: 2}

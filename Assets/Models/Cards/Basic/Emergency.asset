@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d4c09e02f7a0344af35eeeb63f0428, type: 3}
+  m_Script: {fileID: 11500000, guid: d9c884a5d2dd3d049933d4f556507801, type: 3}
   m_Name: Emergency
   m_EditorClassIdentifier: 
+  CardId: e96b6498-ecad-425f-91d9-5ace2e38efbd
   Face: {fileID: 11400000, guid: 481440eaff51c294ba33fcfb3d5ce34e, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

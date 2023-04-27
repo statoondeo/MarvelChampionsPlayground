@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "Marvel Champions/Faces/Alter-Ego Face")]
+[CreateAssetMenu(menuName = "Marvel Champions/Faces/Alter-Ego")]
 public sealed class AlterEgoFaceModel : CardFaceModel
 {
     public int Recovery;

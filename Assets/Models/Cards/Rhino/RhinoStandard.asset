@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d4c09e02f7a0344af35eeeb63f0428, type: 3}
+  m_Script: {fileID: 11500000, guid: cc80b4cd5cfcdc64eb8d1d3c9bc3e366, type: 3}
   m_Name: RhinoStandard
   m_EditorClassIdentifier: 
+  CardId: 8475a68a-0ae7-4e36-bf67-9cadb96fcfa9
   Face: {fileID: 11400000, guid: 5a0dd15c238fe18429bd19fd07ff1fdf, type: 2}
   Back: {fileID: 11400000, guid: c556841a00c29b74bb4e575cd69b7d64, type: 2}

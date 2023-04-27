@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 using UnityEngine;
 
@@ -20,10 +17,10 @@ public sealed class GameController : MonoBehaviour
     public RoutineController RoutineService { get; private set; }
     private IGame Game;
     public IGrid Grid { get; private set; }
-    public IRepository<string, CardController> CardControllers { get; private set; }
+    public IRepository<string, BaseCardController> CardControllers { get; private set; }
     public IRepository<string, BaseZoneController> ZoneControllers { get; private set; }
     public IRepository<string, PlayerController> PlayerControllers { get; private set; }
-    private CardController HeroController;
+    private BaseCardController HeroController;
     private BaseZoneController BattlefieldController;
 
     private void CreatePlayerControllers()
@@ -66,13 +63,13 @@ public sealed class GameController : MonoBehaviour
     }
     private void CreateCardControllers()
     {
-        CardControllers = new Repository<string, CardController>();
+        CardControllers = new Repository<string, BaseCardController>();
         foreach (ICard card in Game.Cards)
         {
-            CardController cardController = Instantiate(CardPrefab, transform).GetComponent<CardController>();
-            cardController.SetData(this, card);
+            BaseCardController cardController = Instantiate(CardPrefab, transform).GetComponent<BaseCardController>();
+            cardController.SetData(this, RoutineService, card);
             CardControllers.Register(cardController.Id, cardController);
-            if (card.IsOneOfCardType(CardType.AlterEgo, CardType.Hero)) HeroController = cardController;
+            if (card.IsCardType(CardType.AlterEgo) || card.IsCardType(CardType.Hero)) HeroController = cardController;
         }
     }
     private void Awake()

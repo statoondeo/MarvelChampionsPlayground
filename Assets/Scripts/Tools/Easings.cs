@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 using UnityEngine;
-
 public static class Easings
 {
     public enum Method

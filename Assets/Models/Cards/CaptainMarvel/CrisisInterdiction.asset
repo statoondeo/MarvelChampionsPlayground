@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d4c09e02f7a0344af35eeeb63f0428, type: 3}
+  m_Script: {fileID: 11500000, guid: d9c884a5d2dd3d049933d4f556507801, type: 3}
   m_Name: CrisisInterdiction
   m_EditorClassIdentifier: 
+  CardId: dde3e015-0c29-4388-9364-e4b205655767
   Face: {fileID: 11400000, guid: b4010acbcc923654190be53b29300845, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

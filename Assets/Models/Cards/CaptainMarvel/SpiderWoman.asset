@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d4c09e02f7a0344af35eeeb63f0428, type: 3}
+  m_Script: {fileID: 11500000, guid: c60e54c1d4cdbad4285d63011b1f2042, type: 3}
   m_Name: SpiderWoman
   m_EditorClassIdentifier: 
+  CardId: '8ac742a0-e07f-4a98-a306-e5efb19b9396 '
   Face: {fileID: 11400000, guid: 2bae01b245304b04f82daccea01828ac, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

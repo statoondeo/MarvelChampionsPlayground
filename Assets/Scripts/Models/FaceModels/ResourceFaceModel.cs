@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "Marvel Champions/Faces/Resource Face")]
+[CreateAssetMenu(menuName = "Marvel Champions/Faces/Resource")]
 public sealed class ResourceFaceModel : CardFaceModel
 {
     public int Energy;

@@ -1,1 +1,1 @@
-﻿public interface IEventFace : IFace, IResource { }
+﻿public interface IEventFace : IFace, IResource, ICost { }

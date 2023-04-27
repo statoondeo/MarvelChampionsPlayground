@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "Marvel Champions/Faces/Minion Face")]
+[CreateAssetMenu(menuName = "Marvel Champions/Faces/Minion")]
 public sealed class MinionFaceModel : CardFaceModel
 {
     public int Scheme;

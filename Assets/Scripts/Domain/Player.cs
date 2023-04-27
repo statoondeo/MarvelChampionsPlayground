@@ -17,5 +17,6 @@
         if (ZoneAtlas.TryGetValue(zoneName, out string zoneId)) return zoneId;
         return string.Empty;
     }
+    public IZone GetZone(string zoneName) => Game.Zones.Get(GetZoneId(zoneName));
     public string RegisterZoneId(string zoneName, string zoneId) => ZoneAtlas.Register(zoneName, zoneId);
 }

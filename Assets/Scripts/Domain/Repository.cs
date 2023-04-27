@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 public sealed class Repository<TKey, TValue> : IRepository<TKey, TValue>
 {
@@ -20,6 +19,7 @@ public sealed class Repository<TKey, TValue> : IRepository<TKey, TValue>
     }
     public void UnRegister(TKey key) => Data.Remove(key);
     public IEnumerator<TValue> GetEnumerator() => Data.Values.GetEnumerator();
+    public IEnumerable<TValue> Get() => Data.Values;
     public IEnumerable<TValue> Get(Func<TValue, bool> filter)
     {
         foreach (TValue item in Data.Values)

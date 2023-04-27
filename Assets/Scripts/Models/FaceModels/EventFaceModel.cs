@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "Marvel Champions/Faces/Event Face")]
+[CreateAssetMenu(menuName = "Marvel Champions/Faces/Event")]
 public sealed class EventFaceModel : CardFaceModel
 {
     public int Cost;

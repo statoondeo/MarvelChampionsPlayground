@@ -12,4 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecbb600d81c473b4c98f6f147e07a2a9, type: 3}
   m_Name: DefaultVillainInitialSetup
   m_EditorClassIdentifier: 
-  ZonePositions: []
+  ZonePositions:
+  - ZoneName: DECK
+    Position: {x: 1, y: 4}
+  - ZoneName: DISCARD
+    Position: {x: 0, y: 4}
+  - ZoneName: EXIL
+    Position: {x: 1, y: 5}
+  - ZoneName: ENCOUNTER
+    Position: {x: 2, y: 5}
+  - ZoneName: BOOST
+    Position: {x: 3, y: 5}

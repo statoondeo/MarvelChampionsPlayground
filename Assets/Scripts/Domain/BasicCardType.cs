@@ -1,12 +1,30 @@
 ﻿public sealed class CardTypeComponent : ICardType
 {
     public CardType CardType { get; private set; }
-    public CardTypeComponent(CardType cardType) => CardType = cardType;
+    private CardTypeComponent(CardType cardType) => CardType = cardType;
     public bool IsCardType(CardType cardType) => CardType == cardType;
-    public bool IsOneOfCardType(CardType cardType1, CardType cardType2) 
-        => IsCardType(cardType1) || IsCardType(cardType2);
-    public bool IsOneOfCardType(CardType cardType1, CardType cardType2, CardType cardType3) 
-        => IsOneOfCardType(cardType1, cardType2) || IsCardType(cardType3);
-    public bool IsOneOfCardType(CardType cardType1, CardType cardType2, CardType cardType3, CardType cardType4) 
-        => IsOneOfCardType(cardType1, cardType2) || IsOneOfCardType(cardType3, cardType4);
+    public static ICardType Get(CardType cardType) => new CardTypeComponent(cardType);
+}
+public interface ICardTypeFacade : IFacade<ICardType>, ICardType { }
+public sealed class CardTypeFacade : ICardTypeFacade
+{
+    private readonly IFacade<ICardType> Facade;
+    private CardTypeFacade(ICardType item) => Facade = FacadeComponent<ICardType>.Get(item);
+
+    #region IFacade<ICardType>
+
+    public ICardType Item { get; private set; }
+    public void AddDecorator(IDecorator<ICardType> decorator) => Facade.AddDecorator(decorator);
+    public void RemoveDecorator(IDecorator<ICardType> decorator) => Facade.RemoveDecorator(decorator);
+
+    #endregion
+
+    #region ICardType
+
+    public CardType CardType => Item.CardType;
+    public bool IsCardType(CardType cardType) => Item.IsCardType(cardType);
+
+    #endregion
+
+    public static ICardTypeFacade Get(CardType cardType) => new CardTypeFacade(CardTypeComponent.Get(cardType));
 }

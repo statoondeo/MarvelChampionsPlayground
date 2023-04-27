@@ -1,1 +1,1 @@
-﻿public interface IEnvironmentFace : IFace, IBoost { }
+﻿public interface IEnvironmentFace : IFace, IBoost, IWhenRevealed { }

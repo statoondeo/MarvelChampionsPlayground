@@ -2,9 +2,10 @@ using System;
 
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Marvel Champions/Cards/Card")]
-public class CardModel : ScriptableObject
+public abstract class CardModel : ScriptableObject
 {
+    protected CardModel() { }
+    public string CardId;
     public CardFaceModel Face;
     public CardFaceModel Back;
 }
