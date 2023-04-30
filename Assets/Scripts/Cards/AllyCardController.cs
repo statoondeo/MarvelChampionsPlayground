@@ -16,7 +16,7 @@ public sealed class AllyCardController : BaseCardController
     {
         base.SetData(gameController, routineController, card);
         FaceController.SetModel(card.Faces.Get("FACE") as IAllyFace);
-        BackController.SetModel(card.Faces.Get("BACK"));
+        BackController.SetModel(card.Faces.Get("BACK") as IBackFace);
 
         OnFlippedCallback(string.Empty);
     }

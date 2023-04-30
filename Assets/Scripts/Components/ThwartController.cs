@@ -5,12 +5,13 @@ using UnityEngine;
 public sealed class ThwartController : MonoBehaviour
 {
     [SerializeField] private TMP_Text Text;
-    private IThwartComponent Model;
+    private IThwartFacade Model;
 
-    public void SetModel(IThwartComponent model)
+    public void SetModel(IThwartFacade model)
     {
         Model = model;
-        OnChangedCallback();
+        Model.OnChanged += OnChangedCallback;
+        OnChangedCallback<IThwartFacade>(null);
     }
-    private void OnChangedCallback() => Text.text = Model.Thwart.ToString();
+    private void OnChangedCallback<IThwartFacade>(IThwartFacade model) => Text.text = Model.Thwart.ToString();
 }

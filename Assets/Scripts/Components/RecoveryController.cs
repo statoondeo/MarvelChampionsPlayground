@@ -5,13 +5,13 @@ using UnityEngine;
 public sealed class RecoveryController : MonoBehaviour
 {
     [SerializeField] private TMP_Text Text;
-    private IRecoveryComponent Model;
+    private IRecoveryFacade Model;
 
-    public void SetModel(IRecoveryComponent model)
+    public void SetModel(IRecoveryFacade model)
     {
         Model = model;
-        //Life.OnChanged += OnChangedCallback;
-        OnChangedCallback();
+        Model.OnChanged += OnChangedCallback;
+        OnChangedCallback<IRecoveryFacade>(null);
     }
-    private void OnChangedCallback() => Text.text = Model.Recovery.ToString();
+    private void OnChangedCallback<IRecoveryFacade>(IRecoveryFacade model) => Text.text = Model.Recovery.ToString();
 }

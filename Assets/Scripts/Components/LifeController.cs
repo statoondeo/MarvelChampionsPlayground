@@ -5,13 +5,13 @@ using UnityEngine;
 public sealed class LifeController : MonoBehaviour
 {
     [SerializeField] private TMP_Text Text;
-    private ILifeComponent Model;
+    private ILifeFacade Model;
 
-    public void SetModel(ILifeComponent model)
+    public void SetModel(ILifeFacade model)
     {
         Model = model;
-        //Life.OnChanged += OnChangedCallback;
-        OnChangedCallback();
+        Model.OnChanged += OnChangedCallback;
+        OnChangedCallback<ILifeFacade>(null);
     }
-    private void OnChangedCallback() => Text.text = Model.Life.ToString();
+    private void OnChangedCallback<ILifeFacade>(ILifeFacade model) => Text.text = Model.Life.ToString();
 }

@@ -16,7 +16,7 @@ public sealed class EnvironmentCardController : BaseCardController
     {
         base.SetData(gameController, routineController, card);
         FaceController.SetModel(card.Faces.Get("FACE") as IEnvironmentFace);
-        BackController.SetModel(card.Faces.Get("BACK"));
+        BackController.SetModel(card.Faces.Get("BACK") as IBackFace);
 
         OnFlippedCallback(string.Empty);
     }
