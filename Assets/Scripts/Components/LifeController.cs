@@ -5,9 +5,9 @@ using UnityEngine;
 public sealed class LifeController : MonoBehaviour
 {
     [SerializeField] private TMP_Text Text;
-    private ILife Model;
+    private ILifeComponent Model;
 
-    public void SetModel(ILife model)
+    public void SetModel(ILifeComponent model)
     {
         Model = model;
         //Life.OnChanged += OnChangedCallback;

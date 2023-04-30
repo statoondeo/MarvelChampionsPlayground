@@ -8,7 +8,6 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
     public string OwnerId => Card.OwnerId;
     public string Location => Card.Location;
     public int Order => Card.Order;
-    public CardType CardType => Card.CardType;
 
     public void Flip()
     {
@@ -35,7 +34,7 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
         Card.MoveTo(newLocation);
         RoutineController.Commit();
     }
-
+    public CardType CardType => Card.CardType;
     #endregion
 
     #region IGridItem
@@ -57,10 +56,10 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
         Card = card;
         gameObject.name = Card.CurrentFace.Title;
         SpriteRenderer.sprite = Card.CurrentFace.Sprite;
-        Card.OnTapped += OnTappedCallback;
-        Card.OnUnTapped += OnTappedCallback;
-        Card.OnFlipped += OnFlippedCallback;
-        Card.OnOrderChanged += OnOrderChangedCallback;
+        //Card.OnTapped += OnTappedCallback;
+        //Card.OnUnTapped += OnTappedCallback;
+        //Card.OnFlipped += OnFlippedCallback;
+        //Card.OnOrderChanged += OnOrderChangedCallback;
         OnOrderChangedCallback(0);
     }
     protected void OnTappedCallback(bool tapped) 

@@ -2,5 +2,5 @@
 
 public sealed class ResourceFaceController : MonoBehaviour
 {
-    public void SetModel(IResourceFace model) { }
+    public void SetModel(IResourceGeneratorFacade model) { }
 }

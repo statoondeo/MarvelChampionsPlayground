@@ -19,7 +19,7 @@ public sealed class HandZoneController : BaseZoneController
         RightPosition = GameController.Grid.GetWorldPosition(RightGridPosition) + CellSize.x * Vector2.right;
         HandLength = RightPosition.x - LeftPosition.x;
     }
-    protected override void OnCardRemovedCallback(ICard card)
+    protected override void OnCardRemovedCallback(ICoreCardComponent card)
     {
         base.OnCardRemovedCallback(card);
         PlaceCards(null);
@@ -39,7 +39,7 @@ public sealed class HandZoneController : BaseZoneController
         Vector2 startPosition = new Vector2(LeftPosition.x + .5f * (HandLength - currentHandLength), LeftPosition.y);
         int i = 0;
         float cellGap = CellSize.x + gap;
-        foreach (ICard card in Zone)
+        foreach (ICoreCardComponent card in Zone)
         {
             BaseCardController controller = GameController.CardControllers.Get(card.Id);
             GameController.RoutineService.MoveRoutine(controller.transform, startPosition + i * cellGap * Vector2.right);

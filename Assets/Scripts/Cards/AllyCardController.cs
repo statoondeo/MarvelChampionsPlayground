@@ -15,7 +15,7 @@ public sealed class AllyCardController : BaseCardController
     public override void SetData(GameController gameController, RoutineController routineController, ICard card)
     {
         base.SetData(gameController, routineController, card);
-        FaceController.SetModel(card.Faces.Get("FACE") as IAllyFacade);
+        FaceController.SetModel(card.Faces.Get("FACE") as IAllyFace);
         BackController.SetModel(card.Faces.Get("BACK"));
 
         OnFlippedCallback(string.Empty);

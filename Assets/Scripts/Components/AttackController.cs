@@ -5,9 +5,9 @@ using UnityEngine;
 public sealed class AttackController : MonoBehaviour
 {
     [SerializeField] private TMP_Text Text;
-    private IAttack Model;
+    private IAttackComponent Model;
 
-    public void SetModel(IAttack model)
+    public void SetModel(IAttackComponent model)
     {
         Model = model;
         //Life.OnChanged += OnChangedCallback;

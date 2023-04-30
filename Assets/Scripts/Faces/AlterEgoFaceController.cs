@@ -3,5 +3,5 @@
 public sealed class AlterEgoFaceController : MonoBehaviour
 {
     [SerializeField] private RecoveryController RecoveryController;
-    public void SetModel(IAlterEgoFacade model) => RecoveryController.SetModel(model);
+    public void SetModel(IAlterEgoFace model) => RecoveryController.SetModel(model);
 }

@@ -16,7 +16,7 @@ public sealed class HeroCardController : BaseCardController
     public override void SetData(GameController gameController, RoutineController routineController, ICard card)
     {
         base.SetData(gameController, routineController, card);
-        AlterEgoFaceController.SetModel(((IHeroCard)card).Faces.Get("FACE") as IAlterEgoFacade);
+        AlterEgoFaceController.SetModel(((IHeroCard)card).Faces.Get("FACE") as IAlterEgoFace);
         HeroFaceController.SetModel(((IHeroCard)card).Faces.Get("BACK") as IHeroFace);
         LifeController.SetModel((IHeroCard)card);
 

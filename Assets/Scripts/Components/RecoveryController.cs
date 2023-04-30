@@ -5,9 +5,9 @@ using UnityEngine;
 public sealed class RecoveryController : MonoBehaviour
 {
     [SerializeField] private TMP_Text Text;
-    private IRecovery Model;
+    private IRecoveryComponent Model;
 
-    public void SetModel(IRecovery model)
+    public void SetModel(IRecoveryComponent model)
     {
         Model = model;
         //Life.OnChanged += OnChangedCallback;

@@ -1,0 +1,1 @@
+﻿public interface IHeroCard : ICard, ILifeFacade { }

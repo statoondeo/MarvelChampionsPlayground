@@ -2,5 +2,5 @@
 
 public sealed class BackFaceController : MonoBehaviour
 {
-    public void SetModel(IFace model) { }
+    public void SetModel(ICoreFacade model) { }
 }

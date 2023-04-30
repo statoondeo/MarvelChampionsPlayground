@@ -3,7 +3,7 @@
     public override void RefreshContent()
     {
         transform.localPosition = GameController.Grid.GetWorldPosition(Position);
-        foreach (ICard card in Zone)
+        foreach (ICoreCardComponent card in Zone)
             PlaceCards(GameController.CardControllers.Get(card.Id));
     }
     protected override void PlaceCards(BaseCardController cardController)

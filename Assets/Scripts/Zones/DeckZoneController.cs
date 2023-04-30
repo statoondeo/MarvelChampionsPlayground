@@ -3,7 +3,7 @@
     public override void RefreshContent()
     {
         transform.localPosition = GameController.Grid.GetWorldPosition(Position);
-        foreach (ICard card in Zone)
+        foreach (ICoreCardComponent card in Zone)
             PlaceCards(GameController.CardControllers.Get(card.Id));
     }
     public override void SetData(GameController gameController, IZone zone)
@@ -13,7 +13,7 @@
     }
     private void OnShuffledCallback()
     {
-        ICard lastCard = Zone.Last();
+        ICoreCardComponent lastCard = Zone.Last();
         if (lastCard is null) return;
         GameController.CardControllers.Get(lastCard.Id).Spin(); ;
     }

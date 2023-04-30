@@ -6,8 +6,8 @@
 public sealed class OnAddedEventModelArg : EventModelArg
 {
     public string ToZone { get; private set; }
-    public ICard Card { get; private set; }
-    public OnAddedEventModelArg(string toZone, ICard card)
+    public ICoreCardComponent Card { get; private set; }
+    public OnAddedEventModelArg(string toZone, ICoreCardComponent card)
     {
         ToZone = toZone;
         Card = card;
@@ -16,8 +16,8 @@ public sealed class OnAddedEventModelArg : EventModelArg
 public sealed class OnRemovedEventModelArg : EventModelArg
 {
     public string FromZone { get; private set; }
-    public ICard Card { get; private set; }
-    public OnRemovedEventModelArg(string fromZone, ICard card)
+    public ICoreCardComponent Card { get; private set; }
+    public OnRemovedEventModelArg(string fromZone, ICoreCardComponent card)
     {
         FromZone = fromZone;
         Card = card;

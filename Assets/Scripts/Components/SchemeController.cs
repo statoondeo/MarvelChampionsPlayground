@@ -5,9 +5,9 @@ using UnityEngine;
 public sealed class SchemeController : MonoBehaviour
 {
     [SerializeField] private TMP_Text Text;
-    private IScheme Model;
+    private ISchemeComponent Model;
 
-    public void SetModel(IScheme model)
+    public void SetModel(ISchemeComponent model)
     {
         Model = model;
         OnChangedCallback();

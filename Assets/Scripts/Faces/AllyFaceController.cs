@@ -5,7 +5,7 @@ public sealed class AllyFaceController : MonoBehaviour
     [SerializeField] private ThwartController ThwartController;
     [SerializeField] private AttackController AttackController;
     [SerializeField] private LifeController LifeController;
-    public void SetModel(IAllyFacade model)
+    public void SetModel(IAllyFace model)
     {
         ThwartController.SetModel(model);
         AttackController.SetModel(model);

@@ -33,13 +33,13 @@ public abstract class BaseZoneController : MonoBehaviour, IGridItem
         Zone.OnCardAdded += OnCardAddedCallback;
         Zone.OnCardRemoved += OnCardRemovedCallback;
     }
-    protected virtual void OnCardAddedCallback(ICard card)
+    protected virtual void OnCardAddedCallback(ICoreCardComponent card)
     {
         BaseCardController cardController = GameController.CardControllers.Get(card.Id);
         PlaceCards(cardController);
         OnCardRemoved?.Invoke(cardController);
     }
-    protected virtual void OnCardRemovedCallback(ICard card) => OnCardRemoved?.Invoke(GameController.CardControllers.Get(card.Id));
+    protected virtual void OnCardRemovedCallback(ICoreCardComponent card) => OnCardRemoved?.Invoke(GameController.CardControllers.Get(card.Id));
     protected abstract void PlaceCards(BaseCardController cardController);
     public abstract void RefreshContent();
 }

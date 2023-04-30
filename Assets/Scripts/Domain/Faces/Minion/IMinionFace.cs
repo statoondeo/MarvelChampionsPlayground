@@ -1,0 +1,1 @@
+﻿public interface IMinionFace : ICoreFacade, ILifeFacade, ISchemeFacade, IAttackFacade, IBoostFacade, IWhenRevealedFacade { }

@@ -20,15 +20,15 @@ public sealed class BattlefieldZoneController : BaseZoneController
     }
     public override void RefreshContent()
     {
-        foreach (ICard card in Zone)
+        foreach (ICoreCardComponent card in Zone)
             PlaceCards(GameController.CardControllers.Get(card.Id));
     }
-    protected override void OnCardAddedCallback(ICard card)
+    protected override void OnCardAddedCallback(ICoreCardComponent card)
     {
         base.OnCardAddedCallback(card);
         GameController.CardControllers.Get(card.Id).AddComponent<DragAndDropController>();
     }
-    protected override void OnCardRemovedCallback(ICard card)
+    protected override void OnCardRemovedCallback(ICoreCardComponent card)
     {
         BaseCardController cardController = GameController.CardControllers.Get(card.Id);
         Destroy(cardController.GetComponent<DragAndDropController>());        

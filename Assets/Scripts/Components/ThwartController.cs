@@ -5,9 +5,9 @@ using UnityEngine;
 public sealed class ThwartController : MonoBehaviour
 {
     [SerializeField] private TMP_Text Text;
-    private IThwart Model;
+    private IThwartComponent Model;
 
-    public void SetModel(IThwart model)
+    public void SetModel(IThwartComponent model)
     {
         Model = model;
         OnChangedCallback();

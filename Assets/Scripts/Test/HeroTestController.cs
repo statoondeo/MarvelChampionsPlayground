@@ -16,5 +16,4 @@ public sealed class HeroTestController : MonoBehaviour
         routineController.StartGame();
         CardController.SetData(null, routineController, HeroCard);
     }
-
 }
