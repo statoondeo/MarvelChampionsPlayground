@@ -1,4 +1,5 @@
-﻿public enum CardType
+﻿// TODO
+public enum CardType
 {
     None = 0,
 

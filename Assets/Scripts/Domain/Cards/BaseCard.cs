@@ -18,7 +18,7 @@ public abstract class BaseCard : ICard
     public CardType CardType => FlipItem.CurrentFace.CardType;
     public bool IsCardType(CardType cardType)
     {
-        foreach (ICoreFacade face in FlipItem.Faces)
+        foreach (ICoreFacade face in FlipItem.Faces.Get())
             if (face.IsCardType(cardType)) return true;
         return false;
     }
@@ -30,7 +30,7 @@ public abstract class BaseCard : ICard
     public Classification Classification => FlipItem.CurrentFace.Classification;
     public bool IsClassification(Classification classification)
     {
-        foreach (ICoreFacade face in FlipItem.Faces)
+        foreach (ICoreFacade face in FlipItem.Faces.Get())
             if (face.IsClassification(classification)) return true;
         return false;
     }
@@ -40,55 +40,54 @@ public abstract class BaseCard : ICard
     #region IFlipFacade
 
     private readonly IFlipFacade FlipItem;
-    IFlipComponent IFacade<IFlipComponent>.Item => FlipItem.Item;
-    void IFacade<IFlipComponent>.AddDecorator(IDecorator<IFlipComponent> decorator) => FlipItem.AddDecorator(decorator);
-    void IFacade<IFlipComponent>.RemoveDecorator(IDecorator<IFlipComponent> decorator) => FlipItem.RemoveDecorator(decorator);
-    Action<IFlipComponent> IComponent<IFlipComponent>.OnChanged
-    { get => FlipItem.OnChanged; set => FlipItem.OnChanged = value; }
+    public void AddDecorator(IDecorator<IFlipComponent> decorator) => FlipItem.AddDecorator(decorator);
+    public void RemoveDecorator(IDecorator<IFlipComponent> decorator) => FlipItem.RemoveDecorator(decorator);
+    public void Register(Action<IFlipComponent> callback) => FlipItem.Register(callback);
+    public void UnRegister(Action<IFlipComponent> callback) => FlipItem.UnRegister(callback);
+    public void Notify(IFlipComponent data) => FlipItem.Notify(data);
 
-    ICoreFacade IFlipComponent.CurrentFace => FlipItem.CurrentFace;
-    IRepository<string, ICoreFacade> IFlipComponent.Faces => FlipItem.Faces;
-    void IFlipComponent.FlipTo(string face) => FlipItem.FlipTo(face);
+    public ICoreFacade CurrentFace => FlipItem.CurrentFace;
+    public IRepository<string, ICoreFacade> Faces => FlipItem.Faces;
+    public void FlipTo(string face) => FlipItem.FlipTo(face);
 
     #endregion
 
     #region ITapFacade
 
     private readonly ITapFacade TapItem;
-    ITapComponent IFacade<ITapComponent>.Item => TapItem.Item;
-    void IFacade<ITapComponent>.AddDecorator(IDecorator<ITapComponent> decorator) 
+    public void AddDecorator(IDecorator<ITapComponent> decorator) 
         => TapItem.AddDecorator(decorator);
-    void IFacade<ITapComponent>.RemoveDecorator(IDecorator<ITapComponent> decorator) 
+    public void RemoveDecorator(IDecorator<ITapComponent> decorator) 
         => TapItem.RemoveDecorator(decorator);
-    Action<ITapComponent> IComponent<ITapComponent>.OnChanged
-    { get => TapItem.OnChanged; set => TapItem.OnChanged = value; }
+    public void Register(Action<ITapComponent> callback) => TapItem.Register(callback);
+    public void UnRegister(Action<ITapComponent> callback) => TapItem.UnRegister(callback);
+    public void Notify(ITapComponent data) => TapItem.Notify(data);
 
-    bool ITapComponent.Tapped => TapItem.Tapped;
-    void ITapComponent.Tap() => TapItem.Tap();
-    void ITapComponent.UnTap() => TapItem.UnTap();
+    public bool Tapped => TapItem.Tapped;
+    public void Tap() => TapItem.Tap();
+    public void UnTap() => TapItem.UnTap();
 
     #endregion
 
     #region ICardFacade
 
     private readonly ICoreCardFacade CardItem;
-    ICoreCardComponent IFacade<ICoreCardComponent>.Item => CardItem.Item;
-    void IFacade<ICoreCardComponent>.AddDecorator(IDecorator<ICoreCardComponent> decorator) => CardItem.AddDecorator(decorator);
-    void IFacade<ICoreCardComponent>.RemoveDecorator(IDecorator<ICoreCardComponent> decorator) => CardItem.RemoveDecorator(decorator);
-    Action<ICoreCardComponent> IComponent<ICoreCardComponent>.OnChanged
-    { get => CardItem.OnChanged; set => CardItem.OnChanged = value; }
+    public void AddDecorator(IDecorator<ICoreCardComponent> decorator) => CardItem.AddDecorator(decorator);
+    public void RemoveDecorator(IDecorator<ICoreCardComponent> decorator) => CardItem.RemoveDecorator(decorator);
+    public void Register(Action<ICoreCardComponent> callback) => CardItem.Register(callback);
+    public void UnRegister(Action<ICoreCardComponent> callback) => CardItem.UnRegister(callback);
+    public void Notify(ICoreCardComponent data) => CardItem.Notify(data);
 
-    //public IGame Game => CardItem.Game;
-    string ICoreCardComponent.CardId => CardItem.CardId;
-    string ICoreCardComponent.Id => CardItem.Id;
-    string ICoreCardComponent.OwnerId => CardItem.OwnerId;
-    string ICoreCardComponent.Location => CardItem.Location;
-    int ICoreCardComponent.Order => CardItem.Order;
+    public string CardId => CardItem.CardId;
+    public string Id => CardItem.Id;
+    public string OwnerId => CardItem.OwnerId;
+    public string Location => CardItem.Location;
+    public int Order => CardItem.Order;
 
-    bool ICoreCardComponent.IsLocation(string location) => CardItem.IsLocation(location);
-    void ICoreCardComponent.SetLocation(string newLocation) => CardItem.SetLocation(newLocation);
-    void ICoreCardComponent.SetOrder(int newOrder) => CardItem.SetOrder(newOrder);
-    void ICoreCardComponent.MoveTo(string location) => CardItem.MoveTo(location);
+    public bool IsLocation(string location) => CardItem.IsLocation(location);
+    public void SetLocation(string newLocation) => CardItem.SetLocation(newLocation);
+    public void SetOrder(int newOrder) => CardItem.SetOrder(newOrder);
+    public void MoveTo(string location) => CardItem.MoveTo(location);
 
     #endregion
 }

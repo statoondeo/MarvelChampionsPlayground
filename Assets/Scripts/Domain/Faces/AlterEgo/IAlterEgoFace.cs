@@ -1,1 +1,5 @@
-﻿public interface IAlterEgoFace : ICoreFacade, IRecoveryFacade, IHandSizeFacade, ISetupFacade { }
+﻿public interface IAlterEgoFace : 
+    ICoreFacade, 
+    IRecoveryFacade, 
+    IHandSizeFacade, 
+    ISetupFacade { }

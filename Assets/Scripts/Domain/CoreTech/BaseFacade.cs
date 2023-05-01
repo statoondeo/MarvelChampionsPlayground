@@ -18,55 +18,53 @@ public abstract class BaseFacade : ICoreFacade
     #region ICardTypeFacade
 
     private readonly ICardTypeFacade CardTypeFacade;
-    ICardTypeComponent IFacade<ICardTypeComponent>.Item => CardTypeFacade.Item;
 
-    void IFacade<ICardTypeComponent>.AddDecorator(IDecorator<ICardTypeComponent> decorator) 
+    public void AddDecorator(IDecorator<ICardTypeComponent> decorator) 
         => CardTypeFacade.AddDecorator(decorator);
-    void IFacade<ICardTypeComponent>.RemoveDecorator(IDecorator<ICardTypeComponent> decorator) 
+    public void RemoveDecorator(IDecorator<ICardTypeComponent> decorator) 
         => CardTypeFacade.RemoveDecorator(decorator);
-    Action<ICardTypeComponent> IComponent<ICardTypeComponent>.OnChanged
-    { get => CardTypeFacade.OnChanged; set => CardTypeFacade.OnChanged = value; }
+    public void Register(Action<ICardTypeComponent> callback) => CardTypeFacade.Register(callback);
+    public void UnRegister(Action<ICardTypeComponent> callback) => CardTypeFacade.UnRegister(callback);
+    public void Notify(ICardTypeComponent data) => CardTypeFacade.Notify(data);
+
+    public CardType CardType => CardTypeFacade.CardType;
+    public bool IsCardType(CardType cardType)
+        => CardTypeFacade.IsCardType(cardType);
 
     #endregion
 
     #region IClassificationFacade
 
     private readonly IClassificationFacade ClassificationFacade;
-    IClassificationComponent IFacade<IClassificationComponent>.Item => ClassificationFacade.Item;
 
-    void IFacade<IClassificationComponent>.AddDecorator(IDecorator<IClassificationComponent> decorator) 
+    public void AddDecorator(IDecorator<IClassificationComponent> decorator)
         => ClassificationFacade.AddDecorator(decorator);
-    void IFacade<IClassificationComponent>.RemoveDecorator(IDecorator<IClassificationComponent> decorator) 
+    public void RemoveDecorator(IDecorator<IClassificationComponent> decorator)
         => ClassificationFacade.RemoveDecorator(decorator);
-    Action<IClassificationComponent> IComponent<IClassificationComponent>.OnChanged
-    { get => ClassificationFacade.OnChanged; set => ClassificationFacade.OnChanged = value; }
+    public void Register(Action<IClassificationComponent> callback) => ClassificationFacade.Register(callback);
+    public void UnRegister(Action<IClassificationComponent> callback) => ClassificationFacade.UnRegister(callback);
+    public void Notify(IClassificationComponent data) => ClassificationFacade.Notify(data);
+
+    public Classification Classification => ClassificationFacade.Classification;
+    public bool IsClassification(Classification classification)
+        => ClassificationFacade.IsClassification(classification);
 
     #endregion
 
     #region ITitleFacade
 
     private readonly ITitleFacade TitleFacade;
-    ITitleComponent IFacade<ITitleComponent>.Item => TitleFacade.Item;
-    string ITitleComponent.Title => TitleFacade.Title;
-    string ITitleComponent.SubTitle => TitleFacade.SubTitle;
-    Sprite ITitleComponent.Sprite => TitleFacade.Sprite;
-    void IFacade<ITitleComponent>.AddDecorator(IDecorator<ITitleComponent> decorator) 
+    public void AddDecorator(IDecorator<ITitleComponent> decorator) 
         => TitleFacade.AddDecorator(decorator);
-    void IFacade<ITitleComponent>.RemoveDecorator(IDecorator<ITitleComponent> decorator) 
+    public void RemoveDecorator(IDecorator<ITitleComponent> decorator) 
         => TitleFacade.RemoveDecorator(decorator);
+    public void Register(Action<ITitleComponent> callback) => TitleFacade.Register(callback);
+    public void UnRegister(Action<ITitleComponent> callback) => TitleFacade.UnRegister(callback);
+    public void Notify(ITitleComponent data) => TitleFacade.Notify(data);
 
-    bool ICardType.IsCardType(CardType cardType)
-        => CardTypeFacade.IsCardType(cardType);
-
-    bool IClassification.IsClassification(Classification classification)
-        => ClassificationFacade.IsClassification(classification);
-
-    Action<ITitleComponent> IComponent<ITitleComponent>.OnChanged
-    { get => TitleFacade.OnChanged; set => TitleFacade.OnChanged = value; }
-
-    CardType ICardType.CardType => CardTypeFacade.CardType;
-
-    Classification IClassification.Classification => ClassificationFacade.Classification;
+    public string Title => TitleFacade.Title;
+    public string SubTitle => TitleFacade.SubTitle;
+    public Sprite Sprite => TitleFacade.Sprite;
 
     #endregion
 }

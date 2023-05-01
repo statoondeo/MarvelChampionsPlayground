@@ -5,45 +5,45 @@ public sealed class AlterEgoFace : BaseFacade, IAlterEgoFace
     #region IRecoveryFacade
 
     private readonly IRecoveryFacade RecoveryItem;
-    IRecoveryComponent IFacade<IRecoveryComponent>.Item => RecoveryItem.Item;
-    int IRecoveryComponent.Recovery => RecoveryItem.Recovery;
-    void IFacade<IRecoveryComponent>.AddDecorator(IDecorator<IRecoveryComponent> decorator) 
+    public int Recovery => RecoveryItem.Recovery;
+    public void AddDecorator(IDecorator<IRecoveryComponent> decorator) 
         => RecoveryItem.AddDecorator(decorator);
-    void IFacade<IRecoveryComponent>.RemoveDecorator(IDecorator<IRecoveryComponent> decorator) 
+    public void RemoveDecorator(IDecorator<IRecoveryComponent> decorator) 
         => RecoveryItem.RemoveDecorator(decorator);
 
-    Action<IRecoveryComponent> IComponent<IRecoveryComponent>.OnChanged
-    { get => RecoveryItem.OnChanged; set => RecoveryItem.OnChanged = value; }
+    public void Register(Action<IRecoveryComponent> callback) => RecoveryItem.Register(callback);
+    public void UnRegister(Action<IRecoveryComponent> callback) => RecoveryItem.UnRegister(callback);
+    public void Notify(IRecoveryComponent data) => RecoveryItem.Notify(data);
 
     #endregion
 
     #region IHandSizeFacade
 
     private readonly IHandSizeFacade HandSizeItem;
-    IHandSizeComponent IFacade<IHandSizeComponent>.Item => HandSizeItem.Item;
-    int IHandSizeComponent.HandSize => HandSizeItem.HandSize;
-    void IFacade<IHandSizeComponent>.AddDecorator(IDecorator<IHandSizeComponent> decorator) 
+    public int HandSize => HandSizeItem.HandSize;
+    public void AddDecorator(IDecorator<IHandSizeComponent> decorator) 
         => HandSizeItem.AddDecorator(decorator);
-    void IFacade<IHandSizeComponent>.RemoveDecorator(IDecorator<IHandSizeComponent> decorator) 
+    public void RemoveDecorator(IDecorator<IHandSizeComponent> decorator) 
         => HandSizeItem.RemoveDecorator(decorator);
 
-    Action<IHandSizeComponent> IComponent<IHandSizeComponent>.OnChanged
-    { get => HandSizeItem.OnChanged; set => HandSizeItem.OnChanged = value; }
+    public void Register(Action<IHandSizeComponent> callback) => HandSizeItem.Register(callback);
+    public void UnRegister(Action<IHandSizeComponent> callback) => HandSizeItem.UnRegister(callback);
+    public void Notify(IHandSizeComponent data) => HandSizeItem.Notify(data);
 
     #endregion
 
     #region ISetupFacade
 
     private readonly ISetupFacade SetupItem;
-    ISetupComponent IFacade<ISetupComponent>.Item => SetupItem.Item;
-    ICommand ISetupComponent.Setup => SetupItem.Setup;
+    public ICommand Setup => SetupItem.Setup;
 
-    Action<ISetupComponent> IComponent<ISetupComponent>.OnChanged 
-    { get => SetupItem.OnChanged; set => SetupItem.OnChanged = value; }
+    public void Register(Action<ISetupComponent> callback) => SetupItem.Register(callback);
+    public void UnRegister(Action<ISetupComponent> callback) => SetupItem.UnRegister(callback);
+    public void Notify(ISetupComponent data) => SetupItem.Notify(data);
 
-    void IFacade<ISetupComponent>.AddDecorator(IDecorator<ISetupComponent> decorator) 
+    public void AddDecorator(IDecorator<ISetupComponent> decorator) 
         => SetupItem.AddDecorator(decorator);
-    void IFacade<ISetupComponent>.RemoveDecorator(IDecorator<ISetupComponent> decorator) 
+    public void RemoveDecorator(IDecorator<ISetupComponent> decorator) 
         => SetupItem.RemoveDecorator(decorator);
 
     #endregion

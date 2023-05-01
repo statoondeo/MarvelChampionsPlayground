@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-public sealed class PlayerObligationSelector : ISelector<ICard>
+﻿public sealed class PlayerObligationSelector : ISelector<ICard>
 {
     private readonly ISelector<ICard> Selector;
     private PlayerObligationSelector(string ownerId)
@@ -8,6 +6,6 @@ public sealed class PlayerObligationSelector : ISelector<ICard>
             AndCompositeSelector.Get(
                     OwnerIdSelector.Get(ownerId),
                     CardTypeSelector.Get(CardType.Obligation));
-    public IEnumerable<ICard> Select(IEnumerable<ICard> cards) => Selector.Select(cards);
+    public bool Match(ICard card) => Selector.Match(card);
     public static ISelector<ICard> Get(string ownerId) => new PlayerObligationSelector(ownerId);
 }

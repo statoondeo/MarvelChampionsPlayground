@@ -1,22 +1,9 @@
-﻿using System;
-
-public sealed class TreatThresholdFacade : ITreatThresholdFacade
+﻿public sealed class TreatThresholdFacade : BaseComponentFacade<ITreatThresholdComponent>, ITreatThresholdFacade
 {
-    private readonly IFacade<ITreatThresholdComponent> Facade;
-    private TreatThresholdFacade(ITreatThresholdComponent item) 
-        => Facade = FacadeComponent<ITreatThresholdComponent>.Get(item);
-
-    #region IFacade<ITreatThreshold>
-
-    public ITreatThresholdComponent Item { get; private set; }
-    public void AddDecorator(IDecorator<ITreatThresholdComponent> decorator) => Facade.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<ITreatThresholdComponent> decorator) => Facade.RemoveDecorator(decorator);
-
-    #endregion
+    private TreatThresholdFacade(ITreatThresholdComponent item) : base(item) { }
 
     #region ITreatThreshold
 
-    public Action<ITreatThresholdComponent> OnChanged { get => Item.OnChanged; set => Item.OnChanged = value; }
     public int TreatThreshold => Item.TreatThreshold;
 
     #endregion

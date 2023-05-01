@@ -2,5 +2,7 @@
 
 public interface IComponent<T>
 {
-    Action<T> OnChanged { get; set; }
+    void Register(Action<T> callback);
+    void UnRegister(Action<T> callback);
+    void Notify(T data);
 }

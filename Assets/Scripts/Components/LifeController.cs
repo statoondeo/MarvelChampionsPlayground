@@ -10,7 +10,7 @@ public sealed class LifeController : MonoBehaviour
     public void SetModel(ILifeFacade model)
     {
         Model = model;
-        Model.OnChanged += OnChangedCallback;
+        Model.Register(OnChangedCallback);
         OnChangedCallback<ILifeFacade>(null);
     }
     private void OnChangedCallback<ILifeFacade>(ILifeFacade model) => Text.text = Model.Life.ToString();

@@ -56,6 +56,7 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
         Card = card;
         gameObject.name = Card.CurrentFace.Title;
         SpriteRenderer.sprite = Card.CurrentFace.Sprite;
+        Card.Register(OnFlippedCallback);
         //Card.OnTapped += OnTappedCallback;
         //Card.OnUnTapped += OnTappedCallback;
         //Card.OnFlipped += OnFlippedCallback;
@@ -71,7 +72,7 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
     }
     public int GetSpriteLayer() => SpriteRenderer.sortingLayerID;
     public int SetSpriteLayer(int layerId) => SpriteRenderer.sortingLayerID = layerId;
-    protected virtual void OnFlippedCallback(string face)
+    protected virtual void OnFlippedCallback(IFlipComponent component)
         => RoutineController.FlipRoutine(ImageTransform, SpriteRenderer, Card.CurrentFace.Sprite);
     public void Spin() => RoutineController.SpinRoutine(ImageTransform);
 }

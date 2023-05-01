@@ -1,21 +1,9 @@
-﻿using System;
-
-public sealed class StadeFacade : IStadeFacade
+﻿public sealed class StadeFacade : BaseComponentFacade<IStadeComponent>, IStadeFacade
 {
-    private readonly IFacade<IStadeComponent> Facade;
-    private StadeFacade(IStadeComponent item) => Facade = FacadeComponent<IStadeComponent>.Get(item);
-
-    #region IFacade<IStade>
-
-    public IStadeComponent Item { get; private set; }
-    public void AddDecorator(IDecorator<IStadeComponent> decorator) => Facade.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IStadeComponent> decorator) => Facade.RemoveDecorator(decorator);
-
-    #endregion
+    private StadeFacade(IStadeComponent item) : base(item) { }
 
     #region IStade
 
-    public Action<IStadeComponent> OnChanged { get => Item.OnChanged; set => Item.OnChanged = value; }
     public int Stade => Item.Stade;
 
     #endregion

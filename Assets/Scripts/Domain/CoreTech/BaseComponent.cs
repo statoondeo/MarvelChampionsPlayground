@@ -3,5 +3,8 @@
 public abstract class BaseComponent<T> : IComponent<T>
 {
     protected BaseComponent() { }
-    public Action<T> OnChanged { get; set; }
+    protected Action<T> OnChanged;
+    public void Register(Action<T> callback) => OnChanged += callback;
+    public void UnRegister(Action<T> callback) => OnChanged -= callback;
+    public void Notify(T data) => OnChanged?.Invoke(data);
 }

@@ -5,9 +5,9 @@ public sealed class AttachmentCardController : BaseCardController
     [SerializeField] private AttachmentFaceController FaceController;
     [SerializeField] private BackFaceController BackController;
 
-    protected override void OnFlippedCallback(string face)
+    protected override void OnFlippedCallback(IFlipComponent component)
     {
-        base.OnFlippedCallback(face);
+        base.OnFlippedCallback(component);
         FaceController.gameObject.SetActive(!Card.CurrentFace.IsCardType(CardType.None));
         BackController.gameObject.SetActive(!FaceController.gameObject.activeSelf);
     }
@@ -18,6 +18,6 @@ public sealed class AttachmentCardController : BaseCardController
         FaceController.SetModel(card.Faces.Get("FACE") as IAttachmentFace);
         BackController.SetModel(card.Faces.Get("BACK") as IBackFace);
 
-        OnFlippedCallback(string.Empty);
+        OnFlippedCallback(null);
     }
 }

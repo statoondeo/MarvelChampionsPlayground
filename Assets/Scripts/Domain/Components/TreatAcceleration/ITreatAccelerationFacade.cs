@@ -1,1 +1,3 @@
-﻿public interface ITreatAccelerationFacade : IFacade<ITreatAccelerationComponent>, ITreatAccelerationComponent { }
+﻿public interface ITreatAccelerationFacade : 
+    IFacade<ITreatAccelerationComponent>, 
+    ITreatAccelerationComponent { }

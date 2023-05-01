@@ -9,23 +9,22 @@ public sealed class HeroCard : BaseCard, IHeroCard
     #region ILifeFacade
 
     private readonly ILifeFacade LifeItem;
-    ILifeComponent IFacade<ILifeComponent>.Item => LifeItem.Item;
-    int ILifeComponent.Life => LifeItem.Life;
-    void IFacade<ILifeComponent>.AddDecorator(IDecorator<ILifeComponent> decorator) 
-        => LifeItem.AddDecorator(decorator);
-    void IFacade<ILifeComponent>.RemoveDecorator(IDecorator<ILifeComponent> decorator) 
-        => LifeItem.RemoveDecorator(decorator);
-    Action<ILifeComponent> IComponent<ILifeComponent>.OnChanged
-    { get => LifeItem.OnChanged; set => LifeItem.OnChanged = value; }
+    public int Life => LifeItem.Life;
+    public void AddDecorator(IDecorator<ILifeComponent> decorator) => LifeItem.AddDecorator(decorator);
+    public void RemoveDecorator(IDecorator<ILifeComponent> decorator) => LifeItem.RemoveDecorator(decorator);
+
+    public void Register(Action<ILifeComponent> callback) => LifeItem.Register(callback);
+    public void UnRegister(Action<ILifeComponent> callback) => LifeItem.UnRegister(callback);
+    public void Notify(ILifeComponent data) => LifeItem.Notify(data);
 
     #endregion
 
     public static ICard Get(IGame game, string id, string ownerId, CardModel cardModel)
-        => new HeroCard(
-            CoreCardFacade.Get(cardModel.CardId, id, ownerId, game),
-            FlipFacade.Get(
-                AlterEgoFace.Get((AlterEgoFaceModel)cardModel.Face),
-                HeroFace.Get((HeroFaceModel)cardModel.Back)),
-            TapFacade.Get(),
-            LifeFacade.Get(((HeroCardModel)cardModel).Life));
+            => new HeroCard(
+                CoreCardFacade.Get(cardModel.CardId, id, ownerId, game),
+                FlipFacade.Get(
+                    AlterEgoFace.Get((AlterEgoFaceModel)cardModel.Face),
+                    HeroFace.Get((HeroFaceModel)cardModel.Back)),
+                TapFacade.Get(),
+                LifeFacade.Get(((HeroCardModel)cardModel).Life));
 }

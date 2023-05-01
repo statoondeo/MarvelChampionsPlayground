@@ -14,6 +14,7 @@
         if (!Faces.TryGetValue(face, out ICoreFacade newFace)) return;
         if (CurrentFace == newFace) return;
         CurrentFace = newFace;
+        Notify(this);
     }
     public static IFlipComponent Get(ICoreFacade face, ICoreFacade back)
         => new FlipComponent(face, back);

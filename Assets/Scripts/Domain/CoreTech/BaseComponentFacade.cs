@@ -1,7 +1,9 @@
-﻿public sealed class FacadeComponent<T> : IFacade<T>
+﻿using System;
+
+public abstract class BaseComponentFacade<T> : IFacade<T> where T : IComponent<T>
 {
-    public T Item { get; private set; }
-    private FacadeComponent(T item) => Item = item;
+    protected T Item;
+    protected BaseComponentFacade(T item) => Item = item;
     public void AddDecorator(IDecorator<T> decorator) => Item = decorator.Wrap(Item);
     public void RemoveDecorator(IDecorator<T> decorator)
     {
@@ -16,13 +18,14 @@
                 continue;
             }
             if (previous is null)
-            {
                 Item = current.Inner;
-                break;
-            }
-            previous.Wrap(current.Inner);
+            else
+                previous.Wrap(current.Inner);
+            Item.Notify(Item);
             break;
         }
     }
-    public static IFacade<T> Get(T item) => new FacadeComponent<T>(item);
+    public void Register(Action<T> callback) => Item.Register(callback);
+    public void UnRegister(Action<T> callback) => Item.Register(callback);
+    public void Notify(T data) => Item.Notify(data);
 }

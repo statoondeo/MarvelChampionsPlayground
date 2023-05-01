@@ -10,7 +10,7 @@ public sealed class ThwartController : MonoBehaviour
     public void SetModel(IThwartFacade model)
     {
         Model = model;
-        Model.OnChanged += OnChangedCallback;
+        Model.Register(OnChangedCallback);
         OnChangedCallback<IThwartFacade>(null);
     }
     private void OnChangedCallback<IThwartFacade>(IThwartFacade model) => Text.text = Model.Thwart.ToString();

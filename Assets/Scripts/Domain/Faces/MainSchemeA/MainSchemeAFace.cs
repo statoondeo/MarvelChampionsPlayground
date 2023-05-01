@@ -5,36 +5,44 @@ public sealed class MainSchemeAFace : BaseFacade, IMainSchemeAFace
     #region IStadeFacade
 
     private readonly IStadeFacade StadeItem;
-    IStadeComponent IFacade<IStadeComponent>.Item => StadeItem.Item;
-    int IStadeComponent.Stade => StadeItem.Stade;
-    void IFacade<IStadeComponent>.AddDecorator(IDecorator<IStadeComponent> decorator) => StadeItem.AddDecorator(decorator);
-    void IFacade<IStadeComponent>.RemoveDecorator(IDecorator<IStadeComponent> decorator) => StadeItem.RemoveDecorator(decorator);
-    Action<IStadeComponent> IComponent<IStadeComponent>.OnChanged
-    { get => StadeItem.OnChanged; set => StadeItem.OnChanged = value; }
+    public int Stade => StadeItem.Stade;
+    public void AddDecorator(IDecorator<IStadeComponent> decorator) => StadeItem.AddDecorator(decorator);
+    public void RemoveDecorator(IDecorator<IStadeComponent> decorator) => StadeItem.RemoveDecorator(decorator);
+    public void Register(Action<IStadeComponent> callback) => StadeItem.Register(callback);
+    public void UnRegister(Action<IStadeComponent> callback) => StadeItem.UnRegister(callback);
+    public void Notify(IStadeComponent data) => StadeItem.Notify(data);
 
     #endregion
 
     #region ISetupFacade
 
     private readonly ISetupFacade SetupItem;
-    ISetupComponent IFacade<ISetupComponent>.Item => SetupItem.Item;
-    ICommand ISetupComponent.Setup => SetupItem.Setup;
-    void IFacade<ISetupComponent>.AddDecorator(IDecorator<ISetupComponent> decorator) => SetupItem.AddDecorator(decorator);
-    void IFacade<ISetupComponent>.RemoveDecorator(IDecorator<ISetupComponent> decorator) => SetupItem.RemoveDecorator(decorator);
-    Action<ISetupComponent> IComponent<ISetupComponent>.OnChanged
-    { get => SetupItem.OnChanged; set => SetupItem.OnChanged = value; }
+    public ICommand Setup => SetupItem.Setup;
+
+    public void Register(Action<ISetupComponent> callback) => SetupItem.Register(callback);
+    public void UnRegister(Action<ISetupComponent> callback) => SetupItem.UnRegister(callback);
+    public void Notify(ISetupComponent data) => SetupItem.Notify(data);
+
+    public void AddDecorator(IDecorator<ISetupComponent> decorator)
+        => SetupItem.AddDecorator(decorator);
+    public void RemoveDecorator(IDecorator<ISetupComponent> decorator)
+        => SetupItem.RemoveDecorator(decorator);
 
     #endregion
 
     #region IWhenRevealedFacade
 
     private readonly IWhenRevealedFacade WhenRevealedItem;
-    IWhenRevealedComponent IFacade<IWhenRevealedComponent>.Item => WhenRevealedItem.Item;
-    ICommand IWhenRevealedComponent.WhenRevealed => WhenRevealedItem.WhenRevealed;
-    void IFacade<IWhenRevealedComponent>.AddDecorator(IDecorator<IWhenRevealedComponent> decorator) => WhenRevealedItem.AddDecorator(decorator);
-    void IFacade<IWhenRevealedComponent>.RemoveDecorator(IDecorator<IWhenRevealedComponent> decorator) => WhenRevealedItem.RemoveDecorator(decorator);
-    Action<IWhenRevealedComponent> IComponent<IWhenRevealedComponent>.OnChanged
-    { get => WhenRevealedItem.OnChanged; set => WhenRevealedItem.OnChanged = value; }
+    public ICommand WhenRevealed => WhenRevealedItem.WhenRevealed;
+
+    public void Register(Action<IWhenRevealedComponent> callback) => WhenRevealedItem.Register(callback);
+    public void UnRegister(Action<IWhenRevealedComponent> callback) => WhenRevealedItem.UnRegister(callback);
+    public void Notify(IWhenRevealedComponent data) => WhenRevealedItem.Notify(data);
+
+    public void AddDecorator(IDecorator<IWhenRevealedComponent> decorator)
+        => WhenRevealedItem.AddDecorator(decorator);
+    public void RemoveDecorator(IDecorator<IWhenRevealedComponent> decorator)
+        => WhenRevealedItem.RemoveDecorator(decorator);
 
     #endregion
 

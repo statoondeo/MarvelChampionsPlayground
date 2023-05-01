@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-public sealed class PlayerNemesisSetSelector : ISelector<ICard>
+﻿public sealed class PlayerNemesisSetSelector : ISelector<ICard>
 {
     private readonly ISelector<ICard> Selector;
     private PlayerNemesisSetSelector(string ownerId)
@@ -8,6 +6,6 @@ public sealed class PlayerNemesisSetSelector : ISelector<ICard>
             AndCompositeSelector.Get(
                     OwnerIdSelector.Get(ownerId),
                     ClassificationSelector.Get(Classification.Nemesis));
-    public IEnumerable<ICard> Select(IEnumerable<ICard> cards) => Selector.Select(cards);
+    public bool Match(ICard card) => Selector.Match(card);
     public static ISelector<ICard> Get(string ownerId) => new PlayerNemesisSetSelector(ownerId);
 }

@@ -26,7 +26,7 @@ public sealed class GameController : MonoBehaviour
     private void CreatePlayerControllers()
     {
         PlayerControllers = new Repository<string, PlayerController>();
-        foreach (IPlayer player in Game.Players)
+        foreach (IPlayer player in Game.Players.Get())
         {
             PlayerController playerController = new GameObject(player.Title, typeof(PlayerController)).GetComponent<PlayerController>();
             playerController.transform.SetParent(transform);
@@ -40,7 +40,7 @@ public sealed class GameController : MonoBehaviour
     private void CreateZoneControllers()
     {
         ZoneControllers = new Repository<string, BaseZoneController>();
-        foreach (IZone zone in Game.Zones)
+        foreach (IZone zone in Game.Zones.Get())
         {
             GameObject zoneModel = zone.Label switch
             {
@@ -64,7 +64,7 @@ public sealed class GameController : MonoBehaviour
     private void CreateCardControllers()
     {
         CardControllers = new Repository<string, BaseCardController>();
-        foreach (ICard card in Game.Cards)
+        foreach (ICard card in Game.Cards.Get())
         {
             BaseCardController cardController = Instantiate(CardPrefab, transform).GetComponent<BaseCardController>();
             cardController.SetData(this, RoutineService, card);
@@ -88,7 +88,7 @@ public sealed class GameController : MonoBehaviour
         CreateZoneControllers();
         CreateCardControllers();
 
-        foreach (BaseZoneController zoneController in ZoneControllers) zoneController.RefreshContent();
+        foreach (BaseZoneController zoneController in ZoneControllers.Get()) zoneController.RefreshContent();
 
         RoutineService.StartGame();
     }

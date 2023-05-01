@@ -5,17 +5,20 @@ public sealed class ResourceFace : BaseFacade, IResourceFace
     #region IResourceFacade
 
     private readonly IResourceGeneratorFacade ResourceItem;
-    IResourceGeneratorComponent IFacade<IResourceGeneratorComponent>.Item => ResourceItem.Item;
-    int IResourceGeneratorComponent.Energy => ResourceItem.Energy;
-    int IResourceGeneratorComponent.Mental => ResourceItem.Mental;
-    int IResourceGeneratorComponent.Physic => ResourceItem.Physic;
-    int IResourceGeneratorComponent.Wild => ResourceItem.Wild;
-    void IFacade<IResourceGeneratorComponent>.AddDecorator(IDecorator<IResourceGeneratorComponent> decorator) 
+
+    public int Energy => ResourceItem.Energy;
+    public int Mental => ResourceItem.Mental;
+    public int Physic => ResourceItem.Physic;
+    public int Wild => ResourceItem.Wild;
+
+    public void AddDecorator(IDecorator<IResourceGeneratorComponent> decorator)
         => ResourceItem.AddDecorator(decorator);
-    void IFacade<IResourceGeneratorComponent>.RemoveDecorator(IDecorator<IResourceGeneratorComponent> decorator) 
+    public void RemoveDecorator(IDecorator<IResourceGeneratorComponent> decorator)
         => ResourceItem.RemoveDecorator(decorator);
-    Action<IResourceGeneratorComponent> IComponent<IResourceGeneratorComponent>.OnChanged
-    { get => ResourceItem.OnChanged; set => ResourceItem.OnChanged = value; }
+
+    public void Register(Action<IResourceGeneratorComponent> callback) => ResourceItem.Register(callback);
+    public void UnRegister(Action<IResourceGeneratorComponent> callback) => ResourceItem.UnRegister(callback);
+    public void Notify(IResourceGeneratorComponent data) => ResourceItem.Notify(data);
 
     #endregion
 

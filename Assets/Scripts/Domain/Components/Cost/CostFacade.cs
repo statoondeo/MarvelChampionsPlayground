@@ -1,21 +1,9 @@
-﻿using System;
-
-public sealed class CostFacade : ICostFacade
+﻿public sealed class CostFacade : BaseComponentFacade<ICostComponent>, ICostFacade
 {
-    private readonly IFacade<ICostComponent> Facade;
-    private CostFacade(ICostComponent item) => Facade = FacadeComponent<ICostComponent>.Get(item);
-
-    #region IFacade<ICost>
-
-    public ICostComponent Item { get; private set; }
-    public void AddDecorator(IDecorator<ICostComponent> decorator) => Facade.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<ICostComponent> decorator) => Facade.RemoveDecorator(decorator);
-
-    #endregion
+    private CostFacade(ICostComponent item) : base(item) {}
 
     #region ICost
 
-    public Action<ICostComponent> OnChanged { get => Item.OnChanged; set => Item.OnChanged = value; }
     public int Cost => Item.Cost;
 
     #endregion

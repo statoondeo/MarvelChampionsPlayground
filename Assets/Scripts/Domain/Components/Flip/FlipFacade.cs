@@ -1,21 +1,9 @@
-﻿using System;
-
-public sealed class FlipFacade : IFlipFacade
+﻿public sealed class FlipFacade : BaseComponentFacade<IFlipComponent>, IFlipFacade
 {
-    private readonly IFacade<IFlipComponent> Facade;
-    private FlipFacade(IFlipComponent item) => Facade = FacadeComponent<IFlipComponent>.Get(item);
-
-    #region IFacade<IFlip>
-
-    public IFlipComponent Item { get; private set; }
-    public void AddDecorator(IDecorator<IFlipComponent> decorator) => Facade.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IFlipComponent> decorator) => Facade.RemoveDecorator(decorator);
-
-    #endregion
+    private FlipFacade(IFlipComponent item) : base(item) { }
 
     #region IFlip
 
-    public Action<IFlipComponent> OnChanged { get => Item.OnChanged; set => Item.OnChanged = value; }
     public IRepository<string, ICoreFacade> Faces => Item.Faces;
     public ICoreFacade CurrentFace => Item.CurrentFace;
     public void FlipTo(string face) => Item.FlipTo(face);

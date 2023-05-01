@@ -5,12 +5,14 @@ public sealed class ObligationFace : BaseFacade, IObligationFace
     #region IBoostFacade
 
     private readonly IBoostFacade BoostItem;
-    IBoostComponent IFacade<IBoostComponent>.Item => BoostItem.Item;
-    int IBoostComponent.Boost => BoostItem.Boost;
-    void IFacade<IBoostComponent>.AddDecorator(IDecorator<IBoostComponent> decorator) => BoostItem.AddDecorator(decorator);
-    void IFacade<IBoostComponent>.RemoveDecorator(IDecorator<IBoostComponent> decorator) => BoostItem.RemoveDecorator(decorator);
-    Action<IBoostComponent> IComponent<IBoostComponent>.OnChanged
-    { get => BoostItem.OnChanged; set => BoostItem.OnChanged = value; }
+    public int Boost => BoostItem.Boost;
+    public void Register(Action<IBoostComponent> callback) => BoostItem.Register(callback);
+    public void UnRegister(Action<IBoostComponent> callback) => BoostItem.UnRegister(callback);
+    public void Notify(IBoostComponent data) => BoostItem.Notify(data);
+    public void AddDecorator(IDecorator<IBoostComponent> decorator)
+        => BoostItem.AddDecorator(decorator);
+    public void RemoveDecorator(IDecorator<IBoostComponent> decorator)
+        => BoostItem.RemoveDecorator(decorator);
 
     #endregion
 

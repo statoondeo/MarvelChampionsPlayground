@@ -5,27 +5,35 @@ public sealed class UpgradeFace : BaseFacade, IUpgradeFace
     #region ICostFacade
 
     private readonly ICostFacade CostItem;
-    ICostComponent IFacade<ICostComponent>.Item => CostItem.Item;
-    int ICostComponent.Cost => CostItem.Cost;
-    void IFacade<ICostComponent>.AddDecorator(IDecorator<ICostComponent> decorator) => CostItem.AddDecorator(decorator);
-    void IFacade<ICostComponent>.RemoveDecorator(IDecorator<ICostComponent> decorator) => CostItem.RemoveDecorator(decorator);
-    Action<ICostComponent> IComponent<ICostComponent>.OnChanged
-    { get => CostItem.OnChanged; set => CostItem.OnChanged = value; }
+    public int Cost => CostItem.Cost;
+    public void AddDecorator(IDecorator<ICostComponent> decorator)
+        => CostItem.AddDecorator(decorator);
+    public void RemoveDecorator(IDecorator<ICostComponent> decorator)
+        => CostItem.RemoveDecorator(decorator);
+
+    public void Register(Action<ICostComponent> callback) => CostItem.Register(callback);
+    public void UnRegister(Action<ICostComponent> callback) => CostItem.UnRegister(callback);
+    public void Notify(ICostComponent data) => CostItem.Notify(data);
 
     #endregion
 
     #region IResourceFacade
 
     private readonly IResourceGeneratorFacade ResourceItem;
-    IResourceGeneratorComponent IFacade<IResourceGeneratorComponent>.Item => ResourceItem.Item;
-    int IResourceGeneratorComponent.Energy => ResourceItem.Energy;
-    int IResourceGeneratorComponent.Mental => ResourceItem.Mental;
-    int IResourceGeneratorComponent.Physic => ResourceItem.Physic;
-    int IResourceGeneratorComponent.Wild => ResourceItem.Wild;
-    void IFacade<IResourceGeneratorComponent>.AddDecorator(IDecorator<IResourceGeneratorComponent> decorator) => ResourceItem.AddDecorator(decorator);
-    void IFacade<IResourceGeneratorComponent>.RemoveDecorator(IDecorator<IResourceGeneratorComponent> decorator) => ResourceItem.RemoveDecorator(decorator);
-    Action<IResourceGeneratorComponent> IComponent<IResourceGeneratorComponent>.OnChanged
-    { get => ResourceItem.OnChanged; set => ResourceItem.OnChanged = value; }
+
+    public int Energy => ResourceItem.Energy;
+    public int Mental => ResourceItem.Mental;
+    public int Physic => ResourceItem.Physic;
+    public int Wild => ResourceItem.Wild;
+
+    public void AddDecorator(IDecorator<IResourceGeneratorComponent> decorator)
+        => ResourceItem.AddDecorator(decorator);
+    public void RemoveDecorator(IDecorator<IResourceGeneratorComponent> decorator)
+        => ResourceItem.RemoveDecorator(decorator);
+
+    public void Register(Action<IResourceGeneratorComponent> callback) => ResourceItem.Register(callback);
+    public void UnRegister(Action<IResourceGeneratorComponent> callback) => ResourceItem.UnRegister(callback);
+    public void Notify(IResourceGeneratorComponent data) => ResourceItem.Notify(data);
 
     #endregion
 

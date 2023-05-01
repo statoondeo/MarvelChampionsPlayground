@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public interface IRepository<TKey, TValue>
 {
     TValue Register(TKey key, TValue value);
     TValue Get(TKey key);
     IEnumerable<TValue> Get();
-    IEnumerable<TValue> Get(Func<TValue, bool> filter);
+    IEnumerable<TValue> Get(ISelector<TValue> selector);
     void UnRegister(TKey key);
-    IEnumerator<TValue> GetEnumerator();
+    //IEnumerator<TValue> GetEnumerator();
     int Count { get; }
     bool TryGetValue(TKey key, out TValue value);
 }

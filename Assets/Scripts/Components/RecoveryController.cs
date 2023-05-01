@@ -10,7 +10,7 @@ public sealed class RecoveryController : MonoBehaviour
     public void SetModel(IRecoveryFacade model)
     {
         Model = model;
-        Model.OnChanged += OnChangedCallback;
+        Model.Register(OnChangedCallback);
         OnChangedCallback<IRecoveryFacade>(null);
     }
     private void OnChangedCallback<IRecoveryFacade>(IRecoveryFacade model) => Text.text = Model.Recovery.ToString();

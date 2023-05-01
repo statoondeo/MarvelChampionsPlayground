@@ -1,6 +1,5 @@
-﻿public interface IFacade<T>
+﻿public interface IFacade<T> : IComponent<T>
 {
-    T Item { get; }
     void AddDecorator(IDecorator<T> decorator);
     void RemoveDecorator(IDecorator<T> decorator);
 }

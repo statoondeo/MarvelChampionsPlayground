@@ -1,23 +1,11 @@
-﻿using System;
+﻿using UnityEngine;
 
-using UnityEngine;
-
-public sealed class TitleFacade : ITitleFacade
+public sealed class TitleFacade : BaseComponentFacade<ITitleComponent>, ITitleFacade
 {
-    private readonly IFacade<ITitleComponent> Facade;
-    private TitleFacade(ITitleComponent item) => Facade = FacadeComponent<ITitleComponent>.Get(item);
-
-    #region IFacade<ITitle>
-
-    public ITitleComponent Item { get; private set; }
-    public void AddDecorator(IDecorator<ITitleComponent> decorator) => Facade.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<ITitleComponent> decorator) => Facade.RemoveDecorator(decorator);
-
-    #endregion
+    private TitleFacade(ITitleComponent item) : base(item) { }
 
     #region ITitle
 
-    public Action<ITitleComponent> OnChanged { get => Item.OnChanged; set => Item.OnChanged = value; }
     public string Title => Item.Title;
     public string SubTitle => Item.SubTitle;
     public Sprite Sprite => Item.Sprite;

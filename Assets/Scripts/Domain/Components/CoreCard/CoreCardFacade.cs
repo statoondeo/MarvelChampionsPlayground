@@ -1,17 +1,6 @@
-﻿using System;
-
-public sealed class CoreCardFacade : ICoreCardFacade
+﻿public sealed class CoreCardFacade : BaseComponentFacade<ICoreCardComponent>, ICoreCardFacade
 {
-    private readonly IFacade<ICoreCardComponent> Facade;
-    private CoreCardFacade(ICoreCardComponent item) => Facade = FacadeComponent<ICoreCardComponent>.Get(item);
-
-    #region IFacade<ICoreCard>
-
-    public ICoreCardComponent Item { get; private set; }
-    public void AddDecorator(IDecorator<ICoreCardComponent> decorator) => Facade.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<ICoreCardComponent> decorator) => Facade.RemoveDecorator(decorator);
-
-    #endregion
+    private CoreCardFacade(ICoreCardComponent item) : base(item) { }
 
     #region ICoreCard
 
@@ -20,8 +9,6 @@ public sealed class CoreCardFacade : ICoreCardFacade
     public string OwnerId => Item.OwnerId;
     public string Location => Item.Location;
     public int Order => Item.Order;
-
-    public Action<ICoreCardComponent> OnChanged { get => Item.OnChanged; set => Item.OnChanged = value; }
 
     public bool IsLocation(string location) => Item.IsLocation(location);
     public void MoveTo(string location) => Item.MoveTo(location);

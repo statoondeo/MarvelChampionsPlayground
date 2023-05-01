@@ -1,21 +1,9 @@
-﻿using System;
-
-public sealed class HandSizeFacade : IHandSizeFacade
+﻿public sealed class HandSizeFacade : BaseComponentFacade<IHandSizeComponent>, IHandSizeFacade
 {
-    private readonly IFacade<IHandSizeComponent> Facade;
-    private HandSizeFacade(IHandSizeComponent item) => Facade = FacadeComponent<IHandSizeComponent>.Get(item);
-
-    #region IFacade<IHandSize>
-
-    public IHandSizeComponent Item { get; private set; }
-    public void AddDecorator(IDecorator<IHandSizeComponent> decorator) => Facade.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IHandSizeComponent> decorator) => Facade.RemoveDecorator(decorator);
-
-    #endregion
+    private HandSizeFacade(IHandSizeComponent item) : base(item) { }
 
     #region IHandSize
 
-    public Action<IHandSizeComponent> OnChanged { get => Item.OnChanged; set => Item.OnChanged = value; }
     public int HandSize => Item.HandSize;
 
     #endregion

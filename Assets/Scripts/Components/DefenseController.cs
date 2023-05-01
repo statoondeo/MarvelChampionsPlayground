@@ -10,7 +10,7 @@ public sealed class DefenseController : MonoBehaviour
     public void SetModel(IDefenseFacade model)
     {
         Model = model;
-        Model.OnChanged += OnChangedCallback;
+        Model.Register(OnChangedCallback);
         OnChangedCallback<IDefenseFacade>(null);
     }
     private void OnChangedCallback<IDefenseFacade>(IDefenseFacade model) => Text.text = Model.Defense.ToString();

@@ -5,60 +5,64 @@ public sealed class MainSchemeBFace : BaseFacade, IMainSchemeBFace
     #region IStadeFacade
 
     private readonly IStadeFacade StadeItem;
-    IStadeComponent IFacade<IStadeComponent>.Item => StadeItem.Item;
-    int IStadeComponent.Stade => StadeItem.Stade;
-    void IFacade<IStadeComponent>.AddDecorator(IDecorator<IStadeComponent> decorator) => StadeItem.AddDecorator(decorator);
-    void IFacade<IStadeComponent>.RemoveDecorator(IDecorator<IStadeComponent> decorator) => StadeItem.RemoveDecorator(decorator);
-    Action<IStadeComponent> IComponent<IStadeComponent>.OnChanged
-    { get => StadeItem.OnChanged; set => StadeItem.OnChanged = value; }
+    public int Stade => StadeItem.Stade;
+    public void AddDecorator(IDecorator<IStadeComponent> decorator) => StadeItem.AddDecorator(decorator);
+    public void RemoveDecorator(IDecorator<IStadeComponent> decorator) => StadeItem.RemoveDecorator(decorator);
+    public void Register(Action<IStadeComponent> callback) => StadeItem.Register(callback);
+    public void UnRegister(Action<IStadeComponent> callback) => StadeItem.UnRegister(callback);
+    public void Notify(IStadeComponent data) => StadeItem.Notify(data);
 
     #endregion
 
     #region ITreatThresholdFacade
 
     private readonly ITreatThresholdFacade TreatThresholdItem;
-    ITreatThresholdComponent IFacade<ITreatThresholdComponent>.Item => TreatThresholdItem.Item;
-    int ITreatThresholdComponent.TreatThreshold => TreatThresholdItem.TreatThreshold;
-    void IFacade<ITreatThresholdComponent>.AddDecorator(IDecorator<ITreatThresholdComponent> decorator) => TreatThresholdItem.AddDecorator(decorator);
-    void IFacade<ITreatThresholdComponent>.RemoveDecorator(IDecorator<ITreatThresholdComponent> decorator) => TreatThresholdItem.RemoveDecorator(decorator);
-    Action<ITreatThresholdComponent> IComponent<ITreatThresholdComponent>.OnChanged
-    { get => TreatThresholdItem.OnChanged; set => TreatThresholdItem.OnChanged = value; }
+    public int TreatThreshold => TreatThresholdItem.TreatThreshold;
+    public void AddDecorator(IDecorator<ITreatThresholdComponent> decorator) => TreatThresholdItem.AddDecorator(decorator);
+    public void RemoveDecorator(IDecorator<ITreatThresholdComponent> decorator) => TreatThresholdItem.RemoveDecorator(decorator);
+    public void Register(Action<ITreatThresholdComponent> callback) => TreatThresholdItem.Register(callback);
+    public void UnRegister(Action<ITreatThresholdComponent> callback) => TreatThresholdItem.UnRegister(callback);
+    public void Notify(ITreatThresholdComponent data) => TreatThresholdItem.Notify(data);
 
     #endregion
 
     #region ITreatStartFacade
 
     private readonly ITreatStartFacade TreatStartItem;
-    ITreatStartComponent IFacade<ITreatStartComponent>.Item => TreatStartItem.Item;
-    int ITreatStartComponent.TreatStart => TreatStartItem.TreatStart;
-    void IFacade<ITreatStartComponent>.AddDecorator(IDecorator<ITreatStartComponent> decorator) => TreatStartItem.AddDecorator(decorator);
-    void IFacade<ITreatStartComponent>.RemoveDecorator(IDecorator<ITreatStartComponent> decorator) => TreatStartItem.RemoveDecorator(decorator);
-    Action<ITreatStartComponent> IComponent<ITreatStartComponent>.OnChanged
-    { get => TreatStartItem.OnChanged; set => TreatStartItem.OnChanged = value; }
+    public int TreatStart => TreatStartItem.TreatStart;
+    public void AddDecorator(IDecorator<ITreatStartComponent> decorator) => TreatStartItem.AddDecorator(decorator);
+    public void RemoveDecorator(IDecorator<ITreatStartComponent> decorator) => TreatStartItem.RemoveDecorator(decorator);
+    public void Register(Action<ITreatStartComponent> callback) => TreatStartItem.Register(callback);
+    public void UnRegister(Action<ITreatStartComponent> callback) => TreatStartItem.UnRegister(callback);
+    public void Notify(ITreatStartComponent data) => TreatStartItem.Notify(data);
 
     #endregion
 
     #region ITreatAccelerationFacade
 
     private readonly ITreatAccelerationFacade TreatAccelerationItem;
-    ITreatAccelerationComponent IFacade<ITreatAccelerationComponent>.Item => TreatAccelerationItem.Item;
-    int ITreatAccelerationComponent.TreatAcceleration => TreatAccelerationItem.TreatAcceleration;
-    void IFacade<ITreatAccelerationComponent>.AddDecorator(IDecorator<ITreatAccelerationComponent> decorator) => TreatAccelerationItem.AddDecorator(decorator);
-    void IFacade<ITreatAccelerationComponent>.RemoveDecorator(IDecorator<ITreatAccelerationComponent> decorator) => TreatAccelerationItem.RemoveDecorator(decorator);
-    Action<ITreatAccelerationComponent> IComponent<ITreatAccelerationComponent>.OnChanged
-    { get => TreatAccelerationItem.OnChanged; set => TreatAccelerationItem.OnChanged = value; }
+    public int TreatAcceleration => TreatAccelerationItem.TreatAcceleration;
+    public void AddDecorator(IDecorator<ITreatAccelerationComponent> decorator) => TreatAccelerationItem.AddDecorator(decorator);
+    public void RemoveDecorator(IDecorator<ITreatAccelerationComponent> decorator) => TreatAccelerationItem.RemoveDecorator(decorator);
+    public void Register(Action<ITreatAccelerationComponent> callback) => TreatAccelerationItem.Register(callback);
+    public void UnRegister(Action<ITreatAccelerationComponent> callback) => TreatAccelerationItem.UnRegister(callback);
+    public void Notify(ITreatAccelerationComponent data) => TreatAccelerationItem.Notify(data);
 
     #endregion
 
     #region IWhenRevealedFacade
 
     private readonly IWhenRevealedFacade WhenRevealedItem;
-    IWhenRevealedComponent IFacade<IWhenRevealedComponent>.Item => WhenRevealedItem.Item;
-    ICommand IWhenRevealedComponent.WhenRevealed => WhenRevealedItem.WhenRevealed;
-    void IFacade<IWhenRevealedComponent>.AddDecorator(IDecorator<IWhenRevealedComponent> decorator) => WhenRevealedItem.AddDecorator(decorator);
-    void IFacade<IWhenRevealedComponent>.RemoveDecorator(IDecorator<IWhenRevealedComponent> decorator) => WhenRevealedItem.RemoveDecorator(decorator);
-    Action<IWhenRevealedComponent> IComponent<IWhenRevealedComponent>.OnChanged
-    { get => WhenRevealedItem.OnChanged; set => WhenRevealedItem.OnChanged = value; }
+    public ICommand WhenRevealed => WhenRevealedItem.WhenRevealed;
+
+    public void Register(Action<IWhenRevealedComponent> callback) => WhenRevealedItem.Register(callback);
+    public void UnRegister(Action<IWhenRevealedComponent> callback) => WhenRevealedItem.UnRegister(callback);
+    public void Notify(IWhenRevealedComponent data) => WhenRevealedItem.Notify(data);
+
+    public void AddDecorator(IDecorator<IWhenRevealedComponent> decorator)
+        => WhenRevealedItem.AddDecorator(decorator);
+    public void RemoveDecorator(IDecorator<IWhenRevealedComponent> decorator)
+        => WhenRevealedItem.RemoveDecorator(decorator);
 
     #endregion
 

@@ -18,11 +18,10 @@ public sealed class Repository<TKey, TValue> : IRepository<TKey, TValue>
         return Data[key];
     }
     public void UnRegister(TKey key) => Data.Remove(key);
-    public IEnumerator<TValue> GetEnumerator() => Data.Values.GetEnumerator();
     public IEnumerable<TValue> Get() => Data.Values;
-    public IEnumerable<TValue> Get(Func<TValue, bool> filter)
+    public IEnumerable<TValue> Get(ISelector<TValue> selector)
     {
         foreach (TValue item in Data.Values)
-            if (filter(item)) yield return item;
+            if (selector.Match(item)) yield return item;
     }
 }
