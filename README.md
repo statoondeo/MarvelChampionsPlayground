@@ -1,2 +1,2 @@
 # Marvel Champions Playground
-Version numérique du jeu Marvel Champions (Core set uniquement), incluant la gestion des règles!
+Version numérique du jeu Marvel Champions (Captain Marvel/Aggression vs Rhino standard, Alerte à la bombe), incluant la gestion des règles!
