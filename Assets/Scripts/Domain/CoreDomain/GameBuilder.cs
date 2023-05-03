@@ -8,13 +8,14 @@ public sealed class GameBuilder
 
     private readonly IGame Game;
     private readonly IZone Battlefield;
-    public GameBuilder()
+    public GameBuilder(IPicker<ICard> anyCardPicker)
     {
         Game = new Game(
             new EventMediator(),
             new ZoneRepository(),
             new CardRepository(),
-            new PlayerRepository());
+            new PlayerRepository(),
+            anyCardPicker);
         Game.RegisterSetupCommand(GameSetupCommand.Get(Game));
         Battlefield = new BasicZone(Game, BATTLEFIELD, null);
         Game.Add(Battlefield);
@@ -45,6 +46,8 @@ public sealed class GameBuilder
             Game.Add(card);
             playerDeck.Add(card);
             card.UnTap();
+            if (card.IsCardType(CardType.AlterEgo) || card.IsCardType(CardType.Hero)) 
+                player.SetHeroCard(card as IHeroCard);
             if (card.IsCardType(CardType.AlterEgo)
                 || card.IsCardType(CardType.Hero)
                 || card.IsCardType(CardType.Villain)

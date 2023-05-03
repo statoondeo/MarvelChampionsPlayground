@@ -2,5 +2,6 @@
 {
     private NoFilterPlayerSelector() { }
     public bool Match(IPlayer item) => true;
-    public static ISelector<IPlayer> Get() => new NoFilterPlayerSelector();
+    private static ISelector<IPlayer> Selector;
+    public static ISelector<IPlayer> Get() => Selector is null ? Selector = new NoFilterPlayerSelector() : Selector;
 }

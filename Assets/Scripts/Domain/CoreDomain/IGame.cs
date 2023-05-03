@@ -7,4 +7,6 @@
     void Commit();
     void Setup();
     void RegisterSetupCommand(ICommand command);
+
+    IPicker<ICard> AnyCardPicker { get; }
 }

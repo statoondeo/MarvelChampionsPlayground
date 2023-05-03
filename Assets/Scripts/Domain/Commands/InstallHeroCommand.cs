@@ -2,7 +2,7 @@
 {
     private readonly string PlayerId;
     private InstallHeroCommand(IGame game, string playerId) : base(game) => PlayerId = playerId;
-    protected override ISelector<ICard> GetCardSelector()
+    protected override ISelector<ICard> CardSelector
         => PlayerIdentitySelector.Get(PlayerId);
     protected override ICommand GetCardCommand(ICard card)
         => CompositeCommand.Get(

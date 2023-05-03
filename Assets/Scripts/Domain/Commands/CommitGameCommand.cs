@@ -2,5 +2,6 @@
 {
     private CommitGameCommand(IGame game) : base(game) { }
     public override void Execute() => Game.Commit();
-    public static ICommand Get(IGame game) => new CommitGameCommand(game);
+    private static ICommand Command;
+    public static ICommand Get(IGame game) => Command is null ? Command = new CommitGameCommand(game) : Command;
 }

@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 
-public class Player : BaseEntity, IPlayer
+public sealed class Player : BaseEntity, IPlayer
 {
     public string Id { get; private set; }
     public string Title { get; private set; }
+    public IHeroCard HeroCard { get; private set; }
     public HeroType HeroType { get; private set; }
     private readonly IDictionary<string, string> ZoneAtlas;
 
@@ -21,4 +22,8 @@ public class Player : BaseEntity, IPlayer
     }
     public IZone GetZone(string zoneName) => Game.GetFirst(ZoneIdSelector.Get(GetZoneId(zoneName)));
     public void RegisterZoneId(string zoneName, string zoneId) => ZoneAtlas.Add(zoneName, zoneId);
+
+    public void Draw(int nb) { }
+    public void DrawUpToHand() { }
+    public void SetHeroCard(IHeroCard heroCard) => HeroCard = heroCard;
 }

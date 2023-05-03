@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 
 using UnityEngine;
-
 public sealed class GameController : MonoBehaviour
 {
     [SerializeField] private Vector2Int GridSize;
@@ -22,6 +21,7 @@ public sealed class GameController : MonoBehaviour
     public IRepository<PlayerController> PlayerControllers { get; private set; }
     private BaseCardController HeroController;
     private BaseZoneController BattlefieldController;
+    private CardPickerController CardPickerController;
 
     private void CreatePlayerControllers()
     {
@@ -75,8 +75,9 @@ public sealed class GameController : MonoBehaviour
     private void Awake()
     {
         RoutineService = gameObject.AddComponent<RoutineController>();
-
-        Game = new GameBuilder()
+        CardPickerController = gameObject.AddComponent<CardPickerController>();
+        
+        Game = new GameBuilder(CardPickerController)
             .WithPlayer(PlayerDeckModel)
             .WithPlayer(VillainDeckModel)
             .Build();

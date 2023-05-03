@@ -2,5 +2,6 @@
 {
     private NoFilterCardSelector() { }
     public bool Match(ICard item) => true;
-    public static ISelector<ICard> Get() => new NoFilterCardSelector();
+    private static ISelector<ICard> Selector;
+    public static ISelector<ICard> Get() => Selector is null ? Selector = new NoFilterCardSelector() : Selector;
 }

@@ -11,7 +11,7 @@ public sealed class HeroTestController : MonoBehaviour
     private void Awake()
     {
         CardController = GetComponent<BaseCardController>();
-        HeroCard = new CardFactory().Create(new GameBuilder().Build(), string.Empty, string.Empty, HeroModel) as IHeroCard;
+        HeroCard = new CardFactory().Create(new GameBuilder(null).Build(), string.Empty, string.Empty, HeroModel) as IHeroCard;
         RoutineController routineController = transform.AddComponent<RoutineController>();
         routineController.StartGame();
         CardController.SetData(null, routineController, HeroCard);

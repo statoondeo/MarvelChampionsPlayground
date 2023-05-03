@@ -4,20 +4,24 @@ using System.Collections.Generic;
 public sealed class Game : IGame
 {
     private ICommand SetupCommand;
-    public readonly IMediator Mediator;
+    private readonly IMediator Mediator;
     private readonly IRepository<IZone> Zones;
     private readonly IRepository<ICard> Cards;
     private readonly IRepository<IPlayer> Players;
+    public IPicker<ICard> AnyCardPicker {get; private set;}
+
     public Game(
         IMediator mediator, 
         IRepository<IZone> zones, 
         IRepository<ICard> cards, 
-        IRepository<IPlayer> players)
+        IRepository<IPlayer> players,
+        IPicker<ICard> anyCardPicker)
     {
         Mediator = mediator;
         Zones = zones;
         Cards = cards;
         Players = players;
+        AnyCardPicker = anyCardPicker;
     }
 
     #region IMediator

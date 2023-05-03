@@ -2,5 +2,6 @@
 {
     private NoFilterZoneSelector() { }
     public bool Match(IZone item) => true;
-    public static ISelector<IZone> Get() => new NoFilterZoneSelector();
+    private static ISelector<IZone> Selector;
+    public static ISelector<IZone> Get() => Selector is null ? Selector = new NoFilterZoneSelector() : Selector;
 }
