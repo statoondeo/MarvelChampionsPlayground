@@ -7,7 +7,7 @@ public sealed class ShufflePlayersDecksCommand : BaseCommand
     public ShufflePlayersDecksCommand(IGame game) : base(game)
     {
         List<ICommand> commands = new List<ICommand>();
-        Game.Players.Get(PlayerTypeSelector.Get(HeroType.Hero)).ToList()
+        Game.GetAll(PlayerTypeSelector.Get(HeroType.Hero)).ToList()
             .ForEach(item => commands.Add(ShuffleZoneCommand.Get(Game, item.GetZone("DECK"))));
         Command = CompositeCommand.Get(commands.ToArray());
     }

@@ -17,16 +17,16 @@ public sealed class GameController : MonoBehaviour
     public RoutineController RoutineService { get; private set; }
     private IGame Game;
     public IGrid Grid { get; private set; }
-    public IRepository<string, BaseCardController> CardControllers { get; private set; }
-    public IRepository<string, BaseZoneController> ZoneControllers { get; private set; }
-    public IRepository<string, PlayerController> PlayerControllers { get; private set; }
+    public IRepository<BaseCardController> CardControllers { get; private set; }
+    public IRepository<BaseZoneController> ZoneControllers { get; private set; }
+    public IRepository<PlayerController> PlayerControllers { get; private set; }
     private BaseCardController HeroController;
     private BaseZoneController BattlefieldController;
 
     private void CreatePlayerControllers()
     {
-        PlayerControllers = new Repository<string, PlayerController>();
-        foreach (IPlayer player in Game.Players.Get())
+        PlayerControllers = new PlayerControllerRepository();
+        foreach (IPlayer player in Game.GetAll(NoFilterPlayerSelector.Get()))
         {
             PlayerController playerController = new GameObject(player.Title, typeof(PlayerController)).GetComponent<PlayerController>();
             playerController.transform.SetParent(transform);
@@ -34,13 +34,13 @@ public sealed class GameController : MonoBehaviour
                 this,
                 player,
                 (PlayerDeckModel.Id == player.Id ? PlayerDeckModel : VillainDeckModel).SetupModel.InGameSetupModel.CardPositions);
-            PlayerControllers.Register(playerController.Id, playerController);
+            PlayerControllers.Add(playerController);
         }
     }
     private void CreateZoneControllers()
     {
-        ZoneControllers = new Repository<string, BaseZoneController>();
-        foreach (IZone zone in Game.Zones.Get())
+        ZoneControllers = new BaseZoneControllerRepository();
+        foreach (IZone zone in Game.GetAll(NoFilterZoneSelector.Get()))
         {
             GameObject zoneModel = zone.Label switch
             {
@@ -51,7 +51,7 @@ public sealed class GameController : MonoBehaviour
             };
             BaseZoneController zoneController = Instantiate(zoneModel, transform).GetComponent<BaseZoneController>();
             zoneController.SetData(this, zone);
-            ZoneControllers.Register(zoneController.Id, zoneController);
+            ZoneControllers.Add(zoneController);
 
             // Placement de la zone
             DeckModel deckModel = PlayerDeckModel.Id == zone.OwnerId ? PlayerDeckModel : VillainDeckModel;
@@ -63,12 +63,12 @@ public sealed class GameController : MonoBehaviour
     }
     private void CreateCardControllers()
     {
-        CardControllers = new Repository<string, BaseCardController>();
-        foreach (ICard card in Game.Cards.Get())
+        CardControllers = new BaseCardControllerRepository();
+        foreach (ICard card in Game.GetAll(NoFilterCardSelector.Get()))
         {
             BaseCardController cardController = Instantiate(CardPrefab, transform).GetComponent<BaseCardController>();
             cardController.SetData(this, RoutineService, card);
-            CardControllers.Register(cardController.Id, cardController);
+            CardControllers.Add(cardController);
             if (card.IsCardType(CardType.AlterEgo) || card.IsCardType(CardType.Hero)) HeroController = cardController;
         }
     }
@@ -82,13 +82,14 @@ public sealed class GameController : MonoBehaviour
             .Build();
 
         Grid = new Grid(GridSize, CellSize);
-        Game.Mediator.Register(Events.OnGameCommit, OnGameCommitCallback);
+        Game.Register(Events.OnGameCommit, OnGameCommitCallback);
 
         CreatePlayerControllers();
         CreateZoneControllers();
         CreateCardControllers();
 
-        foreach (BaseZoneController zoneController in ZoneControllers.Get()) zoneController.RefreshContent();
+        foreach (BaseZoneController zoneController in ZoneControllers.GetAll(NoFilterBaseZoneControllerSelector.Get())) 
+            zoneController.RefreshContent();
 
         RoutineService.StartGame();
     }

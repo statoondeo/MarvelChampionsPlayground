@@ -1,16 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 
 public abstract class BaseCard : ICard
 {
+    public IGame Game { get; protected set; }
     protected BaseCard(
-            ICoreCardFacade cardFacade,
-            IFlipFacade flipFacade,
-            ITapFacade tapFacade
-            )
+        IGame game,
+        ICoreCardFacade cardFacade,
+        IFlipFacade flipFacade,
+        ITapFacade tapFacade)
     {
         CardItem = cardFacade;
         FlipItem = flipFacade;
         TapItem = tapFacade;
+        Game = game;
     }
 
     #region ICardType
@@ -18,7 +21,7 @@ public abstract class BaseCard : ICard
     public CardType CardType => FlipItem.CurrentFace.CardType;
     public bool IsCardType(CardType cardType)
     {
-        foreach (ICoreFacade face in FlipItem.Faces.Get())
+        foreach (ICoreFacade face in FlipItem.Faces.Values)
             if (face.IsCardType(cardType)) return true;
         return false;
     }
@@ -30,7 +33,7 @@ public abstract class BaseCard : ICard
     public Classification Classification => FlipItem.CurrentFace.Classification;
     public bool IsClassification(Classification classification)
     {
-        foreach (ICoreFacade face in FlipItem.Faces.Get())
+        foreach (ICoreFacade face in FlipItem.Faces.Values)
             if (face.IsClassification(classification)) return true;
         return false;
     }
@@ -47,7 +50,7 @@ public abstract class BaseCard : ICard
     public void Notify(IFlipComponent data) => FlipItem.Notify(data);
 
     public ICoreFacade CurrentFace => FlipItem.CurrentFace;
-    public IRepository<string, ICoreFacade> Faces => FlipItem.Faces;
+    public IDictionary<string, ICoreFacade> Faces => FlipItem.Faces;
     public void FlipTo(string face) => FlipItem.FlipTo(face);
 
     #endregion
@@ -55,9 +58,9 @@ public abstract class BaseCard : ICard
     #region ITapFacade
 
     private readonly ITapFacade TapItem;
-    public void AddDecorator(IDecorator<ITapComponent> decorator) 
+    public void AddDecorator(IDecorator<ITapComponent> decorator)
         => TapItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<ITapComponent> decorator) 
+    public void RemoveDecorator(IDecorator<ITapComponent> decorator)
         => TapItem.RemoveDecorator(decorator);
     public void Register(Action<ITapComponent> callback) => TapItem.Register(callback);
     public void UnRegister(Action<ITapComponent> callback) => TapItem.UnRegister(callback);

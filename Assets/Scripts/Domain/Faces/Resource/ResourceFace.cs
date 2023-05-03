@@ -1,6 +1,6 @@
 ﻿using System;
 
-public sealed class ResourceFace : BaseFacade, IResourceFace
+public sealed class ResourceFace : CoreFacade, IResourceFace
 {
     #region IResourceFacade
 

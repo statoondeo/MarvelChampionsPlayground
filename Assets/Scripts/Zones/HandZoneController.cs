@@ -30,7 +30,7 @@ public sealed class HandZoneController : BaseZoneController
         if (Count == 0) return;
         if (Count == 1)
         {
-            BaseCardController controller = GameController.CardControllers.Get(Zone.GetAt(0).Id);
+            BaseCardController controller = GameController.CardControllers.GetFirst(CardIdControllerSelector.Get(Zone.GetAt(0).Id));
             GameController.RoutineService.MoveRoutine(controller.transform, LeftPosition + .5f * HandLength * Vector2.right);
             return;
         }
@@ -39,9 +39,9 @@ public sealed class HandZoneController : BaseZoneController
         Vector2 startPosition = new Vector2(LeftPosition.x + .5f * (HandLength - currentHandLength), LeftPosition.y);
         int i = 0;
         float cellGap = CellSize.x + gap;
-        foreach (ICoreCardComponent card in Zone)
+        foreach (ICard card in Zone.GetAll(NoFilterCardSelector.Get()))
         {
-            BaseCardController controller = GameController.CardControllers.Get(card.Id);
+            BaseCardController controller = GameController.CardControllers.GetFirst(CardIdControllerSelector.Get(card.Id));
             GameController.RoutineService.MoveRoutine(controller.transform, startPosition + i * cellGap * Vector2.right);
             i++;
         }

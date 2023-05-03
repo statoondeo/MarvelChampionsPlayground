@@ -1,14 +1,14 @@
 ﻿using System;
 
-public sealed class VillainFace : BaseFacade, IVillainFace
+public sealed class VillainFace : CoreFacade, IVillainFace
 {
     #region ISchemeFacade
 
     private readonly ISchemeFacade SchemeItem;
     public int Scheme => SchemeItem.Scheme;
-    public void AddDecorator(IDecorator<ISchemeComponent> decorator) 
+    public void AddDecorator(IDecorator<ISchemeComponent> decorator)
         => SchemeItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<ISchemeComponent> decorator) 
+    public void RemoveDecorator(IDecorator<ISchemeComponent> decorator)
         => SchemeItem.RemoveDecorator(decorator);
     public void Register(Action<ISchemeComponent> callback) => SchemeItem.Register(callback);
     public void UnRegister(Action<ISchemeComponent> callback) => SchemeItem.UnRegister(callback);
@@ -32,13 +32,16 @@ public sealed class VillainFace : BaseFacade, IVillainFace
     #region ILifeFacade
 
     private readonly ILifeFacade LifeItem;
-    public int Life => LifeItem.Life;
     public void AddDecorator(IDecorator<ILifeComponent> decorator) => LifeItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<ILifeComponent> decorator) => LifeItem.RemoveDecorator(decorator);
-
     public void Register(Action<ILifeComponent> callback) => LifeItem.Register(callback);
     public void UnRegister(Action<ILifeComponent> callback) => LifeItem.UnRegister(callback);
     public void Notify(ILifeComponent data) => LifeItem.Notify(data);
+
+    public int CurrentLife => LifeItem.CurrentLife;
+    public int TotalLife => LifeItem.TotalLife;
+    public int Damage => LifeItem.Damage;
+    public void TakeDamage(int damage) => LifeItem.TakeDamage(damage);
 
     #endregion
 

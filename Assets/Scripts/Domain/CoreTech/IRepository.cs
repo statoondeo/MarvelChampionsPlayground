@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 
-public interface IRepository<TKey, TValue>
+public interface IRepository<T>
 {
-    TValue Register(TKey key, TValue value);
-    TValue Get(TKey key);
-    IEnumerable<TValue> Get();
-    IEnumerable<TValue> Get(ISelector<TValue> selector);
-    void UnRegister(TKey key);
-    //IEnumerator<TValue> GetEnumerator();
-    int Count { get; }
-    bool TryGetValue(TKey key, out TValue value);
+    void Add(T item);
+    void Remove(T item);
+    int Count(ISelector<T> selector);
+    bool Contains(T item);
+    T GetFirst(ISelector<T> selector);
+    IEnumerable<T> GetAll(ISelector<T> selector);
 }

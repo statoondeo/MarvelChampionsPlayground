@@ -1,6 +1,6 @@
 ﻿using System;
 
-public sealed class MainSchemeBFace : BaseFacade, IMainSchemeBFace
+public sealed class MainSchemeBFace : CoreFacade, IMainSchemeBFace
 {
     #region IStadeFacade
 

@@ -3,8 +3,9 @@
     string Id { get; }
     string Title { get; }
     HeroType HeroType { get; }
-
+    void Draw(int nb);
+    void DrawUpToHand();
     string GetZoneId(string zoneName);
     IZone GetZone(string zoneName);
-    string RegisterZoneId(string zoneName, string zoneId);
+    void RegisterZoneId(string zoneName, string zoneId);
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-public sealed class SideSchemeFace : BaseFacade, ISideSchemeFace
+public sealed class SideSchemeFace : CoreFacade, ISideSchemeFace
 {
     #region IBoostFacade
 

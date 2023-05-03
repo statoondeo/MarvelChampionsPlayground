@@ -1,6 +1,6 @@
 ﻿using System;
 
-public sealed class EventFace : BaseFacade, IEventFace
+public sealed class EventFace : CoreFacade, IEventFace
 {
     #region ICostFacade
 

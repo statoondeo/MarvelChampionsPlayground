@@ -1,6 +1,6 @@
 ﻿using System;
 
-public sealed class AlterEgoFace : BaseFacade, IAlterEgoFace
+public sealed class AlterEgoFace : CoreFacade, IAlterEgoFace
 {
     #region IRecoveryFacade
 

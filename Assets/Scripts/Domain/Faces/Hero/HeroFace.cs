@@ -1,6 +1,6 @@
 ﻿using System;
 
-public sealed class HeroFace : BaseFacade, IHeroFace
+public sealed class HeroFace : CoreFacade, IHeroFace
 {
     #region IThwartFacade
 

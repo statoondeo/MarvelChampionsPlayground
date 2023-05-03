@@ -1,4 +1,4 @@
-﻿public sealed class BackFace : BaseFacade, IBackFace
+﻿public sealed class BackFace : CoreFacade, IBackFace
 {
     #region Constructeur
 

@@ -3,19 +3,18 @@
     public override void RefreshContent()
     {
         transform.localPosition = GameController.Grid.GetWorldPosition(Position);
-        foreach (ICoreCardComponent card in Zone)
-            PlaceCards(GameController.CardControllers.Get(card.Id));
+        foreach (ICard card in Zone.GetAll(NoFilterCardSelector.Get()))
+            PlaceCards(GameController.CardControllers.GetFirst(CardIdControllerSelector.Get(card.Id)));
     }
     public override void SetData(GameController gameController, IZone zone)
     {
         base.SetData(gameController, zone);
-        Zone.OnShuffled += OnShuffledCallback;
     }
     private void OnShuffledCallback()
     {
-        ICoreCardComponent lastCard = Zone.Last();
+        ICard lastCard = Zone.GetLast();
         if (lastCard is null) return;
-        GameController.CardControllers.Get(lastCard.Id).Spin(); ;
+        GameController.CardControllers.GetFirst(CardIdControllerSelector.Get(lastCard.Id)).Spin(); ;
     }
     protected override void PlaceCards(BaseCardController cardController)
     {

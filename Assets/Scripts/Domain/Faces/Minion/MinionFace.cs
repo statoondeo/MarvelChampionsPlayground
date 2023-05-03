@@ -1,17 +1,20 @@
 ﻿using System;
 
-public sealed class MinionFace : BaseFacade, IMinionFace
+public sealed class MinionFace : CoreFacade, IMinionFace
 {
     #region ILifeFacade
 
     private readonly ILifeFacade LifeItem;
-    public int Life => LifeItem.Life;
     public void AddDecorator(IDecorator<ILifeComponent> decorator) => LifeItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<ILifeComponent> decorator) => LifeItem.RemoveDecorator(decorator);
-
     public void Register(Action<ILifeComponent> callback) => LifeItem.Register(callback);
     public void UnRegister(Action<ILifeComponent> callback) => LifeItem.UnRegister(callback);
     public void Notify(ILifeComponent data) => LifeItem.Notify(data);
+
+    public int CurrentLife => LifeItem.CurrentLife;
+    public int TotalLife => LifeItem.TotalLife;
+    public int Damage => LifeItem.Damage;
+    public void TakeDamage(int damage) => LifeItem.TakeDamage(damage);
 
     #endregion
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-public sealed class TreacheryFace : BaseFacade, ITreacheryFace
+public sealed class TreacheryFace : CoreFacade, ITreacheryFace
 {
     #region IBoostFacade
 

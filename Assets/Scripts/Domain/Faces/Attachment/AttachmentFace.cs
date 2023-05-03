@@ -1,6 +1,6 @@
 ﻿using System;
 
-public sealed class AttachmentFace : BaseFacade, IAttachmentFace
+public sealed class AttachmentFace : CoreFacade, IAttachmentFace
 {
     #region IBoostFacade
 

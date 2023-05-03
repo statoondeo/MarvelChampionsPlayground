@@ -1,13 +1,16 @@
-﻿public sealed class FlipComponent : BaseComponent<IFlipComponent>, IFlipComponent
+﻿using System.Collections.Generic;
+
+public sealed class FlipComponent : BaseComponent<IFlipComponent>, IFlipComponent
 {
-    public IRepository<string, ICoreFacade> Faces { get; private set; }
+    public IDictionary<string, ICoreFacade> Faces { get; private set; }
     public ICoreFacade CurrentFace { get; private set; }
     private FlipComponent(ICoreFacade face, ICoreFacade back)
         : base()
     {
-        Faces = new Repository<string, ICoreFacade>();
-        CurrentFace = Faces.Register("FACE", face);
-        Faces.Register("BACK", back);
+        Faces = new Dictionary<string, ICoreFacade>();
+        Faces.Add("FACE", face);
+        CurrentFace = face;
+        Faces.Add("BACK", back);
     }
     public void FlipTo(string face)
     {

@@ -1,10 +1,12 @@
-﻿public sealed class FlipFacade : BaseComponentFacade<IFlipComponent>, IFlipFacade
+﻿using System.Collections.Generic;
+
+public sealed class FlipFacade : BaseComponentFacade<IFlipComponent>, IFlipFacade
 {
     private FlipFacade(IFlipComponent item) : base(item) { }
 
     #region IFlip
 
-    public IRepository<string, ICoreFacade> Faces => Item.Faces;
+    public IDictionary<string, ICoreFacade> Faces => Item.Faces;
     public ICoreFacade CurrentFace => Item.CurrentFace;
     public void FlipTo(string face) => Item.FlipTo(face);
 

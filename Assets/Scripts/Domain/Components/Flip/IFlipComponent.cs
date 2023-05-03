@@ -1,6 +1,8 @@
-﻿public interface IFlipComponent : IComponent<IFlipComponent>
+﻿using System.Collections.Generic;
+
+public interface IFlipComponent : IComponent<IFlipComponent>
 {
     ICoreFacade CurrentFace { get; }
-    IRepository<string, ICoreFacade> Faces { get; }
+    IDictionary<string, ICoreFacade> Faces { get; }
     void FlipTo(string face);
 }

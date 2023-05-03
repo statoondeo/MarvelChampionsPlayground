@@ -9,9 +9,9 @@ public abstract class BaseZoneController : MonoBehaviour, IGridItem
     public string Id => Zone.Id;
     public string Label => Zone.Label;
     public string OwnerId => Zone.OwnerId;
-    public int Count => Zone.Count;
+    public int Count => Zone.Count(NoFilterCardSelector.Get());
 
-    public void AddCard(BaseCardController cardController) => Zone.AddCard(cardController.Card);
+    public void AddCard(BaseCardController cardController) => Zone.Add(cardController.Card);
 
     #endregion
 
@@ -30,16 +30,15 @@ public abstract class BaseZoneController : MonoBehaviour, IGridItem
         GameController = gameController;
         Zone = zone;
         gameObject.name = Zone.Label;
-        Zone.OnCardAdded += OnCardAddedCallback;
-        Zone.OnCardRemoved += OnCardRemovedCallback;
     }
     protected virtual void OnCardAddedCallback(ICoreCardComponent card)
     {
-        BaseCardController cardController = GameController.CardControllers.Get(card.Id);
+        BaseCardController cardController = GameController.CardControllers.GetFirst(CardIdControllerSelector.Get(card.Id));
         PlaceCards(cardController);
         OnCardRemoved?.Invoke(cardController);
     }
-    protected virtual void OnCardRemovedCallback(ICoreCardComponent card) => OnCardRemoved?.Invoke(GameController.CardControllers.Get(card.Id));
+    protected virtual void OnCardRemovedCallback(ICoreCardComponent card) 
+        => OnCardRemoved?.Invoke(GameController.CardControllers.GetFirst(CardIdControllerSelector.Get(card.Id)));
     protected abstract void PlaceCards(BaseCardController cardController);
     public abstract void RefreshContent();
 }

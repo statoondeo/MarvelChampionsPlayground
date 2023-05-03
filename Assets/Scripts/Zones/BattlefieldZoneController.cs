@@ -20,25 +20,27 @@ public sealed class BattlefieldZoneController : BaseZoneController
     }
     public override void RefreshContent()
     {
-        foreach (ICoreCardComponent card in Zone)
-            PlaceCards(GameController.CardControllers.Get(card.Id));
+        foreach (ICoreCardComponent card in Zone.GetAll(NoFilterCardSelector.Get()))
+            PlaceCards(GameController.CardControllers.GetFirst(CardIdControllerSelector.Get(card.Id)));
     }
     protected override void OnCardAddedCallback(ICoreCardComponent card)
     {
         base.OnCardAddedCallback(card);
-        GameController.CardControllers.Get(card.Id).AddComponent<DragAndDropController>();
+        GameController.CardControllers.GetFirst(CardIdControllerSelector.Get(card.Id)).AddComponent<DragAndDropController>();
     }
     protected override void OnCardRemovedCallback(ICoreCardComponent card)
     {
-        BaseCardController cardController = GameController.CardControllers.Get(card.Id);
+        BaseCardController cardController = GameController.CardControllers.GetFirst(CardIdControllerSelector.Get(card.Id));
         Destroy(cardController.GetComponent<DragAndDropController>());        
-        GameController.Grid.Clear(GameController.CardControllers.Get(card.Id).Position);
+        GameController.Grid.Clear(cardController.Position);
         base.OnCardRemovedCallback(card);
     }
     protected override void PlaceCards(BaseCardController cardController)
     {
         cardController.SetPosition(
-            GetEmptySlot(cardController.CardType, GameController.PlayerControllers.Get(cardController.OwnerId).BattlefieldPosition));
+            GetEmptySlot(
+                cardController.CardType, 
+                GameController.PlayerControllers.GetFirst(PlayerIdControllerSelector.Get(cardController.OwnerId)).BattlefieldPosition));
         GameController.Grid.Set(cardController.Position, cardController);
         GameController.RoutineService.MoveRoutine(cardController.transform, GameController.Grid.GetWorldPosition(cardController.Position));
     }

@@ -4,7 +4,12 @@ public abstract class BaseComponentFacade<T> : IFacade<T> where T : IComponent<T
 {
     protected T Item;
     protected BaseComponentFacade(T item) => Item = item;
-    public void AddDecorator(IDecorator<T> decorator) => Item = decorator.Wrap(Item);
+    public void AddDecorator(IDecorator<T> decorator)
+    {
+        decorator.Wrap(Item);
+        Item = (T)decorator;
+        decorator.SetFacade(this);
+    }
     public void RemoveDecorator(IDecorator<T> decorator)
     {
         IDecorator<T> previous = null;
@@ -20,7 +25,10 @@ public abstract class BaseComponentFacade<T> : IFacade<T> where T : IComponent<T
             if (previous is null)
                 Item = current.Inner;
             else
+            {
                 previous.Wrap(current.Inner);
+            }
+            current.SetFacade(null);
             Item.Notify(Item);
             break;
         }

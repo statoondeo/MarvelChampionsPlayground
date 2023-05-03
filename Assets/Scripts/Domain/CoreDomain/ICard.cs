@@ -1,1 +1,1 @@
-﻿public interface ICard : ICardFacade, ICardType, IClassification { }
+﻿public interface ICard : IEntity, ICardFacade, ICardType, IClassification { }

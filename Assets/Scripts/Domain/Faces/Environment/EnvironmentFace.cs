@@ -1,6 +1,6 @@
 ﻿using System;
 
-public sealed class EnvironmentFace : BaseFacade, IEnvironmentFace
+public sealed class EnvironmentFace : CoreFacade, IEnvironmentFace
 {
     #region IBoostFacade
 

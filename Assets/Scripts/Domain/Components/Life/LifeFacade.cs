@@ -4,7 +4,10 @@
 
     #region ILife
 
-    public int Life => Item.Life;
+    public int CurrentLife => Item.CurrentLife;
+    public int TotalLife => Item.TotalLife;
+    public int Damage => Item.Damage;
+    public void TakeDamage(int damage) => Item.TakeDamage(damage);
 
     #endregion
 

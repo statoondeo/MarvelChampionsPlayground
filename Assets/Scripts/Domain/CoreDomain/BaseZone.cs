@@ -1,61 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 public abstract class BaseZone : BaseEntity, IZone
 {
-    protected readonly List<ICard> Cards;
+    protected readonly IRepository<ICard> Cards;
     public string Id { get; private set; }
     public string Label { get; private set; }
     public string OwnerId { get; private set; }
-    public int Count => Cards.Count;
-    public Action<ICard> OnCardAdded { get; set; }
-    public Action<ICard> OnCardRemoved { get; set; }
-    public Action OnShuffled { get; set; }
+
 
     protected BaseZone(IGame game, string id, string label, string ownerId) : base(game)
     {
-        Cards = new List<ICard>();
+        Cards = new CardRepository();
         Id = id;
         Label = label;
         OwnerId = ownerId;
     }
-    public void AddCard(ICard card)
+    public ICard GetFirst(ISelector<ICard> selector) => Cards.GetFirst(selector);
+    public int Count(ISelector<ICard> selector) => Cards.Count(selector);
+    public bool Contains(ICard card) => Cards.Contains(card);
+    public void Add(ICard card)
     {
-        if (ContainsCard(card)) return;
-        if (Game.Zones.TryGetValue(card.Location, out IZone previousZone)) previousZone.RemoveCard(card);
-        card.SetOrder(Cards.Count);
+        if (Contains(card)) return;
+        IZone previousZone = Game.GetFirst(ZoneIdSelector.Get(card.Location));
+        previousZone?.Remove(card);
+        card.SetOrder(Cards.Count(NoFilterCardSelector.Get()));
         Cards.Add(card);
         card.SetLocation(Id);
-        OnCardAdded?.Invoke(card);
-        Game.Mediator.Raise(Events.OnAdded, new OnAddedEventModelArg(Id, card));
+        Game.Raise(Events.OnAdded, new OnAddedEventModelArg(Id, card));
     }
-    public void RemoveCard(ICard card)
+    public void Remove(ICard card)
     {
-        if (!ContainsCard(card)) return;
+        if (!Contains(card)) return;
         Cards.Remove(card);
-        foreach (ICard cardInZone in Cards)
+        foreach (ICard cardInZone in Cards.GetAll(NoFilterCardSelector.Get()))
             if (cardInZone.Order > card.Order) cardInZone.SetOrder(cardInZone.Order - 1);
-        OnCardRemoved?.Invoke(card);
-        Game.Mediator.Raise(Events.OnRemoved, new OnRemovedEventModelArg(Id, card));
+        Game.Raise(Events.OnRemoved, new OnRemovedEventModelArg(Id, card));
     }
-    public bool ContainsCard(ICard card) => Cards.Contains(card);
     public void Shuffle()
     {
-        for (int i = 0; i < Cards.Count - 1; i++)
+        List<ICard> cards = Cards.GetAll(NoFilterCardSelector.Get()).ToList();
+        for (int i = 0; i < cards.Count - 1; i++)
         {
-            int j = UnityEngine.Random.Range(i + 1, Cards.Count - 1);
-            int order = Cards[i].Order;
-            Cards[i].FlipTo("BACK");
-            Cards[i].SetOrder(Cards[j].Order);
-            Cards[j].SetOrder(order);
+            int j = UnityEngine.Random.Range(i + 1, cards.Count - 1);
+            int order = cards[i].Order;
+            cards[i].FlipTo("BACK");
+            cards[i].SetOrder(cards[j].Order);
+            cards[j].SetOrder(order);
         }
-        OnShuffled?.Invoke();
     }
-    public ICard First() => OrderedCards.FirstOrDefault();
-    public ICard Last() => OrderedCards.LastOrDefault();
-    public ICard GetAt(int index) => OrderedCards.ElementAtOrDefault(index);
-    public IEnumerator<ICard> GetEnumerator() => OrderedCards.GetEnumerator();
-    private List<ICard> OrderedCards => Cards.OrderBy(item => item.Order).ToList();
-
+    public ICard GetLast() => Cards.GetFirst(CardOrderSelector.Get(Cards.Count(NoFilterCardSelector.Get())));
+    public ICard GetAt(int index) => Cards.GetFirst(CardOrderSelector.Get(index));
+    public IEnumerable<ICard> GetAll(ISelector<ICard> selector) => Cards.GetAll(selector);
 }

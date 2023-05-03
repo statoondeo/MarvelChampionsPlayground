@@ -1,6 +1,6 @@
 ﻿using System;
 
-public sealed class SupportFace : BaseFacade, ISupportFace
+public sealed class SupportFace : CoreFacade, ISupportFace
 {
     #region ICostFacade
 

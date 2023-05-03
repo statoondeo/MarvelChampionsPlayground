@@ -15,8 +15,8 @@ public sealed class TreacheryCardController : BaseCardController
     public override void SetData(GameController gameController, RoutineController routineController, ICard card)
     {
         base.SetData(gameController, routineController, card);
-        FaceController.SetModel(card.Faces.Get("FACE") as ITreacheryFace);
-        BackController.SetModel(card.Faces.Get("BACK") as IBackFace);
+        FaceController.SetModel(card.Faces["FACE"] as ITreacheryFace);
+        BackController.SetModel(card.Faces["BACK"] as IBackFace);
 
         OnFlippedCallback(null);
     }

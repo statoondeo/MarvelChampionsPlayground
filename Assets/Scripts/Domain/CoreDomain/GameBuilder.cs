@@ -10,16 +10,21 @@ public sealed class GameBuilder
     private readonly IZone Battlefield;
     public GameBuilder()
     {
-        Game = new Game(new EventMediator());
+        Game = new Game(
+            new EventMediator(),
+            new ZoneRepository(),
+            new CardRepository(),
+            new PlayerRepository());
         Game.RegisterSetupCommand(GameSetupCommand.Get(Game));
         Battlefield = new BasicZone(Game, BATTLEFIELD, null);
-        Game.Zones.Register(Battlefield.Id, Battlefield);
+        Game.Add(Battlefield);
     }
     public GameBuilder WithPlayer(DeckModel deckModel)
     {
 
         // Création du joueur
-        IPlayer player = Game.Players.Register(deckModel.Id, new Player(Game, deckModel.Id, deckModel.name, deckModel.HeroType));
+        IPlayer player = new Player(Game, deckModel.Id, deckModel.name, deckModel.HeroType);
+        Game.Add(player);
 
         // Création des zones du joueur
         player.RegisterZoneId(BATTLEFIELD, Battlefield.Id);
@@ -28,17 +33,17 @@ public sealed class GameBuilder
             if (BATTLEFIELD.Equals(zoneName)) continue;
             IZone zone = new BasicZone(Game, zoneName, player.Id);
             player.RegisterZoneId(zoneName, zone.Id);
-            Game.Zones.Register(zone.Id, zone);
+            Game.Add(zone);
         }
 
         // Création des cartes du joueur
-        Game.Zones.TryGetValue(player.GetZoneId(DECK), out IZone playerDeck);
+        IZone playerDeck = player.GetZone(DECK);
         CardFactory cardFactory = new CardFactory();
         foreach (CardModel cardModel in deckModel)
         {
             ICard card = cardFactory.Create(Game, Guid.NewGuid().ToString(), player.Id, cardModel); 
-            Game.Cards.Register(card.Id, card);
-            playerDeck.AddCard(card);
+            Game.Add(card);
+            playerDeck.Add(card);
             card.UnTap();
             if (card.IsCardType(CardType.AlterEgo)
                 || card.IsCardType(CardType.Hero)

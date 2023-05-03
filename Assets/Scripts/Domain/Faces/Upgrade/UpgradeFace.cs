@@ -1,6 +1,6 @@
 ﻿using System;
 
-public sealed class UpgradeFace : BaseFacade, IUpgradeFace
+public sealed class UpgradeFace : CoreFacade, IUpgradeFace
 {
     #region ICostFacade
 

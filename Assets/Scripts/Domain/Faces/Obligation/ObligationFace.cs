@@ -1,6 +1,6 @@
 ﻿using System;
 
-public sealed class ObligationFace : BaseFacade, IObligationFace
+public sealed class ObligationFace : CoreFacade, IObligationFace
 {
     #region IBoostFacade
 

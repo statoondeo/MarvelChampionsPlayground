@@ -7,7 +7,7 @@ public sealed class SetAsidePlayersNemesisSetCommand : BaseCommand
     public SetAsidePlayersNemesisSetCommand(IGame game) : base(game)
     {
         List<ICommand> commands = new();
-        Game.Players.Get(PlayerTypeSelector.Get(HeroType.Hero)).ToList()
+        Game.GetAll(PlayerTypeSelector.Get(HeroType.Hero)).ToList()
             .ForEach(item => commands.Add(SetAsidePlayerNemesisSetCommand.Get(Game, item.Id)));
         Command = CompositeCommand.Get(commands.ToArray());
     }

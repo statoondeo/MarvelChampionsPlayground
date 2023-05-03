@@ -16,6 +16,6 @@ public sealed class PlayerController : MonoBehaviour
     public string Title => Player.Title;
     public HeroType HeroType => Player.HeroType;
     public string GetZoneId(string zoneName) => Player.GetZoneId(zoneName);
-    public string RegisterZoneId(string zoneName, string zoneId) => Player.RegisterZoneId(zoneName, zoneId);
+    public void RegisterZoneId(string zoneName, string zoneId) => Player.RegisterZoneId(zoneName, zoneId);
 
 }
