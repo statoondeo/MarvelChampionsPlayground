@@ -5,6 +5,7 @@ public sealed class TitleComponent : BaseComponent<ITitleComponent>, ITitleCompo
     private TitleComponent(string title, string subTitle, Sprite sprite)
         : base()
     {
+        Type = ComponentType.Title;
         Title = title;
         SubTitle = subTitle;
         Sprite = sprite;

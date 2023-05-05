@@ -1,6 +1,4 @@
-﻿using System;
-
-public sealed class AllyFace : CoreFacade, IAllyFace
+﻿public sealed class AllyFace : CoreFacade, IAllyFace
 {
     private AllyFace(
             ITitleFacade titleFacade, 
@@ -23,16 +21,22 @@ public sealed class AllyFace : CoreFacade, IAllyFace
         CostItem = costFacade;
     }
 
+    public override void SetCard(ICard card)
+    {
+        base.SetCard(card);
+        ThwartItem.SetCard(card);
+        AttackItem.SetCard(card);
+        LifeItem.SetCard(card);
+        CostItem.SetCard(card);
+        ResourceItem.SetCard(card);
+    }
+
     #region IThwartFacade
 
     private readonly IThwartFacade ThwartItem;
     public int Thwart => ThwartItem.Thwart;
     public void AddDecorator(IDecorator<IThwartComponent> decorator) => ThwartItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<IThwartComponent> decorator) => ThwartItem.RemoveDecorator(decorator);
-
-    public void Register(Action<IThwartComponent> callback) => ThwartItem.Register(callback);
-    public void UnRegister(Action<IThwartComponent> callback) => ThwartItem.UnRegister(callback);
-    public void Notify(IThwartComponent data) => ThwartItem.Notify(data);
 
     #endregion
 
@@ -43,10 +47,6 @@ public sealed class AllyFace : CoreFacade, IAllyFace
     public void AddDecorator(IDecorator<IAttackComponent> decorator) => AttackItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<IAttackComponent> decorator) => AttackItem.RemoveDecorator(decorator);
 
-    public void Register(Action<IAttackComponent> callback) => AttackItem.Register(callback);
-    public void UnRegister(Action<IAttackComponent> callback) => AttackItem.UnRegister(callback);
-    public void Notify(IAttackComponent data) => AttackItem.Notify(data);
-
     #endregion
 
     #region ILifeFacade
@@ -54,9 +54,6 @@ public sealed class AllyFace : CoreFacade, IAllyFace
     private readonly ILifeFacade LifeItem;
     public void AddDecorator(IDecorator<ILifeComponent> decorator) => LifeItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<ILifeComponent> decorator) => LifeItem.RemoveDecorator(decorator);
-    public void Register(Action<ILifeComponent> callback) => LifeItem.Register(callback);
-    public void UnRegister(Action<ILifeComponent> callback) => LifeItem.UnRegister(callback);
-    public void Notify(ILifeComponent data) => LifeItem.Notify(data);
 
     public int CurrentLife => LifeItem.CurrentLife;
     public int TotalLife => LifeItem.TotalLife;
@@ -74,10 +71,6 @@ public sealed class AllyFace : CoreFacade, IAllyFace
     public void RemoveDecorator(IDecorator<ICostComponent> decorator) 
         => CostItem.RemoveDecorator(decorator);
 
-    public void Register(Action<ICostComponent> callback) => CostItem.Register(callback);
-    public void UnRegister(Action<ICostComponent> callback) => CostItem.UnRegister(callback);
-    public void Notify(ICostComponent data) => CostItem.Notify(data);
-
     #endregion
 
     #region IResourceFacade
@@ -93,10 +86,6 @@ public sealed class AllyFace : CoreFacade, IAllyFace
         => ResourceItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<IResourceGeneratorComponent> decorator) 
         => ResourceItem.RemoveDecorator(decorator);
-
-    public void Register(Action<IResourceGeneratorComponent> callback) => ResourceItem.Register(callback);
-    public void UnRegister(Action<IResourceGeneratorComponent> callback) => ResourceItem.UnRegister(callback);
-    public void Notify(IResourceGeneratorComponent data) => ResourceItem.Notify(data);
 
     #endregion
 

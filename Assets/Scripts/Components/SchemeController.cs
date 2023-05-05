@@ -10,7 +10,7 @@ public sealed class SchemeController : MonoBehaviour
     public void SetModel(ISchemeFacade model)
     {
         Model = model;
-        Model.Register(OnChangedCallback);
+        //Model.Register(OnChangedCallback);
         OnChangedCallback<ISchemeFacade>(null);
     }
     private void OnChangedCallback<ISchemeFacade>(ISchemeFacade model) => Text.text = Model.Scheme.ToString();

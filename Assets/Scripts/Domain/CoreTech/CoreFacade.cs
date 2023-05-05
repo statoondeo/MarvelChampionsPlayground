@@ -1,9 +1,15 @@
-﻿using System;
-
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class CoreFacade : ICoreFacade
 {
+    public ComponentType Type => ComponentType.Composite;
+    public virtual void SetCard(ICard card) 
+    {
+        CardTypeFacade.SetCard(card);
+        ClassificationFacade.SetCard(card);
+        TitleFacade.SetCard(card);
+    }
+
     #region Constructeur
 
     protected CoreFacade(ITitleFacade titleFacade, ICardTypeFacade cardTypeFacade, IClassificationFacade classificationFacade)
@@ -23,9 +29,6 @@ public abstract class CoreFacade : ICoreFacade
         => CardTypeFacade.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<ICardTypeComponent> decorator) 
         => CardTypeFacade.RemoveDecorator(decorator);
-    public void Register(Action<ICardTypeComponent> callback) => CardTypeFacade.Register(callback);
-    public void UnRegister(Action<ICardTypeComponent> callback) => CardTypeFacade.UnRegister(callback);
-    public void Notify(ICardTypeComponent data) => CardTypeFacade.Notify(data);
 
     public CardType CardType => CardTypeFacade.CardType;
     public bool IsCardType(CardType cardType)
@@ -41,9 +44,6 @@ public abstract class CoreFacade : ICoreFacade
         => ClassificationFacade.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<IClassificationComponent> decorator)
         => ClassificationFacade.RemoveDecorator(decorator);
-    public void Register(Action<IClassificationComponent> callback) => ClassificationFacade.Register(callback);
-    public void UnRegister(Action<IClassificationComponent> callback) => ClassificationFacade.UnRegister(callback);
-    public void Notify(IClassificationComponent data) => ClassificationFacade.Notify(data);
 
     public Classification Classification => ClassificationFacade.Classification;
     public bool IsClassification(Classification classification)
@@ -58,9 +58,6 @@ public abstract class CoreFacade : ICoreFacade
         => TitleFacade.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<ITitleComponent> decorator) 
         => TitleFacade.RemoveDecorator(decorator);
-    public void Register(Action<ITitleComponent> callback) => TitleFacade.Register(callback);
-    public void UnRegister(Action<ITitleComponent> callback) => TitleFacade.UnRegister(callback);
-    public void Notify(ITitleComponent data) => TitleFacade.Notify(data);
 
     public string Title => TitleFacade.Title;
     public string SubTitle => TitleFacade.SubTitle;

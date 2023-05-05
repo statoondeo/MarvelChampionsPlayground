@@ -1,7 +1,12 @@
-﻿using System;
-
-public sealed class UpgradeFace : CoreFacade, IUpgradeFace
+﻿public sealed class UpgradeFace : CoreFacade, IUpgradeFace
 {
+    public override void SetCard(ICard card)
+    {
+        base.SetCard(card);
+        CostItem.SetCard(card);
+        ResourceItem.SetCard(card);
+    }
+
     #region ICostFacade
 
     private readonly ICostFacade CostItem;
@@ -10,10 +15,6 @@ public sealed class UpgradeFace : CoreFacade, IUpgradeFace
         => CostItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<ICostComponent> decorator)
         => CostItem.RemoveDecorator(decorator);
-
-    public void Register(Action<ICostComponent> callback) => CostItem.Register(callback);
-    public void UnRegister(Action<ICostComponent> callback) => CostItem.UnRegister(callback);
-    public void Notify(ICostComponent data) => CostItem.Notify(data);
 
     #endregion
 
@@ -30,10 +31,6 @@ public sealed class UpgradeFace : CoreFacade, IUpgradeFace
         => ResourceItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<IResourceGeneratorComponent> decorator)
         => ResourceItem.RemoveDecorator(decorator);
-
-    public void Register(Action<IResourceGeneratorComponent> callback) => ResourceItem.Register(callback);
-    public void UnRegister(Action<IResourceGeneratorComponent> callback) => ResourceItem.UnRegister(callback);
-    public void Notify(IResourceGeneratorComponent data) => ResourceItem.Notify(data);
 
     #endregion
 

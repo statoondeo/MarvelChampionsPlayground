@@ -10,7 +10,7 @@ public sealed class AttackController : MonoBehaviour
     public void SetModel(IAttackFacade model)
     {
         Model = model;
-        Model.Register(OnChangedCallback);
+        //Model.Register(OnChangedCallback);
         OnChangedCallback<IAttackFacade>(null);
     }
     private void OnChangedCallback<IAttackFacade>(IAttackFacade model) => Text.text = Model.Attack.ToString();

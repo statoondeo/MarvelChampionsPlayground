@@ -83,7 +83,7 @@ public sealed class GameController : MonoBehaviour
             .Build();
 
         Grid = new Grid(GridSize, CellSize);
-        Game.Register(Events.OnGameCommit, OnGameCommitCallback);
+        //Game.Register(Events.OnGameCommit, OnGameCommitCallback);
 
         CreatePlayerControllers();
         CreateZoneControllers();
@@ -95,5 +95,5 @@ public sealed class GameController : MonoBehaviour
         RoutineService.StartGame();
     }
     public void Setup() => Game.Setup();
-    private void OnGameCommitCallback(EventModelArg eventModelArg) => RoutineService.Commit();
+    //private void OnGameCommitCallback(EventModelArg eventModelArg) => RoutineService.Commit();
 }

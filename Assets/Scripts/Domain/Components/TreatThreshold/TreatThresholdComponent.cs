@@ -3,7 +3,10 @@
     public int TreatThreshold { get; private set; }
     private TreatThresholdComponent(int treatThreshold)
         : base()
-        => TreatThreshold = treatThreshold;
+    {
+        Type = ComponentType.TreatThreshold;
+        TreatThreshold = treatThreshold;
+    }
     public static ITreatThresholdComponent Get(int treatThreshold) 
         => new TreatThresholdComponent(treatThreshold);
 }

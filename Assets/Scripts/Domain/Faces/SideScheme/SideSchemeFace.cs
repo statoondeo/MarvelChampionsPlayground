@@ -1,14 +1,17 @@
-﻿using System;
-
-public sealed class SideSchemeFace : CoreFacade, ISideSchemeFace
+﻿public sealed class SideSchemeFace : CoreFacade, ISideSchemeFace
 {
+    public override void SetCard(ICard card)
+    {
+        base.SetCard(card);
+        BoostItem.SetCard(card);
+        TreatStartItem.SetCard(card);
+        WhenRevealedItem.SetCard(card);
+    }
+
     #region IBoostFacade
 
     private readonly IBoostFacade BoostItem;
     public int Boost => BoostItem.Boost;
-    public void Register(Action<IBoostComponent> callback) => BoostItem.Register(callback);
-    public void UnRegister(Action<IBoostComponent> callback) => BoostItem.UnRegister(callback);
-    public void Notify(IBoostComponent data) => BoostItem.Notify(data);
     public void AddDecorator(IDecorator<IBoostComponent> decorator)
         => BoostItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<IBoostComponent> decorator)
@@ -20,11 +23,6 @@ public sealed class SideSchemeFace : CoreFacade, ISideSchemeFace
 
     private readonly IWhenRevealedFacade WhenRevealedItem;
     public ICommand WhenRevealed => WhenRevealedItem.WhenRevealed;
-
-    public void Register(Action<IWhenRevealedComponent> callback) => WhenRevealedItem.Register(callback);
-    public void UnRegister(Action<IWhenRevealedComponent> callback) => WhenRevealedItem.UnRegister(callback);
-    public void Notify(IWhenRevealedComponent data) => WhenRevealedItem.Notify(data);
-
     public void AddDecorator(IDecorator<IWhenRevealedComponent> decorator)
         => WhenRevealedItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<IWhenRevealedComponent> decorator)
@@ -38,9 +36,6 @@ public sealed class SideSchemeFace : CoreFacade, ISideSchemeFace
     public int TreatStart => TreatStartItem.TreatStart;
     public void AddDecorator(IDecorator<ITreatStartComponent> decorator) => TreatStartItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<ITreatStartComponent> decorator) => TreatStartItem.RemoveDecorator(decorator);
-    public void Register(Action<ITreatStartComponent> callback) => TreatStartItem.Register(callback);
-    public void UnRegister(Action<ITreatStartComponent> callback) => TreatStartItem.UnRegister(callback);
-    public void Notify(ITreatStartComponent data) => TreatStartItem.Notify(data);
 
     #endregion
 

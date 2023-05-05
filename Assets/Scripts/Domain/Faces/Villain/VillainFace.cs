@@ -1,7 +1,16 @@
-﻿using System;
-
-public sealed class VillainFace : CoreFacade, IVillainFace
+﻿public sealed class VillainFace : CoreFacade, IVillainFace
 {
+    public override void SetCard(ICard card)
+    {
+        base.SetCard(card);
+        LifeItem.SetCard(card);
+        SchemeItem.SetCard(card);
+        AttackItem.SetCard(card);
+        StadeItem.SetCard(card);
+        SetupItem.SetCard(card);
+        WhenRevealedItem.SetCard(card);
+    }
+
     #region ISchemeFacade
 
     private readonly ISchemeFacade SchemeItem;
@@ -10,9 +19,6 @@ public sealed class VillainFace : CoreFacade, IVillainFace
         => SchemeItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<ISchemeComponent> decorator)
         => SchemeItem.RemoveDecorator(decorator);
-    public void Register(Action<ISchemeComponent> callback) => SchemeItem.Register(callback);
-    public void UnRegister(Action<ISchemeComponent> callback) => SchemeItem.UnRegister(callback);
-    public void Notify(ISchemeComponent data) => SchemeItem.Notify(data);
 
     #endregion
 
@@ -23,10 +29,6 @@ public sealed class VillainFace : CoreFacade, IVillainFace
     public void AddDecorator(IDecorator<IAttackComponent> decorator) => AttackItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<IAttackComponent> decorator) => AttackItem.RemoveDecorator(decorator);
 
-    public void Register(Action<IAttackComponent> callback) => AttackItem.Register(callback);
-    public void UnRegister(Action<IAttackComponent> callback) => AttackItem.UnRegister(callback);
-    public void Notify(IAttackComponent data) => AttackItem.Notify(data);
-
     #endregion
 
     #region ILifeFacade
@@ -34,10 +36,6 @@ public sealed class VillainFace : CoreFacade, IVillainFace
     private readonly ILifeFacade LifeItem;
     public void AddDecorator(IDecorator<ILifeComponent> decorator) => LifeItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<ILifeComponent> decorator) => LifeItem.RemoveDecorator(decorator);
-    public void Register(Action<ILifeComponent> callback) => LifeItem.Register(callback);
-    public void UnRegister(Action<ILifeComponent> callback) => LifeItem.UnRegister(callback);
-    public void Notify(ILifeComponent data) => LifeItem.Notify(data);
-
     public int CurrentLife => LifeItem.CurrentLife;
     public int TotalLife => LifeItem.TotalLife;
     public int Damage => LifeItem.Damage;
@@ -51,9 +49,6 @@ public sealed class VillainFace : CoreFacade, IVillainFace
     public int Stade => StadeItem.Stade;
     public void AddDecorator(IDecorator<IStadeComponent> decorator) => StadeItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<IStadeComponent> decorator) => StadeItem.RemoveDecorator(decorator);
-    public void Register(Action<IStadeComponent> callback) => StadeItem.Register(callback);
-    public void UnRegister(Action<IStadeComponent> callback) => StadeItem.UnRegister(callback);
-    public void Notify(IStadeComponent data) => StadeItem.Notify(data);
 
     #endregion
 
@@ -61,11 +56,6 @@ public sealed class VillainFace : CoreFacade, IVillainFace
 
     private readonly ISetupFacade SetupItem;
     public ICommand Setup => SetupItem.Setup;
-
-    public void Register(Action<ISetupComponent> callback) => SetupItem.Register(callback);
-    public void UnRegister(Action<ISetupComponent> callback) => SetupItem.UnRegister(callback);
-    public void Notify(ISetupComponent data) => SetupItem.Notify(data);
-
     public void AddDecorator(IDecorator<ISetupComponent> decorator)
         => SetupItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<ISetupComponent> decorator)
@@ -77,11 +67,6 @@ public sealed class VillainFace : CoreFacade, IVillainFace
 
     private readonly IWhenRevealedFacade WhenRevealedItem;
     public ICommand WhenRevealed => WhenRevealedItem.WhenRevealed;
-
-    public void Register(Action<IWhenRevealedComponent> callback) => WhenRevealedItem.Register(callback);
-    public void UnRegister(Action<IWhenRevealedComponent> callback) => WhenRevealedItem.UnRegister(callback);
-    public void Notify(IWhenRevealedComponent data) => WhenRevealedItem.Notify(data);
-
     public void AddDecorator(IDecorator<IWhenRevealedComponent> decorator)
         => WhenRevealedItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<IWhenRevealedComponent> decorator)

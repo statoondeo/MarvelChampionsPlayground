@@ -1,7 +1,12 @@
-﻿using System;
-
-public sealed class AlterEgoFace : CoreFacade, IAlterEgoFace
+﻿public sealed class AlterEgoFace : CoreFacade, IAlterEgoFace
 {
+    public override void SetCard(ICard card)
+    {
+        base.SetCard(card);
+        RecoveryItem.SetCard(card);
+        HandSizeItem.SetCard(card);
+        SetupItem.SetCard(card);
+    }
     #region IRecoveryFacade
 
     private readonly IRecoveryFacade RecoveryItem;
@@ -10,10 +15,6 @@ public sealed class AlterEgoFace : CoreFacade, IAlterEgoFace
         => RecoveryItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<IRecoveryComponent> decorator) 
         => RecoveryItem.RemoveDecorator(decorator);
-
-    public void Register(Action<IRecoveryComponent> callback) => RecoveryItem.Register(callback);
-    public void UnRegister(Action<IRecoveryComponent> callback) => RecoveryItem.UnRegister(callback);
-    public void Notify(IRecoveryComponent data) => RecoveryItem.Notify(data);
 
     #endregion
 
@@ -26,21 +27,12 @@ public sealed class AlterEgoFace : CoreFacade, IAlterEgoFace
     public void RemoveDecorator(IDecorator<IHandSizeComponent> decorator) 
         => HandSizeItem.RemoveDecorator(decorator);
 
-    public void Register(Action<IHandSizeComponent> callback) => HandSizeItem.Register(callback);
-    public void UnRegister(Action<IHandSizeComponent> callback) => HandSizeItem.UnRegister(callback);
-    public void Notify(IHandSizeComponent data) => HandSizeItem.Notify(data);
-
     #endregion
 
     #region ISetupFacade
 
     private readonly ISetupFacade SetupItem;
     public ICommand Setup => SetupItem.Setup;
-
-    public void Register(Action<ISetupComponent> callback) => SetupItem.Register(callback);
-    public void UnRegister(Action<ISetupComponent> callback) => SetupItem.UnRegister(callback);
-    public void Notify(ISetupComponent data) => SetupItem.Notify(data);
-
     public void AddDecorator(IDecorator<ISetupComponent> decorator) 
         => SetupItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<ISetupComponent> decorator) 

@@ -1,14 +1,14 @@
-﻿using System;
-
-public abstract class BaseComponentFacade<T> : IFacade<T> where T : IComponent<T>
+﻿public abstract class BaseFacade<T> : IFacade<T> where T : IComponent<T>
 {
+    protected ICard Card;
     protected T Item;
-    protected BaseComponentFacade(T item) => Item = item;
+    protected BaseFacade(T item) => Item = item;
+    public ComponentType Type => Item.Type;
     public void AddDecorator(IDecorator<T> decorator)
     {
-        decorator.Wrap(Item);
-        Item = (T)decorator;
+        Item = (T)decorator.Wrap(Item);
         decorator.SetFacade(this);
+        Card.Raise(Item.Type);
     }
     public void RemoveDecorator(IDecorator<T> decorator)
     {
@@ -23,17 +23,19 @@ public abstract class BaseComponentFacade<T> : IFacade<T> where T : IComponent<T
                 continue;
             }
             if (previous is null)
-                Item = current.Inner;
+                Item = (T)current.Inner;
             else
             {
                 previous.Wrap(current.Inner);
             }
             current.SetFacade(null);
-            Item.Notify(Item);
+            Card.Raise(Item.Type);
             break;
         }
     }
-    public void Register(Action<T> callback) => Item.Register(callback);
-    public void UnRegister(Action<T> callback) => Item.Register(callback);
-    public void Notify(T data) => Item.Notify(data);
+    public void SetCard(ICard card)
+    {
+        Card = card;
+        Item.SetCard(card);
+    }
 }

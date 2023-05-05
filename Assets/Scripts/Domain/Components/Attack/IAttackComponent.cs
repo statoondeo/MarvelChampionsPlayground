@@ -1,4 +1,4 @@
 ﻿public interface IAttackComponent : IComponent<IAttackComponent>
-{ 
-    int Attack { get; } 
+{
+    int Attack { get; }
 }

@@ -56,7 +56,7 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
         Card = card;
         gameObject.name = Card.CurrentFace.Title;
         SpriteRenderer.sprite = Card.CurrentFace.Sprite;
-        Card.Register(OnFlippedCallback);
+        //Card.Register(OnFlippedCallback);
         //Card.OnTapped += OnTappedCallback;
         //Card.OnUnTapped += OnTappedCallback;
         //Card.OnFlipped += OnFlippedCallback;

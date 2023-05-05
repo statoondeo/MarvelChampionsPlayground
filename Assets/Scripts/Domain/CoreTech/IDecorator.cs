@@ -1,7 +1,7 @@
-﻿public interface IDecorator<T>
+﻿public interface IDecorator<T> : IComponent<T> where T : IComponent<T>
 {
     IFacade<T> Facade { get; }
-    T Inner { get; }
-    void Wrap(T wrapped);
+    IComponent<T> Inner { get; }
+    IDecorator<T> Wrap(IComponent<T> wrapped);
     void SetFacade(IFacade<T> facade);
 }

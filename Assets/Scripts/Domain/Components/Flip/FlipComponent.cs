@@ -7,17 +7,20 @@ public sealed class FlipComponent : BaseComponent<IFlipComponent>, IFlipComponen
     private FlipComponent(ICoreFacade face, ICoreFacade back)
         : base()
     {
-        Faces = new Dictionary<string, ICoreFacade>();
-        Faces.Add("FACE", face);
+        Type = ComponentType.Flip;
+        Faces = new Dictionary<string, ICoreFacade>
+        {
+            { "FACE", face },
+            { "BACK", back }
+        };
         CurrentFace = face;
-        Faces.Add("BACK", back);
     }
     public void FlipTo(string face)
     {
         if (!Faces.TryGetValue(face, out ICoreFacade newFace)) return;
         if (CurrentFace == newFace) return;
         CurrentFace = newFace;
-        Notify(this);
+        Card.Raise(Type);
     }
     public static IFlipComponent Get(ICoreFacade face, ICoreFacade back)
         => new FlipComponent(face, back);

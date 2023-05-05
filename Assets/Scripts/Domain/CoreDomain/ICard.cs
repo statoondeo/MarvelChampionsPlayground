@@ -1,1 +1,1 @@
-﻿public interface ICard : IEntity, ICardFacade, ICardType, IClassification { }
+﻿public interface ICard : IEntity, IMediator<ComponentType, ICard>, ICardFacade, ICardType, IClassification { }

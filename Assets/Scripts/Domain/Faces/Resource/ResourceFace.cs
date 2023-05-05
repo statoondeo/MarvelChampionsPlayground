@@ -1,7 +1,11 @@
-﻿using System;
-
-public sealed class ResourceFace : CoreFacade, IResourceFace
+﻿public sealed class ResourceFace : CoreFacade, IResourceFace
 {
+    public override void SetCard(ICard card)
+    {
+        base.SetCard(card);
+        ResourceItem.SetCard(card);
+    }
+
     #region IResourceFacade
 
     private readonly IResourceGeneratorFacade ResourceItem;
@@ -15,10 +19,6 @@ public sealed class ResourceFace : CoreFacade, IResourceFace
         => ResourceItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<IResourceGeneratorComponent> decorator)
         => ResourceItem.RemoveDecorator(decorator);
-
-    public void Register(Action<IResourceGeneratorComponent> callback) => ResourceItem.Register(callback);
-    public void UnRegister(Action<IResourceGeneratorComponent> callback) => ResourceItem.UnRegister(callback);
-    public void Notify(IResourceGeneratorComponent data) => ResourceItem.Notify(data);
 
     #endregion
 

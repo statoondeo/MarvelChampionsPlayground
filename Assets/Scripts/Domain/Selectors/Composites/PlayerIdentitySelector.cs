@@ -1,4 +1,5 @@
-﻿public sealed class PlayerIdentitySelector : ISelector<ICard>
+﻿
+public sealed class PlayerIdentitySelector : ISelector<ICard>
 {
     private readonly ISelector<ICard> Selector;
     private PlayerIdentitySelector(string ownerId)

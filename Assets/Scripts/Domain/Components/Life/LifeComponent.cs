@@ -5,6 +5,7 @@
     public int Damage { get; private set; }
     private LifeComponent(int life) : base()
     {
+        Type = ComponentType.Life;
         TotalLife = life;
         Damage = 0;
     }
@@ -12,8 +13,7 @@
     {
         if (damage == 0) return;
         Damage += damage;
-        Notify(this);
+        Card.Raise(Type);
     }
-
     public static ILifeComponent Get(int life) => new LifeComponent(life);
 }

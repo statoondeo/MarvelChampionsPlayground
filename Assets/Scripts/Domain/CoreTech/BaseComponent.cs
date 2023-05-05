@@ -1,10 +1,7 @@
-﻿using System;
-
-public abstract class BaseComponent<T> : IComponent<T>
+﻿public abstract class BaseComponent<T> : IComponent<T> where T : IComponent<T>
 {
+    protected ICard Card;
     protected BaseComponent() { }
-    protected Action<T> OnChanged;
-    public void Register(Action<T> callback) => OnChanged += callback;
-    public void UnRegister(Action<T> callback) => OnChanged -= callback;
-    public void Notify(T data) => OnChanged?.Invoke(data);
+    public ComponentType Type { get; protected set; }
+    public void SetCard(ICard card) => Card = card;
 }

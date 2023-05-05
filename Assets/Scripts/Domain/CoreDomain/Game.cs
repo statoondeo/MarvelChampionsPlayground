@@ -4,34 +4,34 @@ using System.Collections.Generic;
 public sealed class Game : IGame
 {
     private ICommand SetupCommand;
-    private readonly IMediator Mediator;
+    //private readonly IMediator Mediator;
     private readonly IRepository<IZone> Zones;
     private readonly IRepository<ICard> Cards;
     private readonly IRepository<IPlayer> Players;
     public IPicker<ICard> AnyCardPicker {get; private set;}
 
     public Game(
-        IMediator mediator, 
+        //IMediator mediator, 
         IRepository<IZone> zones, 
         IRepository<ICard> cards, 
         IRepository<IPlayer> players,
         IPicker<ICard> anyCardPicker)
     {
-        Mediator = mediator;
+        //Mediator = mediator;
         Zones = zones;
         Cards = cards;
         Players = players;
         AnyCardPicker = anyCardPicker;
     }
 
-    #region IMediator
+    //#region IMediator
 
-    public void Raise(Events eventName)=> Mediator.Raise(eventName);
-    public void Raise(Events eventName, EventModelArg eventArg) => Mediator.Raise(eventName, eventArg);
-    public void Register(Events eventToListen, Action<EventModelArg> callback) => Mediator.Register(eventToListen, callback);
-    public void UnRegister(Events eventToListen, Action<EventModelArg> callback) => Mediator.UnRegister(eventToListen, callback);   
+    //public void Raise(Events eventName)=> Mediator.Raise(eventName);
+    //public void Raise(Events eventName, EventModelArg eventArg) => Mediator.Raise(eventName, eventArg);
+    //public void Register(Events eventToListen, Action<EventModelArg> callback) => Mediator.Register(eventToListen, callback);
+    //public void UnRegister(Events eventToListen, Action<EventModelArg> callback) => Mediator.UnRegister(eventToListen, callback);   
 
-    #endregion
+    //#endregion
 
     #region IRepository<IPlayer>
 
@@ -66,7 +66,7 @@ public sealed class Game : IGame
 
     #endregion
 
-    public void Commit() => Mediator.Raise(Events.OnGameCommit);
+    public void Commit() { } // => Mediator.Raise(Events.OnGameCommit);
     public void Setup() => SetupCommand.Execute();
     public void RegisterSetupCommand(ICommand command) => SetupCommand = command;
 }

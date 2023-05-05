@@ -1,14 +1,15 @@
-﻿using System;
-
-public sealed class ObligationFace : CoreFacade, IObligationFace
+﻿public sealed class ObligationFace : CoreFacade, IObligationFace
 {
+    public override void SetCard(ICard card)
+    {
+        base.SetCard(card);
+        BoostItem.SetCard(card);
+    }
+
     #region IBoostFacade
 
     private readonly IBoostFacade BoostItem;
     public int Boost => BoostItem.Boost;
-    public void Register(Action<IBoostComponent> callback) => BoostItem.Register(callback);
-    public void UnRegister(Action<IBoostComponent> callback) => BoostItem.UnRegister(callback);
-    public void Notify(IBoostComponent data) => BoostItem.Notify(data);
     public void AddDecorator(IDecorator<IBoostComponent> decorator)
         => BoostItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<IBoostComponent> decorator)

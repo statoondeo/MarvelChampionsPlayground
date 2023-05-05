@@ -1,1 +1,1 @@
-﻿public interface ICardFacade : ICoreCardFacade, IFlipFacade, ITapFacade { }
+﻿public interface ICardFacade : ICoreCardFacade, ILocationFacade, IFlipFacade, ITapFacade { }

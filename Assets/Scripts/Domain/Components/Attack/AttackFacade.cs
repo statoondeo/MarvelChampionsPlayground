@@ -1,16 +1,8 @@
-﻿public sealed class AttackFacade : 
-    BaseComponentFacade<IAttackComponent>, 
-    IAttackFacade
+﻿public sealed class AttackFacade : BaseFacade<IAttackComponent>, IAttackFacade
 {
-    private AttackFacade(IAttackComponent item) 
+    private AttackFacade(IAttackComponent item)
         : base(item) { }
-
-    #region IAttack
-
     public int Attack => Item.Attack;
-
-    #endregion
-
-    public static IAttackFacade Get(int attack) 
+    public static IAttackFacade Get(int attack)
         => new AttackFacade(AttackComponent.Get(attack));
 }
