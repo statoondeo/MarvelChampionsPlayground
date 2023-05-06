@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using static UnityEditor.Progress;
+
 public abstract class BaseCard : ICard
 {
     public ICard Card => this;
@@ -76,6 +78,7 @@ public abstract class BaseCard : ICard
     public IFace CurrentFace => FlipItem.CurrentFace;
     public IDictionary<string, IFace> Faces => FlipItem.Faces;
     public void FlipTo(string face) => FlipItem.FlipTo(face);
+    public bool IsFace(string face) => FlipItem.IsFace(face);
 
     #endregion
 

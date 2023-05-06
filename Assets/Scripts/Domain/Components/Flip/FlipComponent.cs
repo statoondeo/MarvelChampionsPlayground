@@ -15,6 +15,7 @@ public sealed class FlipComponent : BaseComponent<IFlipComponent>, IFlipComponen
         };
         CurrentFace = face;
     }
+    public bool IsFace(string face) => CurrentFace.Equals(Faces[face]);
     public void FlipTo(string face)
     {
         if (!Faces.TryGetValue(face, out IFace newFace)) return;

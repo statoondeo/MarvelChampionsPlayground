@@ -13,7 +13,18 @@
             coreCardFacade, 
             flipFacade, 
             tapFacade,
-            locationFacade) { }
+            locationFacade) 
+    {
+        Card.Register(ComponentType.Location, OnBattlefieldCallback);
+        Card.Register(ComponentType.Flip, OnBattlefieldCallback);
+    }
+    private void OnBattlefieldCallback(ICard card) 
+    { 
+        if (card.IsLocation("BATTLEFIELD") && card.IsFace("FACE"))
+            card.Tap();
+        else 
+            card.UnTap();
+    }
     public static ICard Get(IGame game, string id, string ownerId, CardModel cardModel) 
         => new MainSchemeCard(
                 game,
