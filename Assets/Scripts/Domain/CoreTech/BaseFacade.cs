@@ -1,6 +1,6 @@
 ﻿public abstract class BaseFacade<T> : IFacade<T> where T : IComponent<T>
 {
-    protected ICard Card;
+    public ICard Card { get; protected set; }
     protected T Item;
     protected BaseFacade(T item) => Item = item;
     public ComponentType Type => Item.Type;
@@ -33,7 +33,7 @@
             break;
         }
     }
-    public void SetCard(ICard card)
+    public virtual void SetCard(ICard card)
     {
         Card = card;
         Item.SetCard(card);

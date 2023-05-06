@@ -27,7 +27,7 @@ public abstract class BaseZone : BaseEntity, IZone
         card.SetOrder(Cards.Count(NoFilterCardSelector.Get()));
         Cards.Add(card);
         card.SetLocation(Id);
-        //Game.Raise(Events.OnAdded, new OnAddedEventModelArg(Id, card));
+        Game.Raise(GameEvents.OnCardAdded, OnCardMovedGameArg.Get(this, card));
     }
     public void Remove(ICard card)
     {
@@ -35,7 +35,7 @@ public abstract class BaseZone : BaseEntity, IZone
         Cards.Remove(card);
         foreach (ICard cardInZone in Cards.GetAll(NoFilterCardSelector.Get()))
             if (cardInZone.Order > card.Order) cardInZone.SetOrder(cardInZone.Order - 1);
-        //Game.Raise(Events.OnRemoved, new OnRemovedEventModelArg(Id, card));
+        Game.Raise(GameEvents.OnCardRemoved, OnCardMovedGameArg.Get(this, card));
     }
     public void Shuffle()
     {

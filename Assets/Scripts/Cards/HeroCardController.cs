@@ -21,8 +21,6 @@ public sealed class HeroCardController : BaseCardController
         AlterEgoFaceController.SetModel(heroCard.Faces["FACE"] as IAlterEgoFace);
         HeroFaceController.SetModel(heroCard.Faces["BACK"] as IHeroFace);
         LifeController.SetModel(heroCard);
-
-        OnFlippedCallback(null);
     }
 
     public void DealDamage() => (Card as IHeroCard).TakeDamage(1);

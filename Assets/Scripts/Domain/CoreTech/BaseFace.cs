@@ -1,18 +1,25 @@
 ﻿using UnityEngine;
 
-public abstract class CoreFacade : ICoreFacade
+public abstract class BaseFace : IFace, ICoreFacade
 {
     public ComponentType Type => ComponentType.Composite;
+
+    #region ICardHolder
+
+    public ICard Card { get; private set; }
     public virtual void SetCard(ICard card) 
     {
+        Card = card;
         CardTypeFacade.SetCard(card);
         ClassificationFacade.SetCard(card);
         TitleFacade.SetCard(card);
     }
 
+    #endregion
+
     #region Constructeur
 
-    protected CoreFacade(ITitleFacade titleFacade, ICardTypeFacade cardTypeFacade, IClassificationFacade classificationFacade)
+    protected BaseFace(ITitleFacade titleFacade, ICardTypeFacade cardTypeFacade, IClassificationFacade classificationFacade)
     {
         TitleFacade = titleFacade;
         CardTypeFacade = cardTypeFacade;

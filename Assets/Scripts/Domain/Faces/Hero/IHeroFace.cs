@@ -1,1 +1,1 @@
-﻿public interface IHeroFace : ICoreFacade, IThwartFacade, IAttackFacade, IDefenseFacade, IHandSizeFacade { }
+﻿public interface IHeroFace : IFace, ICoreFacade, IThwartFacade, IAttackFacade, IDefenseFacade, IHandSizeFacade { }

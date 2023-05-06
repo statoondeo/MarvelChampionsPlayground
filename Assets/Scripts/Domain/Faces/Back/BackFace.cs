@@ -1,4 +1,4 @@
-﻿public sealed class BackFace : CoreFacade, IBackFace
+﻿public sealed class BackFace : BaseFace, IBackFace
 {
     #region Constructeur
 
@@ -9,7 +9,7 @@
 
     #region Factory
 
-    public static ICoreFacade Get(BackFaceModel faceModel)
+    public static IFace Get(BackFaceModel faceModel)
         => new BackFace(
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
             CardTypeFacade.Get(faceModel.CardType),

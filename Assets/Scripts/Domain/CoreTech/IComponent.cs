@@ -1,5 +1,4 @@
-﻿public interface IComponent<T>
+﻿public interface IComponent<T> : ICardHolder
 {
     ComponentType Type { get; }
-    void SetCard(ICard card);
 }

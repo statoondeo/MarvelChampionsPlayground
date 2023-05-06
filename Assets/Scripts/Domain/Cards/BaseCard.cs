@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public abstract class BaseCard : ICard
 {
+    public ICard Card => this;
     protected readonly ICardMediator Mediator;
     public IGame Game { get; protected set; }
     public ComponentType Type => ComponentType.Composite;
@@ -72,8 +73,8 @@ public abstract class BaseCard : ICard
     private readonly IFlipFacade FlipItem;
     public void AddDecorator(IDecorator<IFlipComponent> decorator) => FlipItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<IFlipComponent> decorator) => FlipItem.RemoveDecorator(decorator);
-    public ICoreFacade CurrentFace => FlipItem.CurrentFace;
-    public IDictionary<string, ICoreFacade> Faces => FlipItem.Faces;
+    public IFace CurrentFace => FlipItem.CurrentFace;
+    public IDictionary<string, IFace> Faces => FlipItem.Faces;
     public void FlipTo(string face) => FlipItem.FlipTo(face);
 
     #endregion

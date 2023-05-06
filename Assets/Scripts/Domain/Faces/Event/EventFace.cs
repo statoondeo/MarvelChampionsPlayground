@@ -1,4 +1,4 @@
-﻿public sealed class EventFace : CoreFacade, IEventFace
+﻿public sealed class EventFace : BaseFace, IEventFace
 {
     public override void SetCard(ICard card)
     {

@@ -1,4 +1,4 @@
-﻿public sealed class UpgradeFace : CoreFacade, IUpgradeFace
+﻿public sealed class UpgradeFace : BaseFace, IUpgradeFace
 {
     public override void SetCard(ICard card)
     {

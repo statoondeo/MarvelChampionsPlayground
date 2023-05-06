@@ -1,6 +1,6 @@
 ﻿using UnityEditorInternal.VersionControl;
 
-public sealed class TreacheryFace : CoreFacade, ITreacheryFace
+public sealed class TreacheryFace : BaseFace, ITreacheryFace
 {
     public override void SetCard(ICard card)
     {

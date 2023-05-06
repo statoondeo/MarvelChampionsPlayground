@@ -1,4 +1,4 @@
-﻿public sealed class HeroFace : CoreFacade, IHeroFace
+﻿public sealed class HeroFace : BaseFace, IHeroFace
 {
     public override void SetCard(ICard card)
     {

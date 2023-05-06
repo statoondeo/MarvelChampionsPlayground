@@ -1,4 +1,4 @@
-﻿public sealed class MinionFace : CoreFacade, IMinionFace
+﻿public sealed class MinionFace : BaseFace, IMinionFace
 {
     public override void SetCard(ICard card)
     {

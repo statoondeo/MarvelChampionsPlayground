@@ -1,1 +1,1 @@
-﻿public interface IAttachmentFace : ICoreFacade, IBoostFacade, IWhenRevealedFacade { }
+﻿public interface IAttachmentFace : IFace, ICoreFacade, IBoostFacade, IWhenRevealedFacade { }

@@ -2,7 +2,7 @@
 
 public interface IFlipComponent : IComponent<IFlipComponent>
 {
-    ICoreFacade CurrentFace { get; }
-    IDictionary<string, ICoreFacade> Faces { get; }
+    IFace CurrentFace { get; }
+    IDictionary<string, IFace> Faces { get; }
     void FlipTo(string face);
 }

@@ -1,1 +1,1 @@
-﻿public interface IFace { }
+﻿public interface IFace : ICardHolder, ICardType, IClassification { }

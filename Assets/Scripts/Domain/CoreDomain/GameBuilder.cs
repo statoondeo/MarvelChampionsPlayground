@@ -11,7 +11,7 @@ public sealed class GameBuilder
     public GameBuilder(IPicker<ICard> anyCardPicker)
     {
         Game = new Game(
-            //new BaseMediator(),
+            GameMediator.Get(),
             new ZoneRepository(),
             new CardRepository(),
             new PlayerRepository(),
@@ -39,7 +39,7 @@ public sealed class GameBuilder
 
         // Création des cartes du joueur
         IZone playerDeck = player.GetZone(DECK);
-        CardFactory cardFactory = new CardFactory();
+        CardFactory cardFactory = new();
         foreach (CardModel cardModel in deckModel)
         {
             ICard card = cardFactory.Create(Game, Guid.NewGuid().ToString(), player.Id, cardModel); 

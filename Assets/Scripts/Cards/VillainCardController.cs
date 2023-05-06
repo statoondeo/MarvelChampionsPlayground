@@ -8,7 +8,7 @@ public sealed class VillainCardController : BaseCardController
     protected override void OnFlippedCallback(IFlipComponent component)
     {
         base.OnFlippedCallback(component);
-        FaceController.gameObject.SetActive(!Card.CurrentFace.IsCardType(CardType.None));
+        FaceController.gameObject.SetActive(!(Card.CurrentFace as IVillainFace).IsCardType(CardType.None));
         BackController.gameObject.SetActive(!FaceController.gameObject.activeSelf);
     }
 

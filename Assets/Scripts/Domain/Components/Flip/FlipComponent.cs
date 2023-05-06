@@ -2,13 +2,13 @@
 
 public sealed class FlipComponent : BaseComponent<IFlipComponent>, IFlipComponent
 {
-    public IDictionary<string, ICoreFacade> Faces { get; private set; }
-    public ICoreFacade CurrentFace { get; private set; }
-    private FlipComponent(ICoreFacade face, ICoreFacade back)
+    public IDictionary<string, IFace> Faces { get; private set; }
+    public IFace CurrentFace { get; private set; }
+    private FlipComponent(IFace face, IFace back)
         : base()
     {
         Type = ComponentType.Flip;
-        Faces = new Dictionary<string, ICoreFacade>
+        Faces = new Dictionary<string, IFace>
         {
             { "FACE", face },
             { "BACK", back }
@@ -17,11 +17,11 @@ public sealed class FlipComponent : BaseComponent<IFlipComponent>, IFlipComponen
     }
     public void FlipTo(string face)
     {
-        if (!Faces.TryGetValue(face, out ICoreFacade newFace)) return;
+        if (!Faces.TryGetValue(face, out IFace newFace)) return;
         if (CurrentFace == newFace) return;
         CurrentFace = newFace;
         Card.Raise(Type);
     }
-    public static IFlipComponent Get(ICoreFacade face, ICoreFacade back)
+    public static IFlipComponent Get(IFace face, IFace back)
         => new FlipComponent(face, back);
 }

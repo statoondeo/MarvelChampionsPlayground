@@ -1,4 +1,5 @@
-﻿public interface IAlterEgoFace : 
+﻿public interface IAlterEgoFace :
+    IFace,
     ICoreFacade, 
     IRecoveryFacade, 
     IHandSizeFacade, 

@@ -1,4 +1,4 @@
-﻿public sealed class MainSchemeBFace : CoreFacade, IMainSchemeBFace
+﻿public sealed class MainSchemeBFace : BaseFace, IMainSchemeBFace
 {
     public override void SetCard(ICard card)
     {

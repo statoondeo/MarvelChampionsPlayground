@@ -1,5 +1,7 @@
 ﻿public interface IAllyFace 
-    : ICoreFacade, 
+    : 
+    IFace,
+    ICoreFacade, 
     IThwartFacade, 
     IAttackFacade, 
     ILifeFacade, 

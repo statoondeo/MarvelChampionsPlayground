@@ -5,13 +5,12 @@ using UnityEngine;
 public sealed class SchemeController : MonoBehaviour
 {
     [SerializeField] private TMP_Text Text;
-    private ISchemeFacade Model;
-
-    public void SetModel(ISchemeFacade model)
+    private ISchemeComponent Model;
+    public void SetModel(ISchemeComponent model)
     {
         Model = model;
-        //Model.Register(OnChangedCallback);
-        OnChangedCallback<ISchemeFacade>(null);
+        Model.Card.Register(ComponentType.Scheme, OnChangedCallback);
+        OnChangedCallback(Model.Card);
     }
-    private void OnChangedCallback<ISchemeFacade>(ISchemeFacade model) => Text.text = Model.Scheme.ToString();
+    private void OnChangedCallback(ICard model) => Text.text = Model.Scheme.ToString();
 }

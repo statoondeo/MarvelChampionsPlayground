@@ -1,4 +1,4 @@
-﻿public sealed class EnvironmentFace : CoreFacade, IEnvironmentFace
+﻿public sealed class EnvironmentFace : BaseFace, IEnvironmentFace
 {
     public override void SetCard(ICard card)
     {

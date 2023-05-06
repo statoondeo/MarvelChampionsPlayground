@@ -1,5 +1,7 @@
-﻿public sealed class AllyFace : CoreFacade, IAllyFace
+﻿public sealed class AllyFace : BaseFace, IAllyFace
 {
+    #region Constructor
+
     private AllyFace(
             ITitleFacade titleFacade, 
             ICardTypeFacade cardTypeFacade, 
@@ -21,6 +23,10 @@
         CostItem = costFacade;
     }
 
+    #endregion
+
+    #region ICardHolder
+
     public override void SetCard(ICard card)
     {
         base.SetCard(card);
@@ -30,6 +36,8 @@
         CostItem.SetCard(card);
         ResourceItem.SetCard(card);
     }
+
+    #endregion
 
     #region IThwartFacade
 
@@ -89,7 +97,9 @@
 
     #endregion
 
-    public static IAllyFace Get(AllyFaceModel faceModel)
+    #region Factory
+
+    public static IFace Get(AllyFaceModel faceModel)
         => new AllyFace(
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
             CardTypeFacade.Get(faceModel.CardType),
@@ -99,4 +109,6 @@
             AttackFacade.Get(faceModel.Attack),
             ResourceGeneratorFacade.Get(faceModel.Energy, faceModel.Mental, faceModel.Physic, faceModel.Wild),
             CostFacade.Get(faceModel.Cost));
+
+    #endregion
 }

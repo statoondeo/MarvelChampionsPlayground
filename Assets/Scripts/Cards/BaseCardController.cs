@@ -11,13 +11,17 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
 
     public void Flip()
     {
-        Card.FlipTo("BACK");
-        RoutineController.Commit();
+        CompositeCommand.Get(
+            FlipToCommand.Get(Card.Game, Card, "BACK"),
+            CommitGameCommand.Get(Card.Game))
+            .Execute();
     }
     public void UnFlip()
     {
-        Card.FlipTo("FACE");
-        RoutineController.Commit();
+        CompositeCommand.Get(
+            FlipToCommand.Get(Card.Game, Card, "FACE"),
+            CommitGameCommand.Get(Card.Game))
+            .Execute();
     }
     public void Tap()
     {
@@ -31,8 +35,10 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
     }
     public void MoveTo(string newLocation)
     {
-        Card.MoveTo(newLocation);
-        RoutineController.Commit();
+        CompositeCommand.Get(
+            MoveToCommand.Get(Card.Game, Card, newLocation),
+            CommitGameCommand.Get(Card.Game))
+            .Execute();
     }
     public CardType CardType => Card.CardType;
     #endregion
@@ -54,25 +60,12 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
         GameController = gameController;
         RoutineController = routineController;
         Card = card;
-        gameObject.name = Card.CurrentFace.Title;
-        SpriteRenderer.sprite = Card.CurrentFace.Sprite;
-        //Card.Register(OnFlippedCallback);
-        //Card.OnTapped += OnTappedCallback;
-        //Card.OnUnTapped += OnTappedCallback;
-        //Card.OnFlipped += OnFlippedCallback;
-        //Card.OnOrderChanged += OnOrderChangedCallback;
-        OnOrderChangedCallback(0);
-    }
-    protected void OnTappedCallback(bool tapped) 
-        => RoutineController.TapRoutine(ImageTransform, tapped);
-    protected void OnOrderChangedCallback(int order)
-    {
-        transform.SetSiblingIndex(Card.Order);
-        SpriteRenderer.sortingOrder = Card.Order;
+        gameObject.name = (Card.CurrentFace as ITitleComponent).Title;
+        SpriteRenderer.sprite = (Card.CurrentFace as ITitleComponent).Sprite;
+        Card.Register(ComponentType.Flip, OnFlippedCallback);
     }
     public int GetSpriteLayer() => SpriteRenderer.sortingLayerID;
     public int SetSpriteLayer(int layerId) => SpriteRenderer.sortingLayerID = layerId;
     protected virtual void OnFlippedCallback(IFlipComponent component)
-        => RoutineController.FlipRoutine(ImageTransform, SpriteRenderer, Card.CurrentFace.Sprite);
-    public void Spin() => RoutineController.SpinRoutine(ImageTransform);
+        => RoutineController.FlipRoutine(ImageTransform, SpriteRenderer, (Card.CurrentFace as ITitleComponent).Sprite);
 }

@@ -1,1 +1,1 @@
-﻿public interface ISideSchemeFace : ICoreFacade, ITreatStartFacade, IBoostFacade, IWhenRevealedFacade { }
+﻿public interface ISideSchemeFace : IFace, ICoreFacade, ITreatStartFacade, IBoostFacade, IWhenRevealedFacade { }

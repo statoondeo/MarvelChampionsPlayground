@@ -1,4 +1,4 @@
-﻿public sealed class AttachmentFace : CoreFacade, IAttachmentFace
+﻿public sealed class AttachmentFace : BaseFace, IAttachmentFace
 {
     public override void SetCard(ICard card)
     {

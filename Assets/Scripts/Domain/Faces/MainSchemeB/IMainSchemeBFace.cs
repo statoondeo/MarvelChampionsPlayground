@@ -1,1 +1,1 @@
-﻿public interface IMainSchemeBFace : ICoreFacade, ITreatStartFacade, ITreatThresholdFacade, ITreatAccelerationFacade, IStadeFacade, IWhenRevealedFacade { }
+﻿public interface IMainSchemeBFace : IFace, ICoreFacade, ITreatStartFacade, ITreatThresholdFacade, ITreatAccelerationFacade, IStadeFacade, IWhenRevealedFacade { }

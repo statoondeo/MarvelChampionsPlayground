@@ -14,7 +14,7 @@
     {
         ICard lastCard = Zone.GetLast();
         if (lastCard is null) return;
-        GameController.CardControllers.GetFirst(CardIdControllerSelector.Get(lastCard.Id)).Spin(); ;
+        //GameController.CardControllers.GetFirst(CardIdControllerSelector.Get(lastCard.Id)).Spin(); ;
     }
     protected override void PlaceCards(BaseCardController cardController)
     {

@@ -1,6 +1,6 @@
 ﻿public abstract class BaseDecorator<T> : IDecorator<T> where T : IComponent<T>
 {
-    protected ICard Card;
+    public ICard Card { get; protected set; }
     protected BaseDecorator() { }
     public ComponentType Type => Inner.Type;
     public IFacade<T> Facade { get; protected set; }

@@ -1,4 +1,4 @@
-﻿public sealed class ObligationFace : CoreFacade, IObligationFace
+﻿public sealed class ObligationFace : BaseFace, IObligationFace
 {
     public override void SetCard(ICard card)
     {

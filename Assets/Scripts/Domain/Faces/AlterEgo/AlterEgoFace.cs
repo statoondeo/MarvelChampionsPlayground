@@ -1,4 +1,4 @@
-﻿public sealed class AlterEgoFace : CoreFacade, IAlterEgoFace
+﻿public sealed class AlterEgoFace : BaseFace, IAlterEgoFace
 {
     public override void SetCard(ICard card)
     {
@@ -7,6 +7,7 @@
         HandSizeItem.SetCard(card);
         SetupItem.SetCard(card);
     }
+
     #region IRecoveryFacade
 
     private readonly IRecoveryFacade RecoveryItem;

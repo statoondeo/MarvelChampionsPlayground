@@ -1,1 +1,1 @@
-﻿public interface IMainSchemeAFace : ICoreFacade, IStadeFacade, ISetupFacade, IWhenRevealedFacade { }
+﻿public interface IMainSchemeAFace : IFace, ICoreFacade, IStadeFacade, ISetupFacade, IWhenRevealedFacade { }

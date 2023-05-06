@@ -1,4 +1,4 @@
-﻿public sealed class ResourceFace : CoreFacade, IResourceFace
+﻿public sealed class ResourceFace : BaseFace, IResourceFace
 {
     public override void SetCard(ICard card)
     {

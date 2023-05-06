@@ -1,1 +1,1 @@
-﻿public interface ITreacheryFace : ICoreFacade, IBoostFacade, IWhenRevealedFacade { }
+﻿public interface ITreacheryFace : IFace, ICoreFacade, IBoostFacade, IWhenRevealedFacade { }

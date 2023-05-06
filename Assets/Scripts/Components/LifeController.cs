@@ -6,17 +6,16 @@ public sealed class LifeController : MonoBehaviour
 {
     [SerializeField] private TMP_Text CurrentText;
     [SerializeField] private TMP_Text MaxText;
-    private ILifeFacade Model;
-
-    public void SetModel(ILifeFacade model)
+    private ILifeComponent Model;
+    public void SetModel(ILifeComponent model)
     {
         Model = model;
-        //Model.Register(OnChangedCallback);
-        OnChangedCallback<ILifeFacade>(null);
+        Model.Card.Register(ComponentType.Life, OnChangedCallback);
+        OnChangedCallback(Model.Card);
     }
-    private void OnChangedCallback<ILifeFacade>(ILifeFacade model)
+    private void OnChangedCallback(ICard model)
     {
-        CurrentText.text = Model.CurrentLife.ToString();
         MaxText.text = Model.TotalLife.ToString();
+        CurrentText.text = Model.CurrentLife.ToString();
     }
 }

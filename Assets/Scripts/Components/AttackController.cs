@@ -5,13 +5,12 @@ using UnityEngine;
 public sealed class AttackController : MonoBehaviour
 {
     [SerializeField] private TMP_Text Text;
-    private IAttackFacade Model;
-
-    public void SetModel(IAttackFacade model)
+    private IAttackComponent Model;
+    public void SetModel(IAttackComponent model)
     {
         Model = model;
-        //Model.Register(OnChangedCallback);
-        OnChangedCallback<IAttackFacade>(null);
+        Model.Card.Register(ComponentType.Attack, OnChangedCallback);
+        OnChangedCallback(Model.Card);
     }
-    private void OnChangedCallback<IAttackFacade>(IAttackFacade model) => Text.text = Model.Attack.ToString();
+    private void OnChangedCallback(ICard model) => Text.text = Model.Attack.ToString();
 }

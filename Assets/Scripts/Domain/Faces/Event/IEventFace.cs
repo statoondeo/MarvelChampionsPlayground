@@ -1,1 +1,1 @@
-﻿public interface IEventFace : ICoreFacade, IResourceGeneratorFacade, ICostFacade { }
+﻿public interface IEventFace : IFace, ICoreFacade, IResourceGeneratorFacade, ICostFacade { }

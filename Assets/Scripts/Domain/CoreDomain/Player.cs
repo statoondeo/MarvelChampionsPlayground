@@ -24,6 +24,5 @@ public sealed class Player : BaseEntity, IPlayer
     public void RegisterZoneId(string zoneName, string zoneId) => ZoneAtlas.Add(zoneName, zoneId);
 
     public void Draw(int nb) { }
-    public void DrawUpToHand() { }
     public void SetHeroCard(IHeroCard heroCard) => HeroCard = heroCard;
 }
