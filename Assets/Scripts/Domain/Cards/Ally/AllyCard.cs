@@ -2,30 +2,37 @@
 {
     private AllyCard(
             IGame game,
-            ICardMediator mediator, 
-            ICoreCardFacade coreCardFacade, 
-            IFlipFacade flipFacade, 
+            IMediator<IComponent> faceMediator,
+            IMediator<IComponent> backMediator,
+            ICoreCardFacade coreCardFacade,
+            IFlipFacade flipFacade,
             ITapFacade tapFacade,
             ILocationFacade locationFacade)
         : base(
-            game, 
-            mediator, 
-            coreCardFacade, 
-            flipFacade, 
+            game,
+            faceMediator,
+            backMediator,
+            coreCardFacade,
+            flipFacade,
             tapFacade,
             locationFacade) { }
     public static ICard Get(
-            IGame game, 
-            string id, 
-            string ownerId, 
-            CardModel cardModel) 
-        => new AllyCard(
-                game,
-                CardMediator.Get(),
-                CoreCardFacade.Get(cardModel.CardId, id, ownerId),
-                FlipFacade.Get(
-                    AllyFace.Get((AllyFaceModel)cardModel.Face),
-                    BackFace.Get((BackFaceModel)cardModel.Back)),
-                TapFacade.Get(),
-                LocationFacade.Get(string.Empty));
+            IGame game,
+            string id,
+            string ownerId,
+            CardModel cardModel)
+    {
+        IMediator<IComponent> faceMediator = ComponentMediator.Get();
+        IMediator<IComponent> backMediator = ComponentMediator.Get();
+        return new AllyCard(
+                    game,
+                    faceMediator,
+                    backMediator,
+                    CoreCardFacade.Get(cardModel.CardId, id, ownerId),
+                    FlipFacade.Get(
+                        AllyFace.Get(faceMediator, (AllyFaceModel)cardModel.Face),
+                        BackFace.Get(backMediator, (BackFaceModel)cardModel.Back)),
+                    TapFacade.Get(),
+                    LocationFacade.Get(string.Empty));
+    }
 }

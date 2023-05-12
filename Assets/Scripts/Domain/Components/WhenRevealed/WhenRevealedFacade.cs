@@ -2,6 +2,7 @@
 {
     private WhenRevealedFacade(IWhenRevealedComponent item) : base(item) { }
     public ICommand WhenRevealed => Item.WhenRevealed;
-    public static IWhenRevealedFacade Get(ICommand whenRevealed) 
-        => new WhenRevealedFacade(WhenRevealedComponent.Get(whenRevealed));
+    public void Reveal() => Item.Reveal();
+    public static IWhenRevealedFacade Get(IWhenRevealedComponent item) 
+        => new WhenRevealedFacade(item);
 }

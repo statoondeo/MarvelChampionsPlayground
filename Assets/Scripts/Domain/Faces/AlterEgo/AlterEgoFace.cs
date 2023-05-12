@@ -1,5 +1,7 @@
 ﻿public sealed class AlterEgoFace : BaseFace, IAlterEgoFace
 {
+    #region ICardHolder
+
     public override void SetCard(ICard card)
     {
         base.SetCard(card);
@@ -7,6 +9,8 @@
         HandSizeItem.SetCard(card);
         SetupItem.SetCard(card);
     }
+
+    #endregion
 
     #region IRecoveryFacade
 
@@ -44,6 +48,7 @@
     #region Constructeur
 
     public AlterEgoFace(
+            IMediator<IComponent> mediator,
             ITitleFacade titleFacade,
             ICardTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
@@ -51,6 +56,7 @@
             IHandSizeFacade handSizeFacade,
             ISetupFacade setupFacade)
         : base(
+            mediator,
             titleFacade,
             cardTypeFacade,
             classificationFacade)
@@ -58,14 +64,19 @@
         RecoveryItem = recoveryFacade;
         HandSizeItem = handSizeFacade;
         SetupItem = setupFacade;
+
+        Mediator.Register<IRecoveryComponent>(RecoveryItem);
+        Mediator.Register<IHandSizeComponent>(HandSizeItem);
+        Mediator.Register<ISetupComponent>(SetupItem);
     }
 
     #endregion
 
     #region Factory
 
-    public static IAlterEgoFace Get(AlterEgoFaceModel faceModel)
+    public static IAlterEgoFace Get(IMediator<IComponent> mediator, AlterEgoFaceModel faceModel)
         => new AlterEgoFace(
+                    mediator,
                     TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
                     CardTypeFacade.Get(faceModel.CardType),
                     ClassificationFacade.Get(faceModel.Classification),

@@ -1,23 +1,34 @@
-﻿using UnityEngine;
-
-public sealed class AllyCardController : BaseCardController
+﻿public sealed class AllyCardController : BaseCardController
 {
-    [SerializeField] private AllyFaceController FaceController;
-    [SerializeField] private BackFaceController BackController;
+    private AllyFaceController FaceController;
+    private BackFaceController BackController;
 
-    protected override void OnFlippedCallback(IFlipComponent component)
+    private void Awake()
     {
-        base.OnFlippedCallback(component);
-        FaceController.gameObject.SetActive(!Card.CurrentFace.IsCardType(CardType.None));
-        BackController.gameObject.SetActive(!FaceController.gameObject.activeSelf);
+        FaceController = FacePanelController.GetComponent<AllyFaceController>();
+        BackController = BackPanelController.GetComponent<BackFaceController>();
     }
-
-    public override void SetData(GameController gameController, RoutineController routineController, ICard card)
+    protected override void InitValues()
     {
-        base.SetData(gameController, routineController, card);
-        FaceController.SetModel(card.Faces["FACE"] as IAllyFace);
-        BackController.SetModel(card.Faces["BACK"] as IBackFace);
-
-        OnFlippedCallback(null);
+        IAllyCard allyCard = Card as IAllyCard;
+        if (Card.IsLocation("BATTLEFIELD") && Card.CurrentFace.IsCardType(CardType.Ally))
+        {
+            FacePanelController.SetActive(true);
+            FaceController.SetModel(allyCard.Faces["FACE"] as IAllyFace);
+        }
+        else
+        {
+            FacePanelController.SetActive(false);
+        }
+        if (Card.IsLocation("BATTLEFIELD") && !Card.CurrentFace.IsCardType(CardType.Ally))
+        {
+            BackPanelController.SetActive(true);
+            BackController.SetModel(allyCard.Faces["BACK"] as IBackFace);
+        }
+        else
+        {
+            BackPanelController.SetActive(false);
+        }
     }
+    public void DealDamage() => (Card.CurrentFace as IAllyFace)?.TakeDamage(1);
 }

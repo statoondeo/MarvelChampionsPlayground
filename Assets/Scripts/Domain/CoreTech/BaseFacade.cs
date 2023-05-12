@@ -1,14 +1,12 @@
-﻿public abstract class BaseFacade<T> : IFacade<T> where T : IComponent<T>
+﻿public abstract class BaseFacade<T> : IFacade<T> where T : class, IComponent<T>
 {
-    public ICard Card { get; protected set; }
     protected T Item;
     protected BaseFacade(T item) => Item = item;
-    public ComponentType Type => Item.Type;
     public void AddDecorator(IDecorator<T> decorator)
     {
         Item = (T)decorator.Wrap(Item);
         decorator.SetFacade(this);
-        Card.Raise(Item.Type);
+        Card.Raise<T>();
     }
     public void RemoveDecorator(IDecorator<T> decorator)
     {
@@ -29,13 +27,19 @@
                 previous.Wrap(current.Inner);
             }
             current.SetFacade(null);
-            Card.Raise(Item.Type);
+            Card.Raise<T>();
             break;
         }
     }
+
+    #region ICardHolder
+
+    public ICard Card { get; protected set; }
     public virtual void SetCard(ICard card)
     {
         Card = card;
         Item.SetCard(card);
     }
+
+    #endregion
 }

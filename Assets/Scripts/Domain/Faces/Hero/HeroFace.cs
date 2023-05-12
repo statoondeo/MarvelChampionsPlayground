@@ -1,5 +1,7 @@
 ﻿public sealed class HeroFace : BaseFace, IHeroFace
 {
+    #region ICardHolder
+
     public override void SetCard(ICard card)
     {
         base.SetCard(card);
@@ -8,6 +10,8 @@
         DefenseItem.SetCard(card);
         HandSizeItem.SetCard(card);
     }
+
+    #endregion
 
     #region IThwartFacade
 
@@ -50,6 +54,7 @@
     #region Constructeur
 
     private HeroFace(
+            IMediator<IComponent> mediator,
             ITitleFacade titleFacade,
             ICardTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
@@ -58,6 +63,7 @@
             IDefenseFacade defenseFacade,
             IHandSizeFacade handSizeFacade)
         : base(
+            mediator,
             titleFacade,
             cardTypeFacade,
             classificationFacade)
@@ -66,14 +72,20 @@
         ThwartItem = thwartFacade;
         AttackItem = attackFacade;
         DefenseItem = defenseFacade;
+
+        Mediator.Register<IHandSizeComponent>(HandSizeItem);
+        Mediator.Register<IThwartComponent>(ThwartItem);
+        Mediator.Register<IAttackComponent>(AttackItem);
+        Mediator.Register<IDefenseComponent>(DefenseItem);
     }
 
     #endregion
 
     #region Factory
 
-    public static IHeroFace Get(HeroFaceModel faceModel)
+    public static IHeroFace Get(IMediator<IComponent> mediator, HeroFaceModel faceModel)
         => new HeroFace(
+                    mediator,
                     TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
                     CardTypeFacade.Get(faceModel.CardType),
                     ClassificationFacade.Get(faceModel.Classification),

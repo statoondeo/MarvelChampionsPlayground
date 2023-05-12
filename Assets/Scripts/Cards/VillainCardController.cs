@@ -5,7 +5,7 @@ public sealed class VillainCardController : BaseCardController
     [SerializeField] private VillainFaceController FaceController;
     [SerializeField] private VillainFaceController BackController;
 
-    protected override void OnFlippedCallback(IFlipComponent component)
+    protected override void OnFlippedCallback(IComponent component)
     {
         base.OnFlippedCallback(component);
         FaceController.gameObject.SetActive(!(Card.CurrentFace as IVillainFace).IsCardType(CardType.None));
@@ -20,4 +20,6 @@ public sealed class VillainCardController : BaseCardController
 
         OnFlippedCallback(null);
     }
+    public void DealDamage() => (Card.CurrentFace as IVillainFace)?.TakeDamage(1);
+
 }

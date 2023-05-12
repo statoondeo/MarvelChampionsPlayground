@@ -2,5 +2,6 @@
 
 public sealed class SideSchemeFaceController : MonoBehaviour
 {
-    public void SetModel(ISideSchemeFace model) { }
+    [SerializeField] private TreatController TreatController;
+    public void SetModel(ISideSchemeFace model) => TreatController.SetModel(model);
 }

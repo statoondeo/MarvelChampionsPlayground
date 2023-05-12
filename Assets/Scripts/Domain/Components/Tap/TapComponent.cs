@@ -1,6 +1,6 @@
 ﻿public sealed class TapComponent : BaseComponent<ITapComponent>, ITapComponent
 {
-    public bool Tapped {get; private set;}
+    public bool Tapped { get; private set; }
     public TapComponent() : base()
     {
         Type = ComponentType.Tap;
@@ -10,13 +10,13 @@
     {
         if (Tapped) return;
         Tapped = true;
-        Card.Raise(Type);
+        Card.Raise<ITapComponent>();
     }
     public void UnTap()
     {
         if (!Tapped) return;
         Tapped = false;
-        Card.Raise(Type);
+        Card.Raise<ITapComponent>();
     }
     public static ITapComponent Get() => new TapComponent();
 }

@@ -1,10 +1,14 @@
 ﻿public sealed class ObligationFace : BaseFace, IObligationFace
 {
+    #region ICardHolder
+
     public override void SetCard(ICard card)
     {
         base.SetCard(card);
         BoostItem.SetCard(card);
     }
+
+    #endregion
 
     #region IBoostFacade
 
@@ -20,22 +24,29 @@
     #region Constructeur
 
     private ObligationFace(
+            IMediator<IComponent> mediator,
             ITitleFacade titleFacade,
             ICardTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
             IBoostFacade boostFacade)
         : base(
+            mediator,
             titleFacade,
             cardTypeFacade,
             classificationFacade)
-        => BoostItem = boostFacade;
+    {
+        BoostItem = boostFacade;
+
+        Mediator.Register<IBoostComponent>(BoostItem);
+    }
 
     #endregion
 
     #region Factory
 
-    public static IObligationFace Get(ObligationFaceModel faceModel)
+    public static IObligationFace Get(IMediator<IComponent> mediator, ObligationFaceModel faceModel)
         => new ObligationFace(
+            mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
             CardTypeFacade.Get(faceModel.CardType),
             ClassificationFacade.Get(faceModel.Classification),

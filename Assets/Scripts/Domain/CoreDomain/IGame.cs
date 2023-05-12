@@ -1,8 +1,8 @@
 ﻿public interface IGame :
     IRepository<IPlayer>,
     IRepository<IZone>,
-    IRepository<ICard>,
-    IGameMediator
+    IRepository<ICard>
+    //IGameMediator
 {
     void Commit();
     void Setup();

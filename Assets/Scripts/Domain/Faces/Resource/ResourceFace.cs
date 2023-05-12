@@ -1,10 +1,14 @@
 ﻿public sealed class ResourceFace : BaseFace, IResourceFace
 {
+    #region ICardHolder
+
     public override void SetCard(ICard card)
     {
         base.SetCard(card);
         ResourceItem.SetCard(card);
     }
+
+    #endregion
 
     #region IResourceFacade
 
@@ -25,22 +29,29 @@
     #region Constructeur
 
     private ResourceFace(
+            IMediator<IComponent> mediator,
             ITitleFacade titleFacade,
             ICardTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
             IResourceGeneratorFacade resourceFacade)
         : base(
+            mediator,
             titleFacade,
             cardTypeFacade,
-            classificationFacade) 
-        => ResourceItem = resourceFacade;
+            classificationFacade)
+    {
+        ResourceItem = resourceFacade;
+
+        Mediator.Register<IResourceGeneratorComponent>(ResourceItem);
+    }
 
     #endregion
 
     #region Factory
 
-    public static IResourceFace Get(ResourceFaceModel faceModel)
+    public static IResourceFace Get(IMediator<IComponent> mediator, ResourceFaceModel faceModel)
         => new ResourceFace(
+            mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
             CardTypeFacade.Get(faceModel.CardType),
             ClassificationFacade.Get(faceModel.Classification),

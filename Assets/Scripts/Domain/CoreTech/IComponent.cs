@@ -1,4 +1,2 @@
-﻿public interface IComponent<T> : ICardHolder
-{
-    ComponentType Type { get; }
-}
+﻿public interface IComponent : ICardHolder { }
+public interface IComponent<T> : IComponent { }

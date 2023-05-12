@@ -1,23 +1,33 @@
-﻿using UnityEngine;
-
-public sealed class SideSchemeCardController : BaseCardController
+﻿public sealed class SideSchemeCardController : BaseCardController
 {
-    [SerializeField] private SideSchemeFaceController FaceController;
-    [SerializeField] private BackFaceController BackController;
+    private SideSchemeFaceController FaceController;
+    private BackFaceController BackController;
 
-    protected override void OnFlippedCallback(IFlipComponent component)
+    private void Awake()
     {
-        base.OnFlippedCallback(component);
-        FaceController.gameObject.SetActive(!Card.CurrentFace.IsCardType(CardType.None));
-        BackController.gameObject.SetActive(!FaceController.gameObject.activeSelf);
+        FaceController = FacePanelController.GetComponent<SideSchemeFaceController>();
+        BackController = BackPanelController.GetComponent<BackFaceController>();
     }
-
-    public override void SetData(GameController gameController, RoutineController routineController, ICard card)
+    protected override void InitValues()
     {
-        base.SetData(gameController, routineController, card);
-        FaceController.SetModel(card.Faces["FACE"] as ISideSchemeFace);
-        BackController.SetModel(card.Faces["BACK"] as IBackFace);
-
-        OnFlippedCallback(null);
+        ISideSchemeCard sideSchemeCard = Card as ISideSchemeCard;
+        if (Card.IsLocation("BATTLEFIELD") && Card.CurrentFace.IsCardType(CardType.SideScheme))
+        {
+            FacePanelController.SetActive(true);
+            FaceController.SetModel(sideSchemeCard.Faces["FACE"] as ISideSchemeFace);
+        }
+        else
+        {
+            FacePanelController.SetActive(false);
+        }
+        if (Card.IsLocation("BATTLEFIELD") && !Card.CurrentFace.IsCardType(CardType.SideScheme))
+        {
+            BackPanelController.SetActive(true);
+            BackController.SetModel(sideSchemeCard.Faces["BACK"] as IBackFace);
+        }
+        else
+        {
+            BackPanelController.SetActive(false);
+        }
     }
 }

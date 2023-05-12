@@ -1,5 +1,7 @@
 ﻿public sealed class VillainFace : BaseFace, IVillainFace
 {
+    #region ICardHolder
+
     public override void SetCard(ICard card)
     {
         base.SetCard(card);
@@ -10,6 +12,8 @@
         SetupItem.SetCard(card);
         WhenRevealedItem.SetCard(card);
     }
+
+    #endregion
 
     #region ISchemeFacade
 
@@ -67,6 +71,7 @@
 
     private readonly IWhenRevealedFacade WhenRevealedItem;
     public ICommand WhenRevealed => WhenRevealedItem.WhenRevealed;
+    public void Reveal() => WhenRevealedItem.Reveal();
     public void AddDecorator(IDecorator<IWhenRevealedComponent> decorator)
         => WhenRevealedItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<IWhenRevealedComponent> decorator)
@@ -77,6 +82,7 @@
     #region Constructeur
 
     private VillainFace(
+            IMediator<IComponent> mediator,
             ITitleFacade titleFacade,
             ICardTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
@@ -87,6 +93,7 @@
             ISetupFacade setupFacade,
             IWhenRevealedFacade whenRevealedFacade)
         : base(
+            mediator,
             titleFacade,
             cardTypeFacade,
             classificationFacade)
@@ -97,14 +104,22 @@
         StadeItem = stadeFacade;
         SetupItem = setupFacade;
         WhenRevealedItem = whenRevealedFacade;
+
+        Mediator.Register<ILifeComponent>(LifeItem);
+        Mediator.Register<ISchemeComponent>(SchemeItem);
+        Mediator.Register<IAttackComponent>(AttackItem);
+        Mediator.Register<IStadeComponent>(StadeItem);
+        Mediator.Register<ISetupComponent>(SetupItem);
+        Mediator.Register<IWhenRevealedComponent>(WhenRevealedItem);
     }
 
     #endregion
 
     #region Factory
 
-    public static IVillainFace Get(VillainFaceModel faceModel)
+    public static IVillainFace Get(IMediator<IComponent> mediator, VillainFaceModel faceModel)
         => new VillainFace(
+                    mediator,
                     TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
                     CardTypeFacade.Get(faceModel.CardType),
                     ClassificationFacade.Get(faceModel.Classification),
@@ -113,7 +128,7 @@
                     StadeFacade.Get(faceModel.Stade),
                     LifeFacade.Get(faceModel.Life),
                     SetupFacade.Get(NullCommand.Get()),
-                    WhenRevealedFacade.Get(NullCommand.Get()));
+                    WhenRevealedFacade.Get(StaticWhenRevealedComponent.Get(NullCommand.Get())));
 
     #endregion
 }

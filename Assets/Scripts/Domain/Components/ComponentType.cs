@@ -25,4 +25,6 @@
     TreatStart,
     TreatThreshold,
     WhenRevealed,
+    Reset,
+    Treat,
 }

@@ -95,11 +95,19 @@ public sealed class RoutineController : MonoBehaviour
         }
         StartCoroutine(routine);
     }
-    public void FlipRoutine(Transform transform, SpriteRenderer spriteRenderer, Sprite nextSprite, float delay = 0)
+    public void FlipRoutine(
+        Transform transform, 
+        SpriteRenderer spriteRenderer, 
+        Sprite nextSprite,
+        Action midRoutineAction,
+        float delay = 0)
     {
         Vector2 initialScale = transform.localScale;
         Register(ScaleRoutine(delay, transform, initialScale * new Vector2(.02f, 1), .5f * FlipDuration, Easings.Get(FlipFunction)));
-        Register(ExecuteDelayedAction(delay + .5f * FlipDuration, () => spriteRenderer.sprite = nextSprite));
+        Register(ExecuteDelayedAction(delay + .5f * FlipDuration, () => {
+            spriteRenderer.sprite = nextSprite;
+            midRoutineAction.Invoke();
+        }));
         Register(ScaleRoutine(delay + .5f * FlipDuration, transform, initialScale, .5f * FlipDuration, Easings.Get(FlipFunction)));
     }
     public void TapRoutine(Transform transform, bool tapped)

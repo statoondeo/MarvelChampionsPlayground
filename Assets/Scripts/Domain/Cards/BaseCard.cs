@@ -1,38 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using static UnityEditor.Progress;
-
 public abstract class BaseCard : ICard
 {
-    public ICard Card => this;
-    protected readonly ICardMediator Mediator;
     public IGame Game { get; protected set; }
     public ComponentType Type => ComponentType.Composite;
     protected BaseCard(
         IGame game,
-        ICardMediator mediator,
+        IMediator<IComponent> faceMediator,
+        IMediator<IComponent> backMediator,
         ICoreCardFacade cardFacade,
         IFlipFacade flipFacade,
         ITapFacade tapFacade,
         ILocationFacade locationFacade)
     {
+        faceMediator.Register<ICoreCardComponent>(cardFacade);
+        faceMediator.Register<IFlipComponent>(flipFacade);
+        faceMediator.Register<ITapComponent>(tapFacade);
+        faceMediator.Register<ILocationComponent>(locationFacade);
+
+        backMediator.Register<ICoreCardComponent>(faceMediator.GetEventHandler<ICoreCardComponent>());
+        backMediator.Register<IFlipComponent>(faceMediator.GetEventHandler<IFlipComponent>());
+        backMediator.Register<ITapComponent>(faceMediator.GetEventHandler<ITapComponent>());
+        backMediator.Register<ILocationComponent>(faceMediator.GetEventHandler<ILocationComponent>());
+
         CardItem = cardFacade;
         FlipItem = flipFacade;
         TapItem = tapFacade;
         LocationItem = locationFacade;
         Game = game;
-        Mediator = mediator;
         SetCard(this);
     }
+
+    #region ICardHolder
+
+    public ICard Card => this;
     public void SetCard(ICard card)
     {
-        Mediator.SetCard(card);
         FlipItem.SetCard(card);
         TapItem.SetCard(card);
         LocationItem.SetCard(card);
         CardItem.SetCard(card);
     }
+
+    #endregion
 
     #region ILocationFacade
 
@@ -108,12 +119,16 @@ public abstract class BaseCard : ICard
 
     #endregion
 
-    #region IMediator<CardEvent, ICard>
+    #region IMediator<IComponent>
 
-    public void Raise(ComponentType eventName) => Mediator.Raise(eventName);
-    public void Raise(ComponentType eventName, ICard eventArg) => Mediator.Raise(eventName, eventArg);
-    public void Register(ComponentType eventToListen, Action<ICard> callback) => Mediator.Register(eventToListen, callback);
-    public void UnRegister(ComponentType eventToListen, Action<ICard> callback) => Mediator.UnRegister(eventToListen, callback);
+    public void AddListener<U>(Action<IComponent> callback) where U : IComponent => CurrentFace.AddListener<U>(callback);
+    public void RemoveListener<U>(Action<IComponent> callback) where U : IComponent => CurrentFace.RemoveListener<U>(callback);
+    public void Raise<U>() where U : class, IComponent => CurrentFace.Raise<U>();
+    public U GetFacade<U>() where U : IComponent => CurrentFace.GetFacade<U>();
+    public void Register<U>(U reference) where U : IComponent => CurrentFace.Register<U>(reference);
+    public void UnRegister<U>(U reference) where U : IComponent => CurrentFace.UnRegister<U>(reference);
+    public IEvent<IComponent> GetEventHandler<U>() where U : IComponent => CurrentFace.GetEventHandler<U>();
+    public void Register<U>(IEvent<IComponent> eventHandler) where U : IComponent => CurrentFace.Register<U>(eventHandler);
 
     #endregion
 }

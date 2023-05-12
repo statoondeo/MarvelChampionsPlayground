@@ -5,7 +5,7 @@ public sealed class MainSchemeCardController : BaseCardController
     [SerializeField] private MainSchemeAFaceController FaceController;
     [SerializeField] private MainSchemeBFaceController BackController;
 
-    protected override void OnFlippedCallback(IFlipComponent component)
+    protected override void OnFlippedCallback(IComponent component)
     {
         base.OnFlippedCallback(component);
         FaceController.gameObject.SetActive(!Card.CurrentFace.IsCardType(CardType.None));

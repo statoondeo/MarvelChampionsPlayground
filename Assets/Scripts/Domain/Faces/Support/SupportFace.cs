@@ -1,11 +1,15 @@
 ﻿public sealed class SupportFace : BaseFace, ISupportFace
 {
+    #region ICardHolder
+
     public override void SetCard(ICard card)
     {
         base.SetCard(card);
         CostItem.SetCard(card);
         ResourceItem.SetCard(card);
     }
+
+    #endregion
 
     #region ICostFacade
 
@@ -37,26 +41,32 @@
     #region Constructeur
 
     private SupportFace(
+            IMediator<IComponent> mediator,
             ITitleFacade titleFacade,
             ICardTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
             IResourceGeneratorFacade resourceFacade,
             ICostFacade costFacade)
         : base(
-            titleFacade,
+             mediator,
+           titleFacade,
             cardTypeFacade,
             classificationFacade)
     {
         CostItem = costFacade;
         ResourceItem = resourceFacade;
+
+        Mediator.Register<ICostComponent>(CostItem);
+        Mediator.Register<IResourceGeneratorComponent>(ResourceItem);
     }
 
     #endregion
 
     #region Factory
 
-    public static ISupportFace Get(SupportFaceModel faceModel)
+    public static ISupportFace Get(IMediator<IComponent> mediator, SupportFaceModel faceModel)
         => new SupportFace(
+            mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
             CardTypeFacade.Get(faceModel.CardType),
             ClassificationFacade.Get(faceModel.Classification),

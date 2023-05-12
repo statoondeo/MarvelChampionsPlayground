@@ -2,41 +2,37 @@
 {
     private SideSchemeCard(
             IGame game,
-            ICardMediator mediator,
-            ICoreCardFacade coreCardFacade, 
+            IMediator<IComponent> faceMediator,
+            IMediator<IComponent> backMediator,
+            ICoreCardFacade coreCardFacade,
             IFlipFacade flipFacade,
             ITapFacade tapFacade,
             ILocationFacade locationFacade)
         : base(
-            game, 
-            mediator, 
-            coreCardFacade, 
-            flipFacade, 
+            game,
+            faceMediator,
+            backMediator,
+            coreCardFacade,
+            flipFacade,
             tapFacade,
-            locationFacade)
-    {
-        Card.Register(ComponentType.Location, OnBattlefieldCallback);
-        Card.Register(ComponentType.Flip, OnBattlefieldCallback);
-    }
-    private void OnBattlefieldCallback(ICard card)
-    {
-        if (card.IsLocation("BATTLEFIELD") && card.IsFace("FACE"))
-            card.Tap();
-        else
-            card.UnTap();
-    }
+            locationFacade) { }
     public static ICard Get(
-            IGame game, 
-            string id, 
-            string ownerId, 
-            CardModel cardModel) 
-        => new SideSchemeCard(
-                game,
-                CardMediator.Get(),
-                CoreCardFacade.Get(cardModel.CardId, id, ownerId),
-                FlipFacade.Get(
-                    SideSchemeFace.Get((SideSchemeFaceModel)cardModel.Face),
-                    BackFace.Get((BackFaceModel)cardModel.Back)),
-                TapFacade.Get(),
-                LocationFacade.Get(string.Empty));
+            IGame game,
+            string id,
+            string ownerId,
+            CardModel cardModel)
+    {
+        IMediator<IComponent> faceMediator = ComponentMediator.Get();
+        IMediator<IComponent> backMediator = ComponentMediator.Get();
+        return new SideSchemeCard(
+                    game,
+                    faceMediator,
+                    backMediator,
+                    CoreCardFacade.Get(cardModel.CardId, id, ownerId),
+                    FlipFacade.Get(
+                        SideSchemeFace.Get(faceMediator, (SideSchemeFaceModel)cardModel.Face),
+                        BackFace.Get(backMediator, (BackFaceModel)cardModel.Back)),
+                    TapFacade.Get(),
+                    LocationFacade.Get(string.Empty));
+    }
 }

@@ -1,4 +1,4 @@
-﻿public interface IDecorator<T> : IComponent<T> where T : IComponent<T>
+﻿public interface IDecorator<T> : IComponent<T> where T : IComponent
 {
     IFacade<T> Facade { get; }
     IComponent<T> Inner { get; }

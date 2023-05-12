@@ -19,9 +19,9 @@ public sealed class FlipComponent : BaseComponent<IFlipComponent>, IFlipComponen
     public void FlipTo(string face)
     {
         if (!Faces.TryGetValue(face, out IFace newFace)) return;
-        if (CurrentFace == newFace) return;
+        if (CurrentFace.Equals(newFace)) return;
         CurrentFace = newFace;
-        Card.Raise(Type);
+        Card.Raise<IFlipComponent>();
     }
     public static IFlipComponent Get(IFace face, IFace back)
         => new FlipComponent(face, back);

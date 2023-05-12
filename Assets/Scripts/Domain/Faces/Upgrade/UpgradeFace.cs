@@ -1,11 +1,15 @@
 ﻿public sealed class UpgradeFace : BaseFace, IUpgradeFace
 {
+    #region ICardHolder
+
     public override void SetCard(ICard card)
     {
         base.SetCard(card);
         CostItem.SetCard(card);
         ResourceItem.SetCard(card);
     }
+
+    #endregion
 
     #region ICostFacade
 
@@ -37,26 +41,32 @@
     #region Constructeur
 
     private UpgradeFace(
+            IMediator<IComponent> mediator,
             ITitleFacade titleFacade,
             ICardTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
             IResourceGeneratorFacade resourceFacade,
             ICostFacade costFacade)
         : base(
+            mediator,
             titleFacade,
             cardTypeFacade,
             classificationFacade)
     {
         CostItem = costFacade;
         ResourceItem = resourceFacade;
+
+        Mediator.Register<ICostComponent>(CostItem);
+        Mediator.Register<IResourceGeneratorComponent>(ResourceItem);
     }
 
     #endregion
 
     #region Factory
 
-    public static IUpgradeFace Get(UpgradeFaceModel faceModel)
+    public static IUpgradeFace Get(IMediator<IComponent> mediator, UpgradeFaceModel faceModel)
         => new UpgradeFace(
+            mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
             CardTypeFacade.Get(faceModel.CardType),
             ClassificationFacade.Get(faceModel.Classification),

@@ -1,11 +1,15 @@
 ﻿public sealed class EventFace : BaseFace, IEventFace
 {
+    #region ICardHolder
+
     public override void SetCard(ICard card)
     {
         base.SetCard(card);
         CostItem.SetCard(card);
         ResourceItem.SetCard(card);
     }
+
+    #endregion
 
     #region ICostFacade
 
@@ -37,26 +41,32 @@
     #region Constructeur
 
     private EventFace(
+            IMediator<IComponent> mediator,
             ITitleFacade titleFacade,
             ICardTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
             IResourceGeneratorFacade resourceFacade,
             ICostFacade costFacade)
         : base(
-            titleFacade,
+             mediator,
+           titleFacade,
             cardTypeFacade,
             classificationFacade)
     {
         CostItem = costFacade;
         ResourceItem = resourceFacade;
+
+        Mediator.Register<ICostComponent>(CostItem);
+        Mediator.Register<IResourceGeneratorComponent>(ResourceItem);
     }
 
     #endregion
 
     #region Factory
 
-    public static IEventFace Get(EventFaceModel faceModel)
+    public static IEventFace Get(IMediator<IComponent> mediator, EventFaceModel faceModel)
         => new EventFace(
+            mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
             CardTypeFacade.Get(faceModel.CardType),
             ClassificationFacade.Get(faceModel.Classification),

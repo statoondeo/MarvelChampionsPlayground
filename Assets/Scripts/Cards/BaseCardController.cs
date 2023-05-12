@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
+
 public abstract class BaseCardController : MonoBehaviour, IGridItem
 {
+    [SerializeField] protected GameObject FacePanelController;
+    [SerializeField] protected GameObject BackPanelController;
+
     #region ICard
 
     public ICard Card { get; private set; }
@@ -9,38 +13,33 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
     public string Location => Card.Location;
     public int Order => Card.Order;
 
-    public void Flip()
-    {
-        CompositeCommand.Get(
+    public void Flip() 
+        => CompositeCommand.Get(
             FlipToCommand.Get(Card.Game, Card, "BACK"),
-            CommitGameCommand.Get(Card.Game))
+            CommitRoutineCommand.Get(RoutineController))
             .Execute();
-    }
-    public void UnFlip()
-    {
-        CompositeCommand.Get(
+    public void UnFlip() 
+        => CompositeCommand.Get(
             FlipToCommand.Get(Card.Game, Card, "FACE"),
-            CommitGameCommand.Get(Card.Game))
+            CommitRoutineCommand.Get(RoutineController))
             .Execute();
-    }
-    public void Tap()
-    {
-        Card.Tap();
-        RoutineController.Commit();
-    }
-    public void UnTap()
-    {
-        Card.UnTap();
-        RoutineController.Commit();
-    }
-    public void MoveTo(string newLocation)
-    {
-        CompositeCommand.Get(
+    public void Tap() 
+        => CompositeCommand.Get(
+            TapCommand.Get(Card.Game, Card),
+            CommitRoutineCommand.Get(RoutineController))
+            .Execute();
+    public void UnTap() 
+        => CompositeCommand.Get(
+            UnTapCommand.Get(Card.Game, Card),
+            CommitRoutineCommand.Get(RoutineController))
+            .Execute();
+    public void MoveTo(string newLocation) 
+        => CompositeCommand.Get(
             MoveToCommand.Get(Card.Game, Card, newLocation),
-            CommitGameCommand.Get(Card.Game))
+            CommitRoutineCommand.Get(RoutineController))
             .Execute();
-    }
     public CardType CardType => Card.CardType;
+
     #endregion
 
     #region IGridItem
@@ -62,10 +61,28 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
         Card = card;
         gameObject.name = (Card.CurrentFace as ITitleComponent).Title;
         SpriteRenderer.sprite = (Card.CurrentFace as ITitleComponent).Sprite;
-        Card.Register(ComponentType.Flip, OnFlippedCallback);
+        Card.AddListener<IFlipComponent>(OnFlippedCallback);
+        Card.AddListener<ITapComponent>(OnTappedCallback);
+        Card.AddListener<ILocationComponent>(OnMovedCallback);
+        InitValues();
     }
     public int GetSpriteLayer() => SpriteRenderer.sortingLayerID;
     public int SetSpriteLayer(int layerId) => SpriteRenderer.sortingLayerID = layerId;
-    protected virtual void OnFlippedCallback(IFlipComponent component)
-        => RoutineController.FlipRoutine(ImageTransform, SpriteRenderer, (Card.CurrentFace as ITitleComponent).Sprite);
+    protected virtual void InitValues() { }
+    protected virtual void OnMovedCallback(IComponent component) => InitValues();
+    protected virtual void OnFlippedCallback(IComponent component)
+        => RoutineController.FlipRoutine(
+                ImageTransform,
+                SpriteRenderer,
+                (Card.CurrentFace as ITitleComponent).Sprite,
+                MidFlipRoutineAction);
+
+    protected virtual void OnTappedCallback(IComponent component)
+        => RoutineController.TapRoutine(ImageTransform, (component as ITapComponent).Tapped);
+    protected void MidFlipRoutineAction()
+    {
+        (Card.IsFace("FACE") ? FacePanelController : BackPanelController).SetActive(true);
+        (Card.IsFace("FACE") ? BackPanelController : FacePanelController).SetActive(false);
+        InitValues();
+    }
 }

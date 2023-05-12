@@ -5,7 +5,7 @@ public sealed class UpgradeCardController : BaseCardController
     [SerializeField] private UpgradeFaceController FaceController;
     [SerializeField] private BackFaceController BackController;
 
-    protected override void OnFlippedCallback(IFlipComponent component)
+    protected override void OnFlippedCallback(IComponent component)
     {
         base.OnFlippedCallback(component);
         FaceController.gameObject.SetActive(!(Card.CurrentFace as IUpgradeCard).IsCardType(CardType.None));

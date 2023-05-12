@@ -2,7 +2,9 @@
 {
     private HeroCard(
             IGame game,
-            ICardMediator mediator,
+            IMediator<IComponent> faceMediator,
+            IMediator<IComponent> backMediator,
+            IResetFacade resetFacade,
             ICoreCardFacade coreCardFacade,
             IFlipFacade flipFacade,
             ITapFacade tapFacade,
@@ -10,14 +12,22 @@
             ILocationFacade locationFacade)
         : base(
             game,
-            mediator,
+            faceMediator,
+            backMediator,
             coreCardFacade,
             flipFacade,
             tapFacade,
             locationFacade)
     {
+        faceMediator.Register<ILifeComponent>(lifeFacade);
+        faceMediator.Register<IResetComponent>(resetFacade);
+
+        backMediator.Register<ILifeComponent>(faceMediator.GetEventHandler<ILifeComponent>());
+        backMediator.Register<IResetComponent>(faceMediator.GetEventHandler<IResetComponent>());
+
         LifeItem = lifeFacade;
         LifeItem.SetCard(this);
+        resetFacade.SetCard(this);
     }
 
     #region ILifeFacade
@@ -32,17 +42,25 @@
 
     #endregion
 
+    #region Factory
+
     public static ICard Get(IGame game, string id, string ownerId, CardModel cardModel)
     {
+        IMediator<IComponent> alterEgoMediator = ComponentMediator.Get();
+        IMediator<IComponent> heroMediator = ComponentMediator.Get();
         return new HeroCard(
                     game,
-                    CardMediator.Get(),
+                    alterEgoMediator,
+                    heroMediator,
+                    ResetFacade.Get(PermanentResetComponent.Get()),
                     CoreCardFacade.Get(cardModel.CardId, id, ownerId),
                     FlipFacade.Get(
-                        AlterEgoFace.Get((AlterEgoFaceModel)cardModel.Face),
-                        HeroFace.Get((HeroFaceModel)cardModel.Back)),
+                        AlterEgoFace.Get(alterEgoMediator, (AlterEgoFaceModel)cardModel.Face),
+                        HeroFace.Get(heroMediator, (HeroFaceModel)cardModel.Back)),
                     TapFacade.Get(),
                     LifeFacade.Get(((HeroCardModel)cardModel).Life),
                     LocationFacade.Get(string.Empty));
     }
+
+    #endregion
 }

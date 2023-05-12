@@ -1,5 +1,7 @@
 ﻿public sealed class MainSchemeBFace : BaseFace, IMainSchemeBFace
 {
+    #region ICardHolder
+
     public override void SetCard(ICard card)
     {
         base.SetCard(card);
@@ -9,6 +11,8 @@
         TreatThresholdItem.SetCard(card);
         WhenRevealedItem.SetCard(card);
     }
+
+    #endregion
 
     #region IStadeFacade
 
@@ -50,6 +54,7 @@
 
     private readonly IWhenRevealedFacade WhenRevealedItem;
     public ICommand WhenRevealed => WhenRevealedItem.WhenRevealed;
+    public void Reveal() => WhenRevealedItem.Reveal();
     public void AddDecorator(IDecorator<IWhenRevealedComponent> decorator)
         => WhenRevealedItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<IWhenRevealedComponent> decorator)
@@ -60,6 +65,7 @@
     #region Constructeur
 
     private MainSchemeBFace(
+            IMediator<IComponent> mediator,
             ITitleFacade titleFacade,
             ICardTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
@@ -69,7 +75,8 @@
             ITreatAccelerationFacade treatAccelerationFacade,
             IWhenRevealedFacade whenRevealedFacade)
         : base(
-            titleFacade,
+             mediator,
+           titleFacade,
             cardTypeFacade,
             classificationFacade)
     {
@@ -78,14 +85,21 @@
         TreatThresholdItem = treatThresholdFacade;
         TreatAccelerationItem = treatAccelerationFacade;
         WhenRevealedItem = whenRevealedFacade;
+
+        Mediator.Register<IStadeComponent>(StadeItem);
+        Mediator.Register<ITreatStartComponent>(TreatStartItem);
+        Mediator.Register<ITreatThresholdComponent>(TreatThresholdItem);
+        Mediator.Register<ITreatAccelerationComponent>(TreatAccelerationItem);
+        Mediator.Register<IWhenRevealedComponent>(WhenRevealedItem);
     }
 
     #endregion
 
     #region Factory
 
-    public static IMainSchemeBFace Get(MainSchemeBFaceModel faceModel)
+    public static IMainSchemeBFace Get(IMediator<IComponent> mediator, MainSchemeBFaceModel faceModel)
         => new MainSchemeBFace(
+            mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
             CardTypeFacade.Get(faceModel.CardType),
             ClassificationFacade.Get(faceModel.Classification),
@@ -93,7 +107,7 @@
             TreatStartFacade.Get(faceModel.Starting),
             TreatThresholdFacade.Get(faceModel.Threshold),
             TreatAccelerationFacade.Get(faceModel.Stade),
-            WhenRevealedFacade.Get(NullCommand.Get()));
+            WhenRevealedFacade.Get(StaticWhenRevealedComponent.Get(NullCommand.Get())));
 
     #endregion
 }

@@ -5,7 +5,7 @@ public sealed class EnvironmentCardController : BaseCardController
     [SerializeField] private EnvironmentFaceController FaceController;
     [SerializeField] private BackFaceController BackController;
 
-    protected override void OnFlippedCallback(IFlipComponent component)
+    protected override void OnFlippedCallback(IComponent component)
     {
         base.OnFlippedCallback(component);
         FaceController.gameObject.SetActive(!Card.CurrentFace.IsCardType(CardType.None));

@@ -3,6 +3,7 @@
     #region Constructor
 
     private AllyFace(
+            IMediator<IComponent> mediator,
             ITitleFacade titleFacade, 
             ICardTypeFacade cardTypeFacade, 
             IClassificationFacade classificationFacade,
@@ -10,8 +11,10 @@
             IThwartFacade thwartFacade,
             IAttackFacade attackFacade,
             IResourceGeneratorFacade resourceFacade,
+            IResetFacade resetFacade,
             ICostFacade costFacade)
         : base(
+            mediator,
             titleFacade, 
             cardTypeFacade, 
             classificationFacade) 
@@ -21,6 +24,14 @@
         AttackItem = attackFacade;
         ResourceItem = resourceFacade;
         CostItem = costFacade;
+        ResetItem = resetFacade;
+
+        Mediator.Register<ILifeComponent>(LifeItem);
+        Mediator.Register<IThwartComponent>(ThwartItem);
+        Mediator.Register<IAttackComponent>(AttackItem);
+        Mediator.Register<IResourceGeneratorComponent>(ResourceItem);
+        Mediator.Register<ICostComponent>(CostItem);
+        Mediator.Register<IResetComponent>(ResetItem);
     }
 
     #endregion
@@ -34,6 +45,7 @@
         AttackItem.SetCard(card);
         LifeItem.SetCard(card);
         CostItem.SetCard(card);
+        ResetItem.SetCard(card);
         ResourceItem.SetCard(card);
     }
 
@@ -74,10 +86,21 @@
 
     private readonly ICostFacade CostItem;
     public int Cost => CostItem.Cost;
-    public void AddDecorator(IDecorator<ICostComponent> decorator) 
+    public void AddDecorator(IDecorator<ICostComponent> decorator)
         => CostItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<ICostComponent> decorator) 
+    public void RemoveDecorator(IDecorator<ICostComponent> decorator)
         => CostItem.RemoveDecorator(decorator);
+
+    #endregion
+
+    #region IResetFacade
+
+    private readonly IResetFacade ResetItem;
+    public void Reset() => ResetItem.Reset();
+    public void AddDecorator(IDecorator<IResetComponent> decorator)
+        => ResetItem.AddDecorator(decorator);
+    public void RemoveDecorator(IDecorator<IResetComponent> decorator)
+        => ResetItem.RemoveDecorator(decorator);
 
     #endregion
 
@@ -99,16 +122,20 @@
 
     #region Factory
 
-    public static IFace Get(AllyFaceModel faceModel)
-        => new AllyFace(
-            TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
-            CardTypeFacade.Get(faceModel.CardType),
-            ClassificationFacade.Get(faceModel.Classification),
-            LifeFacade.Get(faceModel.Life),
-            ThwartFacade.Get(faceModel.Thwart),
-            AttackFacade.Get(faceModel.Attack),
-            ResourceGeneratorFacade.Get(faceModel.Energy, faceModel.Mental, faceModel.Physic, faceModel.Wild),
-            CostFacade.Get(faceModel.Cost));
+    public static IFace Get(IMediator<IComponent> mediator, AllyFaceModel faceModel)
+    {
+        return new AllyFace(
+                mediator,
+                TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
+                CardTypeFacade.Get(faceModel.CardType),
+                ClassificationFacade.Get(faceModel.Classification),
+                LifeFacade.Get(faceModel.Life),
+                ThwartFacade.Get(faceModel.Thwart),
+                AttackFacade.Get(faceModel.Attack),
+                ResourceGeneratorFacade.Get(faceModel.Energy, faceModel.Mental, faceModel.Physic, faceModel.Wild),
+                ResetFacade.Get(BasicResetComponent.Get()),
+                CostFacade.Get(faceModel.Cost));
+    }
 
     #endregion
 }

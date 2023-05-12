@@ -2,26 +2,44 @@
 
 public sealed class HeroCardController : BaseCardController
 {
-    [SerializeField] private AlterEgoFaceController AlterEgoFaceController;
-    [SerializeField] private HeroFaceController HeroFaceController;
+    private AlterEgoFaceController FaceController;
+    private HeroFaceController BackController;
     [SerializeField] private LifeController LifeController;
-
-    protected override void OnFlippedCallback(IFlipComponent component)
+    private void Awake()
     {
-        base.OnFlippedCallback(component);
-        AlterEgoFaceController.gameObject.SetActive(Card.CurrentFace.IsCardType(CardType.AlterEgo));
-        HeroFaceController.gameObject.SetActive(!AlterEgoFaceController.gameObject.activeSelf);
+        FaceController = FacePanelController.GetComponent<AlterEgoFaceController>();
+        BackController = BackPanelController.GetComponent<HeroFaceController>();
     }
-
-    public override void SetData(GameController gameController, RoutineController routineController, ICard card)
+    protected override void InitValues()
     {
-        base.SetData(gameController, routineController, card);
-
-        IHeroCard heroCard = card as IHeroCard;
-        AlterEgoFaceController.SetModel(heroCard.Faces["FACE"] as IAlterEgoFace);
-        HeroFaceController.SetModel(heroCard.Faces["BACK"] as IHeroFace);
-        LifeController.SetModel(heroCard);
+        IHeroCard heroCard = Card as IHeroCard;
+        if (Card.IsLocation("BATTLEFIELD") && Card.CurrentFace.IsCardType(CardType.AlterEgo))
+        {
+            FacePanelController.SetActive(true);
+            FaceController.SetModel(heroCard.Faces["FACE"] as IAlterEgoFace);
+        }
+        else
+        {
+            FacePanelController.SetActive(false);
+        }
+        if (Card.IsLocation("BATTLEFIELD") && Card.CurrentFace.IsCardType(CardType.Hero))
+        {
+            BackPanelController.SetActive(true);
+            BackController.SetModel(heroCard.Faces["BACK"] as IHeroFace);
+        }
+        else
+        {
+            BackPanelController.SetActive(false);
+        }
+        if (Card.IsLocation("BATTLEFIELD"))
+        {
+            LifeController.gameObject.SetActive(true);
+            LifeController.SetModel(heroCard);
+        }
+        else
+        {
+            LifeController.gameObject.SetActive(false);
+        }
     }
-
     public void DealDamage() => (Card as IHeroCard).TakeDamage(1);
 }
