@@ -7,7 +7,6 @@ public sealed class FlipComponent : BaseComponent<IFlipComponent>, IFlipComponen
     private FlipComponent(IFace face, IFace back)
         : base()
     {
-        Type = ComponentType.Flip;
         Faces = new Dictionary<string, IFace>
         {
             { "FACE", face },

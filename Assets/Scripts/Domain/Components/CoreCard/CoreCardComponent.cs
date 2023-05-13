@@ -5,7 +5,6 @@
     public CoreCardComponent(string cardId, string id, string ownerId)
         : base()
     {
-        Type = ComponentType.Core;
         CardId = cardId;
         Id = id;
         OwnerId = ownerId;

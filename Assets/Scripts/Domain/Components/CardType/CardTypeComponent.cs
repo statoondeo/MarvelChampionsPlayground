@@ -3,7 +3,6 @@
     public CardType CardType { get; private set; }
     private CardTypeComponent(CardType cardType) : base()
     {
-        Type = ComponentType.CardType;
         CardType = cardType;
     }
     public bool IsCardType(CardType cardType) => CardType == cardType;

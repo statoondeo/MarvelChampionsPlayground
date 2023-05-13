@@ -16,6 +16,23 @@
             flipFacade,
             tapFacade,
             locationFacade) { }
+    public override void SetCard(ICard card)
+    {
+        base.SetCard(card);
+        Card.AddListener<IFlipComponent>(OnCardChanged);
+        Card.AddListener<ILocationComponent>(OnCardChanged);
+    }
+    private void OnCardChanged(IComponent component)
+    {
+        if (!Card.IsLocation("BATTLEFIELD"))
+        {
+            Card.UnTap();
+            return;
+        }
+        if (!Card.IsFace("FACE")) return;
+        Card.Tap();
+        (Card as ITreatComponent)?.Init();
+    }
     public static ICard Get(
             IGame game,
             string id,

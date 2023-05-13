@@ -4,7 +4,6 @@ using System.Collections.Generic;
 public abstract class BaseCard : ICard
 {
     public IGame Game { get; protected set; }
-    public ComponentType Type => ComponentType.Composite;
     protected BaseCard(
         IGame game,
         IMediator<IComponent> faceMediator,
@@ -32,10 +31,22 @@ public abstract class BaseCard : ICard
         SetCard(this);
     }
 
+    #region IComponent
+
+    public virtual void Init()
+    {
+        CardItem.Init();
+        FlipItem.Init();
+        TapItem.Init();
+        LocationItem.Init();
+    }
+
+    #endregion
+
     #region ICardHolder
 
     public ICard Card => this;
-    public void SetCard(ICard card)
+    public virtual void SetCard(ICard card)
     {
         FlipItem.SetCard(card);
         TapItem.SetCard(card);

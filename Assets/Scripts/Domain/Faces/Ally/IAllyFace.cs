@@ -6,5 +6,4 @@
     IAttackFacade, 
     ILifeFacade, 
     ICostFacade, 
-    IResetFacade,
     IResourceGeneratorFacade { }

@@ -11,7 +11,6 @@
             IThwartFacade thwartFacade,
             IAttackFacade attackFacade,
             IResourceGeneratorFacade resourceFacade,
-            IResetFacade resetFacade,
             ICostFacade costFacade)
         : base(
             mediator,
@@ -24,14 +23,12 @@
         AttackItem = attackFacade;
         ResourceItem = resourceFacade;
         CostItem = costFacade;
-        ResetItem = resetFacade;
 
         Mediator.Register<ILifeComponent>(LifeItem);
         Mediator.Register<IThwartComponent>(ThwartItem);
         Mediator.Register<IAttackComponent>(AttackItem);
         Mediator.Register<IResourceGeneratorComponent>(ResourceItem);
         Mediator.Register<ICostComponent>(CostItem);
-        Mediator.Register<IResetComponent>(ResetItem);
     }
 
     #endregion
@@ -45,7 +42,6 @@
         AttackItem.SetCard(card);
         LifeItem.SetCard(card);
         CostItem.SetCard(card);
-        ResetItem.SetCard(card);
         ResourceItem.SetCard(card);
     }
 
@@ -93,17 +89,6 @@
 
     #endregion
 
-    #region IResetFacade
-
-    private readonly IResetFacade ResetItem;
-    public void Reset() => ResetItem.Reset();
-    public void AddDecorator(IDecorator<IResetComponent> decorator)
-        => ResetItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IResetComponent> decorator)
-        => ResetItem.RemoveDecorator(decorator);
-
-    #endregion
-
     #region IResourceFacade
 
     private readonly IResourceGeneratorFacade ResourceItem;
@@ -133,7 +118,6 @@
                 ThwartFacade.Get(faceModel.Thwart),
                 AttackFacade.Get(faceModel.Attack),
                 ResourceGeneratorFacade.Get(faceModel.Energy, faceModel.Mental, faceModel.Physic, faceModel.Wild),
-                ResetFacade.Get(BasicResetComponent.Get()),
                 CostFacade.Get(faceModel.Cost));
     }
 

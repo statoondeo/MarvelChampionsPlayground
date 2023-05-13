@@ -6,7 +6,6 @@
     private TreatAccelerationComponent(int treatAcceleration)
         : base()
     {
-        Type = ComponentType.TreatAcceleration;
         TreatAcceleration = treatAcceleration;
     }
     public static ITreatAccelerationComponent Get(int treatAcceleration) 

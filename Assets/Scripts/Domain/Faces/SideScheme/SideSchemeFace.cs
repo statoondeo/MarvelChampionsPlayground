@@ -6,9 +6,7 @@
     {
         base.SetCard(card);
         BoostItem.SetCard(card);
-        ResetItem.SetCard(card);
         TreatItem.SetCard(card);
-        TreatStartItem.SetCard(card);
         WhenRevealedItem.SetCard(card);
     }
 
@@ -37,15 +35,6 @@
 
     #endregion
 
-    #region ITreatStartFacade
-
-    private readonly ITreatStartFacade TreatStartItem;
-    public int TreatStart => TreatStartItem.TreatStart;
-    public void AddDecorator(IDecorator<ITreatStartComponent> decorator) => TreatStartItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<ITreatStartComponent> decorator) => TreatStartItem.RemoveDecorator(decorator);
-
-    #endregion
-
     #region ITreatFacade
 
     private readonly ITreatFacade TreatItem;
@@ -57,17 +46,6 @@
 
     #endregion
 
-    #region IResetFacade
-
-    private readonly IResetFacade ResetItem;
-    public void Reset() => ResetItem.Reset();
-    public void AddDecorator(IDecorator<IResetComponent> decorator)
-        => ResetItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IResetComponent> decorator)
-        => ResetItem.RemoveDecorator(decorator);
-
-    #endregion
-
     #region Constructeur
 
     private SideSchemeFace(
@@ -75,10 +53,8 @@
             ITitleFacade titleFacade,
             ICardTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
-            ITreatStartFacade treatStartFacade,
             ITreatFacade treatFacade,
             IBoostFacade boostFacade,
-            IResetFacade resetFacade,
             IWhenRevealedFacade whenRevealedFacade)
         : base(
              mediator,
@@ -86,16 +62,12 @@
             cardTypeFacade,
             classificationFacade)
     {
-        TreatStartItem = treatStartFacade;
         TreatItem = treatFacade;
         BoostItem = boostFacade;
-        ResetItem = resetFacade;
         WhenRevealedItem = whenRevealedFacade;
 
-        Mediator.Register<ITreatStartComponent>(TreatStartItem);
         Mediator.Register<ITreatComponent>(TreatItem);
         Mediator.Register<IBoostComponent>(BoostItem);
-        Mediator.Register<IResetComponent>(ResetItem);
         Mediator.Register<IWhenRevealedComponent>(WhenRevealedItem);
     }
 
@@ -109,10 +81,8 @@
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
             CardTypeFacade.Get(faceModel.CardType),
             ClassificationFacade.Get(faceModel.Classification),
-            TreatStartFacade.Get(faceModel.Starting),
-            TreatFacade.Get(),
+            TreatFacade.Get(faceModel.Starting),
             BoostFacade.Get(faceModel.Boost),
-            ResetFacade.Get(BasicResetComponent.Get()),
             WhenRevealedFacade.Get(PermanentWhenRevealedComponent.Get(NullCommand.Get())));
 
     #endregion

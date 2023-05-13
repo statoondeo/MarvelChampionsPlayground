@@ -4,7 +4,6 @@
             IGame game,
             IMediator<IComponent> faceMediator,
             IMediator<IComponent> backMediator,
-            IResetFacade resetFacade,
             ICoreCardFacade coreCardFacade,
             IFlipFacade flipFacade,
             ITapFacade tapFacade,
@@ -20,14 +19,21 @@
             locationFacade)
     {
         faceMediator.Register<ILifeComponent>(lifeFacade);
-        faceMediator.Register<IResetComponent>(resetFacade);
-
         backMediator.Register<ILifeComponent>(faceMediator.GetEventHandler<ILifeComponent>());
-        backMediator.Register<IResetComponent>(faceMediator.GetEventHandler<IResetComponent>());
 
         LifeItem = lifeFacade;
         LifeItem.SetCard(this);
-        resetFacade.SetCard(this);
+    }
+    public override void SetCard(ICard card)
+    {
+        base.SetCard(card);
+        Card.AddListener<ILocationComponent>(OnLocationChangedCallback);
+    }
+    private void OnLocationChangedCallback(IComponent component)
+    {
+        Card.UnTap();
+        Card.FlipTo("FACE");
+        LifeItem.Init();
     }
 
     #region ILifeFacade
@@ -52,7 +58,6 @@
                     game,
                     alterEgoMediator,
                     heroMediator,
-                    ResetFacade.Get(PermanentResetComponent.Get()),
                     CoreCardFacade.Get(cardModel.CardId, id, ownerId),
                     FlipFacade.Get(
                         AlterEgoFace.Get(alterEgoMediator, (AlterEgoFaceModel)cardModel.Face),

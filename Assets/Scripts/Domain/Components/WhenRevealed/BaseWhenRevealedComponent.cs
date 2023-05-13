@@ -2,7 +2,6 @@
 {
     protected BaseWhenRevealedComponent(ICommand command) : base()
     {
-        Type = ComponentType.WhenRevealed;
         WhenRevealed = command;
     }
     public ICommand WhenRevealed { get; protected set; }

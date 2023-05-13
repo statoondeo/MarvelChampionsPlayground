@@ -3,7 +3,6 @@
     public Classification Classification { get; private set; }
     private ClassificationComponent(Classification classification) : base()
     {
-        Type = ComponentType.Classification;
         Classification = classification;
     }
     public bool IsClassification(Classification classification) => Classification == classification;

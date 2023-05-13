@@ -7,7 +7,7 @@
         base.SetCard(card);
         StadeItem.SetCard(card);
         TreatAccelerationItem.SetCard(card);
-        TreatStartItem.SetCard(card);
+        TreatItem.SetCard(card);
         TreatThresholdItem.SetCard(card);
         WhenRevealedItem.SetCard(card);
     }
@@ -32,12 +32,14 @@
 
     #endregion
 
-    #region ITreatStartFacade
+    #region ITreatFacade
 
-    private readonly ITreatStartFacade TreatStartItem;
-    public int TreatStart => TreatStartItem.TreatStart;
-    public void AddDecorator(IDecorator<ITreatStartComponent> decorator) => TreatStartItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<ITreatStartComponent> decorator) => TreatStartItem.RemoveDecorator(decorator);
+    private readonly ITreatFacade TreatItem;
+    public int CurrentTreat => TreatItem.CurrentTreat;
+    public void AddDecorator(IDecorator<ITreatComponent> decorator) => TreatItem.AddDecorator(decorator);
+    public void RemoveDecorator(IDecorator<ITreatComponent> decorator) => TreatItem.RemoveDecorator(decorator);
+    public void AddTreat(int treat) => TreatItem.AddTreat(treat);
+    public void RemoveTreat(int treat) => TreatItem.RemoveTreat(treat);
 
     #endregion
 
@@ -70,7 +72,7 @@
             ICardTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
             IStadeFacade stadeFacade,
-            ITreatStartFacade treatStartFacade,
+            ITreatFacade treatFacade,
             ITreatThresholdFacade treatThresholdFacade,
             ITreatAccelerationFacade treatAccelerationFacade,
             IWhenRevealedFacade whenRevealedFacade)
@@ -81,13 +83,13 @@
             classificationFacade)
     {
         StadeItem = stadeFacade;
-        TreatStartItem = treatStartFacade;
+        TreatItem = treatFacade;
         TreatThresholdItem = treatThresholdFacade;
         TreatAccelerationItem = treatAccelerationFacade;
         WhenRevealedItem = whenRevealedFacade;
 
         Mediator.Register<IStadeComponent>(StadeItem);
-        Mediator.Register<ITreatStartComponent>(TreatStartItem);
+        Mediator.Register<ITreatComponent>(TreatItem);
         Mediator.Register<ITreatThresholdComponent>(TreatThresholdItem);
         Mediator.Register<ITreatAccelerationComponent>(TreatAccelerationItem);
         Mediator.Register<IWhenRevealedComponent>(WhenRevealedItem);
@@ -104,7 +106,7 @@
             CardTypeFacade.Get(faceModel.CardType),
             ClassificationFacade.Get(faceModel.Classification),
             StadeFacade.Get(faceModel.Stade),
-            TreatStartFacade.Get(faceModel.Starting),
+            TreatFacade.Get(faceModel.Starting),
             TreatThresholdFacade.Get(faceModel.Threshold),
             TreatAccelerationFacade.Get(faceModel.Stade),
             WhenRevealedFacade.Get(StaticWhenRevealedComponent.Get(NullCommand.Get())));

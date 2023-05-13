@@ -4,7 +4,16 @@ using UnityEngine;
 
 public abstract class BaseFace : IFace, ICoreFacade
 {
-    public ComponentType Type => ComponentType.Composite;
+    #region IComponent
+
+    public virtual void Init() 
+    {
+        CardTypeFacade.Init();
+        ClassificationFacade.Init();
+        TitleFacade.Init();
+    }
+
+    #endregion
 
     #region ICardHolder
 

@@ -4,7 +4,6 @@
     private ResourceGeneratorComponent(int energy, int mental, int physic, int wild)
         : base()
     {
-        Type = ComponentType.ResourceGenerator;
         Energy = energy;
         Mental = mental;
         Physic = physic;

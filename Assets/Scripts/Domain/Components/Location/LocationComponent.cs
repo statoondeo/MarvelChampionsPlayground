@@ -13,7 +13,6 @@
     }
     private LocationComponent(string location) : base()
     {
-        Type = ComponentType.Location;
         Location = location;
     }
     public bool IsLocation(string location) => Location.Equals(location);

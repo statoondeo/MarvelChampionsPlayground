@@ -1,7 +1,6 @@
 ﻿public abstract class BaseDecorator<T> : IDecorator<T> where T : IComponent
 {
     protected BaseDecorator() { }
-    //public ComponentType Type => Inner.Type;
     public IFacade<T> Facade { get; protected set; }
     public IComponent<T> Inner { get; protected set; }
 
@@ -11,6 +10,7 @@
         return this;
     }
     public void SetFacade(IFacade<T> facade) => Facade = facade;
+    public void Init() => Inner.Init();
 
     #region ICardHolder
 

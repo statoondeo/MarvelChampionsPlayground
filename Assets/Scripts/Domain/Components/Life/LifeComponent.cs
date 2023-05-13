@@ -27,21 +27,22 @@
         {
             if (_Damage == value) return;
             _Damage = value;
-            Card?.Raise< ILifeComponent>();
+            Card?.Raise<ILifeComponent>();
         }
     }
+    private int InitialLife;
     private LifeComponent(int life) : base()
     {
-        Type = ComponentType.Life;
+        InitialLife = life;
         TotalLife = life;
         Damage = 0;
     }
-    public override void SetCard(ICard card)
+    public override void Init()
     {
-        base.SetCard(card);
-        Card.AddListener<IResetComponent>(OnResetCallback);
+        TotalLife = InitialLife;
+        Damage = 0;
     }
-    private void OnResetCallback(IComponent component) => Damage = 0;
+
     public void TakeDamage(int damage) => Damage += damage;
     public static ILifeComponent Get(int life) => new LifeComponent(life);
 }

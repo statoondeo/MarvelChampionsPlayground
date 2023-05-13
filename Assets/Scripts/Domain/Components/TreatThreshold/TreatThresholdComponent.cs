@@ -4,7 +4,6 @@
     private TreatThresholdComponent(int treatThreshold)
         : base()
     {
-        Type = ComponentType.TreatThreshold;
         TreatThreshold = treatThreshold;
     }
     public static ITreatThresholdComponent Get(int treatThreshold) 

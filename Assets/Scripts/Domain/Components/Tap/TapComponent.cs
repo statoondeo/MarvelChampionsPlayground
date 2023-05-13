@@ -3,7 +3,6 @@
     public bool Tapped { get; private set; }
     public TapComponent() : base()
     {
-        Type = ComponentType.Tap;
         Tapped = false;
     }
     public void Tap()

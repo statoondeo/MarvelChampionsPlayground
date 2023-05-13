@@ -11,23 +11,15 @@
             Card?.Raise<ITreatComponent>();
         }
     }
-    private TreatComponent() : base()
+    private int InitialTreat;
+    private TreatComponent(int treat) : base()
     {
-        Type = ComponentType.Treat;
+        InitialTreat = treat;
         CurrentTreat = 0;
     }
     public void AddTreat(int treat) => CurrentTreat += treat;
     public void RemoveTreat(int treat) => CurrentTreat -= treat;
-    public override void SetCard(ICard card)
-    {
-        base.SetCard(card);
-        Card.AddListener<IResetComponent>(OnResetCallback);
-    }
-    private void OnResetCallback(IComponent component)
-    {
-        CurrentTreat = (Card.CurrentFace as ITreatStartComponent).TreatStart;
-        Card.Tap();
-    }
+    public override void Init() => CurrentTreat = InitialTreat;
 
-    public static ITreatComponent Get() => new TreatComponent();
+    public static ITreatComponent Get(int treat) => new TreatComponent(treat);
 }

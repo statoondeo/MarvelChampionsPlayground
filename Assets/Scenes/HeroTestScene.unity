@@ -463,7 +463,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6890579726059385810, guid: 48c9444b03a89d746bd795b931de4821, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9193158332981786558, guid: 48c9444b03a89d746bd795b931de4821, type: 3}
       propertyPath: m_IsActive
@@ -2922,7 +2922,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4907367106159075242, guid: f98a4126255fef64793848eb9e014f7f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5280790884110708879, guid: f98a4126255fef64793848eb9e014f7f, type: 3}
       propertyPath: BackPanelController

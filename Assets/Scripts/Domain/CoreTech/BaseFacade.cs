@@ -32,6 +32,8 @@
         }
     }
 
+    public void Init() => Item.Init();
+
     #region ICardHolder
 
     public ICard Card { get; protected set; }
