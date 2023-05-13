@@ -17,7 +17,7 @@ public sealed class GameBuilder
             new PlayerRepository(),
             anyCardPicker);
         Game.RegisterSetupCommand(GameSetupCommand.Get(Game));
-        Battlefield = new BasicZone(Game, BATTLEFIELD, null);
+        Battlefield = new BattlefieldZone(Game, BATTLEFIELD, null);
         Game.Add(Battlefield);
     }
     public GameBuilder WithPlayer(DeckModel deckModel)
@@ -29,10 +29,11 @@ public sealed class GameBuilder
 
         // Création des zones du joueur
         player.RegisterZoneId(BATTLEFIELD, Battlefield.Id);
+        ZoneFactory zoneFactory = new();
         foreach (string zoneName in deckModel.SetupModel.Zones)
         {
             if (BATTLEFIELD.Equals(zoneName)) continue;
-            IZone zone = new BasicZone(Game, zoneName, player.Id);
+            IZone zone = zoneFactory.Ceate(Game, zoneName, player.Id);
             player.RegisterZoneId(zoneName, zone.Id);
             Game.Add(zone);
         }

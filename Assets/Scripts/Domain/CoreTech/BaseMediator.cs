@@ -13,7 +13,12 @@ public abstract class BaseMediator<T> : IMediator<T>
     public void Raise<U>() where U : class, T => EventsAtlas[typeof(U)].Raise();
     public void AddListener<U>(Action<T> callback) where U : T => EventsAtlas[typeof(U)].AddListener(callback);
     public void RemoveListener<U>(Action<T> callback) where U : T => EventsAtlas[typeof(U)].RemoveListener(callback);
-    public U GetFacade<U>() where U : T => (U)EventsAtlas[typeof(U)].Reference;
+    public U GetFacade<U>() where U : T
+    {
+        if (EventsAtlas.TryGetValue(typeof(U), out IEvent<T> eventHandler)) return (U)eventHandler.Reference;
+        return default;
+    }
+
     public void Register<U>(U reference) where U : T
     {
         if (EventsAtlas.ContainsKey(typeof(U))) return;

@@ -1,12 +1,19 @@
-﻿using Unity.VisualScripting;
+﻿using TMPro;
+
+using Unity.VisualScripting;
 
 using UnityEngine;
 using UnityEngine.UI;
 
+using static UnityEditor.FilePathAttribute;
+
 public sealed class HeroTestController : MonoBehaviour
 {
-    [SerializeField] private CardModel HeroModel;
+    [SerializeField] private DeckModel DeckModel;
+    [SerializeField] private CardType CardType;
     [SerializeField] private Canvas ActionsPanel;
+    [SerializeField] private TMP_Text LocationIdText;
+    [SerializeField] private TMP_Text LocationLabelText;
 
     private BaseCardController CardController;
     private ICard Card;
@@ -15,15 +22,22 @@ public sealed class HeroTestController : MonoBehaviour
     private void Awake()
     {
         CardController = GetComponent<BaseCardController>();
-        Game = new GameBuilder(null).Build();
-        Card = new CardFactory().Create(Game, string.Empty, string.Empty, HeroModel);
+        Game = new GameBuilder(null).WithPlayer(DeckModel).Build();
+        Card = Game.GetFirst(CardTypeSelector.Get(CardType));
         RoutineController = transform.AddComponent<RoutineController>();
         RoutineController.StartGame();
     }
     private void Start()
     {
         CardController.SetData(null, RoutineController, Card);
+        Card.AddListener<ILocationComponent>(OnLocationChanged);
+        OnLocationChanged(null);
         ActionAssociation();
+    }
+    private void OnLocationChanged(IComponent component)
+    {
+        LocationIdText.text = Card.Location;
+        LocationLabelText.text = Game.GetFirst(ZoneIdSelector.Get(Card.Location))?.Label;
     }
     private void ActionAssociation()
     {
@@ -47,17 +61,14 @@ public sealed class HeroTestController : MonoBehaviour
                 case "MoveToDeckButton":
                     button.onClick.AddListener(() => CardController.MoveTo("DECK"));
                     break;
+                case "MoveToDiscardButton":
+                    button.onClick.AddListener(() => CardController.MoveTo("DISCARD"));
+                    break;
                 case "MoveToBattlefieldButton":
                     button.onClick.AddListener(() => CardController.MoveTo("BATTLEFIELD"));
                     break;
                 case "DealDamageButton":
                     switch (Card.CardType) {
-                        case CardType.Ally:
-                            button.onClick.AddListener((CardController as AllyCardController).DealDamage);
-                            break;
-                        case CardType.Minion:
-                            button.onClick.AddListener((CardController as MinionCardController).DealDamage);
-                            break;
                         case CardType.Villain:
                             button.onClick.AddListener((CardController as VillainCardController).DealDamage);
                             break;
@@ -66,15 +77,16 @@ public sealed class HeroTestController : MonoBehaviour
                             button.onClick.AddListener((CardController as HeroCardController).DealDamage);
                             break;
                         default:
-                            Debug.Log("No Damage");
+                            if (Card.Faces["FACE"].IsCardType(CardType.Ally))
+                                button.onClick.AddListener((CardController as AllyCardController).DealDamage);
+                            else if (Card.Faces["FACE"].IsCardType(CardType.Minion))
+                                button.onClick.AddListener((CardController as MinionCardController).DealDamage);
+                            else
+                                Debug.Log("No Damage");
                             break;
                     }
                     break;
             }
         }
     }
-    //private void OnEnable() => Game.Register(GameEvents.OnCommitted, OnGameCommitCallback);
-    //private void OnDisable() => Game.UnRegister(GameEvents.OnCommitted, OnGameCommitCallback);
-    //private void OnGameCommitCallback(IGameArg eventModelArg) => RoutineController.Commit();
-
 }

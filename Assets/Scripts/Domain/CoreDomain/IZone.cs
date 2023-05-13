@@ -6,5 +6,4 @@
     void Shuffle();
     ICard GetLast();
     ICard GetAt(int index);
-
 }

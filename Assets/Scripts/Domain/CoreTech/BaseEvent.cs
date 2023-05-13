@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Linq;
 
+using UnityEngine;
+
+using static UnityEditor.FilePathAttribute;
+
 public abstract class BaseEvent<T> : IEvent<T>
 {
     public T Reference { get; protected set; }

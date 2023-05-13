@@ -8,6 +8,7 @@
             IFlipFacade flipFacade,
             ITapFacade tapFacade,
             ILifeFacade lifeFacade,
+            IEnterPlayFacade enterPlayFacade,
             ILocationFacade locationFacade)
         : base(
             game,
@@ -19,21 +20,13 @@
             locationFacade)
     {
         faceMediator.Register<ILifeComponent>(lifeFacade);
+        faceMediator.Register<IEnterPlayComponent>(enterPlayFacade);
         backMediator.Register<ILifeComponent>(faceMediator.GetEventHandler<ILifeComponent>());
+        backMediator.Register<IEnterPlayComponent>(faceMediator.GetEventHandler<IEnterPlayComponent>());
 
         LifeItem = lifeFacade;
         LifeItem.SetCard(this);
-    }
-    public override void SetCard(ICard card)
-    {
-        base.SetCard(card);
-        Card.AddListener<ILocationComponent>(OnLocationChangedCallback);
-    }
-    private void OnLocationChangedCallback(IComponent component)
-    {
-        Card.UnTap();
-        Card.FlipTo("FACE");
-        LifeItem.Init();
+        enterPlayFacade.SetCard(this);
     }
 
     #region ILifeFacade
@@ -64,6 +57,7 @@
                         HeroFace.Get(heroMediator, (HeroFaceModel)cardModel.Back)),
                     TapFacade.Get(),
                     LifeFacade.Get(((HeroCardModel)cardModel).Life),
+                    EnterPlayFacade.Get(HeroEnterPlayComponent.Get()),
                     LocationFacade.Get(string.Empty));
     }
 

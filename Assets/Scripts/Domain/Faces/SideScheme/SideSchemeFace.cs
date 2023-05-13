@@ -8,6 +8,7 @@
         BoostItem.SetCard(card);
         TreatItem.SetCard(card);
         WhenRevealedItem.SetCard(card);
+        card.GetFacade<IEnterPlayComponent>().SetCard(card);
     }
 
     #endregion
@@ -55,10 +56,11 @@
             IClassificationFacade classificationFacade,
             ITreatFacade treatFacade,
             IBoostFacade boostFacade,
+            IEnterPlayFacade enterPlayFacade,
             IWhenRevealedFacade whenRevealedFacade)
         : base(
-             mediator,
-           titleFacade,
+            mediator,
+            titleFacade,
             cardTypeFacade,
             classificationFacade)
     {
@@ -68,6 +70,7 @@
 
         Mediator.Register<ITreatComponent>(TreatItem);
         Mediator.Register<IBoostComponent>(BoostItem);
+        Mediator.Register<IEnterPlayComponent>(enterPlayFacade);
         Mediator.Register<IWhenRevealedComponent>(WhenRevealedItem);
     }
 
@@ -83,6 +86,7 @@
             ClassificationFacade.Get(faceModel.Classification),
             TreatFacade.Get(faceModel.Starting),
             BoostFacade.Get(faceModel.Boost),
+            EnterPlayFacade.Get(SchemeEnterPlayComponent.Get()),
             WhenRevealedFacade.Get(PermanentWhenRevealedComponent.Get(NullCommand.Get())));
 
     #endregion
