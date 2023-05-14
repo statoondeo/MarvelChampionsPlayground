@@ -10,25 +10,28 @@
     }
     protected override void InitValues()
     {
-        IAllyCard allyCard = Card as IAllyCard;
-        if (Card.IsLocation("BATTLEFIELD") && Card.CurrentFace.IsCardType(CardType.Ally))
+        IAllyCard card = Card as IAllyCard;
+        if (Card.IsLocation("BATTLEFIELD"))
         {
-            FacePanelController.SetActive(true);
-            FaceController.SetModel(allyCard.Faces["FACE"] as IAllyFace);
+            if (Card.IsFace("FACE"))
+            {
+                BackPanelController.SetActive(false);
+                FacePanelController.SetActive(true);
+                FaceController.SetModel(card.Faces["FACE"] as IAllyFace);
+            }
+            else
+            {
+                FacePanelController.SetActive(false);
+                BackPanelController.SetActive(true);
+                BackController.SetModel(card.Faces["BACK"] as IBackFace);
+            }
         }
         else
         {
             FacePanelController.SetActive(false);
-        }
-        if (Card.IsLocation("BATTLEFIELD") && !Card.CurrentFace.IsCardType(CardType.Ally))
-        {
-            BackPanelController.SetActive(true);
-            BackController.SetModel(allyCard.Faces["BACK"] as IBackFace);
-        }
-        else
-        {
             BackPanelController.SetActive(false);
         }
     }
     public void DealDamage() => (Card.CurrentFace as IAllyFace)?.TakeDamage(1);
+    public void HealDamage() => (Card.CurrentFace as IAllyFace)?.HealDamage(1);
 }

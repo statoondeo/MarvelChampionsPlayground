@@ -4,4 +4,5 @@
     int TotalLife { get; }
     int Damage { get; }
     void TakeDamage(int damage);
+    void HealDamage(int damage);
 }

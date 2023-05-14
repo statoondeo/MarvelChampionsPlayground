@@ -5,19 +5,28 @@ public sealed class EnvironmentCardController : BaseCardController
     [SerializeField] private EnvironmentFaceController FaceController;
     [SerializeField] private BackFaceController BackController;
 
-    protected override void OnFlippedCallback(IComponent component)
+    protected override void InitValues()
     {
-        base.OnFlippedCallback(component);
-        FaceController.gameObject.SetActive(!Card.CurrentFace.IsCardType(CardType.None));
-        BackController.gameObject.SetActive(!FaceController.gameObject.activeSelf);
-    }
-
-    public override void SetData(GameController gameController, RoutineController routineController, ICard card)
-    {
-        base.SetData(gameController, routineController, card);
-        FaceController.SetModel(card.Faces["FACE"] as IEnvironmentFace);
-        BackController.SetModel(card.Faces["BACK"] as IBackFace);
-
-        OnFlippedCallback(null);
+        IEnvironmentCard card = Card as IEnvironmentCard;
+        if (Card.IsLocation("BATTLEFIELD"))
+        {
+            if (Card.IsFace("FACE"))
+            {
+                BackPanelController.SetActive(false);
+                FacePanelController.SetActive(true);
+                FaceController.SetModel(card.Faces["FACE"] as IEnvironmentFace);
+            }
+            else
+            {
+                FacePanelController.SetActive(false);
+                BackPanelController.SetActive(true);
+                BackController.SetModel(card.Faces["BACK"] as IBackFace);
+            }
+        }
+        else
+        {
+            FacePanelController.SetActive(false);
+            BackPanelController.SetActive(false);
+        }
     }
 }

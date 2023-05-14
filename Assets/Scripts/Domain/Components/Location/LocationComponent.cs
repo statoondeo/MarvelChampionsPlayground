@@ -1,7 +1,4 @@
-﻿
-using UnityEngine;
-
-public sealed class LocationComponent : BaseComponent<ILocationComponent>, ILocationComponent
+﻿public sealed class LocationComponent : BaseComponent<ILocationComponent>, ILocationComponent
 {
     private string _Location;
     public string Location
@@ -15,15 +12,12 @@ public sealed class LocationComponent : BaseComponent<ILocationComponent>, ILoca
         }
     }
     private LocationComponent(string location) : base() => Location = location;
-    public bool IsLocation(string location)
-    {
-        string newLocationId = Card.Game.GetFirst(ZoneNameSelector.Get(Card.Game.GetFirst(PlayerIdSelector.Get(Card.OwnerId)), location))?.Id;
-        return Location.Equals(newLocationId);
-    }
+    public bool IsLocation(string location) 
+        => Location.Equals(Card.Game.GetFirst(ZoneNameSelector.Get(Card.Game, Card.OwnerId, location)).Id);
     public void MoveTo(string location)
     {
         if (Card.IsLocation(location)) return;
-        Card.Game.GetFirst(ZoneNameSelector.Get(Card.Game.GetFirst(PlayerIdSelector.Get(Card.OwnerId)), location)).Add(Card);
+        Card.Game.GetFirst(ZoneNameSelector.Get(Card.Game, Card.OwnerId, location)).Add(Card);
     }
 
     public void SetLocation(string newLocation) => Location = newLocation;

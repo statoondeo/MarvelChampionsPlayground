@@ -44,6 +44,7 @@
     public int TotalLife => LifeItem.TotalLife;
     public int Damage => LifeItem.Damage;
     public void TakeDamage(int damage) => LifeItem.TakeDamage(damage);
+    public void HealDamage(int damage) => LifeItem.HealDamage(damage);
 
     #endregion
 

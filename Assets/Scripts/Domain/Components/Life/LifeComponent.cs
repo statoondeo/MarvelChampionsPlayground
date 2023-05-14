@@ -1,4 +1,6 @@
-﻿public sealed class LifeComponent : BaseComponent<ILifeComponent>, ILifeComponent
+﻿using UnityEngine;
+
+public sealed class LifeComponent : BaseComponent<ILifeComponent>, ILifeComponent
 {
     public int CurrentLife
     {
@@ -44,5 +46,6 @@
     }
 
     public void TakeDamage(int damage) => Damage += damage;
+    public void HealDamage(int damage) => Damage -= damage;
     public static ILifeComponent Get(int life) => new LifeComponent(life);
 }

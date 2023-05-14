@@ -4,9 +4,6 @@ using Unity.VisualScripting;
 
 using UnityEngine;
 using UnityEngine.UI;
-
-using static UnityEditor.FilePathAttribute;
-
 public sealed class HeroTestController : MonoBehaviour
 {
     [SerializeField] private DeckModel DeckModel;
@@ -22,18 +19,19 @@ public sealed class HeroTestController : MonoBehaviour
     private void Awake()
     {
         CardController = GetComponent<BaseCardController>();
-        Game = new GameBuilder(null).WithPlayer(DeckModel).Build();
-        Card = Game.GetFirst(CardTypeSelector.Get(CardType));
         RoutineController = transform.AddComponent<RoutineController>();
         RoutineController.StartGame();
     }
-    private void Start()
+    private void OnEnable()
     {
+        Game = new GameBuilder(null).WithPlayer(DeckModel).Build();
+        Card = Game.GetFirst(CardTypeSelector.Get(CardType));
         CardController.SetData(null, RoutineController, Card);
         Card.AddListener<ILocationComponent>(OnLocationChanged);
         OnLocationChanged(null);
         ActionAssociation();
     }
+    private void OnDisable() => Card.RemoveListener<ILocationComponent>(OnLocationChanged);
     private void OnLocationChanged(IComponent component)
     {
         LocationIdText.text = Card.Location;
@@ -41,10 +39,10 @@ public sealed class HeroTestController : MonoBehaviour
     }
     private void ActionAssociation()
     {
-        foreach (Button button in ActionsPanel.GetComponentsInChildren<Button>()) 
+        foreach (Button button in ActionsPanel.GetComponentsInChildren<Button>())
         {
             button.onClick.RemoveAllListeners();
-            switch (button.name) 
+            switch (button.name)
             {
                 case "TapButton":
                     button.onClick.AddListener(CardController.Tap);
@@ -68,7 +66,9 @@ public sealed class HeroTestController : MonoBehaviour
                     button.onClick.AddListener(() => CardController.MoveTo("BATTLEFIELD"));
                     break;
                 case "DealDamageButton":
-                    switch (Card.CardType) {
+                    button.interactable = true;
+                    switch (Card.CardType)
+                    {
                         case CardType.Villain:
                             button.onClick.AddListener((CardController as VillainCardController).DealDamage);
                             break;
@@ -82,9 +82,48 @@ public sealed class HeroTestController : MonoBehaviour
                             else if (Card.Faces["FACE"].IsCardType(CardType.Minion))
                                 button.onClick.AddListener((CardController as MinionCardController).DealDamage);
                             else
-                                Debug.Log("No Damage");
+                                button.interactable = false;
                             break;
                     }
+                    break;
+                case "HealDamageButton":
+                    button.interactable = true;
+                    switch (Card.CardType)
+                    {
+                        case CardType.Villain:
+                            button.onClick.AddListener((CardController as VillainCardController).HealDamage);
+                            break;
+                        case CardType.AlterEgo:
+                        case CardType.Hero:
+                            button.onClick.AddListener((CardController as HeroCardController).HealDamage);
+                            break;
+                        default:
+                            if (Card.Faces["FACE"].IsCardType(CardType.Ally))
+                                button.onClick.AddListener((CardController as AllyCardController).HealDamage);
+                            else if (Card.Faces["FACE"].IsCardType(CardType.Minion))
+                                button.onClick.AddListener((CardController as MinionCardController).HealDamage);
+                            else
+                                button.interactable = false;
+                            break;
+                    }
+                    break;
+                case "AddTreatButton":
+                    button.interactable = true;
+                    if (Card.Faces["FACE"].IsCardType(CardType.SideScheme))
+                        button.onClick.AddListener((CardController as SideSchemeCardController).AddTreat);
+                    else if (Card.Faces["FACE"].IsCardType(CardType.MainSchemeA))
+                        button.onClick.AddListener((CardController as MainSchemeCardController).AddTreat);
+                    else
+                        button.interactable = false;
+                    break;
+                case "RemoveTreatButton":
+                    button.interactable = true;
+                    if (Card.Faces["FACE"].IsCardType(CardType.SideScheme))
+                        button.onClick.AddListener((CardController as SideSchemeCardController).RemoveTreat);
+                    else if (Card.Faces["FACE"].IsCardType(CardType.MainSchemeA))
+                        button.onClick.AddListener((CardController as MainSchemeCardController).RemoveTreat);
+                    else
+                        button.interactable = false;
                     break;
             }
         }

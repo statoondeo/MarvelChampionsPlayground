@@ -11,6 +11,7 @@
             IThwartFacade thwartFacade,
             IAttackFacade attackFacade,
             IResourceGeneratorFacade resourceFacade,
+            IEnterPlayFacade enterPlayFacade,
             ICostFacade costFacade)
         : base(
             mediator,
@@ -29,6 +30,7 @@
         Mediator.Register<IAttackComponent>(AttackItem);
         Mediator.Register<IResourceGeneratorComponent>(ResourceItem);
         Mediator.Register<ICostComponent>(CostItem);
+        Mediator.Register<IEnterPlayComponent>(enterPlayFacade);
     }
 
     #endregion
@@ -43,6 +45,7 @@
         LifeItem.SetCard(card);
         CostItem.SetCard(card);
         ResourceItem.SetCard(card);
+        card.GetFacade<IEnterPlayComponent>().SetCard(card);
     }
 
     #endregion
@@ -75,6 +78,7 @@
     public int TotalLife => LifeItem.TotalLife;
     public int Damage => LifeItem.Damage;
     public void TakeDamage(int damage) => LifeItem.TakeDamage(damage);
+    public void HealDamage(int damage) => LifeItem.HealDamage(damage);
 
     #endregion
 
@@ -118,6 +122,7 @@
                 ThwartFacade.Get(faceModel.Thwart),
                 AttackFacade.Get(faceModel.Attack),
                 ResourceGeneratorFacade.Get(faceModel.Energy, faceModel.Mental, faceModel.Physic, faceModel.Wild),
+                EnterPlayFacade.Get(AllyEnterPlayComponent.Get()),
                 CostFacade.Get(faceModel.Cost));
     }
 

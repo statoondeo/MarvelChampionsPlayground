@@ -5,19 +5,6 @@ public sealed class MainSchemeCardController : BaseCardController
     [SerializeField] private MainSchemeAFaceController FaceController;
     [SerializeField] private MainSchemeBFaceController BackController;
 
-    protected override void OnFlippedCallback(IComponent component)
-    {
-        base.OnFlippedCallback(component);
-        FaceController.gameObject.SetActive(!Card.CurrentFace.IsCardType(CardType.None));
-        BackController.gameObject.SetActive(!FaceController.gameObject.activeSelf);
-    }
-
-    public override void SetData(GameController gameController, RoutineController routineController, ICard card)
-    {
-        base.SetData(gameController, routineController, card);
-        FaceController.SetModel(card.Faces["FACE"] as IMainSchemeAFace);
-        BackController.SetModel(card.Faces["BACK"] as IMainSchemeBFace);
-
-        OnFlippedCallback(null);
-    }
+    public void AddTreat() => (Card.CurrentFace as IMainSchemeBFace)?.AddTreat(1);
+    public void RemoveTreat() => (Card.CurrentFace as IMainSchemeBFace)?.RemoveTreat(1);
 }

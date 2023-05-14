@@ -1,4 +1,6 @@
-﻿public sealed class MinionFace : BaseFace, IMinionFace
+﻿using static UnityEditor.Progress;
+
+public sealed class MinionFace : BaseFace, IMinionFace
 {
     #region ICardHolder
 
@@ -23,6 +25,7 @@
     public int TotalLife => LifeItem.TotalLife;
     public int Damage => LifeItem.Damage;
     public void TakeDamage(int damage) => LifeItem.TakeDamage(damage);
+    public void HealDamage(int damage) => LifeItem.HealDamage(damage);
 
     #endregion
 
