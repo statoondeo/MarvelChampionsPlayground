@@ -1,9 +1,13 @@
-﻿using UnityEngine;
-
-public sealed class MinionCardController : BaseCardController
+﻿public sealed class MinionCardController : BaseCardController
 {
-    [SerializeField] private MinionFaceController FaceController;
-    [SerializeField] private BackFaceController BackController;
+    private MinionFaceController FaceController;
+    private BackFaceController BackController;
+
+    private void Awake()
+    {
+        FaceController = FacePanelController.GetComponent<MinionFaceController>();
+        BackController = BackPanelController.GetComponent<BackFaceController>();
+    }
     protected override void InitValues()
     {
         IMinionCard card = Card as IMinionCard;
@@ -28,6 +32,18 @@ public sealed class MinionCardController : BaseCardController
             BackPanelController.SetActive(false);
         }
     }
-    public void DealDamage() => (Card.CurrentFace as IMinionFace)?.TakeDamage(1);
-    public void HealDamage() => (Card.CurrentFace as IMinionFace)?.HealDamage(1);
+    public void DealDamage()
+    {
+        if (Card.CurrentFace is not IMinionFace face) return;
+        CompositeCommand.Get(
+            DealDamageCommand.Get(Card.Game, face, 1),
+            CommitRoutineCommand.Get(RoutineController)).Execute();
+    }
+    public void HealDamage()
+    {
+        if (Card.CurrentFace is not IMinionFace face) return;
+        CompositeCommand.Get(
+            HealDamageCommand.Get(Card.Game, face, 1),
+            CommitRoutineCommand.Get(RoutineController)).Execute();
+    }
 }

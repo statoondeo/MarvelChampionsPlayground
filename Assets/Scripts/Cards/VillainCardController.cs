@@ -28,6 +28,12 @@ public sealed class VillainCardController : BaseCardController
             BackPanelController.SetActive(false);
         }
     }
-    public void DealDamage() => (Card.CurrentFace as IVillainFace)?.TakeDamage(1);
-    public void HealDamage() => (Card.CurrentFace as IVillainFace)?.HealDamage(1);
+    public void DealDamage()
+        => CompositeCommand.Get(
+            DealDamageCommand.Get(Card.Game, Card.CurrentFace as IVillainFace, 1),
+            CommitRoutineCommand.Get(RoutineController)).Execute();
+    public void HealDamage()
+        => CompositeCommand.Get(
+            HealDamageCommand.Get(Card.Game, Card.CurrentFace as IVillainFace, 1),
+            CommitRoutineCommand.Get(RoutineController)).Execute();
 }

@@ -1,6 +1,4 @@
-﻿using static UnityEditor.Progress;
-
-public sealed class MinionFace : BaseFace, IMinionFace
+﻿public sealed class MinionFace : BaseFace, IMinionFace
 {
     #region ICardHolder
 
@@ -12,6 +10,7 @@ public sealed class MinionFace : BaseFace, IMinionFace
         AttackItem.SetCard(card);
         BoostItem.SetCard(card);
         WhenRevealedItem.SetCard(card);
+        card.GetFacade<IEnterPlayComponent>().SetCard(card);
     }
 
     #endregion
@@ -83,6 +82,7 @@ public sealed class MinionFace : BaseFace, IMinionFace
             ISchemeFacade schemeFacade,
             IAttackFacade attackFacade,
             IBoostFacade boostFacade,
+            IEnterPlayFacade enterPlayFacade,
             IWhenRevealedFacade whenRevealedFacade)
         : base(
             mediator,
@@ -101,6 +101,7 @@ public sealed class MinionFace : BaseFace, IMinionFace
         Mediator.Register<IAttackComponent>(AttackItem);
         Mediator.Register<IBoostComponent>(BoostItem);
         Mediator.Register<IWhenRevealedComponent>(WhenRevealedItem);
+        Mediator.Register<IEnterPlayComponent>(enterPlayFacade);
     }
 
     #endregion
@@ -117,6 +118,7 @@ public sealed class MinionFace : BaseFace, IMinionFace
             SchemeFacade.Get(faceModel.Scheme),
             AttackFacade.Get(faceModel.Attack),
             BoostFacade.Get(faceModel.Boost),
+            EnterPlayFacade.Get(SingleFaceEnterPlayComponent.Get()),
             WhenRevealedFacade.Get(PermanentWhenRevealedComponent.Get(NullCommand.Get())));
 
     #endregion

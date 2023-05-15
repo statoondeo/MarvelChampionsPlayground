@@ -4,38 +4,66 @@ using Unity.VisualScripting;
 
 using UnityEngine;
 using UnityEngine.UI;
-public sealed class HeroTestController : MonoBehaviour
+
+public sealed class TestGameController : MonoBehaviour 
 {
-    [SerializeField] private DeckModel DeckModel;
-    [SerializeField] private CardType CardType;
+    [SerializeField] private GameObject HeroPrefab;
+    [SerializeField] private GameObject AllyPrefab;
+    [SerializeField] private GameObject SidePrefab;
+    [SerializeField] private GameObject MinionPrefab;
+
     [SerializeField] private Canvas ActionsPanel;
+    [SerializeField] private DeckModel DeckModel;
     [SerializeField] private TMP_Text LocationIdText;
     [SerializeField] private TMP_Text LocationLabelText;
 
     private BaseCardController CardController;
     private ICard Card;
-    private IGame Game;
-    private RoutineController RoutineController;
-    private void Awake()
+
+    public void CreateObject(string cardTypeString)
     {
-        CardController = GetComponent<BaseCardController>();
-        RoutineController = transform.AddComponent<RoutineController>();
-        RoutineController.StartGame();
-    }
-    private void OnEnable()
-    {
-        Game = new GameBuilder(null).WithPlayer(DeckModel).Build();
-        Card = Game.GetFirst(CardTypeSelector.Get(CardType));
-        CardController.SetData(null, RoutineController, Card);
+        if (CardController is not null)
+        {
+            Card.RemoveListener<ILocationComponent>(OnLocationChanged);
+            Destroy(CardController.gameObject);
+        }
+
+        CardType cardType = ConvertToCardType(cardTypeString);
+        CardController = Instantiate(GetPrefab(cardType), transform).GetComponent<BaseCardController>();
+        RoutineController routineController = CardController.transform.AddComponent<RoutineController>();
+        routineController.StartGame();
+
+        Card = new GameBuilder(null).WithPlayer(DeckModel).Build().GetFirst(CardTypeSelector.Get(cardType));
+        CardController.SetData(null, routineController, Card);
         Card.AddListener<ILocationComponent>(OnLocationChanged);
+
         OnLocationChanged(null);
         ActionAssociation();
     }
-    private void OnDisable() => Card.RemoveListener<ILocationComponent>(OnLocationChanged);
+    private CardType ConvertToCardType(string cardType)
+        => cardType switch
+        {
+            "Hero" => CardType.Hero,
+            "Ally" => CardType.Ally,
+            "Minion" => CardType.Minion,
+            "SideScheme" => CardType.SideScheme,
+            _ => CardType.None
+        };
+    private GameObject GetPrefab(CardType cardType)
+    {
+        return cardType switch
+        {
+            CardType.Hero => HeroPrefab,
+            CardType.Ally => AllyPrefab,
+            CardType.Minion => MinionPrefab,
+            CardType.SideScheme => SidePrefab,
+            _ => null,
+        };
+    }
     private void OnLocationChanged(IComponent component)
     {
         LocationIdText.text = Card.Location;
-        LocationLabelText.text = Game.GetFirst(ZoneIdSelector.Get(Card.Location))?.Label;
+        LocationLabelText.text = Card.Game.GetFirst(ZoneIdSelector.Get(Card.Location))?.Label;
     }
     private void ActionAssociation()
     {

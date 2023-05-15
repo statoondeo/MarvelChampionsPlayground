@@ -32,6 +32,18 @@
             BackPanelController.SetActive(false);
         }
     }
-    public void DealDamage() => (Card.CurrentFace as IAllyFace)?.TakeDamage(1);
-    public void HealDamage() => (Card.CurrentFace as IAllyFace)?.HealDamage(1);
+    public void DealDamage()
+    {
+        if (Card.CurrentFace is not IAllyFace face) return;
+        CompositeCommand.Get(
+            DealDamageCommand.Get(Card.Game, face, 1),
+            CommitRoutineCommand.Get(RoutineController)).Execute();
+    }
+    public void HealDamage()
+    {
+        if (Card.CurrentFace is not IAllyFace face) return;
+        CompositeCommand.Get(
+            HealDamageCommand.Get(Card.Game, face, 1),
+            CommitRoutineCommand.Get(RoutineController)).Execute();
+    }
 }

@@ -37,6 +37,12 @@ public sealed class HeroCardController : BaseCardController
             LifeController.gameObject.SetActive(false);
         }
     }
-    public void DealDamage() => (Card as IHeroCard).TakeDamage(1);
-    public void HealDamage() => (Card as IHeroCard).HealDamage(1);
+    public void DealDamage() 
+        => CompositeCommand.Get(
+            DealDamageCommand.Get(Card.Game, Card as IHeroCard, 1),
+            CommitRoutineCommand.Get(RoutineController)).Execute();
+    public void HealDamage() 
+        => CompositeCommand.Get(
+            HealDamageCommand.Get(Card.Game, Card as IHeroCard, 1),
+            CommitRoutineCommand.Get(RoutineController)).Execute();
 }

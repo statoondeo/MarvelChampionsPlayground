@@ -122,7 +122,7 @@
                 ThwartFacade.Get(faceModel.Thwart),
                 AttackFacade.Get(faceModel.Attack),
                 ResourceGeneratorFacade.Get(faceModel.Energy, faceModel.Mental, faceModel.Physic, faceModel.Wild),
-                EnterPlayFacade.Get(AllyEnterPlayComponent.Get()),
+                EnterPlayFacade.Get(SingleFaceEnterPlayComponent.Get()),
                 CostFacade.Get(faceModel.Cost));
     }
 

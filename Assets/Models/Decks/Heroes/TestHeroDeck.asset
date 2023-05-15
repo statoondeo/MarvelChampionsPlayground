@@ -17,4 +17,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 08b53eace62bf14418088ffdff035c16, type: 2}
   - {fileID: 11400000, guid: 7510827f8ea184d4698b64b1f73d1efd, type: 2}
   - {fileID: 11400000, guid: 99a749711e310a048b05958d1bcca1bc, type: 2}
+  - {fileID: 11400000, guid: abd34cfdc10840c4daf05cb273d98851, type: 2}
   HeroSetupModel: {fileID: 11400000, guid: e6e4a9f56476ace44b82be51a17393c1, type: 2}

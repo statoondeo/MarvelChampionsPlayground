@@ -1,6 +1,6 @@
-﻿public sealed class AllyEnterPlayComponent : BaseEnterPlayComponent
+﻿public sealed class SingleFaceEnterPlayComponent : BaseEnterPlayComponent
 {
-    private AllyEnterPlayComponent() : base() { }
+    private SingleFaceEnterPlayComponent() : base() { }
     public override void EnterPlay()
     {
         Card.GetFacade<ILifeComponent>().Init();
@@ -16,5 +16,5 @@
         if (!Card.IsFace("FACE")) return;
         EnterPlay();
     }
-    public static IEnterPlayComponent Get() => new AllyEnterPlayComponent();
+    public static IEnterPlayComponent Get() => new SingleFaceEnterPlayComponent();
 }
