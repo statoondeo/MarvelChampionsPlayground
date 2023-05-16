@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Marvel Champions/Faces/Hero")]
-public sealed class HeroFaceModel : CardFaceModel
+public sealed class HeroFaceModel : FaceModel
 {
     public int Thwart;
     public int Attack;
@@ -10,7 +10,7 @@ public sealed class HeroFaceModel : CardFaceModel
 
     public HeroFaceModel()
     {
-        CardType = CardType.Hero;
+        FaceType = FaceType.Hero;
         Classification = Classification.Hero;
     }
 }

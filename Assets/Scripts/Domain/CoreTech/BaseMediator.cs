@@ -18,7 +18,6 @@ public abstract class BaseMediator<T> : IMediator<T>
         if (EventsAtlas.TryGetValue(typeof(U), out IEvent<T> eventHandler)) return (U)eventHandler.Reference;
         return default;
     }
-
     public void Register<U>(U reference) where U : T
     {
         if (EventsAtlas.ContainsKey(typeof(U))) return;

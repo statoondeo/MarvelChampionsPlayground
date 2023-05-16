@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: PhotonicBlast
   m_EditorClassIdentifier: 
   CardId: fa2f90d6-f994-42a5-bd39-46fffe4ee836
+  CardType: 12
   Face: {fileID: 11400000, guid: 5e12f5346ba91944193311f37db313f0, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

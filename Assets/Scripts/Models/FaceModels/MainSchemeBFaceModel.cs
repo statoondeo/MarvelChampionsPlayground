@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Marvel Champions/Faces/Main Scheme B")]
-public sealed class MainSchemeBFaceModel : CardFaceModel
+public sealed class MainSchemeBFaceModel : FaceModel
 {
     public int Starting;
     public int Acceleration;
@@ -9,7 +9,7 @@ public sealed class MainSchemeBFaceModel : CardFaceModel
     public int Stade;
     public MainSchemeBFaceModel()
     {
-        CardType = CardType.MainSchemeA;
+        FaceType = FaceType.MainSchemeA;
         Classification = Classification.Villain;
     }
 }

@@ -85,7 +85,7 @@
     private VillainFace(
             IMediator<IComponent> mediator,
             ITitleFacade titleFacade,
-            ICardTypeFacade cardTypeFacade,
+            IFaceTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
             ISchemeFacade schemeFacade,
             IAttackFacade attackFacade,
@@ -122,7 +122,7 @@
         => new VillainFace(
                     mediator,
                     TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
-                    CardTypeFacade.Get(faceModel.CardType),
+                    FaceTypeFacade.Get(faceModel.FaceType),
                     ClassificationFacade.Get(faceModel.Classification),
                     SchemeFacade.Get(faceModel.Scheme),
                     AttackFacade.Get(faceModel.Attack),

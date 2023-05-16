@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: AvengersMansion
   m_EditorClassIdentifier: 
   CardId: 47c281de-3437-4011-a5da-5442b6c8f4ac
+  CardType: 14
   Face: {fileID: 11400000, guid: 58c15581274b2274a8d1cf42cf8c3385, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

@@ -1,17 +1,5 @@
 ﻿public sealed class MainSchemeAFace : BaseFace, IMainSchemeAFace
 {
-    #region ICardHolder
-
-    public override void SetCard(ICard card)
-    {
-        base.SetCard(card);
-        StadeItem.SetCard(card);
-        SetupItem.SetCard(card);
-        WhenRevealedItem.SetCard(card);
-    }
-
-    #endregion
-
     #region IStadeFacade
 
     private readonly IStadeFacade StadeItem;
@@ -44,15 +32,29 @@
 
     #endregion
 
+    #region ICardHolder
+
+    public override void SetCard(ICard card)
+    {
+        base.SetCard(card);
+        StadeItem.SetCard(card);
+        SetupItem.SetCard(card);
+        WhenRevealedItem.SetCard(card);
+        Mediator.GetFacade<IEnterPlayComponent>().SetCard(card);
+    }
+
+    #endregion
+
     #region Constructeur
 
     private MainSchemeAFace(
             IMediator<IComponent> mediator,
             ITitleFacade titleFacade,
-            ICardTypeFacade cardTypeFacade,
+            IFaceTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
             IStadeFacade stadeFacade,
             ISetupFacade setupFacade,
+            IEnterPlayFacade enterPlayFacade,
             IWhenRevealedFacade whenRevealedFacade)
         : base(
             mediator,
@@ -67,6 +69,7 @@
         Mediator.Register<IStadeComponent>(StadeItem);
         Mediator.Register<ISetupComponent>(SetupItem);
         Mediator.Register<IWhenRevealedComponent>(WhenRevealedItem);
+        Mediator.Register<IEnterPlayComponent>(enterPlayFacade);
     }
 
     #endregion
@@ -77,10 +80,11 @@
         => new MainSchemeAFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
-            CardTypeFacade.Get(faceModel.CardType),
+            FaceTypeFacade.Get(faceModel.FaceType),
             ClassificationFacade.Get(faceModel.Classification),
             StadeFacade.Get(faceModel.Stade),
             SetupFacade.Get(NullCommand.Get()),
+            EnterPlayFacade.Get(SchemeAEnterPlayComponent.Get()),
             WhenRevealedFacade.Get(StaticWhenRevealedComponent.Get(NullCommand.Get())));
 
     #endregion

@@ -1,1 +1,1 @@
-﻿public interface ICoreFacade : ICardTypeFacade, IClassificationFacade, ITitleFacade { }
+﻿public interface ICoreFacade : IFaceTypeFacade, IClassificationFacade, ITitleFacade { }

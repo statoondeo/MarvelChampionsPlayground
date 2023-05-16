@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: ChaseThemDown
   m_EditorClassIdentifier: 
   CardId: 1b6f43b8-e814-4fd5-87c0-3db5e9fe9733
+  CardType: 12
   Face: {fileID: 11400000, guid: 130172313498f5f4db9c21ed5b918b4b, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

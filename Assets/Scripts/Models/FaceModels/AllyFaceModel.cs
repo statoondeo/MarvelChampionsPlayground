@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Marvel Champions/Faces/Ally")]
-public sealed class AllyFaceModel : CardFaceModel
+public sealed class AllyFaceModel : FaceModel
 {
     public int Thwart;
     public int Attack;
@@ -11,5 +11,5 @@ public sealed class AllyFaceModel : CardFaceModel
     public int Mental;
     public int Physic;
     public int Wild;
-    public AllyFaceModel() => CardType = CardType.Ally;
+    public AllyFaceModel() => FaceType = FaceType.Ally;
 }

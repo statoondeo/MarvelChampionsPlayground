@@ -6,6 +6,7 @@ public abstract class BaseCard : ICard
     public IGame Game { get; protected set; }
     protected BaseCard(
         IGame game,
+        ICardTypeFacade cardTypeFacade,
         IMediator<IComponent> faceMediator,
         IMediator<IComponent> backMediator,
         ICoreCardFacade cardFacade,
@@ -13,16 +14,19 @@ public abstract class BaseCard : ICard
         ITapFacade tapFacade,
         ILocationFacade locationFacade)
     {
+        faceMediator.Register<ICardTypeComponent>(cardTypeFacade);
         faceMediator.Register<ICoreCardComponent>(cardFacade);
         faceMediator.Register<IFlipComponent>(flipFacade);
         faceMediator.Register<ITapComponent>(tapFacade);
         faceMediator.Register<ILocationComponent>(locationFacade);
 
+        backMediator.Register<ICardTypeComponent>(faceMediator.GetEventHandler<ICardTypeComponent>());
         backMediator.Register<ICoreCardComponent>(faceMediator.GetEventHandler<ICoreCardComponent>());
         backMediator.Register<IFlipComponent>(faceMediator.GetEventHandler<IFlipComponent>());
         backMediator.Register<ITapComponent>(faceMediator.GetEventHandler<ITapComponent>());
         backMediator.Register<ILocationComponent>(faceMediator.GetEventHandler<ILocationComponent>());
 
+        CardTypeItem = cardTypeFacade;
         CardItem = cardFacade;
         FlipItem = flipFacade;
         TapItem = tapFacade;
@@ -70,13 +74,9 @@ public abstract class BaseCard : ICard
 
     #region ICardType
 
-    public CardType CardType => FlipItem.CurrentFace.CardType;
-    public bool IsCardType(CardType cardType)
-    {
-        foreach (ICoreFacade face in FlipItem.Faces.Values)
-            if (face.IsCardType(cardType)) return true;
-        return false;
-    }
+    private ICardType CardTypeItem;
+    public CardType CardType => CardTypeItem.CardType;
+    public bool IsCardType(CardType cardType) => CardTypeItem.IsCardType(cardType);
 
     #endregion
 

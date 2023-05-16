@@ -39,7 +39,7 @@
     private TreacheryFace(
             IMediator<IComponent> mediator,
             ITitleFacade titleFacade,
-            ICardTypeFacade cardTypeFacade,
+            IFaceTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
             IBoostFacade boostFacade,
             IWhenRevealedFacade whenRevealedFacade)
@@ -64,7 +64,7 @@
         => new TreacheryFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
-            CardTypeFacade.Get(faceModel.CardType),
+            FaceTypeFacade.Get(faceModel.FaceType),
             ClassificationFacade.Get(faceModel.Classification),
             BoostFacade.Get(faceModel.Boost),
             WhenRevealedFacade.Get(InstantWhenRevealedComponent.Get(NullCommand.Get())));

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Emergency
   m_EditorClassIdentifier: 
   CardId: e96b6498-ecad-425f-91d9-5ace2e38efbd
+  CardType: 12
   Face: {fileID: 11400000, guid: 481440eaff51c294ba33fcfb3d5ce34e, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

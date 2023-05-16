@@ -69,7 +69,7 @@ public sealed class GameController : MonoBehaviour
             BaseCardController cardController = Instantiate(CardPrefab, transform).GetComponent<BaseCardController>();
             cardController.SetData(this, RoutineService, card);
             CardControllers.Add(cardController);
-            if (card.IsCardType(CardType.AlterEgo) || card.IsCardType(CardType.Hero)) HeroController = cardController;
+            if (card.IsCardType(CardType.Hero)) HeroController = cardController;
         }
     }
     private void Awake()

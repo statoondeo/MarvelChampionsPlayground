@@ -6,9 +6,7 @@ public sealed class PlayerIdentitySelector : ISelector<ICard>
         => Selector =
             AndCompositeSelector.Get(
                 OwnerIdSelector.Get(ownerId),
-                OrCompositeSelector.Get(
-                    CardTypeSelector.Get(CardType.AlterEgo),
-                    CardTypeSelector.Get(CardType.Hero)));
+                CardTypeSelector.Get(CardType.Hero));
     public bool Match(ICard card) => Selector.Match(card);
     public static ISelector<ICard> Get(string ownerId) => new PlayerIdentitySelector(ownerId);
 }

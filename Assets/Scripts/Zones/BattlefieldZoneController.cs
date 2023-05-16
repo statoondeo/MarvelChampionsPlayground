@@ -10,7 +10,7 @@ public sealed class BattlefieldZoneController : BaseZoneController
     private Vector2Int GetEmptySlot(CardType cardType, CardPositions[] cardPositions)
     {
         List<Vector2Int> typedSlots = cardPositions.FirstOrDefault(item => item.CardType.Equals(cardType))?.Positions.ToList();
-        List<Vector2Int> noneSlots = cardPositions.FirstOrDefault(item => item.CardType.Equals(CardType.None)).Positions.ToList();
+        List<Vector2Int> noneSlots = cardPositions.FirstOrDefault(item => item.CardType.Equals(FaceType.None)).Positions.ToList();
         if (typedSlots is null) typedSlots = noneSlots;
         else typedSlots.AddRange(noneSlots);
 

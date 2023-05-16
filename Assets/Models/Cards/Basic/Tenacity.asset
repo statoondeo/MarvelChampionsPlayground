@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Tenacity
   m_EditorClassIdentifier: 
   CardId: bf99138a-60d7-4986-a0d9-dde01ea48bd0
+  CardType: 14
   Face: {fileID: 11400000, guid: 83913ee2c557ae149a40bc0d589a0cc8, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

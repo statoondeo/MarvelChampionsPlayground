@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: RhinoStandard
   m_EditorClassIdentifier: 
   CardId: 8475a68a-0ae7-4e36-bf67-9cadb96fcfa9
+  CardType: 20
   Face: {fileID: 11400000, guid: 5a0dd15c238fe18429bd19fd07ff1fdf, type: 2}
   Back: {fileID: 11400000, guid: c556841a00c29b74bb4e575cd69b7d64, type: 2}

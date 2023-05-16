@@ -9,7 +9,9 @@ public sealed class TestGameController : MonoBehaviour
 {
     [SerializeField] private GameObject HeroPrefab;
     [SerializeField] private GameObject AllyPrefab;
-    [SerializeField] private GameObject SidePrefab;
+
+    [SerializeField] private GameObject SideSchemePrefab;
+    [SerializeField] private GameObject MainSchemePrefab;
     [SerializeField] private GameObject MinionPrefab;
 
     [SerializeField] private Canvas ActionsPanel;
@@ -47,6 +49,7 @@ public sealed class TestGameController : MonoBehaviour
             "Ally" => CardType.Ally,
             "Minion" => CardType.Minion,
             "SideScheme" => CardType.SideScheme,
+            "MainScheme" => CardType.MainScheme,
             _ => CardType.None
         };
     private GameObject GetPrefab(CardType cardType)
@@ -56,7 +59,8 @@ public sealed class TestGameController : MonoBehaviour
             CardType.Hero => HeroPrefab,
             CardType.Ally => AllyPrefab,
             CardType.Minion => MinionPrefab,
-            CardType.SideScheme => SidePrefab,
+            CardType.SideScheme => SideSchemePrefab,
+            CardType.MainScheme => MainSchemePrefab,
             _ => null,
         };
     }
@@ -64,6 +68,82 @@ public sealed class TestGameController : MonoBehaviour
     {
         LocationIdText.text = Card.Location;
         LocationLabelText.text = Card.Game.GetFirst(ZoneIdSelector.Get(Card.Location))?.Label;
+    }
+    private void AttachDealDamageListener(Button button)
+    {
+        button.interactable = true;
+        switch (Card.CardType)
+        {
+            case CardType.Villain:
+                button.onClick.AddListener((CardController as VillainCardController).DealDamage);
+                break;
+            case CardType.Hero:
+                button.onClick.AddListener((CardController as HeroCardController).DealDamage);
+                break;
+            case CardType.Ally:
+                button.onClick.AddListener((CardController as AllyCardController).DealDamage);
+                break;
+            case CardType.Minion:
+                button.onClick.AddListener((CardController as MinionCardController).DealDamage);
+                break;
+            default:
+                button.interactable = false;
+                break;
+        }
+    }
+    private void AttachHealDamageListener(Button button)
+    {
+        button.interactable = true;
+        switch (Card.CardType)
+        {
+            case CardType.Villain:
+                button.onClick.AddListener((CardController as VillainCardController).HealDamage);
+                break;
+            case CardType.Hero:
+                button.onClick.AddListener((CardController as HeroCardController).HealDamage);
+                break;
+            case CardType.Ally:
+                button.onClick.AddListener((CardController as AllyCardController).HealDamage);
+                break;
+            case CardType.Minion:
+                button.onClick.AddListener((CardController as MinionCardController).HealDamage);
+                break;
+            default:
+                button.interactable = false;
+                break;
+        }
+    }
+    private void AttachAddTreatListener(Button button)
+    {
+        button.interactable = true;
+        switch (Card.CardType)
+        {
+            case CardType.SideScheme:
+                button.onClick.AddListener((CardController as SideSchemeCardController).AddTreat);
+                break;
+            case CardType.MainScheme:
+                button.onClick.AddListener((CardController as MainSchemeCardController).AddTreat);
+                break;
+            default:
+                button.interactable = false;
+                break;
+        }
+    }
+    private void AttachRemoveTreatLIstener(Button button)
+    {
+        button.interactable = true;
+        switch (Card.CardType)
+        {
+            case CardType.SideScheme:
+                button.onClick.AddListener((CardController as SideSchemeCardController).RemoveTreat);
+                break;
+            case CardType.MainScheme:
+                button.onClick.AddListener((CardController as MainSchemeCardController).RemoveTreat);
+                break;
+            default:
+                button.interactable = false;
+                break;
+        }
     }
     private void ActionAssociation()
     {
@@ -94,64 +174,16 @@ public sealed class TestGameController : MonoBehaviour
                     button.onClick.AddListener(() => CardController.MoveTo("BATTLEFIELD"));
                     break;
                 case "DealDamageButton":
-                    button.interactable = true;
-                    switch (Card.CardType)
-                    {
-                        case CardType.Villain:
-                            button.onClick.AddListener((CardController as VillainCardController).DealDamage);
-                            break;
-                        case CardType.AlterEgo:
-                        case CardType.Hero:
-                            button.onClick.AddListener((CardController as HeroCardController).DealDamage);
-                            break;
-                        default:
-                            if (Card.Faces["FACE"].IsCardType(CardType.Ally))
-                                button.onClick.AddListener((CardController as AllyCardController).DealDamage);
-                            else if (Card.Faces["FACE"].IsCardType(CardType.Minion))
-                                button.onClick.AddListener((CardController as MinionCardController).DealDamage);
-                            else
-                                button.interactable = false;
-                            break;
-                    }
+                    AttachDealDamageListener(button);
                     break;
                 case "HealDamageButton":
-                    button.interactable = true;
-                    switch (Card.CardType)
-                    {
-                        case CardType.Villain:
-                            button.onClick.AddListener((CardController as VillainCardController).HealDamage);
-                            break;
-                        case CardType.AlterEgo:
-                        case CardType.Hero:
-                            button.onClick.AddListener((CardController as HeroCardController).HealDamage);
-                            break;
-                        default:
-                            if (Card.Faces["FACE"].IsCardType(CardType.Ally))
-                                button.onClick.AddListener((CardController as AllyCardController).HealDamage);
-                            else if (Card.Faces["FACE"].IsCardType(CardType.Minion))
-                                button.onClick.AddListener((CardController as MinionCardController).HealDamage);
-                            else
-                                button.interactable = false;
-                            break;
-                    }
+                    AttachHealDamageListener(button);
                     break;
                 case "AddTreatButton":
-                    button.interactable = true;
-                    if (Card.Faces["FACE"].IsCardType(CardType.SideScheme))
-                        button.onClick.AddListener((CardController as SideSchemeCardController).AddTreat);
-                    else if (Card.Faces["FACE"].IsCardType(CardType.MainSchemeA))
-                        button.onClick.AddListener((CardController as MainSchemeCardController).AddTreat);
-                    else
-                        button.interactable = false;
+                    AttachAddTreatListener(button);
                     break;
                 case "RemoveTreatButton":
-                    button.interactable = true;
-                    if (Card.Faces["FACE"].IsCardType(CardType.SideScheme))
-                        button.onClick.AddListener((CardController as SideSchemeCardController).RemoveTreat);
-                    else if (Card.Faces["FACE"].IsCardType(CardType.MainSchemeA))
-                        button.onClick.AddListener((CardController as MainSchemeCardController).RemoveTreat);
-                    else
-                        button.interactable = false;
+                    AttachRemoveTreatLIstener(button);
                     break;
             }
         }

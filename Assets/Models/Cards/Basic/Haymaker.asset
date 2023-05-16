@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Haymaker
   m_EditorClassIdentifier: 
   CardId: 9bfb0e66-6258-44fd-b86b-d093aa1169c4
+  CardType: 12
   Face: {fileID: 11400000, guid: 034bf5cb52f1ed3478d87c2df264dc07, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

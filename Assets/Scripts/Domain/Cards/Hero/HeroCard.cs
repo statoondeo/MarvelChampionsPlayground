@@ -2,6 +2,7 @@
 {
     private HeroCard(
             IGame game,
+            ICardTypeFacade cardTypeFacade,
             IMediator<IComponent> faceMediator,
             IMediator<IComponent> backMediator,
             ICoreCardFacade coreCardFacade,
@@ -12,6 +13,7 @@
             ILocationFacade locationFacade)
         : base(
             game,
+            cardTypeFacade,
             faceMediator,
             backMediator,
             coreCardFacade,
@@ -50,6 +52,7 @@
         IMediator<IComponent> heroMediator = ComponentMediator.Get();
         return new HeroCard(
                     game,
+                    CardTypeFacade.Get(CardType.Hero),
                     alterEgoMediator,
                     heroMediator,
                     CoreCardFacade.Get(cardModel.CardId, id, ownerId),

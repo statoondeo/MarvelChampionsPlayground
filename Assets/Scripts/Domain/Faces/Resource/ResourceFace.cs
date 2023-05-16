@@ -31,7 +31,7 @@
     private ResourceFace(
             IMediator<IComponent> mediator,
             ITitleFacade titleFacade,
-            ICardTypeFacade cardTypeFacade,
+            IFaceTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
             IResourceGeneratorFacade resourceFacade)
         : base(
@@ -53,7 +53,7 @@
         => new ResourceFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
-            CardTypeFacade.Get(faceModel.CardType),
+            FaceTypeFacade.Get(faceModel.FaceType),
             ClassificationFacade.Get(faceModel.Classification),
             ResourceGeneratorFacade.Get(faceModel.Energy, faceModel.Mental, faceModel.Physic, faceModel.Wild));
 

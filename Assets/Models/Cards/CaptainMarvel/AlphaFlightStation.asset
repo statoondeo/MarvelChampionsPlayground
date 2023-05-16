@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: AlphaFlightStation
   m_EditorClassIdentifier: 
   CardId: ce7f1d8b-02be-4c67-88b6-7dd2c642c624
+  CardType: 14
   Face: {fileID: 11400000, guid: d3c24d0ea96926a438e5de7d8e4601df, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

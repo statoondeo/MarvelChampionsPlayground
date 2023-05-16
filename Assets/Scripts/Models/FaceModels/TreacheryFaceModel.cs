@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Marvel Champions/Faces/Treachery")]
-public sealed class TreacheryFaceModel : CardFaceModel
+public sealed class TreacheryFaceModel : FaceModel
 {
-    public TreacheryFaceModel() => CardType = CardType.Treachery;
+    public TreacheryFaceModel() => FaceType = FaceType.Treachery;
     public int Boost;
 }

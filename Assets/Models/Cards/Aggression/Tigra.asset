@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Tigra
   m_EditorClassIdentifier: 
   CardId: 136576b1-0787-45e5-b288-8d3e780e592a
+  CardType: 11
   Face: {fileID: 11400000, guid: 8d9c7cac0d986d143a4e7804fb081b28, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

@@ -2,6 +2,7 @@
 {
     private ResourceCard(
             IGame game,
+            ICardTypeFacade cardTypeFacade,
             IMediator<IComponent> faceMediator,
             IMediator<IComponent> backMediator,
             ICoreCardFacade coreCardFacade, 
@@ -10,6 +11,7 @@
             ILocationFacade locationFacade)
         : base(
             game,
+            cardTypeFacade,
             faceMediator,
             backMediator,
             coreCardFacade, 
@@ -26,6 +28,7 @@
         IMediator<IComponent> backMediator = ComponentMediator.Get();
         return new ResourceCard(
                     game,
+                    CardTypeFacade.Get(CardType.Resource),
                     faceMediator,
                     backMediator,
                     CoreCardFacade.Get(cardModel.CardId, id, ownerId),

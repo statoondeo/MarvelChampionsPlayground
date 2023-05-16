@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Helicarrier
   m_EditorClassIdentifier: 
   CardId: 5527aabc-6eb3-45e9-9ff8-1e9a3f74df1f
+  CardType: 14
   Face: {fileID: 11400000, guid: 4983f2f6392f7bd4ba16deea36dc9ef2, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

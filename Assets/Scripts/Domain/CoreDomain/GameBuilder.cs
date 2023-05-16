@@ -46,15 +46,7 @@ public sealed class GameBuilder
             ICard card = cardFactory.Create(Game, Guid.NewGuid().ToString(), player.Id, cardModel); 
             Game.Add(card);
             playerDeck.Add(card);
-            card.UnTap();
-            if (card.IsCardType(CardType.AlterEgo) || card.IsCardType(CardType.Hero)) 
-                player.SetHeroCard(card as IHeroCard);
-            if (card.IsCardType(CardType.AlterEgo)
-                || card.IsCardType(CardType.Hero)
-                || card.IsCardType(CardType.Villain)
-                || card.IsCardType(CardType.MainSchemeA)
-                || card.IsCardType(CardType.MainSchemeB)) continue;
-            card.FlipTo("BACK");
+            if (card.IsCardType(CardType.Hero)) player.SetHeroCard(card as IHeroCard);
         }
 
         return this;

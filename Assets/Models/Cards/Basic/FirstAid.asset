@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: FirstAid
   m_EditorClassIdentifier: 
   CardId: 11000f27-b30a-4820-9c09-3095a7d19006
+  CardType: 12
   Face: {fileID: 11400000, guid: acdc2e9e9d037cb478a5914778d82bb9, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

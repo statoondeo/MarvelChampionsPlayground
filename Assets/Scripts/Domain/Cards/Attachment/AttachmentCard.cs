@@ -2,6 +2,7 @@
 {
     private AttachmentCard(
             IGame game,
+            ICardTypeFacade cardTypeFacade,
             IMediator<IComponent> faceMediator,
             IMediator<IComponent> backMediator,
             ICoreCardFacade coreCardFacade,
@@ -10,6 +11,7 @@
             ILocationFacade locationFacade)
         : base(
             game,
+            cardTypeFacade,
             faceMediator,
             backMediator,
             coreCardFacade,
@@ -27,6 +29,7 @@
         IMediator<IComponent> backMediator = ComponentMediator.Get();
         return new AttachmentCard(
                     game,
+                    CardTypeFacade.Get(CardType.Attachment),
                     faceMediator,
                     backMediator,
                     CoreCardFacade.Get(cardModel.CardId, id, ownerId),

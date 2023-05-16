@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Genius
   m_EditorClassIdentifier: 
   CardId: ac20be26-60fd-4c17-ae7f-fec8226a7719
+  CardType: 13
   Face: {fileID: 11400000, guid: ebd4bbdcba27a74428e52100550c2e17, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

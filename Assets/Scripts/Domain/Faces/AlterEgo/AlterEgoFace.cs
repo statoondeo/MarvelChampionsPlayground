@@ -50,7 +50,7 @@
     public AlterEgoFace(
             IMediator<IComponent> mediator,
             ITitleFacade titleFacade,
-            ICardTypeFacade cardTypeFacade,
+            IFaceTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
             IRecoveryFacade recoveryFacade,
             IHandSizeFacade handSizeFacade,
@@ -78,7 +78,7 @@
         => new AlterEgoFace(
                     mediator,
                     TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
-                    CardTypeFacade.Get(faceModel.CardType),
+                    FaceTypeFacade.Get(faceModel.FaceType),
                     ClassificationFacade.Get(faceModel.Classification),
                     RecoveryFacade.Get(faceModel.Recovery),
                     HandSizeFacade.Get(faceModel.HandSize),

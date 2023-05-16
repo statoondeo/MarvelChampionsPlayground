@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Energy
   m_EditorClassIdentifier: 
   CardId: 44b91c8f-5222-4f7d-9d14-44a5b4d28cab
+  CardType: 13
   Face: {fileID: 11400000, guid: a159fefde71c3be479d4a7d7e4e7f7d8, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: CrisisInterdiction
   m_EditorClassIdentifier: 
   CardId: dde3e015-0c29-4388-9364-e4b205655767
+  CardType: 12
   Face: {fileID: 11400000, guid: b4010acbcc923654190be53b29300845, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

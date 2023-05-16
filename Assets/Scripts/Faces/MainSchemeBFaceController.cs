@@ -2,5 +2,6 @@
 
 public sealed class MainSchemeBFaceController : MonoBehaviour
 {
-    public void SetModel(IMainSchemeBFace model) { }
+    [SerializeField] private TreatController TreatController;
+    public void SetModel(IMainSchemeBFace model) => TreatController.SetModel(model);
 }

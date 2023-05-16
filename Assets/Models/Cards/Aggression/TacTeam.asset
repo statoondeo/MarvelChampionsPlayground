@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: TacTeam
   m_EditorClassIdentifier: 
   CardId: 3cccca3c-7c4e-46f2-8950-48e8324d84c8
+  CardType: 14
   Face: {fileID: 11400000, guid: 86c4cfe627921d245aea18a468155c4f, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

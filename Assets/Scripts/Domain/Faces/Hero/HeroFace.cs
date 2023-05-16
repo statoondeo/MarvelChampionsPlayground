@@ -56,7 +56,7 @@
     private HeroFace(
             IMediator<IComponent> mediator,
             ITitleFacade titleFacade,
-            ICardTypeFacade cardTypeFacade,
+            IFaceTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
             IThwartFacade thwartFacade,
             IAttackFacade attackFacade,
@@ -87,7 +87,7 @@
         => new HeroFace(
                     mediator,
                     TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
-                    CardTypeFacade.Get(faceModel.CardType),
+                    FaceTypeFacade.Get(faceModel.FaceType),
                     ClassificationFacade.Get(faceModel.Classification),
                     ThwartFacade.Get(faceModel.Thwart),
                     AttackFacade.Get(faceModel.Attack),

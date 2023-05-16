@@ -10,6 +10,7 @@
         TreatItem.SetCard(card);
         TreatThresholdItem.SetCard(card);
         WhenRevealedItem.SetCard(card);
+        Mediator.GetFacade<IEnterPlayComponent>().SetCard(card);
     }
 
     #endregion
@@ -69,12 +70,13 @@
     private MainSchemeBFace(
             IMediator<IComponent> mediator,
             ITitleFacade titleFacade,
-            ICardTypeFacade cardTypeFacade,
+            IFaceTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
             IStadeFacade stadeFacade,
             ITreatFacade treatFacade,
             ITreatThresholdFacade treatThresholdFacade,
             ITreatAccelerationFacade treatAccelerationFacade,
+            IEnterPlayFacade enterPlayFacade,
             IWhenRevealedFacade whenRevealedFacade)
         : base(
              mediator,
@@ -93,6 +95,7 @@
         Mediator.Register<ITreatThresholdComponent>(TreatThresholdItem);
         Mediator.Register<ITreatAccelerationComponent>(TreatAccelerationItem);
         Mediator.Register<IWhenRevealedComponent>(WhenRevealedItem);
+        Mediator.Register<IEnterPlayComponent>(enterPlayFacade);
     }
 
     #endregion
@@ -103,12 +106,13 @@
         => new MainSchemeBFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
-            CardTypeFacade.Get(faceModel.CardType),
+            FaceTypeFacade.Get(faceModel.FaceType),
             ClassificationFacade.Get(faceModel.Classification),
             StadeFacade.Get(faceModel.Stade),
             TreatFacade.Get(faceModel.Starting),
             TreatThresholdFacade.Get(faceModel.Threshold),
             TreatAccelerationFacade.Get(faceModel.Stade),
+            EnterPlayFacade.Get(SchemeEnterPlayComponent.Get()),
             WhenRevealedFacade.Get(StaticWhenRevealedComponent.Get(NullCommand.Get())));
 
     #endregion

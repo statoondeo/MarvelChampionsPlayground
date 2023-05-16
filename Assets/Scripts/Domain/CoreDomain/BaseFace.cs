@@ -30,7 +30,7 @@ public abstract class BaseFace : IFace, ICoreFacade
 
     #region Constructeur
 
-    protected BaseFace(IMediator<IComponent> mediator, ITitleFacade titleFacade, ICardTypeFacade cardTypeFacade, IClassificationFacade classificationFacade)
+    protected BaseFace(IMediator<IComponent> mediator, ITitleFacade titleFacade, IFaceTypeFacade cardTypeFacade, IClassificationFacade classificationFacade)
     {
         Mediator = mediator;
         TitleFacade = titleFacade;
@@ -38,7 +38,7 @@ public abstract class BaseFace : IFace, ICoreFacade
         ClassificationFacade = classificationFacade;
 
         Mediator.Register<ITitleComponent>(TitleFacade);
-        Mediator.Register<ICardTypeComponent>(CardTypeFacade);
+        Mediator.Register<IFaceTypeComponent>(CardTypeFacade);
         Mediator.Register<IClassificationComponent>(ClassificationFacade);
     }
 
@@ -46,16 +46,16 @@ public abstract class BaseFace : IFace, ICoreFacade
 
     #region ICardTypeFacade
 
-    private readonly ICardTypeFacade CardTypeFacade;
+    private readonly IFaceTypeFacade CardTypeFacade;
 
-    public void AddDecorator(IDecorator<ICardTypeComponent> decorator) 
+    public void AddDecorator(IDecorator<IFaceTypeComponent> decorator) 
         => CardTypeFacade.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<ICardTypeComponent> decorator) 
+    public void RemoveDecorator(IDecorator<IFaceTypeComponent> decorator) 
         => CardTypeFacade.RemoveDecorator(decorator);
 
-    public CardType CardType => CardTypeFacade.CardType;
-    public bool IsCardType(CardType cardType)
-        => CardTypeFacade.IsCardType(cardType);
+    public FaceType FaceType => CardTypeFacade.FaceType;
+    public bool IsFaceType(FaceType cardType)
+        => CardTypeFacade.IsFaceType(cardType);
 
     #endregion
 

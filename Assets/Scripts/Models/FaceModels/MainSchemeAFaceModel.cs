@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Marvel Champions/Faces/Main Scheme A")]
-public sealed class MainSchemeAFaceModel : CardFaceModel
+public sealed class MainSchemeAFaceModel : FaceModel
 {
     public int Stade;
     public MainSchemeAFaceModel()
     {
-        CardType = CardType.MainSchemeA;
+        FaceType = FaceType.MainSchemeA;
         Classification = Classification.Villain;
     }
 }

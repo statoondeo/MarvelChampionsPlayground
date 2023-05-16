@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: MockingBird
   m_EditorClassIdentifier: 
   CardId: 241b3138-0335-49fb-95b7-0d5deabbe460
+  CardType: 11
   Face: {fileID: 11400000, guid: 633d66c2911ad894d87156c55db17444, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Marvel Champions/Faces/Side Scheme")]
-public sealed class SideSchemeFaceModel : CardFaceModel
+public sealed class SideSchemeFaceModel : FaceModel
 {
     public int Starting;
     public int Boost;
-    public SideSchemeFaceModel() => CardType = CardType.SideScheme;
+    public SideSchemeFaceModel() => FaceType = FaceType.SideScheme;
 }

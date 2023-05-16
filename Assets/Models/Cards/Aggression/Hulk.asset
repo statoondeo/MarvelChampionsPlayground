@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Hulk
   m_EditorClassIdentifier: 
   CardId: 97b7bc31-bdf1-4021-9e82-7db2ec95502f
+  CardType: 11
   Face: {fileID: 11400000, guid: 2bd51fea8c40bab4f9e9e313eed16adb, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

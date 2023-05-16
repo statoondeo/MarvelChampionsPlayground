@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: EnergyAbsorption
   m_EditorClassIdentifier: 
   CardId: fd85ea73-aa43-4fa7-9f6b-e6f9b4f52f8f
+  CardType: 13
   Face: {fileID: 11400000, guid: 39e4566c1e141fc42996a25424e7e09e, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

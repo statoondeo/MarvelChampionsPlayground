@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: EnergyChannel
   m_EditorClassIdentifier: 
   CardId: e316df1f-bedb-4f5a-9ddd-1c85aea0f7fe
+  CardType: 14
   Face: {fileID: 11400000, guid: 46efecfb39bf4884d91e0b4efd7e0d74, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

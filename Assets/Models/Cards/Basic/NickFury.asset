@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: NickFury
   m_EditorClassIdentifier: 
   CardId: e384e929-f3d3-487b-b4dd-9586cb9d13d3
+  CardType: 11
   Face: {fileID: 11400000, guid: a260bc425876b24428db1a157d5b1f10, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

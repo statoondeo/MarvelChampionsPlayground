@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Marvel Champions/Faces/Back")]
-public sealed class BackFaceModel : CardFaceModel
+public sealed class BackFaceModel : FaceModel
 {
     public BackFaceModel()
     {
-        CardType = CardType.None;
+        FaceType = FaceType.None;
         Classification = Classification.None;
     }
 }

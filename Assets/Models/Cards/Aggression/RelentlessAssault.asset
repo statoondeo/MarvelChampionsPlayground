@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: RelentlessAssault
   m_EditorClassIdentifier: 
   CardId: b8df7094-c246-477a-a8c1-db4ef5311cd0
+  CardType: 12
   Face: {fileID: 11400000, guid: 74dc9489d93aae14f9fd7703106cf1de, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

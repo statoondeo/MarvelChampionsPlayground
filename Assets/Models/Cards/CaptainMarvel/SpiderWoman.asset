@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: SpiderWoman
   m_EditorClassIdentifier: 
   CardId: '8ac742a0-e07f-4a98-a306-e5efb19b9396 '
+  CardType: 11
   Face: {fileID: 11400000, guid: 2bae01b245304b04f82daccea01828ac, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

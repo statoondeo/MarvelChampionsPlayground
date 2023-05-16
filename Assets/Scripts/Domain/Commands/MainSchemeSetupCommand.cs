@@ -3,7 +3,7 @@
     private MainSchemeSetupCommand(IGame game) : base(game) { }
     protected override ISelector<ICard> CardSelector
         => AndCompositeSelector.Get(
-            CardTypeSelector.Get(CardType.MainSchemeA),
+            CardTypeSelector.Get(CardType.MainScheme),
             LocationSelector.Get("BATTLEFIELD"));
     protected override ICommand GetCardCommand(ICard card)
         => (card as ISetupFacade).Setup;

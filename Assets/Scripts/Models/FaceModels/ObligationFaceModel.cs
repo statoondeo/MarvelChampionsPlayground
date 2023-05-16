@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Marvel Champions/Faces/Obligation")]
-public sealed class ObligationFaceModel : CardFaceModel
+public sealed class ObligationFaceModel : FaceModel
 {
     public int Boost;
-    public ObligationFaceModel() => CardType = CardType.Obligation;
+    public ObligationFaceModel() => FaceType = FaceType.Obligation;
 }

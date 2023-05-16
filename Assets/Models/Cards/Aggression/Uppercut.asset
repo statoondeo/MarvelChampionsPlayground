@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Uppercut
   m_EditorClassIdentifier: 
   CardId: fd3f514b-d668-4dfe-8065-5aeae1a27ad7
+  CardType: 12
   Face: {fileID: 11400000, guid: b7a25b2ec44e63e41af385e1d8104166, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

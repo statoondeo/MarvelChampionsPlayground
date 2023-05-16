@@ -2,14 +2,16 @@
 {
     private ObligationCard(
             IGame game,
-             IMediator<IComponent> faceMediator,
+            ICardTypeFacade cardTypeFacade,
+            IMediator<IComponent> faceMediator,
             IMediator<IComponent> backMediator,
-           ICoreCardFacade coreCardFacade, 
+            ICoreCardFacade coreCardFacade, 
             IFlipFacade flipFacade,
             ITapFacade tapFacade,
             ILocationFacade locationFacade)
         : base(
             game,
+            cardTypeFacade,
             faceMediator,
             backMediator,
             coreCardFacade, 
@@ -26,6 +28,7 @@
         IMediator<IComponent> backMediator = ComponentMediator.Get();
         return new ObligationCard(
                     game,
+                    CardTypeFacade.Get(CardType.Obligation),
                     faceMediator,
                     faceMediator,
                     CoreCardFacade.Get(cardModel.CardId, id, ownerId),

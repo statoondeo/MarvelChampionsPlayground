@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: TheBreakIn
   m_EditorClassIdentifier: 
   CardId: 2072e4a6-0d95-4e81-a57e-70eedc0c69f3
+  CardType: 23
   Face: {fileID: 11400000, guid: 8e28e9bec7337954ba55518666cda464, type: 2}
   Back: {fileID: 11400000, guid: 6f0f4868936c6934fbc4a0d3305e26ef, type: 2}

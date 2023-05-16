@@ -2,10 +2,8 @@
 {
     private InstallMainSchemeCommand(IGame game) : base(game) { }
     protected override ISelector<ICard> CardSelector
-        => CardTypeSelector.Get(CardType.MainSchemeA);
+        => CardTypeSelector.Get(CardType.MainScheme);
     protected override ICommand GetCardCommand(ICard card)
-        => CompositeCommand.Get(
-                MoveToCommand.Get(Game, card, "BATTLEFIELD"),
-                FlipToCommand.Get(Game, card, "FACE"));
+        => MoveToCommand.Get(Game, card, "BATTLEFIELD");
     public static ICommand Get(IGame game) => new InstallMainSchemeCommand(game);
 }

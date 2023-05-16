@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: CombatTraining
   m_EditorClassIdentifier: 
   CardId: 9df613f6-3417-481f-8461-ac858d63ef96
+  CardType: 14
   Face: {fileID: 11400000, guid: c03097e4a57a6a24090d64ae6559a517, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

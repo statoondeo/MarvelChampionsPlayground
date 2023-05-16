@@ -76,7 +76,7 @@
     private MinionFace(
             IMediator<IComponent> mediator,
             ITitleFacade titleFacade,
-            ICardTypeFacade cardTypeFacade,
+            IFaceTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
             ILifeFacade lifeFacade,
             ISchemeFacade schemeFacade,
@@ -112,7 +112,7 @@
         => new MinionFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
-            CardTypeFacade.Get(faceModel.CardType),
+            FaceTypeFacade.Get(faceModel.FaceType),
             ClassificationFacade.Get(faceModel.Classification),
             LifeFacade.Get(faceModel.Life),
             SchemeFacade.Get(faceModel.Scheme),
