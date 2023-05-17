@@ -1,7 +1,11 @@
 ﻿public sealed class SchemeAEnterPlayComponent : BaseEnterPlayComponent
 {
     private SchemeAEnterPlayComponent() : base() { }
-    public override void EnterPlay() => Card.Tap();
+    public override void EnterPlay()
+    {
+        Card.FlipTo(0);
+        Card.Tap();
+    }
     public override void SetCard(ICard card)
     {
         base.SetCard(card);
@@ -10,7 +14,7 @@
     private void OnFlipChanged(IComponent component)
     {
         if (!Card.IsLocation("BATTLEFIELD")) return;
-        if (!Card.IsFace("FACE")) return;
+        if (!Card.IsFace(0)) return;
         EnterPlay();
     }
     public static IEnterPlayComponent Get() => new SchemeAEnterPlayComponent();

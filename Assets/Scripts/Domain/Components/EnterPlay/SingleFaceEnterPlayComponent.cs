@@ -13,7 +13,7 @@
     private void OnFlipChanged(IComponent component)
     {
         if (!Card.IsLocation("BATTLEFIELD")) return;
-        if (!Card.IsFace("FACE")) return;
+        if (!Card.IsFace(0)) return;
         EnterPlay();
     }
     public static IEnterPlayComponent Get() => new SingleFaceEnterPlayComponent();

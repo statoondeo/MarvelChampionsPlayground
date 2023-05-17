@@ -9,17 +9,17 @@ public sealed class VillainCardController : BaseCardController
         IVillainCard card = Card as IVillainCard;
         if (Card.IsLocation("BATTLEFIELD"))
         {
-            if (Card.IsFace("FACE"))
+            if (Card.IsFace(0))
             {
                 BackPanelController.SetActive(false);
                 FacePanelController.SetActive(true);
-                FaceController.SetModel(card.Faces["FACE"] as IVillainFace);
+                FaceController.SetModel(card.CurrentFace as IVillainFace);
             }
             else
             {
                 FacePanelController.SetActive(false);
                 BackPanelController.SetActive(true);
-                BackController.SetModel(card.Faces["BACK"] as IVillainFace);
+                BackController.SetModel(card.CurrentFace as IVillainFace);
             }
         }
         else

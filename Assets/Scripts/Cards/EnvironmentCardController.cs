@@ -10,17 +10,17 @@ public sealed class EnvironmentCardController : BaseCardController
         IEnvironmentCard card = Card as IEnvironmentCard;
         if (Card.IsLocation("BATTLEFIELD"))
         {
-            if (Card.IsFace("FACE"))
+            if (Card.IsFace(0))
             {
                 BackPanelController.SetActive(false);
                 FacePanelController.SetActive(true);
-                FaceController.SetModel(card.Faces["FACE"] as IEnvironmentFace);
+                FaceController.SetModel(card.CurrentFace as IEnvironmentFace);
             }
             else
             {
                 FacePanelController.SetActive(false);
                 BackPanelController.SetActive(true);
-                BackController.SetModel(card.Faces["BACK"] as IBackFace);
+                BackController.SetModel(card.CurrentFace as IBackFace);
             }
         }
         else

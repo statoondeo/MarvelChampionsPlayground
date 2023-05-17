@@ -42,7 +42,7 @@ public abstract class BaseZone : BaseEntity, IZone
         {
             int j = UnityEngine.Random.Range(i + 1, cards.Count - 1);
             int order = cards[i].Order;
-            cards[i].FlipTo("BACK");
+            cards[i].FlipTo(1);
             cards[i].SetOrder(cards[j].Order);
             cards[j].SetOrder(order);
         }

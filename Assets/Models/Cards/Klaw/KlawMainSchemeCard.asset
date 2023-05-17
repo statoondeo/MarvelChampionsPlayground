@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60335825817d0b1468e3c67dd577b6c9, type: 3}
+  m_Name: KlawMainSchemeCard
+  m_EditorClassIdentifier: 
+  CardId: db04befa-965a-4ff3-80ac-a9b3045c319b
+  CardType: 23
+  Face: {fileID: 11400000, guid: 4619731e648393042b975d7ce8fca238, type: 2}
+  Back: {fileID: 11400000, guid: 0ac84f646d86f2546a73a60906250d4c, type: 2}
+  FaceB: {fileID: 11400000, guid: e4f15691410df7a49a1f380fe1a4b9e2, type: 2}
+  BackB: {fileID: 11400000, guid: c6c9156d810eac84cb469697fa0056ca, type: 2}

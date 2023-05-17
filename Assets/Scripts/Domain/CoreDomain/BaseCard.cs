@@ -85,7 +85,7 @@ public abstract class BaseCard : ICard
     public Classification Classification => FlipItem.CurrentFace.Classification;
     public bool IsClassification(Classification classification)
     {
-        foreach (ICoreFacade face in FlipItem.Faces.Values)
+        foreach (ICoreFacade face in FlipItem.Faces)
             if (face.IsClassification(classification)) return true;
         return false;
     }
@@ -98,9 +98,10 @@ public abstract class BaseCard : ICard
     public void AddDecorator(IDecorator<IFlipComponent> decorator) => FlipItem.AddDecorator(decorator);
     public void RemoveDecorator(IDecorator<IFlipComponent> decorator) => FlipItem.RemoveDecorator(decorator);
     public IFace CurrentFace => FlipItem.CurrentFace;
-    public IDictionary<string, IFace> Faces => FlipItem.Faces;
-    public void FlipTo(string face) => FlipItem.FlipTo(face);
-    public bool IsFace(string face) => FlipItem.IsFace(face);
+    public IList<IFace> Faces => FlipItem.Faces;
+    public void FlipTo(int face) => FlipItem.FlipTo(face);
+    public void FlipToNext() => FlipItem.FlipToNext();
+    public bool IsFace(int face) => FlipItem.IsFace(face);
 
     #endregion
 

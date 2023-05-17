@@ -4,7 +4,7 @@
     public override void EnterPlay()
     {
         Card.Tap();
-        Card.GetFacade<ITreatComponent>().Init();
+        Card.GetFacade<ITreatComponent>()?.Init();
     }
     public override void SetCard(ICard card)
     {
@@ -14,7 +14,6 @@
     private void OnFlipChanged(IComponent component)
     {
         if (!Card.IsLocation("BATTLEFIELD")) return;
-        if (!Card.IsFace("FACE")) return;
         EnterPlay();
     }
     public static IEnterPlayComponent Get() => new SchemeEnterPlayComponent();

@@ -9,6 +9,6 @@ public sealed class DiscardZone : BaseZone
     {
         base.Add(card);
         card.UnTap();
-        card.FlipTo("FACE");
+        card.FlipTo(0);
     }
 }

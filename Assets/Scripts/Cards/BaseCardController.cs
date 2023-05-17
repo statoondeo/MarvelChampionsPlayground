@@ -15,12 +15,7 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
 
     public void Flip() 
         => CompositeCommand.Get(
-            FlipToCommand.Get(Card.Game, Card, "BACK"),
-            CommitRoutineCommand.Get(RoutineController))
-            .Execute();
-    public void UnFlip() 
-        => CompositeCommand.Get(
-            FlipToCommand.Get(Card.Game, Card, "FACE"),
+            FlipToNextCommand.Get(Card.Game, Card),
             CommitRoutineCommand.Get(RoutineController))
             .Execute();
     public void Tap() 
@@ -81,8 +76,8 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
         => RoutineController.TapRoutine(ImageTransform, (component as ITapComponent).Tapped);
     protected void MidFlipRoutineAction()
     {
-        (Card.IsFace("FACE") ? FacePanelController : BackPanelController).SetActive(true);
-        (Card.IsFace("FACE") ? BackPanelController : FacePanelController).SetActive(false);
+        (Card.IsFace(0) ? FacePanelController : BackPanelController).SetActive(true);
+        (Card.IsFace(0) ? BackPanelController : FacePanelController).SetActive(false);
         InitValues();
     }
 }

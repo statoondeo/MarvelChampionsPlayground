@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public sealed class MainSchemeCardController : BaseCardController
+﻿public sealed class MainSchemeCardController : BaseCardController
 {
     private MainSchemeAFaceController FaceController;
     private MainSchemeBFaceController BackController;
@@ -12,20 +10,19 @@ public sealed class MainSchemeCardController : BaseCardController
     }
     protected override void InitValues()
     {
-        IMainSchemeCard card = Card as IMainSchemeCard;
         if (Card.IsLocation("BATTLEFIELD"))
         {
-            if (Card.IsFace("FACE"))
+            if (Card.CurrentFace.IsFaceType(FaceType.MainSchemeA))
             {
                 BackPanelController.SetActive(false);
                 FacePanelController.SetActive(true);
-                FaceController.SetModel(card.Faces["FACE"] as IMainSchemeAFace);
+                FaceController.SetModel(Card.CurrentFace as IMainSchemeAFace);
             }
             else
             {
                 FacePanelController.SetActive(false);
                 BackPanelController.SetActive(true);
-                BackController.SetModel(card.Faces["BACK"] as IMainSchemeBFace);
+                BackController.SetModel(Card.CurrentFace as IMainSchemeBFace);
             }
         }
         else

@@ -13,17 +13,17 @@
         IMinionCard card = Card as IMinionCard;
         if (Card.IsLocation("BATTLEFIELD"))
         {
-            if (Card.IsFace("FACE"))
+            if (Card.IsFace(0))
             {
                 BackPanelController.SetActive(false);
                 FacePanelController.SetActive(true);
-                FaceController.SetModel(card.Faces["FACE"] as IMinionFace);
+                FaceController.SetModel(card.CurrentFace as IMinionFace);
             }
             else
             {
                 FacePanelController.SetActive(false);
                 BackPanelController.SetActive(true);
-                BackController.SetModel(card.Faces["BACK"] as IBackFace);
+                BackController.SetModel(card.CurrentFace as IBackFace);
             }
         }
         else

@@ -161,9 +161,6 @@ public sealed class TestGameController : MonoBehaviour
                 case "FlipButton":
                     button.onClick.AddListener(CardController.Flip);
                     break;
-                case "UnflipButton":
-                    button.onClick.AddListener(CardController.UnFlip);
-                    break;
                 case "MoveToDeckButton":
                     button.onClick.AddListener(() => CardController.MoveTo("DECK"));
                     break;

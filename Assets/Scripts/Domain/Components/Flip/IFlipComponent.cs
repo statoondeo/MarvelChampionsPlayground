@@ -3,7 +3,8 @@
 public interface IFlipComponent : IComponent<IFlipComponent>
 {
     IFace CurrentFace { get; }
-    IDictionary<string, IFace> Faces { get; }
-    void FlipTo(string face);
-    bool IsFace(string face);
+    IList<IFace> Faces { get; }
+    void FlipTo(int faceIndex);
+    void FlipToNext();
+    bool IsFace(int faceIndex);
 }

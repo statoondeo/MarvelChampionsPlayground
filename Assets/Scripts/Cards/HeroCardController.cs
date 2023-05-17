@@ -15,17 +15,17 @@ public sealed class HeroCardController : BaseCardController
         IHeroCard card = Card as IHeroCard;
         if (Card.IsLocation("BATTLEFIELD"))
         {
-            if (Card.IsFace("FACE"))
+            if (Card.IsFace(0))
             {
                 BackPanelController.SetActive(false);
                 FacePanelController.SetActive(true);
-                FaceController.SetModel(card.Faces["FACE"] as IAlterEgoFace);
+                FaceController.SetModel(card.CurrentFace as IAlterEgoFace);
             }
             else
             {
                 FacePanelController.SetActive(false);
                 BackPanelController.SetActive(true);
-                BackController.SetModel(card.Faces["BACK"] as IHeroFace);
+                BackController.SetModel(card.CurrentFace as IHeroFace);
             }
             LifeController.gameObject.SetActive(true);
             LifeController.SetModel(card);

@@ -5,8 +5,6 @@
     protected override ISelector<ICard> CardSelector
         => PlayerNemesisSetSelector.Get(PlayerId);
     protected override ICommand GetCardCommand(ICard card)
-        => CompositeCommand.Get(
-                MoveToCommand.Get(Game, card, "EXIL"),
-                FlipToCommand.Get(Game, card, "FACE"));
+        => MoveToCommand.Get(Game, card, "EXIL");
     public static ICommand Get(IGame game, string playerId) => new SetAsideNemesisSetCommand(game, playerId);
 }

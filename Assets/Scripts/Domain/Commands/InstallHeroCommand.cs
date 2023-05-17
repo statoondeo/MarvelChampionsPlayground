@@ -5,8 +5,6 @@
     protected override ISelector<ICard> CardSelector
         => PlayerIdentitySelector.Get(PlayerId);
     protected override ICommand GetCardCommand(ICard card)
-        => CompositeCommand.Get(
-                MoveToCommand.Get(Game, card, "BATTLEFIELD"),
-                FlipToCommand.Get(Game, card, "FACE"));
+        => MoveToCommand.Get(Game, card, "BATTLEFIELD");
     public static ICommand Get(IGame game, string playerId) => new InstallHeroCommand(game, playerId);
 }

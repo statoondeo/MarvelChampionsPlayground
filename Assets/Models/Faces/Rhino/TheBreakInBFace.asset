@@ -16,7 +16,7 @@ MonoBehaviour:
   Title: L'Effraction
   SubTitle: 
   Sprite: {fileID: 21300000, guid: b7ad3b7c2bfaab64d8100e48f84506ae, type: 3}
-  CardType: 22
+  FaceType: 27
   Classification: 2
   Starting: 0
   Acceleration: 1

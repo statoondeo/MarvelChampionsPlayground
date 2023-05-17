@@ -9,6 +9,6 @@ public sealed class DeckZone : BaseZone
     {
         base.Add(card);
         card.UnTap();
-        card.FlipTo("BACK");
+        card.FlipTo(1);
     }
 }

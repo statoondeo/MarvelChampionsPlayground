@@ -13,17 +13,17 @@
         ISideSchemeCard sideSchemeCard = Card as ISideSchemeCard;
         if (Card.IsLocation("BATTLEFIELD"))
         {
-            if (Card.IsFace("FACE"))
+            if (Card.IsFace(0))
             {
                 BackPanelController.SetActive(false);
                 FacePanelController.SetActive(true);
-                FaceController.SetModel(sideSchemeCard.Faces["FACE"] as ISideSchemeFace);
+                FaceController.SetModel(sideSchemeCard.CurrentFace as ISideSchemeFace);
             }
             else
             {
                 FacePanelController.SetActive(false);
                 BackPanelController.SetActive(true);
-                BackController.SetModel(sideSchemeCard.Faces["BACK"] as IBackFace);
+                BackController.SetModel(sideSchemeCard.CurrentFace as IBackFace);
             }
         }
         else

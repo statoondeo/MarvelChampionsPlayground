@@ -3,5 +3,10 @@
 public sealed class MainSchemeBFaceController : MonoBehaviour
 {
     [SerializeField] private TreatController TreatController;
-    public void SetModel(IMainSchemeBFace model) => TreatController.SetModel(model);
+    [SerializeField] private TreatThresholdController TreatThresholdController;
+    public void SetModel(IMainSchemeBFace model)
+    {
+        TreatController.SetModel(model);
+        TreatThresholdController.SetModel(model);
+    }
 }

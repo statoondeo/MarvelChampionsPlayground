@@ -7,6 +7,7 @@ public sealed class BattlefieldZone : BaseZone
     public override void Add(ICard card)
     {
         base.Add(card);
+        card.FlipTo(0);
         card.GetFacade<IEnterPlayComponent>()?.EnterPlay();
     }
 }

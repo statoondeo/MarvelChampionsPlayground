@@ -8,6 +8,7 @@
         if (cardModel is EventCardModel eventCardModel) return EventCard.Get(game, id, ownerId, eventCardModel);
         if (cardModel is HeroCardModel heroCardModel) return HeroCard.Get(game, id, ownerId, heroCardModel);
         if (cardModel is MainSchemeCardModel mainSchemeCardModel) return SingleMainSchemeCard.Get(game, id, ownerId, mainSchemeCardModel);
+        if (cardModel is DoubleMainSchemeCardModel doubleMainSchemeCardModel) return DoubleMainSchemeCard.Get(game, id, ownerId, doubleMainSchemeCardModel);
         if (cardModel is MinionCardModel minionCardModel) return MinionCard.Get(game, id, ownerId, minionCardModel);
         if (cardModel is ObligationCardModel obligationCardModel) return ObligationCard.Get(game, id, ownerId, obligationCardModel);
         if (cardModel is ResourceCardModel resourceCardModel) return ResourceCard.Get(game, id, ownerId, resourceCardModel);

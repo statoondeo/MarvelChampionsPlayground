@@ -3,7 +3,7 @@
     private HeroEnterPlayComponent() : base() { }
     public override void EnterPlay()
     {
-        Card.FlipTo("FACE");
+        Card.FlipTo(0);
         Card.GetFacade<ILifeComponent>().Init();
     }
 
