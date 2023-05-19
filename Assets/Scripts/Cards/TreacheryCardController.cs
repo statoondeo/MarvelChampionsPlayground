@@ -1,8 +1,30 @@
-﻿using UnityEngine;
-
-public sealed class TreacheryCardController : BaseCardController
+﻿public sealed class TreacheryCardController : BaseCardController
 {
-    [SerializeField] private TreacheryFaceController FaceController;
-    [SerializeField] private BackFaceController BackController;
+    private TreacheryFaceController FaceController;
+    private BackFaceController BackController;
 
+    private void Awake()
+    {
+        FaceController = FacePanelController.GetComponent<TreacheryFaceController>();
+        BackController = BackPanelController.GetComponent<BackFaceController>();
+    }
+    protected override void InitValues()
+    {
+        if (Card.IsLocation("STACK"))
+        {
+            FacePanelController.SetActive(false);
+            BackPanelController.SetActive(false);
+            return;
+        }
+        if (Card.IsFace(0))
+        {
+            BackPanelController.SetActive(false);
+            FacePanelController.SetActive(true);
+            FaceController.SetModel(Card.CurrentFace as ITreacheryFace);
+            return;
+        }
+        FacePanelController.SetActive(false);
+        BackPanelController.SetActive(true);
+        BackController.SetModel(Card.CurrentFace as IBackFace);
+    }
 }

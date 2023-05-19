@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CosmicFlight
   m_EditorClassIdentifier: 
   CardId: f97adcb4-c4d6-4ceb-91f8-fcf41083bffb
-  CardType: 14
+  CardType: 15
   Face: {fileID: 11400000, guid: 0df3a47ed9f161540971644a8424699a, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

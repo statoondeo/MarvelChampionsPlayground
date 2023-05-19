@@ -30,7 +30,7 @@
                     game,
                     CardTypeFacade.Get(CardType.Obligation),
                     faceMediator,
-                    faceMediator,
+                    backMediator,
                     CoreCardFacade.Get(cardModel.CardId, id, ownerId),
                     FlipFacade.Get(
                         ObligationFace.Get(faceMediator, (ObligationFaceModel)cardModel.Face),

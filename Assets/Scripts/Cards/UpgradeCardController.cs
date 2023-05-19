@@ -1,26 +1,28 @@
-﻿using UnityEngine;
-
-public sealed class UpgradeCardController : BaseCardController
+﻿public sealed class UpgradeCardController : BaseCardController
 {
-    [SerializeField] private UpgradeFaceController FaceController;
-    [SerializeField] private BackFaceController BackController;
+    private UpgradeFaceController FaceController;
+    private BackFaceController BackController;
 
+    private void Awake()
+    {
+        FaceController = FacePanelController.GetComponent<UpgradeFaceController>();
+        BackController = BackPanelController.GetComponent<BackFaceController>();
+    }
     protected override void InitValues()
     {
-        IUpgradeCard card = Card as IUpgradeCard;
         if (Card.IsLocation("BATTLEFIELD"))
         {
             if (Card.IsFace(0))
             {
                 BackPanelController.SetActive(false);
                 FacePanelController.SetActive(true);
-                FaceController.SetModel(card.CurrentFace as IUpgradeFace);
+                FaceController.SetModel(Card.CurrentFace as IUpgradeFace);
             }
             else
             {
                 FacePanelController.SetActive(false);
                 BackPanelController.SetActive(true);
-                BackController.SetModel(card.CurrentFace as IBackFace);
+                BackController.SetModel(Card.CurrentFace as IBackFace);
             }
         }
         else

@@ -12,23 +12,22 @@ public sealed class HeroCardController : BaseCardController
     }
     protected override void InitValues()
     {
-        IHeroCard card = Card as IHeroCard;
         if (Card.IsLocation("BATTLEFIELD"))
         {
             if (Card.IsFace(0))
             {
                 BackPanelController.SetActive(false);
                 FacePanelController.SetActive(true);
-                FaceController.SetModel(card.CurrentFace as IAlterEgoFace);
+                FaceController.SetModel(Card.CurrentFace as IAlterEgoFace);
             }
             else
             {
                 FacePanelController.SetActive(false);
                 BackPanelController.SetActive(true);
-                BackController.SetModel(card.CurrentFace as IHeroFace);
+                BackController.SetModel(Card.CurrentFace as IHeroFace);
             }
             LifeController.gameObject.SetActive(true);
-            LifeController.SetModel(card);
+            LifeController.SetModel(Card as IHeroCard);
         }
         else
         {

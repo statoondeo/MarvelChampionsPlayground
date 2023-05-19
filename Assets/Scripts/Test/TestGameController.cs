@@ -9,10 +9,19 @@ public sealed class TestGameController : MonoBehaviour
 {
     [SerializeField] private GameObject HeroPrefab;
     [SerializeField] private GameObject AllyPrefab;
+    [SerializeField] private GameObject SupportPrefab;
+    [SerializeField] private GameObject UpgradePrefab;
+    [SerializeField] private GameObject EventPrefab;
+    [SerializeField] private GameObject ResourcePrefab;
 
+    [SerializeField] private GameObject VillainPrefab;
     [SerializeField] private GameObject SideSchemePrefab;
     [SerializeField] private GameObject MainSchemePrefab;
     [SerializeField] private GameObject MinionPrefab;
+    [SerializeField] private GameObject AttachmentPrefab;
+    [SerializeField] private GameObject EnvironmentPrefab;
+    [SerializeField] private GameObject TreacheryPrefab;
+    [SerializeField] private GameObject ObligationPrefab;
 
     [SerializeField] private Canvas ActionsPanel;
     [SerializeField] private DeckModel DeckModel;
@@ -50,6 +59,15 @@ public sealed class TestGameController : MonoBehaviour
             "Minion" => CardType.Minion,
             "SideScheme" => CardType.SideScheme,
             "MainScheme" => CardType.MainScheme,
+            "Villain" => CardType.Villain,
+            "Attachment" => CardType.Attachment,
+            "Environment" => CardType.Environment,
+            "Support" => CardType.Support,
+            "Upgrade" => CardType.Upgrade,
+            "Event" => CardType.Event,
+            "Resource" => CardType.Resource,
+            "Treachery" => CardType.Treachery,
+            "Obligation" => CardType.Obligation,
             _ => CardType.None
         };
     private GameObject GetPrefab(CardType cardType)
@@ -61,6 +79,15 @@ public sealed class TestGameController : MonoBehaviour
             CardType.Minion => MinionPrefab,
             CardType.SideScheme => SideSchemePrefab,
             CardType.MainScheme => MainSchemePrefab,
+            CardType.Villain => VillainPrefab,
+            CardType.Attachment => AttachmentPrefab,
+            CardType.Environment => EnvironmentPrefab,
+            CardType.Upgrade => UpgradePrefab,
+            CardType.Support => SupportPrefab,
+            CardType.Event => EventPrefab,
+            CardType.Resource => ResourcePrefab,
+            CardType.Treachery => TreacheryPrefab,
+            CardType.Obligation => ObligationPrefab,
             _ => null,
         };
     }

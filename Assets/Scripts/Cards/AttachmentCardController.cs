@@ -1,26 +1,28 @@
-﻿using UnityEngine;
-
-public sealed class AttachmentCardController : BaseCardController
+﻿public sealed class AttachmentCardController : BaseCardController
 {
-    [SerializeField] private AttachmentFaceController FaceController;
-    [SerializeField] private BackFaceController BackController;
+    private AttachmentFaceController FaceController;
+    private BackFaceController BackController;
 
+    private void Awake()
+    {
+        FaceController = FacePanelController.GetComponent<AttachmentFaceController>();
+        BackController = BackPanelController.GetComponent<BackFaceController>();
+    }
     protected override void InitValues()
     {
-        IAttachmentCard card = Card as IAttachmentCard;
         if (Card.IsLocation("BATTLEFIELD"))
         {
             if (Card.IsFace(0))
             {
                 BackPanelController.SetActive(false);
                 FacePanelController.SetActive(true);
-                FaceController.SetModel(card.CurrentFace as IAttachmentFace);
+                FaceController.SetModel(Card.CurrentFace as IAttachmentFace);
             }
             else
             {
                 FacePanelController.SetActive(false);
                 BackPanelController.SetActive(true);
-                BackController.SetModel(card.CurrentFace as IBackFace);
+                BackController.SetModel(Card.CurrentFace as IBackFace);
             }
         }
         else

@@ -19,4 +19,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 99a749711e310a048b05958d1bcca1bc, type: 2}
   - {fileID: 11400000, guid: abd34cfdc10840c4daf05cb273d98851, type: 2}
   - {fileID: 11400000, guid: 4db66ecd738069b4093a9ad25b275a3e, type: 2}
+  - {fileID: 11400000, guid: ed0d854a6ddc4644286d32cc8f847b00, type: 2}
+  - {fileID: 11400000, guid: ffc0c575bc0c5e043958129795a0ddea, type: 2}
+  - {fileID: 11400000, guid: d958da1d71c44364ea0296b06d901341, type: 2}
+  - {fileID: 11400000, guid: 5046dfc7a7572ea4592740bc03dfd7a9, type: 2}
+  - {fileID: 11400000, guid: eee315e789007dc49a26c659bbc8a7c3, type: 2}
+  - {fileID: 11400000, guid: e77a125206f96004e91ff0bedb0b7a6d, type: 2}
+  - {fileID: 11400000, guid: 843381bbd999c88499749f9784f879d3, type: 2}
+  - {fileID: 11400000, guid: c01cf05be815b9f499d53a2c219f26d2, type: 2}
+  - {fileID: 11400000, guid: b43e9225b8a08c7438972727ccd115dd, type: 2}
   HeroSetupModel: {fileID: 11400000, guid: e6e4a9f56476ace44b82be51a17393c1, type: 2}

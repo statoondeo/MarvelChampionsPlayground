@@ -10,20 +10,19 @@
     }
     protected override void InitValues()
     {
-        IAllyCard card = Card as IAllyCard;
         if (Card.IsLocation("BATTLEFIELD"))
         {
             if (Card.IsFace(0))
             {
                 BackPanelController.SetActive(false);
                 FacePanelController.SetActive(true);
-                FaceController.SetModel(card.CurrentFace as IAllyFace);
+                FaceController.SetModel(Card.CurrentFace as IAllyFace);
             }
             else
             {
                 FacePanelController.SetActive(false);
                 BackPanelController.SetActive(true);
-                BackController.SetModel(card.CurrentFace as IBackFace);
+                BackController.SetModel(Card.CurrentFace as IBackFace);
             }
         }
         else

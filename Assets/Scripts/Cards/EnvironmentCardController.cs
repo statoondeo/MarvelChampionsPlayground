@@ -1,26 +1,28 @@
-﻿using UnityEngine;
-
-public sealed class EnvironmentCardController : BaseCardController
+﻿public sealed class EnvironmentCardController : BaseCardController
 {
-    [SerializeField] private EnvironmentFaceController FaceController;
-    [SerializeField] private BackFaceController BackController;
+    private EnvironmentFaceController FaceController;
+    private BackFaceController BackController;
 
+    private void Awake()
+    {
+        FaceController = FacePanelController.GetComponent<EnvironmentFaceController>();
+        BackController = BackPanelController.GetComponent<BackFaceController>();
+    }
     protected override void InitValues()
     {
-        IEnvironmentCard card = Card as IEnvironmentCard;
         if (Card.IsLocation("BATTLEFIELD"))
         {
             if (Card.IsFace(0))
             {
                 BackPanelController.SetActive(false);
                 FacePanelController.SetActive(true);
-                FaceController.SetModel(card.CurrentFace as IEnvironmentFace);
+                FaceController.SetModel(Card.CurrentFace as IEnvironmentFace);
             }
             else
             {
                 FacePanelController.SetActive(false);
                 BackPanelController.SetActive(true);
-                BackController.SetModel(card.CurrentFace as IBackFace);
+                BackController.SetModel(Card.CurrentFace as IBackFace);
             }
         }
         else

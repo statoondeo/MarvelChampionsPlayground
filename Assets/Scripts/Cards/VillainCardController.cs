@@ -1,25 +1,28 @@
-﻿using UnityEngine;
-
-public sealed class VillainCardController : BaseCardController
+﻿public sealed class VillainCardController : BaseCardController
 {
-    [SerializeField] private VillainFaceController FaceController;
-    [SerializeField] private VillainFaceController BackController;
+    private VillainFaceController FaceController;
+    private VillainFaceController BackController;
+
+    private void Awake()
+    {
+        FaceController = FacePanelController.GetComponent<VillainFaceController>();
+        BackController = BackPanelController.GetComponent<VillainFaceController>();
+    }
     protected override void InitValues()
     {
-        IVillainCard card = Card as IVillainCard;
         if (Card.IsLocation("BATTLEFIELD"))
         {
             if (Card.IsFace(0))
             {
                 BackPanelController.SetActive(false);
                 FacePanelController.SetActive(true);
-                FaceController.SetModel(card.CurrentFace as IVillainFace);
+                FaceController.SetModel(Card.CurrentFace as IVillainFace);
             }
             else
             {
                 FacePanelController.SetActive(false);
                 BackPanelController.SetActive(true);
-                BackController.SetModel(card.CurrentFace as IVillainFace);
+                BackController.SetModel(Card.CurrentFace as IVillainFace);
             }
         }
         else

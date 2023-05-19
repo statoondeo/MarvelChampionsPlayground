@@ -8,7 +8,7 @@ public enum CardType
     Event = 12,
     Resource = 13,
     Support = 14,
-    Upgrade = 14,
+    Upgrade = 15,
 
     Villain = 20,
     Attachment = 21,

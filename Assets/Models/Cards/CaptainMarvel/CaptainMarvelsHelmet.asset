@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CaptainMarvelsHelmet
   m_EditorClassIdentifier: 
   CardId: 7ef0cecc-758d-4394-b24d-f49451a796f1
-  CardType: 14
+  CardType: 15
   Face: {fileID: 11400000, guid: 71053f69315ae1643ab97e0aa6c4640f, type: 2}
   Back: {fileID: 11400000, guid: 1db3507e53a31f34b9f4f2054033f8b6, type: 2}

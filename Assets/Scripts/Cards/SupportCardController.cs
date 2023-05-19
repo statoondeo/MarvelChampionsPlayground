@@ -1,26 +1,28 @@
-﻿using UnityEngine;
-
-public sealed class SupportCardController : BaseCardController
+﻿public sealed class SupportCardController : BaseCardController
 {
-    [SerializeField] private SupportFaceController FaceController;
-    [SerializeField] private BackFaceController BackController;
+    private SupportFaceController FaceController;
+    private BackFaceController BackController;
 
+    private void Awake()
+    {
+        FaceController = FacePanelController.GetComponent<SupportFaceController>();
+        BackController = BackPanelController.GetComponent<BackFaceController>();
+    }
     protected override void InitValues()
     {
-        ISupportCard card = Card as ISupportCard;
         if (Card.IsLocation("BATTLEFIELD"))
         {
             if (Card.IsFace(0))
             {
                 BackPanelController.SetActive(false);
                 FacePanelController.SetActive(true);
-                FaceController.SetModel(card.CurrentFace as ISupportFace);
+                FaceController.SetModel(Card.CurrentFace as ISupportFace);
             }
             else
             {
                 FacePanelController.SetActive(false);
                 BackPanelController.SetActive(true);
-                BackController.SetModel(card.CurrentFace as IBackFace);
+                BackController.SetModel(Card.CurrentFace as IBackFace);
             }
         }
         else

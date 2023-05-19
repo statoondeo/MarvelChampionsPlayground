@@ -13,7 +13,7 @@
     }
     private LocationComponent(string location) : base() => Location = location;
     public bool IsLocation(string location) 
-        => Location.Equals(Card.Game.GetFirst(ZoneNameSelector.Get(Card.Game, Card.OwnerId, location)).Id);
+        => Location.Equals(Card.Game.GetFirst(ZoneNameSelector.Get(Card.Game, Card.OwnerId, location))?.Id);
     public void MoveTo(string location)
     {
         if (Card.IsLocation(location)) return;
