@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public abstract class BaseComponentController<T> : MonoBehaviour where T : IComponent<T>
+public abstract class BaseCardComponentController<T> : MonoBehaviour where T : ICardComponent<T>
 {
     protected T Model;
-    protected IFace AttachedFace;
+    protected ICardFace AttachedFace;
     protected virtual void OnEnable()
     {
         if (AttachedFace is null) return;

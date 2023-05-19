@@ -1,4 +1,4 @@
-﻿public sealed class TreacheryFace : BaseFace, ITreacheryFace
+﻿public sealed class TreacheryFace : BaseCardFace, ITreacheryFace
 {
     #region ICardHolder
 
@@ -15,9 +15,9 @@
 
     private readonly IBoostFacade BoostItem;
     public int Boost => BoostItem.Boost;
-    public void AddDecorator(IDecorator<IBoostComponent> decorator)
+    public void AddDecorator(ICardComponentDecorator<IBoostComponent> decorator)
         => BoostItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IBoostComponent> decorator)
+    public void RemoveDecorator(ICardComponentDecorator<IBoostComponent> decorator)
         => BoostItem.RemoveDecorator(decorator);
 
     #endregion
@@ -26,9 +26,9 @@
 
     private readonly IWhenRevealedFacade WhenRevealedItem;
     public ICommand WhenRevealed => WhenRevealedItem.WhenRevealed;
-    public void AddDecorator(IDecorator<IWhenRevealedComponent> decorator)
+    public void AddDecorator(ICardComponentDecorator<IWhenRevealedComponent> decorator)
         => WhenRevealedItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IWhenRevealedComponent> decorator)
+    public void RemoveDecorator(ICardComponentDecorator<IWhenRevealedComponent> decorator)
         => WhenRevealedItem.RemoveDecorator(decorator);
     public void Reveal() => WhenRevealedItem.Reveal();
 
@@ -37,7 +37,7 @@
     #region Constructeur
 
     private TreacheryFace(
-            IMediator<IComponent> mediator,
+            IMediator<ICardComponent> mediator,
             ITitleFacade titleFacade,
             IFaceTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
@@ -60,7 +60,7 @@
 
     #region Factory
 
-    public static ITreacheryFace Get(IMediator<IComponent> mediator, TreacheryFaceModel faceModel)
+    public static ITreacheryFace Get(IMediator<ICardComponent> mediator, TreacheryFaceModel faceModel)
         => new TreacheryFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),

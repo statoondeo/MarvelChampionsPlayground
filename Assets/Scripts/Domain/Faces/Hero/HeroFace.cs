@@ -1,4 +1,4 @@
-﻿public sealed class HeroFace : BaseFace, IHeroFace
+﻿public sealed class HeroFace : BaseCardFace, IHeroFace
 {
     #region ICardHolder
 
@@ -17,8 +17,8 @@
 
     private readonly IThwartFacade ThwartItem;
     public int Thwart => ThwartItem.Thwart;
-    public void AddDecorator(IDecorator<IThwartComponent> decorator) => ThwartItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IThwartComponent> decorator) => ThwartItem.RemoveDecorator(decorator);
+    public void AddDecorator(ICardComponentDecorator<IThwartComponent> decorator) => ThwartItem.AddDecorator(decorator);
+    public void RemoveDecorator(ICardComponentDecorator<IThwartComponent> decorator) => ThwartItem.RemoveDecorator(decorator);
 
     #endregion
 
@@ -26,8 +26,8 @@
 
     private readonly IAttackFacade AttackItem;
     public int Attack => AttackItem.Attack;
-    public void AddDecorator(IDecorator<IAttackComponent> decorator) => AttackItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IAttackComponent> decorator) => AttackItem.RemoveDecorator(decorator);
+    public void AddDecorator(ICardComponentDecorator<IAttackComponent> decorator) => AttackItem.AddDecorator(decorator);
+    public void RemoveDecorator(ICardComponentDecorator<IAttackComponent> decorator) => AttackItem.RemoveDecorator(decorator);
 
     #endregion
 
@@ -35,8 +35,8 @@
 
     private readonly IDefenseFacade DefenseItem;
     public int Defense => DefenseItem.Defense;
-    public void AddDecorator(IDecorator<IDefenseComponent> decorator) => DefenseItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IDefenseComponent> decorator) => DefenseItem.RemoveDecorator(decorator);
+    public void AddDecorator(ICardComponentDecorator<IDefenseComponent> decorator) => DefenseItem.AddDecorator(decorator);
+    public void RemoveDecorator(ICardComponentDecorator<IDefenseComponent> decorator) => DefenseItem.RemoveDecorator(decorator);
 
     #endregion
 
@@ -44,9 +44,9 @@
 
     private readonly IHandSizeFacade HandSizeItem;
     public int HandSize => HandSizeItem.HandSize;
-    public void AddDecorator(IDecorator<IHandSizeComponent> decorator)
+    public void AddDecorator(ICardComponentDecorator<IHandSizeComponent> decorator)
         => HandSizeItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IHandSizeComponent> decorator)
+    public void RemoveDecorator(ICardComponentDecorator<IHandSizeComponent> decorator)
         => HandSizeItem.RemoveDecorator(decorator);
 
     #endregion
@@ -54,7 +54,7 @@
     #region Constructeur
 
     private HeroFace(
-            IMediator<IComponent> mediator,
+            IMediator<ICardComponent> mediator,
             ITitleFacade titleFacade,
             IFaceTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
@@ -83,7 +83,7 @@
 
     #region Factory
 
-    public static IHeroFace Get(IMediator<IComponent> mediator, HeroFaceModel faceModel)
+    public static IHeroFace Get(IMediator<ICardComponent> mediator, HeroFaceModel faceModel)
         => new HeroFace(
                     mediator,
                     TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),

@@ -12,7 +12,7 @@
     }
     private void OnShuffledCallback()
     {
-        ICard lastCard = Zone.GetLast();
+        ICard lastCard = Zone.GetLast(NoFilterCardSelector.Get());
         if (lastCard is null) return;
         //GameController.CardControllers.GetFirst(CardIdControllerSelector.Get(lastCard.Id)).Spin(); ;
     }

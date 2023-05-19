@@ -1,4 +1,4 @@
-﻿public sealed class ObligationFace : BaseFace, IObligationFace
+﻿public sealed class ObligationFace : BaseCardFace, IObligationFace
 {
     #region ICardHolder
 
@@ -14,9 +14,9 @@
 
     private readonly IBoostFacade BoostItem;
     public int Boost => BoostItem.Boost;
-    public void AddDecorator(IDecorator<IBoostComponent> decorator)
+    public void AddDecorator(ICardComponentDecorator<IBoostComponent> decorator)
         => BoostItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IBoostComponent> decorator)
+    public void RemoveDecorator(ICardComponentDecorator<IBoostComponent> decorator)
         => BoostItem.RemoveDecorator(decorator);
 
     #endregion
@@ -24,7 +24,7 @@
     #region Constructeur
 
     private ObligationFace(
-            IMediator<IComponent> mediator,
+            IMediator<ICardComponent> mediator,
             ITitleFacade titleFacade,
             IFaceTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
@@ -44,7 +44,7 @@
 
     #region Factory
 
-    public static IObligationFace Get(IMediator<IComponent> mediator, ObligationFaceModel faceModel)
+    public static IObligationFace Get(IMediator<ICardComponent> mediator, ObligationFaceModel faceModel)
         => new ObligationFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),

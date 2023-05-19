@@ -3,8 +3,8 @@
     private HeroCard(
             IGame game,
             ICardTypeFacade cardTypeFacade,
-            IMediator<IComponent> faceMediator,
-            IMediator<IComponent> backMediator,
+            IMediator<ICardComponent> faceMediator,
+            IMediator<ICardComponent> backMediator,
             ICoreCardFacade coreCardFacade,
             IFlipFacade flipFacade,
             ITapFacade tapFacade,
@@ -34,8 +34,8 @@
     #region ILifeFacade
 
     private readonly ILifeFacade LifeItem;
-    public void AddDecorator(IDecorator<ILifeComponent> decorator) => LifeItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<ILifeComponent> decorator) => LifeItem.RemoveDecorator(decorator);
+    public void AddDecorator(ICardComponentDecorator<ILifeComponent> decorator) => LifeItem.AddDecorator(decorator);
+    public void RemoveDecorator(ICardComponentDecorator<ILifeComponent> decorator) => LifeItem.RemoveDecorator(decorator);
     public int CurrentLife => LifeItem.CurrentLife;
     public int TotalLife => LifeItem.TotalLife;
     public int Damage => LifeItem.Damage;
@@ -48,8 +48,8 @@
 
     public static ICard Get(IGame game, string id, string ownerId, CardModel cardModel)
     {
-        IMediator<IComponent> alterEgoMediator = ComponentMediator.Get();
-        IMediator<IComponent> heroMediator = ComponentMediator.Get();
+        IMediator<ICardComponent> alterEgoMediator = CardComponentMediator.Get();
+        IMediator<ICardComponent> heroMediator = CardComponentMediator.Get();
         return new HeroCard(
                     game,
                     CardTypeFacade.Get(CardType.Hero),

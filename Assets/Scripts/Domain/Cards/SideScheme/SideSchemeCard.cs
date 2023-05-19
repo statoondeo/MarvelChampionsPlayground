@@ -3,8 +3,8 @@
     private SideSchemeCard(
             IGame game,
             ICardTypeFacade cardTypeFacade,
-            IMediator<IComponent> faceMediator,
-            IMediator<IComponent> backMediator,
+            IMediator<ICardComponent> faceMediator,
+            IMediator<ICardComponent> backMediator,
             ICoreCardFacade coreCardFacade,
             IFlipFacade flipFacade,
             ITapFacade tapFacade,
@@ -24,8 +24,8 @@
             string ownerId,
             CardModel cardModel)
     {
-        IMediator<IComponent> faceMediator = ComponentMediator.Get();
-        IMediator<IComponent> backMediator = ComponentMediator.Get();
+        IMediator<ICardComponent> faceMediator = CardComponentMediator.Get();
+        IMediator<ICardComponent> backMediator = CardComponentMediator.Get();
         return new SideSchemeCard(
                     game,
                     CardTypeFacade.Get(CardType.SideScheme),

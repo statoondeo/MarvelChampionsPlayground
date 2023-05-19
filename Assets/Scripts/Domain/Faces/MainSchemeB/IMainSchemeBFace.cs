@@ -1,6 +1,6 @@
 ﻿public interface IMainSchemeBFace : 
-    IFace, 
-    ICoreFacade,
+    ICardFace, 
+    ICoreFaceFacade,
     ITreatFacade,
     ITreatThresholdFacade,
     ITreatAccelerationFacade, 

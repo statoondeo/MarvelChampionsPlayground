@@ -1,11 +1,11 @@
-﻿public sealed class MainSchemeAFace : BaseFace, IMainSchemeAFace
+﻿public sealed class MainSchemeAFace : BaseCardFace, IMainSchemeAFace
 {
     #region IStadeFacade
 
     private readonly IStadeFacade StadeItem;
     public int Stade => StadeItem.Stade;
-    public void AddDecorator(IDecorator<IStadeComponent> decorator) => StadeItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IStadeComponent> decorator) => StadeItem.RemoveDecorator(decorator);
+    public void AddDecorator(ICardComponentDecorator<IStadeComponent> decorator) => StadeItem.AddDecorator(decorator);
+    public void RemoveDecorator(ICardComponentDecorator<IStadeComponent> decorator) => StadeItem.RemoveDecorator(decorator);
 
     #endregion
 
@@ -13,9 +13,9 @@
 
     private readonly ISetupFacade SetupItem;
     public ICommand Setup => SetupItem.Setup;
-    public void AddDecorator(IDecorator<ISetupComponent> decorator)
+    public void AddDecorator(ICardComponentDecorator<ISetupComponent> decorator)
         => SetupItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<ISetupComponent> decorator)
+    public void RemoveDecorator(ICardComponentDecorator<ISetupComponent> decorator)
         => SetupItem.RemoveDecorator(decorator);
 
     #endregion
@@ -24,9 +24,9 @@
 
     private readonly IWhenRevealedFacade WhenRevealedItem;
     public ICommand WhenRevealed => WhenRevealedItem.WhenRevealed;
-    public void AddDecorator(IDecorator<IWhenRevealedComponent> decorator)
+    public void AddDecorator(ICardComponentDecorator<IWhenRevealedComponent> decorator)
         => WhenRevealedItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IWhenRevealedComponent> decorator)
+    public void RemoveDecorator(ICardComponentDecorator<IWhenRevealedComponent> decorator)
         => WhenRevealedItem.RemoveDecorator(decorator);
     public void Reveal() => WhenRevealedItem.Reveal();
 
@@ -48,7 +48,7 @@
     #region Constructeur
 
     private MainSchemeAFace(
-            IMediator<IComponent> mediator,
+            IMediator<ICardComponent> mediator,
             ITitleFacade titleFacade,
             IFaceTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
@@ -76,7 +76,7 @@
 
     #region Factory
 
-    public static IMainSchemeAFace Get(IMediator<IComponent> mediator, MainSchemeAFaceModel faceModel)
+    public static IMainSchemeAFace Get(IMediator<ICardComponent> mediator, MainSchemeAFaceModel faceModel)
         => new MainSchemeAFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),

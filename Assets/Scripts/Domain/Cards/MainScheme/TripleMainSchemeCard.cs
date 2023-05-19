@@ -3,12 +3,12 @@
     private TripleMainSchemeCard(
             IGame game,
             ICardTypeFacade cardTypeFacade,
-            IMediator<IComponent> face1Mediator,
-            IMediator<IComponent> face2Mediator,
-            IMediator<IComponent> face3Mediator,
-            IMediator<IComponent> face4Mediator,
-            IMediator<IComponent> face5Mediator,
-            IMediator<IComponent> face6Mediator,
+            IMediator<ICardComponent> face1Mediator,
+            IMediator<ICardComponent> face2Mediator,
+            IMediator<ICardComponent> face3Mediator,
+            IMediator<ICardComponent> face4Mediator,
+            IMediator<ICardComponent> face5Mediator,
+            IMediator<ICardComponent> face6Mediator,
             ICoreCardFacade coreCardFacade,
             IFlipFacade flipFacade,
             ITapFacade tapFacade,
@@ -39,12 +39,12 @@
     }
     public new static ICard Get(IGame game, string id, string ownerId, CardModel cardModel)
     {
-        IMediator<IComponent> face1Mediator = ComponentMediator.Get();
-        IMediator<IComponent> face2Mediator = ComponentMediator.Get();
-        IMediator<IComponent> face3Mediator = ComponentMediator.Get();
-        IMediator<IComponent> face4Mediator = ComponentMediator.Get();
-        IMediator<IComponent> face5Mediator = ComponentMediator.Get();
-        IMediator<IComponent> face6Mediator = ComponentMediator.Get();
+        IMediator<ICardComponent> face1Mediator = CardComponentMediator.Get();
+        IMediator<ICardComponent> face2Mediator = CardComponentMediator.Get();
+        IMediator<ICardComponent> face3Mediator = CardComponentMediator.Get();
+        IMediator<ICardComponent> face4Mediator = CardComponentMediator.Get();
+        IMediator<ICardComponent> face5Mediator = CardComponentMediator.Get();
+        IMediator<ICardComponent> face6Mediator = CardComponentMediator.Get();
         return new TripleMainSchemeCard(
                     game,
                     CardTypeFacade.Get(CardType.MainScheme),

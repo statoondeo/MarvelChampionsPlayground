@@ -1,1 +1,1 @@
-﻿public interface IEnvironmentFace : IFace, ICoreFacade, IBoostFacade, IWhenRevealedFacade { }
+﻿public interface IEnvironmentFace : ICardFace, ICoreFaceFacade, IBoostFacade, IWhenRevealedFacade { }

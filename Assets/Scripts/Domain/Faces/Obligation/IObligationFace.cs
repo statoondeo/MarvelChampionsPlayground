@@ -1,1 +1,1 @@
-﻿public interface IObligationFace : IFace, ICoreFacade, IBoostFacade { }
+﻿public interface IObligationFace : ICardFace, ICoreFaceFacade, IBoostFacade { }

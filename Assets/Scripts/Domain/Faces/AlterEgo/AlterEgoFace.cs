@@ -1,4 +1,4 @@
-﻿public sealed class AlterEgoFace : BaseFace, IAlterEgoFace
+﻿public sealed class AlterEgoFace : BaseCardFace, IAlterEgoFace
 {
     #region ICardHolder
 
@@ -16,9 +16,9 @@
 
     private readonly IRecoveryFacade RecoveryItem;
     public int Recovery => RecoveryItem.Recovery;
-    public void AddDecorator(IDecorator<IRecoveryComponent> decorator) 
+    public void AddDecorator(ICardComponentDecorator<IRecoveryComponent> decorator) 
         => RecoveryItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IRecoveryComponent> decorator) 
+    public void RemoveDecorator(ICardComponentDecorator<IRecoveryComponent> decorator) 
         => RecoveryItem.RemoveDecorator(decorator);
 
     #endregion
@@ -27,9 +27,9 @@
 
     private readonly IHandSizeFacade HandSizeItem;
     public int HandSize => HandSizeItem.HandSize;
-    public void AddDecorator(IDecorator<IHandSizeComponent> decorator) 
+    public void AddDecorator(ICardComponentDecorator<IHandSizeComponent> decorator) 
         => HandSizeItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IHandSizeComponent> decorator) 
+    public void RemoveDecorator(ICardComponentDecorator<IHandSizeComponent> decorator) 
         => HandSizeItem.RemoveDecorator(decorator);
 
     #endregion
@@ -38,9 +38,9 @@
 
     private readonly ISetupFacade SetupItem;
     public ICommand Setup => SetupItem.Setup;
-    public void AddDecorator(IDecorator<ISetupComponent> decorator) 
+    public void AddDecorator(ICardComponentDecorator<ISetupComponent> decorator) 
         => SetupItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<ISetupComponent> decorator) 
+    public void RemoveDecorator(ICardComponentDecorator<ISetupComponent> decorator) 
         => SetupItem.RemoveDecorator(decorator);
 
     #endregion
@@ -48,7 +48,7 @@
     #region Constructeur
 
     public AlterEgoFace(
-            IMediator<IComponent> mediator,
+            IMediator<ICardComponent> mediator,
             ITitleFacade titleFacade,
             IFaceTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
@@ -74,7 +74,7 @@
 
     #region Factory
 
-    public static IAlterEgoFace Get(IMediator<IComponent> mediator, AlterEgoFaceModel faceModel)
+    public static IAlterEgoFace Get(IMediator<ICardComponent> mediator, AlterEgoFaceModel faceModel)
         => new AlterEgoFace(
                     mediator,
                     TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),

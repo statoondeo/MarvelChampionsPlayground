@@ -1,4 +1,4 @@
-﻿public sealed class SupportFace : BaseFace, ISupportFace
+﻿public sealed class SupportFace : BaseCardFace, ISupportFace
 {
     #region ICardHolder
 
@@ -15,9 +15,9 @@
 
     private readonly ICostFacade CostItem;
     public int Cost => CostItem.Cost;
-    public void AddDecorator(IDecorator<ICostComponent> decorator)
+    public void AddDecorator(ICardComponentDecorator<ICostComponent> decorator)
         => CostItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<ICostComponent> decorator)
+    public void RemoveDecorator(ICardComponentDecorator<ICostComponent> decorator)
         => CostItem.RemoveDecorator(decorator);
 
     #endregion
@@ -31,9 +31,9 @@
     public int Physic => ResourceItem.Physic;
     public int Wild => ResourceItem.Wild;
 
-    public void AddDecorator(IDecorator<IResourceGeneratorComponent> decorator)
+    public void AddDecorator(ICardComponentDecorator<IResourceGeneratorComponent> decorator)
         => ResourceItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IResourceGeneratorComponent> decorator)
+    public void RemoveDecorator(ICardComponentDecorator<IResourceGeneratorComponent> decorator)
         => ResourceItem.RemoveDecorator(decorator);
 
     #endregion
@@ -41,7 +41,7 @@
     #region Constructeur
 
     private SupportFace(
-            IMediator<IComponent> mediator,
+            IMediator<ICardComponent> mediator,
             ITitleFacade titleFacade,
             IFaceTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
@@ -64,7 +64,7 @@
 
     #region Factory
 
-    public static ISupportFace Get(IMediator<IComponent> mediator, SupportFaceModel faceModel)
+    public static ISupportFace Get(IMediator<ICardComponent> mediator, SupportFaceModel faceModel)
         => new SupportFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),

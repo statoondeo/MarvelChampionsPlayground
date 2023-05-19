@@ -1,1 +1,1 @@
-﻿public interface IUpgradeFace : IFace, ICoreFacade, IResourceGeneratorFacade, ICostFacade { }
+﻿public interface IUpgradeFace : ICardFace, ICoreFaceFacade, IResourceGeneratorFacade, ICostFacade { }

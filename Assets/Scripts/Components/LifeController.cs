@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-public sealed class LifeController : BaseComponentController<ILifeComponent>
+public sealed class LifeController : BaseCardComponentController<ILifeComponent>
 {
     [SerializeField] private TMP_Text CurrentText;
     [SerializeField] private TMP_Text MaxText;

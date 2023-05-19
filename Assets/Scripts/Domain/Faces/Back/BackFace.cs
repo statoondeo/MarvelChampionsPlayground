@@ -1,9 +1,9 @@
-﻿public sealed class BackFace : BaseFace, IBackFace
+﻿public sealed class BackFace : BaseCardFace, IBackFace
 {
     #region Constructeur
 
     private BackFace(
-            IMediator<IComponent> mediator,
+            IMediator<ICardComponent> mediator,
             ITitleFacade titleFacade, 
             IFaceTypeFacade cardTypeFacade, 
             IClassificationFacade classificationFacade)
@@ -17,7 +17,7 @@
 
     #region Factory
 
-    public static IFace Get(IMediator<IComponent> mediator, BackFaceModel faceModel)
+    public static ICardFace Get(IMediator<ICardComponent> mediator, BackFaceModel faceModel)
         => new BackFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),

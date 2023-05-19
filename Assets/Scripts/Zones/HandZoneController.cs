@@ -30,7 +30,9 @@ public sealed class HandZoneController : BaseZoneController
         if (Count == 0) return;
         if (Count == 1)
         {
-            BaseCardController controller = GameController.CardControllers.GetFirst(CardIdControllerSelector.Get(Zone.GetAt(0).Id));
+            BaseCardController controller = GameController
+                .CardControllers
+                .GetFirst(CardIdControllerSelector.Get(Zone.GetAt(NoFilterCardSelector.Get(), 0).Id));
             GameController.RoutineService.MoveRoutine(controller.transform, LeftPosition + .5f * HandLength * Vector2.right);
             return;
         }

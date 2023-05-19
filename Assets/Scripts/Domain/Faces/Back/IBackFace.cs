@@ -1,1 +1,1 @@
-﻿public interface IBackFace : IFace, ICoreFacade { }
+﻿public interface IBackFace : ICardFace, ICoreFaceFacade { }

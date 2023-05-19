@@ -1,4 +1,6 @@
 ﻿public sealed class ZoneRepository : BaseRepository<IZone>
 {
-    public ZoneRepository() : base() { }
+    private ZoneRepository() : base() { }
+
+    public static IRepository<IZone> Get() => new ZoneRepository();
 }

@@ -1,6 +1,6 @@
 ﻿public interface ISideSchemeFace : 
-    IFace, 
-    ICoreFacade, 
+    ICardFace, 
+    ICoreFaceFacade, 
     ITreatFacade, 
     IBoostFacade, 
     IWhenRevealedFacade { }

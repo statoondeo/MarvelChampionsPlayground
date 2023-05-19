@@ -1,9 +1,9 @@
-﻿public sealed class AllyFace : BaseFace, IAllyFace
+﻿public sealed class AllyFace : BaseCardFace, IAllyFace
 {
     #region Constructor
 
     private AllyFace(
-            IMediator<IComponent> mediator,
+            IMediator<ICardComponent> mediator,
             ITitleFacade titleFacade, 
             IFaceTypeFacade cardTypeFacade, 
             IClassificationFacade classificationFacade,
@@ -54,8 +54,8 @@
 
     private readonly IThwartFacade ThwartItem;
     public int Thwart => ThwartItem.Thwart;
-    public void AddDecorator(IDecorator<IThwartComponent> decorator) => ThwartItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IThwartComponent> decorator) => ThwartItem.RemoveDecorator(decorator);
+    public void AddDecorator(ICardComponentDecorator<IThwartComponent> decorator) => ThwartItem.AddDecorator(decorator);
+    public void RemoveDecorator(ICardComponentDecorator<IThwartComponent> decorator) => ThwartItem.RemoveDecorator(decorator);
 
     #endregion
 
@@ -63,16 +63,16 @@
 
     private readonly IAttackFacade AttackItem;
     public int Attack => AttackItem.Attack;
-    public void AddDecorator(IDecorator<IAttackComponent> decorator) => AttackItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IAttackComponent> decorator) => AttackItem.RemoveDecorator(decorator);
+    public void AddDecorator(ICardComponentDecorator<IAttackComponent> decorator) => AttackItem.AddDecorator(decorator);
+    public void RemoveDecorator(ICardComponentDecorator<IAttackComponent> decorator) => AttackItem.RemoveDecorator(decorator);
 
     #endregion
 
     #region ILifeFacade
 
     private readonly ILifeFacade LifeItem;
-    public void AddDecorator(IDecorator<ILifeComponent> decorator) => LifeItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<ILifeComponent> decorator) => LifeItem.RemoveDecorator(decorator);
+    public void AddDecorator(ICardComponentDecorator<ILifeComponent> decorator) => LifeItem.AddDecorator(decorator);
+    public void RemoveDecorator(ICardComponentDecorator<ILifeComponent> decorator) => LifeItem.RemoveDecorator(decorator);
 
     public int CurrentLife => LifeItem.CurrentLife;
     public int TotalLife => LifeItem.TotalLife;
@@ -86,9 +86,9 @@
 
     private readonly ICostFacade CostItem;
     public int Cost => CostItem.Cost;
-    public void AddDecorator(IDecorator<ICostComponent> decorator)
+    public void AddDecorator(ICardComponentDecorator<ICostComponent> decorator)
         => CostItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<ICostComponent> decorator)
+    public void RemoveDecorator(ICardComponentDecorator<ICostComponent> decorator)
         => CostItem.RemoveDecorator(decorator);
 
     #endregion
@@ -102,16 +102,16 @@
     public int Physic => ResourceItem.Physic;
     public int Wild => ResourceItem.Wild;
 
-    public void AddDecorator(IDecorator<IResourceGeneratorComponent> decorator) 
+    public void AddDecorator(ICardComponentDecorator<IResourceGeneratorComponent> decorator) 
         => ResourceItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IResourceGeneratorComponent> decorator) 
+    public void RemoveDecorator(ICardComponentDecorator<IResourceGeneratorComponent> decorator) 
         => ResourceItem.RemoveDecorator(decorator);
 
     #endregion
 
     #region Factory
 
-    public static IFace Get(IMediator<IComponent> mediator, AllyFaceModel faceModel)
+    public static ICardFace Get(IMediator<ICardComponent> mediator, AllyFaceModel faceModel)
     {
         return new AllyFace(
                 mediator,

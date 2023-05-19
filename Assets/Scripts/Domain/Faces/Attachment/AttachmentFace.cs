@@ -1,4 +1,4 @@
-﻿public sealed class AttachmentFace : BaseFace, IAttachmentFace
+﻿public sealed class AttachmentFace : BaseCardFace, IAttachmentFace
 {
     #region ICardHolder
 
@@ -15,9 +15,9 @@
 
     private readonly IBoostFacade BoostItem;
     public int Boost => BoostItem.Boost;
-    public void AddDecorator(IDecorator<IBoostComponent> decorator) 
+    public void AddDecorator(ICardComponentDecorator<IBoostComponent> decorator) 
         => BoostItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IBoostComponent> decorator) 
+    public void RemoveDecorator(ICardComponentDecorator<IBoostComponent> decorator) 
         => BoostItem.RemoveDecorator(decorator);
 
     #endregion
@@ -27,9 +27,9 @@
     private readonly IWhenRevealedFacade WhenRevealedItem;
     public ICommand WhenRevealed => WhenRevealedItem.WhenRevealed;
     public void Reveal() => WhenRevealedItem.Reveal();
-    public void AddDecorator(IDecorator<IWhenRevealedComponent> decorator) 
+    public void AddDecorator(ICardComponentDecorator<IWhenRevealedComponent> decorator) 
         => WhenRevealedItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IWhenRevealedComponent> decorator) 
+    public void RemoveDecorator(ICardComponentDecorator<IWhenRevealedComponent> decorator) 
         => WhenRevealedItem.RemoveDecorator(decorator);
 
     #endregion
@@ -37,7 +37,7 @@
     #region Constructeur
 
     private AttachmentFace(
-            IMediator<IComponent> mediator,
+            IMediator<ICardComponent> mediator,
             ITitleFacade titleFacade,
             IFaceTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
@@ -60,7 +60,7 @@
 
     #region Factory
 
-    public static IAttachmentFace Get(IMediator<IComponent> mediator, AttachmentFaceModel faceModel)
+    public static IAttachmentFace Get(IMediator<ICardComponent> mediator, AttachmentFaceModel faceModel)
         => new AttachmentFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),

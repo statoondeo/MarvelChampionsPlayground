@@ -1,5 +1,4 @@
-﻿public interface IComponent : ICardHolder 
+﻿public interface IComponent 
 {
     void Init();
 }
-public interface IComponent<T> : IComponent { }

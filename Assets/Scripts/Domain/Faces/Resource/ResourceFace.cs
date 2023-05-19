@@ -1,4 +1,4 @@
-﻿public sealed class ResourceFace : BaseFace, IResourceFace
+﻿public sealed class ResourceFace : BaseCardFace, IResourceFace
 {
     #region ICardHolder
 
@@ -19,9 +19,9 @@
     public int Physic => ResourceItem.Physic;
     public int Wild => ResourceItem.Wild;
 
-    public void AddDecorator(IDecorator<IResourceGeneratorComponent> decorator)
+    public void AddDecorator(ICardComponentDecorator<IResourceGeneratorComponent> decorator)
         => ResourceItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IResourceGeneratorComponent> decorator)
+    public void RemoveDecorator(ICardComponentDecorator<IResourceGeneratorComponent> decorator)
         => ResourceItem.RemoveDecorator(decorator);
 
     #endregion
@@ -29,7 +29,7 @@
     #region Constructeur
 
     private ResourceFace(
-            IMediator<IComponent> mediator,
+            IMediator<ICardComponent> mediator,
             ITitleFacade titleFacade,
             IFaceTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
@@ -49,7 +49,7 @@
 
     #region Factory
 
-    public static IResourceFace Get(IMediator<IComponent> mediator, ResourceFaceModel faceModel)
+    public static IResourceFace Get(IMediator<ICardComponent> mediator, ResourceFaceModel faceModel)
         => new ResourceFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),

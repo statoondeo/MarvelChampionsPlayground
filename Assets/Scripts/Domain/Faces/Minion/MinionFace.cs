@@ -1,4 +1,4 @@
-﻿public sealed class MinionFace : BaseFace, IMinionFace
+﻿public sealed class MinionFace : BaseCardFace, IMinionFace
 {
     #region ICardHolder
 
@@ -18,8 +18,8 @@
     #region ILifeFacade
 
     private readonly ILifeFacade LifeItem;
-    public void AddDecorator(IDecorator<ILifeComponent> decorator) => LifeItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<ILifeComponent> decorator) => LifeItem.RemoveDecorator(decorator);
+    public void AddDecorator(ICardComponentDecorator<ILifeComponent> decorator) => LifeItem.AddDecorator(decorator);
+    public void RemoveDecorator(ICardComponentDecorator<ILifeComponent> decorator) => LifeItem.RemoveDecorator(decorator);
     public int CurrentLife => LifeItem.CurrentLife;
     public int TotalLife => LifeItem.TotalLife;
     public int Damage => LifeItem.Damage;
@@ -32,9 +32,9 @@
 
     private readonly ISchemeFacade SchemeItem;
     public int Scheme => SchemeItem.Scheme;
-    public void AddDecorator(IDecorator<ISchemeComponent> decorator)
+    public void AddDecorator(ICardComponentDecorator<ISchemeComponent> decorator)
         => SchemeItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<ISchemeComponent> decorator)
+    public void RemoveDecorator(ICardComponentDecorator<ISchemeComponent> decorator)
         => SchemeItem.RemoveDecorator(decorator);
 
     #endregion
@@ -43,8 +43,8 @@
 
     private readonly IAttackFacade AttackItem;
     public int Attack => AttackItem.Attack;
-    public void AddDecorator(IDecorator<IAttackComponent> decorator) => AttackItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IAttackComponent> decorator) => AttackItem.RemoveDecorator(decorator);
+    public void AddDecorator(ICardComponentDecorator<IAttackComponent> decorator) => AttackItem.AddDecorator(decorator);
+    public void RemoveDecorator(ICardComponentDecorator<IAttackComponent> decorator) => AttackItem.RemoveDecorator(decorator);
 
     #endregion
 
@@ -52,9 +52,9 @@
 
     private readonly IBoostFacade BoostItem;
     public int Boost => BoostItem.Boost;
-    public void AddDecorator(IDecorator<IBoostComponent> decorator)
+    public void AddDecorator(ICardComponentDecorator<IBoostComponent> decorator)
         => BoostItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IBoostComponent> decorator)
+    public void RemoveDecorator(ICardComponentDecorator<IBoostComponent> decorator)
         => BoostItem.RemoveDecorator(decorator);
 
     #endregion
@@ -64,9 +64,9 @@
     private readonly IWhenRevealedFacade WhenRevealedItem;
     public ICommand WhenRevealed => WhenRevealedItem.WhenRevealed;
     public void Reveal() => WhenRevealedItem.Reveal();
-    public void AddDecorator(IDecorator<IWhenRevealedComponent> decorator)
+    public void AddDecorator(ICardComponentDecorator<IWhenRevealedComponent> decorator)
         => WhenRevealedItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IWhenRevealedComponent> decorator)
+    public void RemoveDecorator(ICardComponentDecorator<IWhenRevealedComponent> decorator)
         => WhenRevealedItem.RemoveDecorator(decorator);
 
     #endregion
@@ -74,7 +74,7 @@
     #region Constructeur 
 
     private MinionFace(
-            IMediator<IComponent> mediator,
+            IMediator<ICardComponent> mediator,
             ITitleFacade titleFacade,
             IFaceTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
@@ -108,7 +108,7 @@
 
     #region Factory
 
-    public static IMinionFace Get(IMediator<IComponent> mediator, MinionFaceModel faceModel)
+    public static IMinionFace Get(IMediator<ICardComponent> mediator, MinionFaceModel faceModel)
         => new MinionFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),

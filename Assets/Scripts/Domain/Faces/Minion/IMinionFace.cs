@@ -1,6 +1,6 @@
 ﻿public interface IMinionFace : 
-    IFace, 
-    ICoreFacade, 
+    ICardFace, 
+    ICoreFaceFacade, 
     ILifeFacade, 
     ISchemeFacade, 
     IAttackFacade, 

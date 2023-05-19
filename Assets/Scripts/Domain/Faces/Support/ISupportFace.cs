@@ -1,1 +1,1 @@
-﻿public interface ISupportFace : IFace, ICoreFacade, IResourceGeneratorFacade, ICostFacade { }
+﻿public interface ISupportFace : ICardFace, ICoreFaceFacade, IResourceGeneratorFacade, ICostFacade { }

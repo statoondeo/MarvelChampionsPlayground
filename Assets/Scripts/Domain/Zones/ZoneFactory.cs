@@ -1,10 +1,17 @@
-﻿public sealed class ZoneFactory
+﻿using System;
+
+public sealed class ZoneFactory
 {
-    public IZone Ceate(IGame game, string label, string ownerId) => label switch
+    public IZone Create(IGame game, string label, string ownerId)
     {
-        "DECK" => new DeckZone(game, label, ownerId),
-        "DISCARD" => new DiscardZone(game, label, ownerId),
-        "BATTLEFIELD" => new BattlefieldZone(game, label, ownerId),
-        _ => null
-    };
+        string newId = Guid.NewGuid().ToString();
+        return label switch
+        {
+            "STACK" => StackZone.Get(game, newId, label, ownerId),
+            "DECK" => DeckZone.Get(game, newId, label, ownerId),
+            "DISCARD" => DiscardZone.Get(game, newId, label, ownerId),
+            "BATTLEFIELD" => BattlefieldZone.Get(game, newId, label, ownerId),
+            _ => null
+        };
+    }
 }

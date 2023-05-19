@@ -8,16 +8,19 @@ public sealed class GameBuilder
 
     private readonly IGame Game;
     private readonly IZone Battlefield;
+    private readonly ZoneFactory ZoneFactory;
+
     public GameBuilder(IPicker<ICard> anyCardPicker)
     {
         Game = new Game(
             //GameMediator.Get(),
-            new ZoneRepository(),
-            new CardRepository(),
-            new PlayerRepository(),
+            ZoneRepository.Get(),
+            CardRepository.Get(),
+            PlayerRepository.Get(),
             anyCardPicker);
         Game.RegisterSetupCommand(GameSetupCommand.Get(Game));
-        Battlefield = new BattlefieldZone(Game, BATTLEFIELD, null);
+        ZoneFactory = new();
+        Battlefield = ZoneFactory.Create(Game, BATTLEFIELD, null);
         Game.Add(Battlefield);
     }
     public GameBuilder WithPlayer(DeckModel deckModel)
@@ -29,11 +32,10 @@ public sealed class GameBuilder
 
         // Création des zones du joueur
         player.RegisterZoneId(BATTLEFIELD, Battlefield.Id);
-        ZoneFactory zoneFactory = new();
         foreach (string zoneName in deckModel.SetupModel.Zones)
         {
             if (BATTLEFIELD.Equals(zoneName)) continue;
-            IZone zone = zoneFactory.Ceate(Game, zoneName, player.Id);
+            IZone zone = ZoneFactory.Create(Game, zoneName, player.Id);
             player.RegisterZoneId(zoneName, zone.Id);
             Game.Add(zone);
         }

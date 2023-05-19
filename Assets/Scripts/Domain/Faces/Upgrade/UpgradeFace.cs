@@ -1,4 +1,4 @@
-﻿public sealed class UpgradeFace : BaseFace, IUpgradeFace
+﻿public sealed class UpgradeFace : BaseCardFace, IUpgradeFace
 {
     #region ICardHolder
 
@@ -15,9 +15,9 @@
 
     private readonly ICostFacade CostItem;
     public int Cost => CostItem.Cost;
-    public void AddDecorator(IDecorator<ICostComponent> decorator)
+    public void AddDecorator(ICardComponentDecorator<ICostComponent> decorator)
         => CostItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<ICostComponent> decorator)
+    public void RemoveDecorator(ICardComponentDecorator<ICostComponent> decorator)
         => CostItem.RemoveDecorator(decorator);
 
     #endregion
@@ -31,9 +31,9 @@
     public int Physic => ResourceItem.Physic;
     public int Wild => ResourceItem.Wild;
 
-    public void AddDecorator(IDecorator<IResourceGeneratorComponent> decorator)
+    public void AddDecorator(ICardComponentDecorator<IResourceGeneratorComponent> decorator)
         => ResourceItem.AddDecorator(decorator);
-    public void RemoveDecorator(IDecorator<IResourceGeneratorComponent> decorator)
+    public void RemoveDecorator(ICardComponentDecorator<IResourceGeneratorComponent> decorator)
         => ResourceItem.RemoveDecorator(decorator);
 
     #endregion
@@ -41,7 +41,7 @@
     #region Constructeur
 
     private UpgradeFace(
-            IMediator<IComponent> mediator,
+            IMediator<ICardComponent> mediator,
             ITitleFacade titleFacade,
             IFaceTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
@@ -64,7 +64,7 @@
 
     #region Factory
 
-    public static IUpgradeFace Get(IMediator<IComponent> mediator, UpgradeFaceModel faceModel)
+    public static IUpgradeFace Get(IMediator<ICardComponent> mediator, UpgradeFaceModel faceModel)
         => new UpgradeFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),

@@ -1,6 +1,6 @@
 ﻿public interface IAlterEgoFace :
-    IFace,
-    ICoreFacade, 
+    ICardFace,
+    ICoreFaceFacade, 
     IRecoveryFacade, 
     IHandSizeFacade, 
     ISetupFacade { }

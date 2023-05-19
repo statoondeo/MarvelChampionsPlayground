@@ -3,8 +3,8 @@
     private SingleMainSchemeCard(
             IGame game,
             ICardTypeFacade cardTypeFacade,
-            IMediator<IComponent> faceMediator,
-            IMediator<IComponent> backMediator,
+            IMediator<ICardComponent> faceMediator,
+            IMediator<ICardComponent> backMediator,
             ICoreCardFacade coreCardFacade,
             IFlipFacade flipFacade,
             ITapFacade tapFacade,
@@ -21,8 +21,8 @@
     { }
     public static ICard Get(IGame game, string id, string ownerId, CardModel cardModel)
     {
-        IMediator<IComponent> face1Mediator = ComponentMediator.Get();
-        IMediator<IComponent> face2Mediator = ComponentMediator.Get();
+        IMediator<ICardComponent> face1Mediator = CardComponentMediator.Get();
+        IMediator<ICardComponent> face2Mediator = CardComponentMediator.Get();
         return new SingleMainSchemeCard(
                     game,
                     CardTypeFacade.Get(CardType.MainScheme),

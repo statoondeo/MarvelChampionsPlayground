@@ -3,10 +3,10 @@
     protected DoubleMainSchemeCard(
             IGame game,
             ICardTypeFacade cardTypeFacade,
-            IMediator<IComponent> face1Mediator,
-            IMediator<IComponent> face2Mediator,
-            IMediator<IComponent> face3Mediator,
-            IMediator<IComponent> face4Mediator,
+            IMediator<ICardComponent> face1Mediator,
+            IMediator<ICardComponent> face2Mediator,
+            IMediator<ICardComponent> face3Mediator,
+            IMediator<ICardComponent> face4Mediator,
             ICoreCardFacade coreCardFacade,
             IFlipFacade flipFacade,
             ITapFacade tapFacade,
@@ -35,10 +35,10 @@
     }
     public static ICard Get(IGame game, string id, string ownerId, CardModel cardModel)
     {
-        IMediator<IComponent> face1Mediator = ComponentMediator.Get();
-        IMediator<IComponent> face2Mediator = ComponentMediator.Get();
-        IMediator<IComponent> face3Mediator = ComponentMediator.Get();
-        IMediator<IComponent> face4Mediator = ComponentMediator.Get();
+        IMediator<ICardComponent> face1Mediator = CardComponentMediator.Get();
+        IMediator<ICardComponent> face2Mediator = CardComponentMediator.Get();
+        IMediator<ICardComponent> face3Mediator = CardComponentMediator.Get();
+        IMediator<ICardComponent> face4Mediator = CardComponentMediator.Get();
         return new DoubleMainSchemeCard(
                     game,
                     CardTypeFacade.Get(CardType.MainScheme),
