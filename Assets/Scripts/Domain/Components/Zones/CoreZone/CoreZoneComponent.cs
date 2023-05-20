@@ -22,7 +22,6 @@ public sealed class CoreZoneComponent : BaseZoneComponent<ICoreZoneComponent>, I
         if (CardsItem.Contains(item)) return;
         item.SetOrder(CardsItem.Count(NoFilterCardSelector.Get()));
         CardsItem.Add(item);
-        item.SetLocation(Id);
         Zone.Raise<ICoreZoneComponent>();
     }
     public void Remove(ICard item)

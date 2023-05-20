@@ -9,6 +9,6 @@
     protected override ICommand GetCardCommand(ICard card)
         => MoveToCommand.Get(Game, card, "DISCARD");
     protected override IPicker<ICard> CardPicker => Game.AnyCardPicker;
-    protected override ICommand GetAdditionalCommand() => DrawUpToHandCommand.Get(Game, PlayerId);
+    protected override ICommand GetAdditionalCommand() => PlayerDrawUpToHandCommand.Get(Game, PlayerId);
     public static ICommand Get(IGame game, string playerId) => new MulliganCommand(game, playerId);
 }

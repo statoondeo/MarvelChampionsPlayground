@@ -13,7 +13,7 @@
     }
     private LocationComponent(string location) : base() => Location = location;
     public bool IsLocation(string location) 
-        => Location.Equals(Card.Game.GetFirst(ZoneNameSelector.Get(Card.Game, Card.OwnerId, location))?.Id);
+        => Location.Equals(GetZone(location)?.Id);
     public void MoveTo(string newLocation)
     {
         if (IsLocation(newLocation)) return;
@@ -21,6 +21,7 @@
         IZone newZone = GetZone(newLocation);
         newZone.Add(Card);
         oldZone?.Remove(Card);
+        SetLocation(newZone.Id);
     }
     private IZone GetZone(string location) => Card.Game.GetFirst(ZoneNameSelector.Get(Card.Game, Card.OwnerId, location));
     public void SetLocation(string newLocation) => Location = newLocation;

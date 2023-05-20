@@ -27,7 +27,7 @@ public sealed class GameBuilder
     {
 
         // Création du joueur
-        IPlayer player = new Player(Game, deckModel.Id, deckModel.name, deckModel.HeroType);
+        IActor player = PlayerActor.Get(Game, deckModel.Id, deckModel.name, deckModel.HeroType);
         Game.Add(player);
 
         // Création des zones du joueur
@@ -47,7 +47,7 @@ public sealed class GameBuilder
         {
             ICard card = cardFactory.Create(Game, Guid.NewGuid().ToString(), player.Id, cardModel); 
             Game.Add(card);
-            playerDeck.Add(card);
+            card.MoveTo("DECK");
             if (card.IsCardType(CardType.Hero)) player.SetHeroCard(card as IHeroCard);
         }
 

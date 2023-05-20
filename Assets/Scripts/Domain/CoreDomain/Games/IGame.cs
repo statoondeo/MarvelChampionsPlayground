@@ -1,5 +1,5 @@
 ﻿public interface IGame :
-    IRepository<IPlayer>,
+    IRepository<IActor>,
     IRepository<IZone>,
     IRepository<ICard>
     //IGameMediator

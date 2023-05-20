@@ -94,7 +94,7 @@ public sealed class TestGameController : MonoBehaviour
     private void OnLocationChanged(IComponent component)
     {
         LocationIdText.text = Card.Location;
-        LocationLabelText.text = Card.Game.GetFirst(ZoneIdSelector.Get(Card.Location))?.Label;
+        LocationLabelText.text = Card.Game.GetFirst(ZoneIdSelector.Get(Card.Location)).Label;
     }
     private void AttachDealDamageListener(Button button)
     {

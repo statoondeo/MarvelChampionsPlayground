@@ -32,6 +32,8 @@
         face4Mediator.Register<IFlipComponent>(face1Mediator.GetEventHandler<IFlipComponent>());
         face4Mediator.Register<ITapComponent>(face1Mediator.GetEventHandler<ITapComponent>());
         face4Mediator.Register<ILocationComponent>(face1Mediator.GetEventHandler<ILocationComponent>());
+
+        SetCard(this);
     }
     public static ICard Get(IGame game, string id, string ownerId, CardModel cardModel)
     {

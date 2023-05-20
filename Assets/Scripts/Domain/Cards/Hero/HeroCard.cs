@@ -27,9 +27,21 @@
         backMediator.Register<IEnterPlayComponent>(faceMediator.GetEventHandler<IEnterPlayComponent>());
 
         LifeItem = lifeFacade;
-        LifeItem.SetCard(this);
-        enterPlayFacade.SetCard(this);
+        EnterPlayItem = enterPlayFacade;
+        SetCard(this);
     }
+
+    #region ICardHolder
+
+    private readonly IEnterPlayFacade EnterPlayItem;
+    public override void SetCard(ICard card)
+    {
+        base.SetCard(card);
+        LifeItem.SetCard(card);
+        EnterPlayItem.SetCard(card);
+    }
+
+    #endregion
 
     #region ILifeFacade
 

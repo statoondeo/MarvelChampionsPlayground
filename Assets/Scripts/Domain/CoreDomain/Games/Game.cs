@@ -10,7 +10,7 @@ public sealed class Game : IGame
         //IGameMediator mediator,
         IRepository<IZone> zones,
         IRepository<ICard> cards, 
-        IRepository<IPlayer> players,
+        IRepository<IActor> players,
         IPicker<ICard> anyCardPicker)
     {
         //Mediator = mediator;
@@ -29,17 +29,17 @@ public sealed class Game : IGame
 
     //#endregion
 
-    #region IRepository<IPlayer>
+    #region IRepository<IActor>
 
-    private readonly IRepository<IPlayer> Players;
-    public void Add(IPlayer item) => Players.Add(item);
-    public void Remove(IPlayer item) => Players.Remove(item);
-    public int Count(ISelector<IPlayer> selector) => Players.Count(selector);
-    public bool Contains(IPlayer item) => Players.Contains(item);
-    public IPlayer GetFirst(ISelector<IPlayer> selector) => Players.GetFirst(selector);
-    public IEnumerable<IPlayer> GetAll(ISelector<IPlayer> selector) => Players.GetAll(selector);
-    public IPlayer GetLast(ISelector<IPlayer> selector) => Players.GetLast(selector);
-    public IPlayer GetAt(ISelector<IPlayer> selector, int index) => Players.GetAt(selector, index);
+    private readonly IRepository<IActor> Players;
+    public void Add(IActor item) => Players.Add(item);
+    public void Remove(IActor item) => Players.Remove(item);
+    public int Count(ISelector<IActor> selector) => Players.Count(selector);
+    public bool Contains(IActor item) => Players.Contains(item);
+    public IActor GetFirst(ISelector<IActor> selector) => Players.GetFirst(selector);
+    public IEnumerable<IActor> GetAll(ISelector<IActor> selector) => Players.GetAll(selector);
+    public IActor GetLast(ISelector<IActor> selector) => Players.GetLast(selector);
+    public IActor GetAt(ISelector<IActor> selector, int index) => Players.GetAt(selector, index);
 
     #endregion
 

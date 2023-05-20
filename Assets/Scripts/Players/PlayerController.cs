@@ -2,10 +2,10 @@
 
 public sealed class PlayerController : MonoBehaviour
 {
-    private IPlayer Player;
+    private IActor Player;
     private GameController GameController;
     public CardPositions[] BattlefieldPosition { get; private set; }
-    public void SetData(GameController gameController, IPlayer player, CardPositions[] battlefieldPosition)
+    public void SetData(GameController gameController, IActor player, CardPositions[] battlefieldPosition)
     {
         GameController = gameController;
         Player = player;

@@ -3,7 +3,14 @@ using System.Collections.Generic;
 
 public abstract class BaseCard : ICard
 {
+    #region IEntity
+
     public IGame Game { get; protected set; }
+
+    #endregion
+
+    #region Constructor
+
     protected BaseCard(
         IGame game,
         ICardTypeFacade cardTypeFacade,
@@ -26,14 +33,15 @@ public abstract class BaseCard : ICard
         backMediator.Register<ITapComponent>(faceMediator.GetEventHandler<ITapComponent>());
         backMediator.Register<ILocationComponent>(faceMediator.GetEventHandler<ILocationComponent>());
 
+        Game = game;
         CardTypeItem = cardTypeFacade;
         CardItem = cardFacade;
         FlipItem = flipFacade;
         TapItem = tapFacade;
         LocationItem = locationFacade;
-        Game = game;
-        SetCard(this);
     }
+
+    #endregion
 
     #region ICardComponent
 

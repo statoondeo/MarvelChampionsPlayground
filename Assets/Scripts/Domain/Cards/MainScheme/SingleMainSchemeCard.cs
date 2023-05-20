@@ -17,8 +17,7 @@
             coreCardFacade,
             flipFacade,
             tapFacade,
-            locationFacade)
-    { }
+            locationFacade) => SetCard(this);
     public static ICard Get(IGame game, string id, string ownerId, CardModel cardModel)
     {
         IMediator<ICardComponent> face1Mediator = CardComponentMediator.Get();

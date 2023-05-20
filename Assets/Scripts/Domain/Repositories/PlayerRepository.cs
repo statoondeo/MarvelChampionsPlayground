@@ -1,6 +1,6 @@
-﻿public sealed class PlayerRepository : BaseRepository<IPlayer>
+﻿public sealed class PlayerRepository : BaseRepository<IActor>
 {
     private PlayerRepository() : base() { }
 
-    public static IRepository<IPlayer> Get() => new PlayerRepository();
+    public static IRepository<IActor> Get() => new PlayerRepository();
 }

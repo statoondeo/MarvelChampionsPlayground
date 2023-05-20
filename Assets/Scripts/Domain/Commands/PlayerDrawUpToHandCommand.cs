@@ -1,10 +1,10 @@
-﻿public sealed class DrawUpToHandCommand : BaseCommand
+﻿public sealed class PlayerDrawUpToHandCommand : BaseCommand
 {
     private readonly string PlayerId;
-    private DrawUpToHandCommand(IGame game, string playerId) : base(game) => PlayerId = playerId;
+    private PlayerDrawUpToHandCommand(IGame game, string playerId) : base(game) => PlayerId = playerId;
     public override void Execute()
     {
-        IPlayer player = Game.GetFirst(PlayerIdSelector.Get(PlayerId));
+        IPlayerActor player = Game.GetFirst(PlayerIdSelector.Get(PlayerId)) as IPlayerActor;
         int handCardCount = player.GetZone("HAND").Count(NoFilterCardSelector.Get());
         int handSize = (player.HeroCard.CurrentFace as IHandSizeFacade).HandSize;
         int cardToDraw = handSize - handCardCount;
@@ -12,5 +12,5 @@
         player.Draw(cardToDraw);
     }
 
-    public static ICommand Get(IGame game, string playerId) => new DrawUpToHandCommand(game, playerId);
+    public static ICommand Get(IGame game, string playerId) => new PlayerDrawUpToHandCommand(game, playerId);
 }

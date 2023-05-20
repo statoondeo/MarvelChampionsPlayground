@@ -36,6 +36,8 @@
         face6Mediator.Register<IFlipComponent>(face1Mediator.GetEventHandler<IFlipComponent>());
         face6Mediator.Register<ITapComponent>(face1Mediator.GetEventHandler<ITapComponent>());
         face6Mediator.Register<ILocationComponent>(face1Mediator.GetEventHandler<ILocationComponent>());
+
+        SetCard(this);
     }
     public new static ICard Get(IGame game, string id, string ownerId, CardModel cardModel)
     {

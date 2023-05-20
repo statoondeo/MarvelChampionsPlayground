@@ -1,6 +1,4 @@
-﻿using System;
-
-public abstract class BaseZoneComponentFacade<T> : IZoneComponentFacade<T> where T : class, IZoneComponent<T>
+﻿public abstract class BaseZoneComponentFacade<T> : IZoneComponentFacade<T> where T : class, IZoneComponent<T>
 {
     protected BaseZoneComponentFacade(T item) => Item = item;
 

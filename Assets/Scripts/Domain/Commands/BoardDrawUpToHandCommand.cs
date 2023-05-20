@@ -8,7 +8,7 @@ public sealed class BoardDrawUpToHandCommand : BaseCommand
     {
         List<ICommand> commands = new();
         Game.GetAll(PlayerTypeSelector.Get(HeroType.Hero)).ToList()
-            .ForEach(item => commands.Add(DrawUpToHandCommand.Get(Game, item.Id)));
+            .ForEach(item => commands.Add(PlayerDrawUpToHandCommand.Get(Game, item.Id)));
         Command = CompositeCommand.Get(commands.ToArray());
     }
     public override void Execute() => Command.Execute();

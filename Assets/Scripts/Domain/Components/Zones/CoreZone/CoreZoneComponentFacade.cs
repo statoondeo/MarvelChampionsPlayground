@@ -12,8 +12,8 @@ public sealed class CoreZoneComponentFacade : BaseZoneComponentFacade<ICoreZoneC
     #region ICoreZoneComponent
 
     public string Id => Item.Id;
-    public string Label => Item.Id;
-    public string OwnerId => Item.Id;
+    public string Label => Item.Label;
+    public string OwnerId => Item.OwnerId;
 
     public void Add(ICard item) => Item.Add(item);
     public void Remove(ICard item) => Item.Remove(item);

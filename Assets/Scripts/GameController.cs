@@ -26,7 +26,7 @@ public sealed class GameController : MonoBehaviour
     private void CreatePlayerControllers()
     {
         PlayerControllers = new PlayerControllerRepository();
-        foreach (IPlayer player in Game.GetAll(NoFilterPlayerSelector.Get()))
+        foreach (IActor player in Game.GetAll(NoFilterActorSelector.Get()))
         {
             PlayerController playerController = new GameObject(player.Title, typeof(PlayerController)).GetComponent<PlayerController>();
             playerController.transform.SetParent(transform);
