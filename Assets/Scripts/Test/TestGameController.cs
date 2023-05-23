@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using System.Linq;
+
+using TMPro;
 
 using Unity.VisualScripting;
 
@@ -7,21 +9,7 @@ using UnityEngine.UI;
 
 public sealed class TestGameController : MonoBehaviour 
 {
-    [SerializeField] private GameObject HeroPrefab;
-    [SerializeField] private GameObject AllyPrefab;
-    [SerializeField] private GameObject SupportPrefab;
-    [SerializeField] private GameObject UpgradePrefab;
-    [SerializeField] private GameObject EventPrefab;
-    [SerializeField] private GameObject ResourcePrefab;
-
-    [SerializeField] private GameObject VillainPrefab;
-    [SerializeField] private GameObject SideSchemePrefab;
-    [SerializeField] private GameObject MainSchemePrefab;
-    [SerializeField] private GameObject MinionPrefab;
-    [SerializeField] private GameObject AttachmentPrefab;
-    [SerializeField] private GameObject EnvironmentPrefab;
-    [SerializeField] private GameObject TreacheryPrefab;
-    [SerializeField] private GameObject ObligationPrefab;
+    [SerializeField] private PrefabAtlasModel PrefabAtlasModel;
 
     [SerializeField] private Canvas ActionsPanel;
     [SerializeField] private DeckModel DeckModel;
@@ -40,7 +28,7 @@ public sealed class TestGameController : MonoBehaviour
         }
 
         CardType cardType = ConvertToCardType(cardTypeString);
-        CardController = Instantiate(GetPrefab(cardType), transform).GetComponent<BaseCardController>();
+        CardController = Instantiate(PrefabAtlasModel.GetPrefab(cardTypeString), transform).GetComponent<BaseCardController>();
         RoutineController routineController = CardController.transform.AddComponent<RoutineController>();
         routineController.StartGame();
 
@@ -70,27 +58,6 @@ public sealed class TestGameController : MonoBehaviour
             "Obligation" => CardType.Obligation,
             _ => CardType.None
         };
-    private GameObject GetPrefab(CardType cardType)
-    {
-        return cardType switch
-        {
-            CardType.Hero => HeroPrefab,
-            CardType.Ally => AllyPrefab,
-            CardType.Minion => MinionPrefab,
-            CardType.SideScheme => SideSchemePrefab,
-            CardType.MainScheme => MainSchemePrefab,
-            CardType.Villain => VillainPrefab,
-            CardType.Attachment => AttachmentPrefab,
-            CardType.Environment => EnvironmentPrefab,
-            CardType.Upgrade => UpgradePrefab,
-            CardType.Support => SupportPrefab,
-            CardType.Event => EventPrefab,
-            CardType.Resource => ResourcePrefab,
-            CardType.Treachery => TreacheryPrefab,
-            CardType.Obligation => ObligationPrefab,
-            _ => null,
-        };
-    }
     private void OnLocationChanged(IComponent component)
     {
         LocationIdText.text = Card.Location;

@@ -3,31 +3,20 @@
 public sealed class Game : IGame
 {
     private ICommand SetupCommand;
-    //private readonly IGameMediator Mediator;
-    public IPicker<ICard> AnyCardPicker {get; private set;}
+    public IPicker<ICard> AnyCardPicker { get; private set; }
+    public RoutineController RoutineController { get; set; }
 
     public Game(
-        //IGameMediator mediator,
         IRepository<IZone> zones,
         IRepository<ICard> cards, 
         IRepository<IActor> players,
         IPicker<ICard> anyCardPicker)
     {
-        //Mediator = mediator;
         Zones = zones;
         Cards = cards;
         Players = players;
         AnyCardPicker = anyCardPicker;
     }
-
-    //#region IGameMediator
-
-    //public void Raise(GameEvents eventName) => Mediator.Raise(eventName);
-    //public void Raise(GameEvents eventName, IGameArg eventArg) => Mediator.Raise(eventName, eventArg);
-    //public void Register(GameEvents eventToListen, Action<IGameArg> callback) => Mediator.Register(eventToListen, callback);
-    //public void UnRegister(GameEvents eventToListen, Action<IGameArg> callback) => Mediator.UnRegister(eventToListen, callback);
-
-    //#endregion
 
     #region IRepository<IActor>
 
@@ -71,7 +60,7 @@ public sealed class Game : IGame
 
     #endregion
 
-    public void Commit() { } // => Mediator.Raise(GameEvents.OnCommitted);
+    public void Commit() => RoutineController.Commit();
     public void Setup() => SetupCommand.Execute();
     public void RegisterSetupCommand(ICommand command) => SetupCommand = command;
 }

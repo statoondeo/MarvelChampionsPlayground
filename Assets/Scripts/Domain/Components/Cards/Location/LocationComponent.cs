@@ -23,7 +23,13 @@
         oldZone?.Remove(Card);
         SetLocation(newZone.Id);
     }
-    private IZone GetZone(string location) => Card.Game.GetFirst(ZoneNameSelector.Get(Card.Game, Card.OwnerId, location));
+    private IZone GetZone(string location)
+    {
+        IZone zone = Card.Game.GetFirst(ZoneIdSelector.Get(location));
+        if (zone is not null) return zone;
+        return Card.Game.GetFirst(ZoneNameSelector.Get(Card.Game, Card.OwnerId, location));
+    }
+
     public void SetLocation(string newLocation) => Location = newLocation;
     public static ILocationComponent Get(string location)
         => new LocationComponent(location);

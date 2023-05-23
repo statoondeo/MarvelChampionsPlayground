@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cf6f5428f39f2947aef15969f04b68a, type: 3}
+  m_Name: ZonePrefabAtlas
+  m_EditorClassIdentifier: 
+  Atlas:
+  - Type: Battlefield
+    Prefab: {fileID: 2612622677558976089, guid: 2e43ea617450a0042819e20e6bff69e9, type: 3}
+  - Type: Hand
+    Prefab: {fileID: 1691623795563556008, guid: 7d826dcfec0b02343b0e58fb6f04e8ff, type: 3}
+  - Type: PlayerDeck
+    Prefab: {fileID: 1022293936547081050, guid: 74a90b191b0a6e44e8afb2d8e28fd2ea, type: 3}
+  - Type: Discard
+    Prefab: {fileID: 1863616570376352612, guid: c55a7dcbb12640f449bf641dc2eb6da8, type: 3}
+  - Type: Exil
+    Prefab: {fileID: 1863616570376352612, guid: c55a7dcbb12640f449bf641dc2eb6da8, type: 3}
+  - Type: Boost
+    Prefab: {fileID: 1863616570376352612, guid: c55a7dcbb12640f449bf641dc2eb6da8, type: 3}
+  - Type: Encounter
+    Prefab: {fileID: 1863616570376352612, guid: c55a7dcbb12640f449bf641dc2eb6da8, type: 3}
+  - Type: VillainDeck
+    Prefab: {fileID: 1022293936547081050, guid: 49094b51dc508e44d94cac33a48692fc, type: 3}

@@ -1,4 +1,7 @@
-﻿public abstract class BaseFunctionalCommand : BaseCommand
+﻿using System.Collections.Generic;
+using System.Linq;
+
+public abstract class BaseFunctionalCommand : BaseCommand
 {
     protected BaseFunctionalCommand(IGame game) : base(game) { }
     protected virtual ISelector<ICard> CardSelector => NoFilterCardSelector.Get();
@@ -7,8 +10,10 @@
     protected virtual ICommand GetAdditionalCommand() => NullCommand.Get();
     public override void Execute()
     {        
-        foreach (ICard card in CardPicker.Pick(Game.GetAll(CardSelector)))
-            GetCardCommand(card).Execute();
+        IEnumerable<ICard> cards = CardPicker.Pick(Game.GetAll(CardSelector));
+        if ((cards is not null) && (cards.Count() > 0))
+            foreach (ICard card in cards)
+                GetCardCommand(card)?.Execute();
         GetAdditionalCommand().Execute();
     }
 }

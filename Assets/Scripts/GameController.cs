@@ -5,13 +5,12 @@ public sealed class GameController : MonoBehaviour
 {
     [SerializeField] private Vector2Int GridSize;
     [SerializeField] private Vector2 CellSize;
+
     [SerializeField] private DeckModel PlayerDeckModel;
     [SerializeField] private DeckModel VillainDeckModel;
-    [SerializeField] private GameObject CardPrefab;
-    [SerializeField] private GameObject BattlefieldPrefab;
-    [SerializeField] private GameObject HandPrefab;
-    [SerializeField] private GameObject DeckPrefab;
-    [SerializeField] private GameObject StackPrefab;
+
+    [SerializeField] private PrefabAtlasModel CardPrefabAtlasModel;
+    [SerializeField] private PrefabAtlasModel ZonePrefabAtlasModel;
 
     public RoutineController RoutineService { get; private set; }
     private IGame Game;
@@ -19,8 +18,7 @@ public sealed class GameController : MonoBehaviour
     public IRepository<BaseCardController> CardControllers { get; private set; }
     public IRepository<BaseZoneController> ZoneControllers { get; private set; }
     public IRepository<PlayerController> PlayerControllers { get; private set; }
-    private BaseCardController HeroController;
-    private BaseZoneController BattlefieldController;
+
     private CardPickerController CardPickerController;
 
     private void CreatePlayerControllers()
@@ -42,14 +40,10 @@ public sealed class GameController : MonoBehaviour
         ZoneControllers = new BaseZoneControllerRepository();
         foreach (IZone zone in Game.GetAll(NoFilterZoneSelector.Get()))
         {
-            GameObject zoneModel = zone.Label switch
-            {
-                "BATTLEFIELD" => BattlefieldPrefab,
-                "HAND" => HandPrefab,
-                "DECK" => DeckPrefab,
-                _ => StackPrefab,
-            };
-            BaseZoneController zoneController = Instantiate(zoneModel, transform).GetComponent<BaseZoneController>();
+            string zoneName = zone.Label;
+            if (zoneName.Equals("DECK", System.StringComparison.OrdinalIgnoreCase)) 
+                zoneName = (PlayerDeckModel.Id == zone.OwnerId ? "Player" : "Villain") + zoneName;
+            BaseZoneController zoneController = Instantiate(ZonePrefabAtlasModel.GetPrefab(zoneName), transform).GetComponent<BaseZoneController>();
             zoneController.SetData(this, zone);
             ZoneControllers.Add(zoneController);
 
@@ -57,8 +51,6 @@ public sealed class GameController : MonoBehaviour
             DeckModel deckModel = PlayerDeckModel.Id == zone.OwnerId ? PlayerDeckModel : VillainDeckModel;
             ZonePosition zonePosition = deckModel.SetupModel.InitialSetupModel.ZonePositions.FirstOrDefault(item => item.ZoneName.Equals(zone.Label));
             if (zonePosition is not null) Grid.Set(zonePosition.Position, zoneController);
-
-            if (zoneController.Label == "BATTLEFIELD") BattlefieldController = zoneController;
         }
     }
     private void CreateCardControllers()
@@ -66,10 +58,11 @@ public sealed class GameController : MonoBehaviour
         CardControllers = new BaseCardControllerRepository();
         foreach (ICard card in Game.GetAll(NoFilterCardSelector.Get()))
         {
-            BaseCardController cardController = Instantiate(CardPrefab, transform).GetComponent<BaseCardController>();
+            BaseCardController cardController = Instantiate(CardPrefabAtlasModel
+                    .GetPrefab(card.CardType.ToString()), transform)
+                    .GetComponent<BaseCardController>();
             cardController.SetData(this, RoutineService, card);
             CardControllers.Add(cardController);
-            if (card.IsCardType(CardType.Hero)) HeroController = cardController;
         }
     }
     private void Awake()
@@ -78,6 +71,7 @@ public sealed class GameController : MonoBehaviour
         CardPickerController = gameObject.AddComponent<CardPickerController>();
         
         Game = new GameBuilder(CardPickerController)
+            .WithRoutineController(RoutineService)
             .WithPlayer(PlayerDeckModel)
             .WithPlayer(VillainDeckModel)
             .Build();

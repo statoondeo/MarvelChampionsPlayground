@@ -33,8 +33,8 @@
                         backMediator,
                         CoreCardFacade.Get(cardModel.CardId, id, ownerId),
                         FlipFacade.Get(
-                            VillainFace.Get(faceMediator, (VillainFaceModel)cardModel.Face),
-                            VillainFace.Get(backMediator, (VillainFaceModel)cardModel.Back)),
+                            VillainFace.Get(game, faceMediator, (VillainFaceModel)cardModel.Face),
+                            VillainFace.Get(game, backMediator, (VillainFaceModel)cardModel.Back)),
                         TapFacade.Get(),
                         LocationFacade.Get(string.Empty));
     }

@@ -69,7 +69,7 @@
                     heroMediator,
                     CoreCardFacade.Get(cardModel.CardId, id, ownerId),
                     FlipFacade.Get(
-                        AlterEgoFace.Get(alterEgoMediator, (AlterEgoFaceModel)cardModel.Face),
+                        AlterEgoFace.Get(game, alterEgoMediator, (AlterEgoFaceModel)cardModel.Face),
                         HeroFace.Get(heroMediator, (HeroFaceModel)cardModel.Back)),
                     TapFacade.Get(),
                     LifeFacade.Get(((HeroCardModel)cardModel).Life),

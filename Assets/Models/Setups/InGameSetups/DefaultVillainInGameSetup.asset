@@ -15,31 +15,29 @@ MonoBehaviour:
   CardPositions:
   - CardType: 20
     Positions:
-    - {x: 1, y: 3}
-  - CardType: 22
-    Positions:
-    - {x: 0, y: 3}
-  - CardType: 24
-    Positions:
-    - {x: 2, y: 4}
-    - {x: 3, y: 4}
-    - {x: 4, y: 4}
+    - {x: 2, y: 3}
   - CardType: 23
     Positions:
-    - {x: 2, y: 3}
+    - {x: 1, y: 3}
+  - CardType: 26
+    Positions:
+    - {x: 3, y: 4}
+    - {x: 4, y: 4}
+    - {x: 5, y: 4}
+  - CardType: 24
+    Positions:
     - {x: 3, y: 3}
     - {x: 4, y: 3}
+    - {x: 5, y: 3}
   - CardType: 0
     Positions:
-    - {x: 5, y: 4}
-    - {x: 5, y: 3}
     - {x: 6, y: 4}
     - {x: 6, y: 3}
     - {x: 7, y: 4}
     - {x: 7, y: 3}
+    - {x: 5, y: 3}
+    - {x: 5, y: 4}
     - {x: 4, y: 3}
     - {x: 4, y: 4}
     - {x: 3, y: 3}
     - {x: 3, y: 4}
-    - {x: 2, y: 3}
-    - {x: 2, y: 4}

@@ -115,8 +115,12 @@ public sealed class RoutineController : MonoBehaviour
         Vector3 targetRotationAngles = transform.localRotation.eulerAngles + (tapped ? -90.0f : 90.0f) * Vector3.forward;
         Register(RotateRoutine(0f, transform, Quaternion.Euler(targetRotationAngles), TapDuration, Easings.Get(TapFunction)));
     }
-    public void SpinRoutine(Transform transform) 
-        => Register(SpinningRoutine(0f, transform, SpinTurns, SpinDuration, Easings.Get(SpinFunction)));
+    public void SpinRoutine(Transform transform, Action afterRoutineAction)
+    {
+        Register(SpinningRoutine(0f, transform, SpinTurns, SpinDuration, Easings.Get(SpinFunction)));
+        Register(ExecuteDelayedAction(SpinDuration, afterRoutineAction));
+    }
+
     public void ScaleRoutine(Transform transform, Vector2 targetScale)
         => Register(ScaleRoutine(0f, transform, targetScale, ScaleDuration, Easings.Get(ScaleFunction)));
     public void MoveRoutine(Transform transform, Vector2 targetPosition)

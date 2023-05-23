@@ -9,7 +9,6 @@
         SchemeItem.SetCard(card);
         AttackItem.SetCard(card);
         StadeItem.SetCard(card);
-        SetupItem.SetCard(card);
         WhenRevealedItem.SetCard(card);
     }
 
@@ -57,17 +56,6 @@
 
     #endregion
 
-    #region ISetupFacade
-
-    private readonly ISetupFacade SetupItem;
-    public ICommand Setup => SetupItem.Setup;
-    public void AddDecorator(ICardComponentDecorator<ISetupComponent> decorator)
-        => SetupItem.AddDecorator(decorator);
-    public void RemoveDecorator(ICardComponentDecorator<ISetupComponent> decorator)
-        => SetupItem.RemoveDecorator(decorator);
-
-    #endregion
-
     #region IWhenRevealedFacade
 
     private readonly IWhenRevealedFacade WhenRevealedItem;
@@ -91,7 +79,6 @@
             IAttackFacade attackFacade,
             IStadeFacade stadeFacade,
             ILifeFacade lifeFacade,
-            ISetupFacade setupFacade,
             IWhenRevealedFacade whenRevealedFacade)
         : base(
             mediator,
@@ -103,14 +90,12 @@
         SchemeItem = schemeFacade;
         AttackItem = attackFacade;
         StadeItem = stadeFacade;
-        SetupItem = setupFacade;
         WhenRevealedItem = whenRevealedFacade;
 
         Mediator.Register<ILifeComponent>(LifeItem);
         Mediator.Register<ISchemeComponent>(SchemeItem);
         Mediator.Register<IAttackComponent>(AttackItem);
         Mediator.Register<IStadeComponent>(StadeItem);
-        Mediator.Register<ISetupComponent>(SetupItem);
         Mediator.Register<IWhenRevealedComponent>(WhenRevealedItem);
     }
 
@@ -118,7 +103,7 @@
 
     #region Factory
 
-    public static IVillainFace Get(IMediator<ICardComponent> mediator, VillainFaceModel faceModel)
+    public static IVillainFace Get(IGame game, IMediator<ICardComponent> mediator, VillainFaceModel faceModel)
         => new VillainFace(
                     mediator,
                     TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
@@ -128,7 +113,6 @@
                     AttackFacade.Get(faceModel.Attack),
                     StadeFacade.Get(faceModel.Stade),
                     LifeFacade.Get(faceModel.Life),
-                    SetupFacade.Get(NullCommand.Get()),
                     WhenRevealedFacade.Get(StaticWhenRevealedComponent.Get(NullCommand.Get())));
 
     #endregion

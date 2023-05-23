@@ -22,6 +22,7 @@
         base.SetZone(zone);
         ShuffleItem.SetZone(this);
     }
+
     #region IShuffleFacade
 
     private readonly IShuffleComponentFacade ShuffleItem;

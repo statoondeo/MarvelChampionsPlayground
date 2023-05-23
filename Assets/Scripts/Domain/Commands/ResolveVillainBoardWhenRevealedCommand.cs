@@ -6,6 +6,6 @@
             OwnerIdSelector.Get(Game.GetFirst(PlayerTypeSelector.Get(HeroType.Villain)).Id),
             LocationSelector.Get("BATTLEFIELD"));
     protected override ICommand GetCardCommand(ICard card)
-        => (card as ISetupFacade).Setup;
+        => (card.CurrentFace as ISetupFacade)?.Setup;
     public static ICommand Get(IGame game) => new ResolveVillainBoardWhenRevealedCommand(game);
 }

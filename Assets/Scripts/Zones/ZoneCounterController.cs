@@ -4,17 +4,19 @@ using UnityEngine;
 
 public sealed class ZoneCounterController : MonoBehaviour
 {
-    private TMP_Text CounterText;
-    private BaseZoneController ZoneController;
+    [SerializeField] private TMP_Text CounterText;
+    private IZone Zone;
 
-    private void Awake()
+    private void Awake() => CounterText = GetComponentInChildren<TMP_Text>();
+    public void SetData(IZone zone)
     {
-        CounterText = GetComponentInChildren<TMP_Text>();
-        ZoneController = GetComponentInParent<BaseZoneController>();
-        ZoneController.OnCardAdded += WriteCounter;
-        ZoneController.OnCardRemoved += WriteCounter;
+        Zone = zone;
+        Zone.AddListener<ICoreZoneComponent>(WriteCounter);
+        WriteCounter(Zone.GetFacade<ICoreZoneComponent>());
     }
-    private void Start() => WriteCounter(null);
-    private void WriteCounter(BaseCardController cardController) 
-        => CounterText.text = $"{ZoneController.Label} : {ZoneController.Count}";
+    private void WriteCounter(IZoneComponent zone)
+    {
+        if (zone is not ICoreZoneComponent zoneFacade) return;
+        CounterText.text = $"{zoneFacade.Label} : {zoneFacade.Count(NoFilterCardSelector.Get())}";
+    }
 }

@@ -19,11 +19,6 @@ public sealed class HandZoneController : BaseZoneController
         RightPosition = GameController.Grid.GetWorldPosition(RightGridPosition) + CellSize.x * Vector2.right;
         HandLength = RightPosition.x - LeftPosition.x;
     }
-    protected override void OnCardRemovedCallback(ICoreCardComponent card)
-    {
-        base.OnCardRemovedCallback(card);
-        PlaceCards(null);
-    }
     public override void RefreshContent() => PlaceCards(null);
     protected override void PlaceCards(BaseCardController cardController)
     {

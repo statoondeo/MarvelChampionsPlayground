@@ -5,3 +5,4 @@
     public bool Match(ICard card) => card.IsCardType(Item);
     public static ISelector<ICard> Get(CardType item) => new CardTypeSelector(item);
 }
+

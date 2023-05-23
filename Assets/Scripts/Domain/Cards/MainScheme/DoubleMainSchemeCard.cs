@@ -50,9 +50,9 @@
                     face4Mediator,
                     CoreCardFacade.Get(cardModel.CardId, id, ownerId),
                     FlipFacade.Get(
-                        MainSchemeAFace.Get(face1Mediator, (MainSchemeAFaceModel)cardModel.Face),
+                        MainSchemeAFace.Get(game, face1Mediator, (MainSchemeAFaceModel)cardModel.Face),
                         MainSchemeBFace.Get(face2Mediator, (MainSchemeBFaceModel)cardModel.Back),
-                        MainSchemeAFace.Get(face3Mediator, (MainSchemeAFaceModel)((DoubleMainSchemeCardModel)cardModel).FaceB),
+                        MainSchemeAFace.Get(game, face3Mediator, (MainSchemeAFaceModel)((DoubleMainSchemeCardModel)cardModel).FaceB),
                         MainSchemeBFace.Get(face4Mediator, (MainSchemeBFaceModel)((DoubleMainSchemeCardModel)cardModel).BackB)),
                     TapFacade.Get(),
                     LocationFacade.Get(string.Empty));

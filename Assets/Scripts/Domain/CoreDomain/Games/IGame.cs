@@ -4,6 +4,7 @@
     IRepository<ICard>
     //IGameMediator
 {
+    RoutineController RoutineController { get; set; }
     void Commit();
     void Setup();
     void RegisterSetupCommand(ICommand command);

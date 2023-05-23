@@ -74,7 +74,7 @@
 
     #region Factory
 
-    public static IAlterEgoFace Get(IMediator<ICardComponent> mediator, AlterEgoFaceModel faceModel)
+    public static IAlterEgoFace Get(IGame game, IMediator<ICardComponent> mediator, AlterEgoFaceModel faceModel)
         => new AlterEgoFace(
                     mediator,
                     TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
@@ -82,7 +82,7 @@
                     ClassificationFacade.Get(faceModel.Classification),
                     RecoveryFacade.Get(faceModel.Recovery),
                     HandSizeFacade.Get(faceModel.HandSize),
-                    SetupFacade.Get(NullCommand.Get()));
+                    SetupFacade.Get(new CommandFactory(game).Create(faceModel.SetupCommand)));
 
     #endregion
 }

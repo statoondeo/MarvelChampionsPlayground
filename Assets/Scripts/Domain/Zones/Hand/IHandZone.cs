@@ -1,0 +1,1 @@
+﻿public interface IHandZone : IZone { }

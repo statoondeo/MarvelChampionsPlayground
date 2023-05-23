@@ -737,11 +737,8 @@ MonoBehaviour:
   CellSize: {x: 4.2, y: 4.2}
   PlayerDeckModel: {fileID: 11400000, guid: 63ebe14bf6e5f3d40b42aff90e0f27b3, type: 2}
   VillainDeckModel: {fileID: 11400000, guid: 8dbb201994fd20a458fe98e20da808fa, type: 2}
-  CardPrefab: {fileID: 8510716935453018173, guid: bd44ed36c3976bb4f9814fb337eb9aa7, type: 3}
-  BattlefieldPrefab: {fileID: 2612622677558976089, guid: 2e43ea617450a0042819e20e6bff69e9, type: 3}
-  HandPrefab: {fileID: 1691623795563556008, guid: 7d826dcfec0b02343b0e58fb6f04e8ff, type: 3}
-  DeckPrefab: {fileID: 1022293936547081050, guid: 74a90b191b0a6e44e8afb2d8e28fd2ea, type: 3}
-  StackPrefab: {fileID: 1863616570376352612, guid: c55a7dcbb12640f449bf641dc2eb6da8, type: 3}
+  CardPrefabAtlasModel: {fileID: 11400000, guid: 522a0c4eb808f2c40bb3102dca7812fc, type: 2}
+  ZonePrefabAtlasModel: {fileID: 11400000, guid: c5e2af7072c1a5e428f62caa553f383b, type: 2}
 --- !u!1 &2077076845
 GameObject:
   m_ObjectHideFlags: 0

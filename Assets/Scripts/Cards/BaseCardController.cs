@@ -64,7 +64,11 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
     public int GetSpriteLayer() => SpriteRenderer.sortingLayerID;
     public int SetSpriteLayer(int layerId) => SpriteRenderer.sortingLayerID = layerId;
     protected virtual void InitValues() { }
-    protected virtual void OnMovedCallback(IComponent component) => InitValues();
+    protected virtual void OnMovedCallback(IComponent component)
+    {
+        GameController.ZoneControllers.GetFirst(ZoneControllerIdSelector.Get(Card.Location)).OnCardAddedCallback(this);
+        InitValues();
+    }
     protected virtual void OnFlippedCallback(IComponent component)
         => RoutineController.FlipRoutine(
                 ImageTransform,

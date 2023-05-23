@@ -7,6 +7,7 @@ public sealed class VillainFaceModel : FaceModel
     public int Attack;
     public int Life;
     public int Stade;
+    public string SetupCommand;
     public VillainFaceModel()
     {
         FaceType = FaceType.Villain;

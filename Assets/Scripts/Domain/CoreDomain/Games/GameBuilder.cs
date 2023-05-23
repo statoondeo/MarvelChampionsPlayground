@@ -23,11 +23,18 @@ public sealed class GameBuilder
         Battlefield = ZoneFactory.Create(Game, BATTLEFIELD, null);
         Game.Add(Battlefield);
     }
+    public GameBuilder WithRoutineController(RoutineController routineController)
+    {
+        Game.RoutineController = routineController;
+        return this;
+    }
     public GameBuilder WithPlayer(DeckModel deckModel)
     {
 
         // Création du joueur
-        IActor player = PlayerActor.Get(Game, deckModel.Id, deckModel.name, deckModel.HeroType);
+        IActor player = deckModel.HeroType.Equals(HeroType.Hero)
+                        ? PlayerActor.Get(Game, deckModel.Id, deckModel.name, deckModel.HeroType)
+                        : VillainActor.Get(Game, deckModel.Id, deckModel.name, deckModel.HeroType);
         Game.Add(player);
 
         // Création des zones du joueur
@@ -41,7 +48,6 @@ public sealed class GameBuilder
         }
 
         // Création des cartes du joueur
-        IZone playerDeck = player.GetZone(DECK);
         CardFactory cardFactory = new();
         foreach (CardModel cardModel in deckModel)
         {

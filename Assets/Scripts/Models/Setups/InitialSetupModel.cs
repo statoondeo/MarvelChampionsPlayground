@@ -10,7 +10,7 @@ public sealed class InitialSetupModel : ScriptableObject
 [Serializable]
 public sealed class CardPositions
 {
-    public FaceType CardType;
+    public CardType CardType;
     public Vector2Int[] Positions;
 }
 

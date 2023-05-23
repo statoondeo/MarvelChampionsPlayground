@@ -6959,20 +6959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fe6dd6ee85f0d64bb79fd341ef2190f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HeroPrefab: {fileID: 9019676759596845572, guid: 685643bc7e0e8ee49b29ffb4aad73dde, type: 3}
-  AllyPrefab: {fileID: 4907367106159075242, guid: f98a4126255fef64793848eb9e014f7f, type: 3}
-  SupportPrefab: {fileID: 8956707264673095698, guid: 4b8128c87b278a9468e4d6b046139a0f, type: 3}
-  UpgradePrefab: {fileID: 5822735140041448164, guid: ce5baf359d97d5e49a037cfa1f851af2, type: 3}
-  EventPrefab: {fileID: 8750195175085704674, guid: 1fc89d4269edfe443863ff6415577d98, type: 3}
-  ResourcePrefab: {fileID: 2313328440684769138, guid: a6bcf34f00f047f479afb99daa05ae29, type: 3}
-  VillainPrefab: {fileID: 1807645882483265673, guid: 85f9a6a347e6f8b41a5d4318d47a48d7, type: 3}
-  SideSchemePrefab: {fileID: 6890579726059385810, guid: 48c9444b03a89d746bd795b931de4821, type: 3}
-  MainSchemePrefab: {fileID: 4886988896479381590, guid: d016ded39ba6e894d86f1598763a63a0, type: 3}
-  MinionPrefab: {fileID: 4535806141968887413, guid: bf3f7a5ff15f43d4aa5fc7385d7009f6, type: 3}
-  AttachmentPrefab: {fileID: 451937045711138195, guid: 2f752459730736a478222754f12efcc8, type: 3}
-  EnvironmentPrefab: {fileID: 7549255687656992592, guid: b01cf9e5d30f1034cbc6548145ea5c88, type: 3}
-  TreacheryPrefab: {fileID: 4814458249852622267, guid: bfa5d135e50090d408d08060f69df619, type: 3}
-  ObligationPrefab: {fileID: 7468518501556027099, guid: e4db6d60ad8c555499653f40780eb87f, type: 3}
+  PrefabAtlasModel: {fileID: 11400000, guid: 522a0c4eb808f2c40bb3102dca7812fc, type: 2}
   ActionsPanel: {fileID: 1538490751}
   DeckModel: {fileID: 11400000, guid: 7d858a7331c74824face82da61dc6856, type: 2}
   LocationIdText: {fileID: 2127490038}

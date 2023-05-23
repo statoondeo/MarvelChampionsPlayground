@@ -1,4 +1,6 @@
-﻿public sealed class MainSchemeAFace : BaseCardFace, IMainSchemeAFace
+﻿using System;
+
+public sealed class MainSchemeAFace : BaseCardFace, IMainSchemeAFace
 {
     #region IStadeFacade
 
@@ -76,16 +78,15 @@
 
     #region Factory
 
-    public static IMainSchemeAFace Get(IMediator<ICardComponent> mediator, MainSchemeAFaceModel faceModel)
-        => new MainSchemeAFace(
-            mediator,
-            TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
-            FaceTypeFacade.Get(faceModel.FaceType),
-            ClassificationFacade.Get(faceModel.Classification),
-            StadeFacade.Get(faceModel.Stade),
-            SetupFacade.Get(NullCommand.Get()),
-            EnterPlayFacade.Get(SchemeAEnterPlayComponent.Get()),
-            WhenRevealedFacade.Get(StaticWhenRevealedComponent.Get(NullCommand.Get())));
+    public static IMainSchemeAFace Get(IGame game, IMediator<ICardComponent> mediator, MainSchemeAFaceModel faceModel) => new MainSchemeAFace(
+                mediator,
+                TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
+                FaceTypeFacade.Get(faceModel.FaceType),
+                ClassificationFacade.Get(faceModel.Classification),
+                StadeFacade.Get(faceModel.Stade),
+                SetupFacade.Get(new CommandFactory(game).Create(faceModel.SetupCommand)),
+                EnterPlayFacade.Get(SchemeAEnterPlayComponent.Get()),
+                WhenRevealedFacade.Get(StaticWhenRevealedComponent.Get(NullCommand.Get())));
 
     #endregion
 }

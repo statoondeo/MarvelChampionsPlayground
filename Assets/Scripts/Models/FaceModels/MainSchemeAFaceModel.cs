@@ -4,6 +4,7 @@
 public sealed class MainSchemeAFaceModel : FaceModel
 {
     public int Stade;
+    public string SetupCommand;
     public MainSchemeAFaceModel()
     {
         FaceType = FaceType.MainSchemeA;
