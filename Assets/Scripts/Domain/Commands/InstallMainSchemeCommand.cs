@@ -1,9 +1,14 @@
-﻿public sealed class InstallMainSchemeCommand : BaseFunctionalCommand
+﻿using System.Collections;
+using System.Linq;
+
+public sealed class InstallMainSchemeCommand : BaseSingleCommand
 {
     private InstallMainSchemeCommand(IGame game) : base(game) { }
-    protected override ISelector<ICard> CardSelector
-        => CardTypeSelector.Get(CardType.MainScheme);
-    protected override ICommand GetCardCommand(ICard card)
-        => MoveToCommand.Get(Game, card, "BATTLEFIELD");
+    public override IEnumerator Execute()
+    {
+        Game.GetAll(CardTypeSelector.Get(CardType.MainScheme)).ToList()
+            .ForEach(item => Game.Enqueue(MoveToCommand.Get(Game, item, "BATTLEFIELD")));
+        yield return base.Execute();
+    }
     public static ICommand Get(IGame game) => new InstallMainSchemeCommand(game);
 }

@@ -1,11 +1,22 @@
-﻿public sealed class ResolveVillainBoardWhenRevealedCommand : BaseFunctionalCommand
+﻿using System.Collections;
+using System.Linq;
+
+public sealed class ResolveVillainBoardWhenRevealedCommand : BaseSingleCommand
 {
     private ResolveVillainBoardWhenRevealedCommand(IGame game) : base(game) { }
-    protected override ISelector<ICard> CardSelector
+    private ISelector<ICard> CardSelector
         => AndCompositeSelector.Get(
             OwnerIdSelector.Get(Game.GetFirst(PlayerTypeSelector.Get(HeroType.Villain)).Id),
             LocationSelector.Get("BATTLEFIELD"));
-    protected override ICommand GetCardCommand(ICard card)
-        => (card.CurrentFace as ISetupFacade)?.Setup;
+    public override IEnumerator Execute()
+    {
+        Game.GetAll(CardSelector).ToList()
+            .ForEach(item =>
+            {
+                if (item.CurrentFace is ISetupFacade currentFacade)
+                Game.Enqueue(currentFacade.Setup);
+            });
+        yield return base.Execute();
+    }
     public static ICommand Get(IGame game) => new ResolveVillainBoardWhenRevealedCommand(game);
 }

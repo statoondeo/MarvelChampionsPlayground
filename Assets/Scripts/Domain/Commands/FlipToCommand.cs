@@ -1,4 +1,6 @@
-﻿public sealed class FlipToCommand : BaseCommand
+﻿using System.Collections;
+
+public sealed class FlipToCommand : BaseSingleCommand
 {
     private readonly int Face;
     private readonly ICard Card;
@@ -7,6 +9,11 @@
         Face = face;
         Card = card;
     }
-    public override void Execute() => Card.FlipTo(Face);
+    public override IEnumerator Execute()
+    {
+        Card.FlipTo(Face);
+        yield return base.Execute();
+    }
+
     public static ICommand Get(IGame game, ICard card, int face) => new FlipToCommand(game, card, face);
 }

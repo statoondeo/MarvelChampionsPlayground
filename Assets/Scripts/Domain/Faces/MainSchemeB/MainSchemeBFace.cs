@@ -102,7 +102,7 @@
 
     #region Factory
 
-    public static IMainSchemeBFace Get(IMediator<ICardComponent> mediator, MainSchemeBFaceModel faceModel)
+    public static IMainSchemeBFace Get(IGame game, IMediator<ICardComponent> mediator, MainSchemeBFaceModel faceModel)
         => new MainSchemeBFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
@@ -113,7 +113,7 @@
             TreatThresholdFacade.Get(faceModel.Threshold),
             TreatAccelerationFacade.Get(faceModel.Stade),
             EnterPlayFacade.Get(SchemeEnterPlayComponent.Get()),
-            WhenRevealedFacade.Get(StaticWhenRevealedComponent.Get(NullCommand.Get())));
+            WhenRevealedFacade.Get(StaticWhenRevealedComponent.Get(NullCommand.Get(game))));
 
     #endregion
 }

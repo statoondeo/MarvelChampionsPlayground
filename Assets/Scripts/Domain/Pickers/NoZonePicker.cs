@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
-
-public sealed class NoZonePicker : IPicker<IZone>
+﻿public sealed class NoZonePicker : BasePicker<IZone>
 {
-    private NoZonePicker() { }
-    public IEnumerable<IZone> Pick(IEnumerable<IZone> items) => items;
-    private static IPicker<IZone> Picker;
-    public static IPicker<IZone> Get() => Picker is null ? Picker = new NoZonePicker() : Picker;
+    private NoZonePicker() : base() { }
+    public static IPicker<IZone> Get() => new NoZonePicker();
 }

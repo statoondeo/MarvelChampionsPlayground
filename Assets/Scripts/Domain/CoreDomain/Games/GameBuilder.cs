@@ -13,7 +13,6 @@ public sealed class GameBuilder
     public GameBuilder(IPicker<ICard> anyCardPicker)
     {
         Game = new Game(
-            //GameMediator.Get(),
             ZoneRepository.Get(),
             CardRepository.Get(),
             PlayerRepository.Get(),

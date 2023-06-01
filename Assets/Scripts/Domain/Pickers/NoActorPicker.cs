@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-
-public sealed class NoActorPicker : IPicker<IActor>
+﻿public sealed class NoActorPicker : BasePicker<IActor>
 {
-    private NoActorPicker() { }
-    public IEnumerable<IActor> Pick(IEnumerable<IActor> items) => items;
+    private NoActorPicker() : base() { }
     public static IPicker<IActor> Get() => new NoActorPicker();
 }

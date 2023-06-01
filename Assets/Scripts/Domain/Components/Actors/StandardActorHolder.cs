@@ -1,5 +1,4 @@
-﻿
-public sealed class StandardActorHolder : IActorHolder
+﻿public sealed class StandardActorHolder : IActorHolder
 {
     private StandardActorHolder() { }
     public IActor Actor { get; private set; }

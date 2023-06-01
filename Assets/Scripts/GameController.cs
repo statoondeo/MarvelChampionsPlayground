@@ -12,14 +12,16 @@ public sealed class GameController : MonoBehaviour
     [SerializeField] private PrefabAtlasModel CardPrefabAtlasModel;
     [SerializeField] private PrefabAtlasModel ZonePrefabAtlasModel;
 
-    public RoutineController RoutineService { get; private set; }
+    [SerializeField] private GameObject CardSelectorPrefab;
+
+    private CardSelectorController CardSelector;
+
+    public RoutineController RoutineController { get; private set; }
     private IGame Game;
     public IGrid Grid { get; private set; }
     public IRepository<BaseCardController> CardControllers { get; private set; }
     public IRepository<BaseZoneController> ZoneControllers { get; private set; }
     public IRepository<PlayerController> PlayerControllers { get; private set; }
-
-    private CardPickerController CardPickerController;
 
     private void CreatePlayerControllers()
     {
@@ -61,23 +63,21 @@ public sealed class GameController : MonoBehaviour
             BaseCardController cardController = Instantiate(CardPrefabAtlasModel
                     .GetPrefab(card.CardType.ToString()), transform)
                     .GetComponent<BaseCardController>();
-            cardController.SetData(this, RoutineService, card);
+            cardController.SetData(this, RoutineController, card);
             CardControllers.Add(cardController);
         }
     }
     private void Awake()
     {
-        RoutineService = gameObject.AddComponent<RoutineController>();
-        CardPickerController = gameObject.AddComponent<CardPickerController>();
+        RoutineController = gameObject.AddComponent<RoutineController>();
+        CardSelector = Instantiate(CardSelectorPrefab.gameObject, transform).GetComponent<CardSelectorController>();
         
-        Game = new GameBuilder(CardPickerController)
-            .WithRoutineController(RoutineService)
+        Game = new GameBuilder(CardSelector)
+            .WithRoutineController(RoutineController)
             .WithPlayer(PlayerDeckModel)
             .WithPlayer(VillainDeckModel)
             .Build();
-
         Grid = new Grid(GridSize, CellSize);
-        //Game.Register(Events.OnGameCommit, OnGameCommitCallback);
 
         CreatePlayerControllers();
         CreateZoneControllers();
@@ -86,8 +86,11 @@ public sealed class GameController : MonoBehaviour
         foreach (BaseZoneController zoneController in ZoneControllers.GetAll(NoFilterBaseZoneControllerSelector.Get())) 
             zoneController.RefreshContent();
 
-        RoutineService.StartGame();
+        StartCoroutine(Game.Execute());
     }
-    public void Setup() => Game.Setup();
-    //private void OnGameCommitCallback(EventModelArg eventModelArg) => RoutineService.Commit();
+    public void Setup()
+    {
+        RoutineController.StartGame();
+        Game.Setup();
+    }
 }

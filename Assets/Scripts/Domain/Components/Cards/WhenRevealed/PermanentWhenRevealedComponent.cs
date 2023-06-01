@@ -3,7 +3,7 @@
     public override void Reveal()
     {
         Card.MoveTo("BATTLEFIELD");
-        WhenRevealed.Execute();
+        Card.Game.Enqueue(WhenRevealed);
     }
     private PermanentWhenRevealedComponent(ICommand command) : base(command) { }
 

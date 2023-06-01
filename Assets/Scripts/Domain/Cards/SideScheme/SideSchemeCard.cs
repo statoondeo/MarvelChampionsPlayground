@@ -33,7 +33,7 @@
                     backMediator,
                     CoreCardFacade.Get(cardModel.CardId, id, ownerId),
                     FlipFacade.Get(
-                        SideSchemeFace.Get(faceMediator, (SideSchemeFaceModel)cardModel.Face),
+                        SideSchemeFace.Get(game, faceMediator, (SideSchemeFaceModel)cardModel.Face),
                         BackFace.Get(backMediator, (BackFaceModel)cardModel.Back)),
                     TapFacade.Get(),
                     LocationFacade.Get(string.Empty));

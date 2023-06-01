@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a569913be2d4d174bb12eb1aa5a516f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LeftGridPosition: {x: 2, y: 0}
+  LeftGridPosition: {x: 4, y: 0}
   RightGridPosition: {x: 7, y: 0}
   MaxGap: 0.25
 --- !u!1 &3130838862072679905

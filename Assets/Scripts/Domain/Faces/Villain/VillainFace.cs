@@ -113,7 +113,7 @@
                     AttackFacade.Get(faceModel.Attack),
                     StadeFacade.Get(faceModel.Stade),
                     LifeFacade.Get(faceModel.Life),
-                    WhenRevealedFacade.Get(StaticWhenRevealedComponent.Get(NullCommand.Get())));
+                    WhenRevealedFacade.Get(StaticWhenRevealedComponent.Get(NullCommand.Get(game))));
 
     #endregion
 }

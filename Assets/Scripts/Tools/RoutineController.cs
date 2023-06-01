@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 using UnityEngine;
 
 using static Easings;
-
 public sealed class RoutineController : MonoBehaviour
 {
+    #region Animation parameters
+
     [Header("Color Animation")]
     [SerializeField] private float ColorDuration = .25f;
     [SerializeField] private Method ColorFunction = Method.QuintInOut;
@@ -34,99 +34,67 @@ public sealed class RoutineController : MonoBehaviour
     [SerializeField] private int SpinTurns = 3;
     [SerializeField] private Method SpinFunction = Method.QuintInOut;
 
+    #endregion
+
     private bool GameStarted = false;
-    private List<IEnumerator> Coroutines;
-    private Queue<List<IEnumerator>> RoutineQueue;
-    private List<Coroutine> RoutineHandlers;
-    private void Awake()
-    {
-        Coroutines = new List<IEnumerator>();
-        RoutineQueue = new Queue<List<IEnumerator>>();
-    }
     public void StartGame() => GameStarted = true;
-    public void Commit()
+    private void Awake() => TransactionHandlers = new List<ITransactionHandler>();
+
+    #region Transaction handler
+
+    private IList<ITransactionHandler> TransactionHandlers;
+    public void StartTransaction(ITransactionHandler transactionHandler) => TransactionHandlers.Insert(0, transactionHandler);
+    public void StopTransaction() => TransactionHandlers.RemoveAt(0);
+    public void AddAnimation(IAnimation animation)
     {
-        if (RoutineQueue.Count > 0)
-        {
-            if (Coroutines.Count == 0) return;
-            RoutineQueue.Enqueue(Coroutines.ToList());
-            return;
-        }
-        if (Coroutines.Count == 0) return;
-        RoutineQueue.Enqueue(Coroutines.ToList());
-        Coroutines.Clear();
-        Execute();
+        StartCoroutine(animation.Start());
+        if (TransactionHandlers.Count == 0) return;
+        TransactionHandlers[0].AddAnimation(animation);
     }
-    private int RoutineNumber;
-    private void Execute()
-    {
-        if (RoutineQueue.Count == 0) return;
-        List<IEnumerator> routines = RoutineQueue.Peek();
-        //while (routines.Count == 0) {
-        //    RoutineQueue.Dequeue();
-        //    routines = RoutineQueue.Peek();
-        //}
-        foreach (IEnumerator routine in routines)
-        {
-            RoutineNumber++;
-            StartCoroutine(TrackedRoutine(routine));
-        }
-    }
-    private void EndCommand() 
-    {
-        RoutineNumber--;
-        if (RoutineNumber == 0)
-        {
-            RoutineQueue.Dequeue();
-            Execute();
-        }
-    }
-    private IEnumerator TrackedRoutine(IEnumerator routine)
-    {
-        yield return StartCoroutine(routine);
-        EndCommand();
-    }
-    private void Register(IEnumerator routine)
-    {
-        if (GameStarted)
-        {
-            Coroutines.Add(routine);
-            return;
-        }
-        StartCoroutine(routine);
-    }
-    public void FlipRoutine(
-        Transform transform, 
-        SpriteRenderer spriteRenderer, 
+
+    #endregion
+
+    #region Functionals animation
+
+    public IEnumerator FlipRoutine(
+        Transform transform,
+        SpriteRenderer spriteRenderer,
         Sprite nextSprite,
         Action midRoutineAction,
         float delay = 0)
     {
         Vector2 initialScale = transform.localScale;
-        Register(ScaleRoutine(delay, transform, initialScale * new Vector2(.02f, 1), .5f * FlipDuration, Easings.Get(FlipFunction)));
-        Register(ExecuteDelayedAction(delay + .5f * FlipDuration, () => {
+        yield return ScaleRoutine(delay, transform, initialScale * new Vector2(.02f, 1), .5f * FlipDuration, Easings.Get(FlipFunction));
+        yield return ExecuteDelayedAction(0, () =>
+        {
             spriteRenderer.sprite = nextSprite;
             midRoutineAction.Invoke();
-        }));
-        Register(ScaleRoutine(delay + .5f * FlipDuration, transform, initialScale, .5f * FlipDuration, Easings.Get(FlipFunction)));
+        });
+        yield return ScaleRoutine(0, transform, initialScale, .5f * FlipDuration, Easings.Get(FlipFunction));
     }
-    public void TapRoutine(Transform transform, bool tapped)
+    public IEnumerator TapRoutine(Transform transform, bool tapped, float delay)
     {
         Vector3 targetRotationAngles = transform.localRotation.eulerAngles + (tapped ? -90.0f : 90.0f) * Vector3.forward;
-        Register(RotateRoutine(0f, transform, Quaternion.Euler(targetRotationAngles), TapDuration, Easings.Get(TapFunction)));
+        yield return RotateRoutine(delay, transform, Quaternion.Euler(targetRotationAngles), TapDuration, Easings.Get(TapFunction));
     }
-    public void SpinRoutine(Transform transform, Action afterRoutineAction)
+    public IEnumerator SpinRoutine(Transform transform, Action beginAction, Action endAction, float delay)
     {
-        Register(SpinningRoutine(0f, transform, SpinTurns, SpinDuration, Easings.Get(SpinFunction)));
-        Register(ExecuteDelayedAction(SpinDuration, afterRoutineAction));
+        beginAction.Invoke();
+        yield return SpinningRoutine(delay, transform, SpinTurns, SpinDuration, Easings.Get(SpinFunction));
+        beginAction.Invoke();
     }
+    public IEnumerator ScaleRoutine(Transform transform, Vector2 targetScale, float delay)
+        => ScaleRoutine(delay, transform, targetScale, ScaleDuration, Easings.Get(ScaleFunction));
+    public IEnumerator MoveRoutine(Transform transform, Vector2 targetPosition, float delay)
+    {
+        yield return MoveRoutine(delay, transform, targetPosition, MoveDuration, Easings.Get(MoveFunction));
+    }
+    public IEnumerator SpriteColorRoutine(SpriteRenderer spriteRenderer, Color targetColor, float delay)
+        => SpriteColorRoutine(delay, spriteRenderer, targetColor, ColorDuration, Easings.Get(ColorFunction));
 
-    public void ScaleRoutine(Transform transform, Vector2 targetScale)
-        => Register(ScaleRoutine(0f, transform, targetScale, ScaleDuration, Easings.Get(ScaleFunction)));
-    public void MoveRoutine(Transform transform, Vector2 targetPosition)
-        => Register(MoveRoutine(0f, transform, targetPosition, MoveDuration, Easings.Get(MoveFunction)));
-    public void SpriteColorRoutine(SpriteRenderer spriteRenderer, Color targetColor)
-        => Register(SpriteColorRoutine(0f, spriteRenderer, targetColor, ColorDuration, Easings.Get(ColorFunction)));
+    #endregion
+
+    #region Basic animation
 
     private IEnumerator ExecuteDelayedAction(float delay, Action action)
     {
@@ -226,4 +194,6 @@ public sealed class RoutineController : MonoBehaviour
             progress += Time.deltaTime;
         }
     }
+
+    #endregion
 }

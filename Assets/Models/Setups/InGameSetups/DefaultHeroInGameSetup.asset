@@ -15,25 +15,25 @@ MonoBehaviour:
   CardPositions:
   - CardType: 10
     Positions:
-    - {x: 2, y: 2}
+    - {x: 2, y: 1}
   - CardType: 15
     Positions:
-    - {x: 1, y: 2}
+    - {x: 1, y: 1}
   - CardType: 11
-    Positions:
-    - {x: 3, y: 2}
-    - {x: 4, y: 2}
-    - {x: 5, y: 2}
-  - CardType: 0
     Positions:
     - {x: 3, y: 1}
     - {x: 4, y: 1}
     - {x: 5, y: 1}
+  - CardType: 0
+    Positions:
+    - {x: 3, y: 0}
+    - {x: 4, y: 0}
+    - {x: 5, y: 0}
+    - {x: 6, y: 0}
     - {x: 6, y: 1}
-    - {x: 6, y: 2}
+    - {x: 7, y: 0}
     - {x: 7, y: 1}
-    - {x: 7, y: 2}
-    - {x: 1, y: 2}
-    - {x: 5, y: 2}
-    - {x: 4, y: 2}
-    - {x: 3, y: 2}
+    - {x: 1, y: 1}
+    - {x: 5, y: 1}
+    - {x: 4, y: 1}
+    - {x: 3, y: 1}

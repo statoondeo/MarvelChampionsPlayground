@@ -9,7 +9,7 @@ public sealed class CommandFactory
         return commandName.ToUpper() switch
         {
             "FLIPTONEXT" => FlipToNextCommand.GetFactory(Game),
-            _ => NullCommand.GetFactory()
+            _ => NullCommand.GetFactory(Game)
         };
     }
 }

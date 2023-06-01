@@ -60,14 +60,14 @@
 
     #region Factory
 
-    public static IAttachmentFace Get(IMediator<ICardComponent> mediator, AttachmentFaceModel faceModel)
+    public static IAttachmentFace Get(IGame game, IMediator<ICardComponent> mediator, AttachmentFaceModel faceModel)
         => new AttachmentFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
             FaceTypeFacade.Get(faceModel.FaceType),
             ClassificationFacade.Get(faceModel.Classification),
             BoostFacade.Get(faceModel.Boost),
-            WhenRevealedFacade.Get(PermanentWhenRevealedComponent.Get(NullCommand.Get())));
+            WhenRevealedFacade.Get(PermanentWhenRevealedComponent.Get(NullCommand.Get(game))));
 
     #endregion
 }

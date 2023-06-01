@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
 using System.Linq;
 
-public sealed class BoardHeroSetupCommand : BaseCommand
+public sealed class BoardHeroSetupCommand : BaseSingleCommand
 {
     private BoardHeroSetupCommand(IGame game) : base(game) { }
-    public override void Execute()
+    public override IEnumerator Execute()
     {
-        List<ICommand> commands = new();
         Game.GetAll(PlayerTypeSelector.Get(HeroType.Hero)).ToList()
-            .ForEach(item => commands.Add(HeroSetupCommand.Get(Game, item.Id)));
-        CompositeCommand.Get(commands.ToArray()).Execute();
+            .ForEach(item => Game.Enqueue(HeroSetupCommand.Get(Game, item.Id)));
+        yield return base.Execute();
     }
 
     public static ICommand Get(IGame game) => new BoardHeroSetupCommand(game);

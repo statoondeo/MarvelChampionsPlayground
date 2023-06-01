@@ -32,11 +32,7 @@
         }
     }
     public void DealDamage()
-        => CompositeCommand.Get(
-            DealDamageCommand.Get(Card.Game, Card.CurrentFace as IVillainFace, 1),
-            CommitRoutineCommand.Get(RoutineController)).Execute();
+         => Card.Game.Enqueue(DealDamageCommand.Get(Card.Game, Card as IHeroCard, 1));
     public void HealDamage()
-        => CompositeCommand.Get(
-            HealDamageCommand.Get(Card.Game, Card.CurrentFace as IVillainFace, 1),
-            CommitRoutineCommand.Get(RoutineController)).Execute();
+         => Card.Game.Enqueue(HealDamageCommand.Get(Card.Game, Card as IHeroCard, 1));
 }

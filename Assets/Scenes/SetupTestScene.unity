@@ -733,12 +733,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f428327fc9698ed419668778028f592f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridSize: {x: 8, y: 6}
+  GridSize: {x: 8, y: 5}
   CellSize: {x: 4.2, y: 4.2}
   PlayerDeckModel: {fileID: 11400000, guid: 63ebe14bf6e5f3d40b42aff90e0f27b3, type: 2}
   VillainDeckModel: {fileID: 11400000, guid: 8dbb201994fd20a458fe98e20da808fa, type: 2}
   CardPrefabAtlasModel: {fileID: 11400000, guid: 522a0c4eb808f2c40bb3102dca7812fc, type: 2}
   ZonePrefabAtlasModel: {fileID: 11400000, guid: c5e2af7072c1a5e428f62caa553f383b, type: 2}
+  CardSelectorPrefab: {fileID: 2585720395362030485, guid: fbce8cc36d7722c4ea104fcd4ebb852d, type: 3}
 --- !u!1 &2077076845
 GameObject:
   m_ObjectHideFlags: 0

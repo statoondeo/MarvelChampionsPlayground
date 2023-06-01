@@ -86,7 +86,7 @@ public sealed class MainSchemeAFace : BaseCardFace, IMainSchemeAFace
                 StadeFacade.Get(faceModel.Stade),
                 SetupFacade.Get(new CommandFactory(game).Create(faceModel.SetupCommand)),
                 EnterPlayFacade.Get(SchemeAEnterPlayComponent.Get()),
-                WhenRevealedFacade.Get(StaticWhenRevealedComponent.Get(NullCommand.Get())));
+                WhenRevealedFacade.Get(StaticWhenRevealedComponent.Get(NullCommand.Get(game))));
 
     #endregion
 }

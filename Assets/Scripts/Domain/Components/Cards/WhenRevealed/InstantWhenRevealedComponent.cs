@@ -3,7 +3,7 @@
     public override void Reveal()
     {
         Card.MoveTo("STACK");
-        CompositeCommand.Get(WhenRevealed, MoveToCommand.Get(Card.Game, Card, "DISCARD")).Execute();
+        Card.Game.Enqueue(CompositeCommand.Get(Card.Game, WhenRevealed, MoveToCommand.Get(Card.Game, Card, "DISCARD")));
     }
     private InstantWhenRevealedComponent(ICommand command) : base(command) { }
 

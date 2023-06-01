@@ -1,5 +1,7 @@
 ﻿
-public sealed class RemoveTreatCommand : BaseCommand
+using System.Collections;
+
+public sealed class RemoveTreatCommand : BaseSingleCommand
 {
     private readonly int Amount;
     private readonly ITreatFacade Target;
@@ -8,6 +10,11 @@ public sealed class RemoveTreatCommand : BaseCommand
         Amount = amount;
         Target = target;
     }
-    public override void Execute() => Target.RemoveTreat(Amount);
+    public override IEnumerator Execute()
+    {
+        Target.RemoveTreat(Amount);
+        yield return base.Execute();
+    }
+
     public static ICommand Get(IGame game, ITreatFacade target, int amount) => new RemoveTreatCommand(game, target, amount);
 }

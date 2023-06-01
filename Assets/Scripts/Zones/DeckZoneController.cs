@@ -15,15 +15,19 @@ public sealed class DeckZoneController : BaseZoneController
         Zone.AddListener<IShuffleComponent>(OnShuffledCallback);
     }
     private void OnShuffledCallback(IComponent component)
-    {
-        ICard lastCard = Zone.GetLast(NoFilterCardSelector.Get());
-        if (lastCard is null) return;
-        Sprite.gameObject.SetActive(true);
-        GameController.RoutineService.SpinRoutine(Sprite, () => Sprite.gameObject.SetActive(false));
-    }
+        => GameController.RoutineController.AddAnimation(
+            SpinAnimation.Get(
+                GameController.RoutineController,
+                Sprite,
+                    () => Sprite.gameObject.SetActive(true),
+                    () => Sprite.gameObject.SetActive(false)));
     protected override void PlaceCards(BaseCardController cardController)
     {
         if (cardController is null) return;
-        GameController.RoutineService.MoveRoutine(cardController.transform, GameController.Grid.GetWorldPosition(Position));
+        GameController.RoutineController.AddAnimation(
+            MoveAnimation.Get(
+                GameController.RoutineController,
+                cardController.transform,
+                GameController.Grid.GetWorldPosition(Position)));
     }
 }

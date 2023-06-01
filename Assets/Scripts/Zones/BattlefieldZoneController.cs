@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using TMPro;
+
 using Unity.VisualScripting;
 
 using UnityEngine;
@@ -35,6 +37,10 @@ public sealed class BattlefieldZoneController : BaseZoneController
                 cardController.CardType, 
                 GameController.PlayerControllers.GetFirst(PlayerIdControllerSelector.Get(cardController.OwnerId)).BattlefieldPosition));
         GameController.Grid.Set(cardController.Position, cardController);
-        GameController.RoutineService.MoveRoutine(cardController.transform, GameController.Grid.GetWorldPosition(cardController.Position));
+        GameController.RoutineController.AddAnimation(
+            MoveAnimation.Get(
+                GameController.RoutineController,
+                cardController.transform, 
+                GameController.Grid.GetWorldPosition(cardController.Position)));
     }
 }

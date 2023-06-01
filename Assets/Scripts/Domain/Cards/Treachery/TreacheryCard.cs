@@ -33,7 +33,7 @@
                     backMediator,
                     CoreCardFacade.Get(cardModel.CardId, id, ownerId),
                     FlipFacade.Get(
-                        TreacheryFace.Get(faceMediator, (TreacheryFaceModel)cardModel.Face),
+                        TreacheryFace.Get(game, faceMediator, (TreacheryFaceModel)cardModel.Face),
                         BackFace.Get(backMediator, (BackFaceModel)cardModel.Back)),
                     TapFacade.Get(),
                     LocationFacade.Get(string.Empty));

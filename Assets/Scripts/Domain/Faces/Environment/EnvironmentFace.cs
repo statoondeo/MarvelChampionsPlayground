@@ -60,14 +60,14 @@
 
     #region Factory
 
-    public static IEnvironmentFace Get(IMediator<ICardComponent> mediator, EnvironmentFaceModel faceModel)
+    public static IEnvironmentFace Get(IGame game, IMediator<ICardComponent> mediator, EnvironmentFaceModel faceModel)
         => new EnvironmentFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
             FaceTypeFacade.Get(faceModel.FaceType),
             ClassificationFacade.Get(faceModel.Classification),
             BoostFacade.Get(faceModel.Boost),
-            WhenRevealedFacade.Get(PermanentWhenRevealedComponent.Get(NullCommand.Get())));
+            WhenRevealedFacade.Get(PermanentWhenRevealedComponent.Get(NullCommand.Get(game))));
 
     #endregion
 }

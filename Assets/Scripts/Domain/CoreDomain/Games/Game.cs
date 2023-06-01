@@ -1,21 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 public sealed class Game : IGame
 {
     private ICommand SetupCommand;
-    public IPicker<ICard> AnyCardPicker { get; private set; }
     public RoutineController RoutineController { get; set; }
 
     public Game(
         IRepository<IZone> zones,
         IRepository<ICard> cards, 
         IRepository<IActor> players,
-        IPicker<ICard> anyCardPicker)
+        IPicker<ICard> cardPicker)
     {
         Zones = zones;
         Cards = cards;
         Players = players;
-        AnyCardPicker = anyCardPicker;
+        CardPicker = cardPicker;
+        CommandControllerItem = CommandController.Get();
     }
 
     #region IRepository<IActor>
@@ -60,7 +61,22 @@ public sealed class Game : IGame
 
     #endregion
 
-    public void Commit() => RoutineController.Commit();
-    public void Setup() => SetupCommand.Execute();
+    #region IPicker<ICard>
+
+    private readonly IPicker<ICard> CardPicker;
+    public IEnumerator Pick(IEnumerable<ICard> items, IPickReceiver<ICard> receiver)
+        => CardPicker.Pick(items, receiver);
+
+    #endregion
+
+    #region ICommandController
+
+    private ICommandController CommandControllerItem;
+    public void Enqueue(ICommand command) => CommandControllerItem.Enqueue(command);
+    public IEnumerator Execute() => CommandControllerItem.Execute();
+
+    #endregion
+
+    public void Setup() => Enqueue(SetupCommand);
     public void RegisterSetupCommand(ICommand command) => SetupCommand = command;
 }

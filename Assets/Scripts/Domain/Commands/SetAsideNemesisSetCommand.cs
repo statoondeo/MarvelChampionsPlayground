@@ -1,10 +1,16 @@
-﻿public sealed class SetAsideNemesisSetCommand : BaseFunctionalCommand
+﻿using System;
+using System.Collections;
+using System.Linq;
+
+public sealed class SetAsideNemesisSetCommand : BaseSingleCommand
 {
     private readonly string PlayerId;
     private SetAsideNemesisSetCommand(IGame game, string playerId) : base(game) => PlayerId = playerId;
-    protected override ISelector<ICard> CardSelector
-        => PlayerNemesisSetSelector.Get(PlayerId);
-    protected override ICommand GetCardCommand(ICard card)
-        => MoveToCommand.Get(Game, card, "EXIL");
+    public override IEnumerator Execute()
+    {
+        Game.GetAll(PlayerNemesisSetSelector.Get(PlayerId)).ToList()
+            .ForEach(item => Game.Enqueue(MoveToCommand.Get(Game, item, "EXIL")));
+        yield return base.Execute();
+    }
     public static ICommand Get(IGame game, string playerId) => new SetAsideNemesisSetCommand(game, playerId);
 }

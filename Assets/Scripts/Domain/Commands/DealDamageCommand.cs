@@ -1,4 +1,6 @@
-﻿public sealed class DealDamageCommand : BaseCommand
+﻿using System.Collections;
+
+public sealed class DealDamageCommand : BaseSingleCommand
 {
     private readonly int Damage;
     private readonly ILifeFacade Target;
@@ -7,6 +9,11 @@
         Damage = damage;
         Target = target;
     }
-    public override void Execute() => Target.TakeDamage(Damage);
+    public override IEnumerator Execute()
+    {
+        Target.TakeDamage(Damage);
+        yield return base.Execute();
+    }
+
     public static ICommand Get(IGame game, ILifeFacade target, int damage) => new DealDamageCommand(game, target, damage);
 }

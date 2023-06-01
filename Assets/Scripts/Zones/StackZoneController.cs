@@ -9,6 +9,10 @@
     protected override void PlaceCards(BaseCardController cardController)
     {
         if (cardController is null) return;
-        GameController.RoutineService.MoveRoutine(cardController.transform, GameController.Grid.GetWorldPosition(Position));
+        GameController.RoutineController.AddAnimation(
+            MoveAnimation.Get(
+                GameController.RoutineController,
+                cardController.transform,
+                GameController.Grid.GetWorldPosition(Position)));
     }
 }

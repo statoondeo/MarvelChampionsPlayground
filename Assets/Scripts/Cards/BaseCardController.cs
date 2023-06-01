@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+
+using UnityEngine;
 
 public abstract class BaseCardController : MonoBehaviour, IGridItem
 {
@@ -13,26 +16,10 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
     public string Location => Card.Location;
     public int Order => Card.Order;
 
-    public void Flip() 
-        => CompositeCommand.Get(
-            FlipToNextCommand.Get(Card.Game, Card),
-            CommitRoutineCommand.Get(RoutineController))
-            .Execute();
-    public void Tap() 
-        => CompositeCommand.Get(
-            TapCommand.Get(Card.Game, Card),
-            CommitRoutineCommand.Get(RoutineController))
-            .Execute();
-    public void UnTap() 
-        => CompositeCommand.Get(
-            UnTapCommand.Get(Card.Game, Card),
-            CommitRoutineCommand.Get(RoutineController))
-            .Execute();
-    public void MoveTo(string newLocation) 
-        => CompositeCommand.Get(
-            MoveToCommand.Get(Card.Game, Card, newLocation),
-            CommitRoutineCommand.Get(RoutineController))
-            .Execute();
+    public void Flip() => Card.Game.Enqueue(FlipToNextCommand.Get(Card.Game, Card));
+    public void Tap() => Card.Game.Enqueue(TapCommand.Get(Card.Game, Card));
+    public void UnTap() => Card.Game.Enqueue(UnTapCommand.Get(Card.Game, Card));
+    public void MoveTo(string newLocation) => Card.Game.Enqueue(MoveToCommand.Get(Card.Game, Card, newLocation));
     public CardType CardType => Card.CardType;
 
     #endregion
@@ -69,15 +56,21 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
         GameController.ZoneControllers.GetFirst(ZoneControllerIdSelector.Get(Card.Location)).OnCardAddedCallback(this);
         InitValues();
     }
+
     protected virtual void OnFlippedCallback(IComponent component)
-        => RoutineController.FlipRoutine(
+        => GameController.RoutineController.AddAnimation(
+            FlipAnimation.Get(
+                GameController.RoutineController,
                 ImageTransform,
                 SpriteRenderer,
                 (Card.CurrentFace as ITitleComponent).Sprite,
-                MidFlipRoutineAction);
-
+                MidFlipRoutineAction));
     protected virtual void OnTappedCallback(IComponent component)
-        => RoutineController.TapRoutine(ImageTransform, (component as ITapComponent).Tapped);
+        => GameController.RoutineController.AddAnimation(
+            TapAnimation.Get(
+                GameController.RoutineController,
+                ImageTransform,
+                Card.Tapped));
     protected void MidFlipRoutineAction()
     {
         (Card.IsFace(0) ? FacePanelController : BackPanelController).SetActive(true);

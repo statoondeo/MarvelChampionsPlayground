@@ -34,15 +34,11 @@
     public void DealDamage()
     {
         if (Card.CurrentFace is not IAllyFace face) return;
-        CompositeCommand.Get(
-            DealDamageCommand.Get(Card.Game, face, 1),
-            CommitRoutineCommand.Get(RoutineController)).Execute();
+        Card.Game.Enqueue(DealDamageCommand.Get(Card.Game, face, 1));
     }
     public void HealDamage()
     {
         if (Card.CurrentFace is not IAllyFace face) return;
-        CompositeCommand.Get(
-            HealDamageCommand.Get(Card.Game, face, 1),
-            CommitRoutineCommand.Get(RoutineController)).Execute();
+        Card.Game.Enqueue(HealDamageCommand.Get(Card.Game, face, 1));
     }
 }

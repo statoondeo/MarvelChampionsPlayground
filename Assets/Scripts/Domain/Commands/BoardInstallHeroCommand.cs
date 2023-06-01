@@ -1,15 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
 using System.Linq;
 
-public sealed class BoardInstallHeroCommand : BaseCommand
+using UnityEngine;
+
+public sealed class BoardInstallHeroCommand : BaseSingleCommand
 {
     private BoardInstallHeroCommand(IGame game) : base(game) { }
-    public override void Execute()
+    public override IEnumerator Execute()
     {
-        List<ICommand> commands = new();
         Game.GetAll(PlayerTypeSelector.Get(HeroType.Hero)).ToList()
-            .ForEach(item => commands.Add(InstallHeroCommand.Get(Game, item.Id)));
-        CompositeCommand.Get(commands.ToArray()).Execute();
+            .ForEach(item => Game.Enqueue(InstallHeroCommand.Get(Game, item.Id)));
+        yield return base.Execute();
     }
     public static ICommand Get(IGame game) => new BoardInstallHeroCommand(game);
 }

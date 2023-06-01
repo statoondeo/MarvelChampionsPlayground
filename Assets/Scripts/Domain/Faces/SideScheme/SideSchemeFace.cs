@@ -78,7 +78,7 @@
 
     #region Factory
 
-    public static ISideSchemeFace Get(IMediator<ICardComponent> mediator, SideSchemeFaceModel faceModel)
+    public static ISideSchemeFace Get(IGame game, IMediator<ICardComponent> mediator, SideSchemeFaceModel faceModel)
         => new SideSchemeFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
@@ -87,7 +87,7 @@
             TreatFacade.Get(faceModel.Starting),
             BoostFacade.Get(faceModel.Boost),
             EnterPlayFacade.Get(SchemeEnterPlayComponent.Get()),
-            WhenRevealedFacade.Get(PermanentWhenRevealedComponent.Get(NullCommand.Get())));
+            WhenRevealedFacade.Get(PermanentWhenRevealedComponent.Get(NullCommand.Get(game))));
 
     #endregion
 }

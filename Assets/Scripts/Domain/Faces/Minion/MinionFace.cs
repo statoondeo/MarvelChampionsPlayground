@@ -108,7 +108,7 @@
 
     #region Factory
 
-    public static IMinionFace Get(IMediator<ICardComponent> mediator, MinionFaceModel faceModel)
+    public static IMinionFace Get(IGame game, IMediator<ICardComponent> mediator, MinionFaceModel faceModel)
         => new MinionFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
@@ -119,7 +119,7 @@
             AttackFacade.Get(faceModel.Attack),
             BoostFacade.Get(faceModel.Boost),
             EnterPlayFacade.Get(SingleFaceEnterPlayComponent.Get()),
-            WhenRevealedFacade.Get(PermanentWhenRevealedComponent.Get(NullCommand.Get())));
+            WhenRevealedFacade.Get(PermanentWhenRevealedComponent.Get(NullCommand.Get(game))));
 
     #endregion
 }

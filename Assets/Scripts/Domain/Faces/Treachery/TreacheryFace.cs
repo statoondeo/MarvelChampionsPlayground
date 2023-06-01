@@ -60,14 +60,14 @@
 
     #region Factory
 
-    public static ITreacheryFace Get(IMediator<ICardComponent> mediator, TreacheryFaceModel faceModel)
+    public static ITreacheryFace Get(IGame game, IMediator<ICardComponent> mediator, TreacheryFaceModel faceModel)
         => new TreacheryFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
             FaceTypeFacade.Get(faceModel.FaceType),
             ClassificationFacade.Get(faceModel.Classification),
             BoostFacade.Get(faceModel.Boost),
-            WhenRevealedFacade.Get(InstantWhenRevealedComponent.Get(NullCommand.Get())));
+            WhenRevealedFacade.Get(InstantWhenRevealedComponent.Get(NullCommand.Get(game))));
 
     #endregion
 }

@@ -28,7 +28,11 @@ public sealed class HandZoneController : BaseZoneController
             BaseCardController controller = GameController
                 .CardControllers
                 .GetFirst(CardIdControllerSelector.Get(Zone.GetAt(NoFilterCardSelector.Get(), 0).Id));
-            GameController.RoutineService.MoveRoutine(controller.transform, LeftPosition + .5f * HandLength * Vector2.right);
+            GameController.RoutineController.AddAnimation(
+                MoveAnimation.Get(
+                    GameController.RoutineController,
+                    controller.transform,
+                    LeftPosition + .5f * HandLength * Vector2.right));
             return;
         }
         float gap = Mathf.Min(MaxGap, (HandLength - CellSize.x * Count) / (Count - 1));
@@ -39,7 +43,11 @@ public sealed class HandZoneController : BaseZoneController
         foreach (ICard card in Zone.GetAll(NoFilterCardSelector.Get()))
         {
             BaseCardController controller = GameController.CardControllers.GetFirst(CardIdControllerSelector.Get(card.Id));
-            GameController.RoutineService.MoveRoutine(controller.transform, startPosition + i * cellGap * Vector2.right);
+            GameController.RoutineController.AddAnimation(
+                MoveAnimation.Get(
+                    GameController.RoutineController,
+                    controller.transform,
+                    startPosition + i * cellGap * Vector2.right));
             i++;
         }
     }

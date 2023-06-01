@@ -1,6 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 public interface IPicker<T>
 {
-    IEnumerable<T> Pick(IEnumerable<T> items);
+    IEnumerator Pick(IEnumerable<T> items, IPickReceiver<T> receiver);
+}
+public interface IPickReceiver<T>
+{
+    void Receive(IEnumerable<T> items);
 }

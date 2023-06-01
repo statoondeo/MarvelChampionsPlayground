@@ -1,9 +1,8 @@
 ﻿using System;
 
-public sealed class NullCommand : ICommand
+public sealed class NullCommand : BaseSingleCommand
 {
-    private NullCommand() { }
-    public void Execute() { }
-    public static ICommand Get() => new NullCommand();
-    public static Func<ICard, ICommand> GetFactory() => (card) => new NullCommand();
+    private NullCommand(IGame game) : base(game) { }
+    public static ICommand Get(IGame game) => new NullCommand(game);
+    public static Func<ICard, ICommand> GetFactory(IGame game) => (card) => Get(game);
 }

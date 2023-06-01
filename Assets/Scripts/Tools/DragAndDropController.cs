@@ -37,14 +37,12 @@ public sealed class DragAndDropController : MonoBehaviour
         IsDragging = false;
         if (GameController.Grid.IsEmpty(mouseGridPosition))
         {
-            GameController.RoutineService.MoveRoutine(transform, GameController.Grid.GetWorldPosition(mouseGridPosition));
-            GameController.RoutineService.Commit();
+            GameController.RoutineController.MoveRoutine(transform, GameController.Grid.GetWorldPosition(mouseGridPosition), 0);
             GameController.Grid.Set(mouseGridPosition, CardController);
         }
         else
         {
-            GameController.RoutineService.MoveRoutine(transform, GameController.Grid.GetWorldPosition(InitialGridPosition));
-            GameController.RoutineService.Commit();
+            GameController.RoutineController.MoveRoutine(transform, GameController.Grid.GetWorldPosition(InitialGridPosition), 0);
             GameController.Grid.Set(InitialGridPosition, CardController);
         }
     }

@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
 using System.Linq;
 
-public sealed class ShuffleVillainsDecksCommand : BaseCommand
+public sealed class ShuffleVillainsDecksCommand : BaseSingleCommand
 {
     public ShuffleVillainsDecksCommand(IGame game) : base(game) { }
-    public override void Execute()
+    public override IEnumerator Execute()
     {
-        List<ICommand> commands = new List<ICommand>();
         Game.GetAll(PlayerTypeSelector.Get(HeroType.Villain)).ToList()
-            .ForEach(item => commands.Add(ShuffleZoneCommand.Get(Game, item.GetZone("DECK"))));
-        CompositeCommand.Get(commands.ToArray()).Execute();
+            .ForEach(item => Game.Enqueue(ShuffleDeckCommand.Get(Game, item.GetZone("DECK"))));
+        yield return base.Execute();
     }
 
     public static ICommand Get(IGame game) => new ShuffleVillainsDecksCommand(game);

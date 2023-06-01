@@ -34,15 +34,11 @@
     public void AddTreat()
     {
         if (Card.CurrentFace is not ISideSchemeFace face) return;
-        CompositeCommand.Get(
-            AddTreatCommand.Get(Card.Game, face, 1),
-            CommitRoutineCommand.Get(RoutineController)).Execute();
+        Card.Game.Enqueue(AddTreatCommand.Get(Card.Game, face, 1));
     }
     public void RemoveTreat()
     {
         if (Card.CurrentFace is not ISideSchemeFace face) return;
-        CompositeCommand.Get(
-            RemoveTreatCommand.Get(Card.Game, face, 1),
-            CommitRoutineCommand.Get(RoutineController)).Execute();
+        Card.Game.Enqueue(RemoveTreatCommand.Get(Card.Game, face, 1));
     }
 }
