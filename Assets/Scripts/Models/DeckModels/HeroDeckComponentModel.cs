@@ -1,4 +1,6 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+
+using System;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -8,7 +10,7 @@ public sealed class HeroDeckComponentModel : ScriptableObject
 {
     public string Id { get; private set; } = Guid.NewGuid().ToString();
     public HeroType HeroType;
-    [SerializeField] private CardModel[] CardModels;
+    public CardModel[] CardModels;
     [SerializeField] private HeroSetupModel HeroSetupModel;
     public IEnumerator<CardModel> GetEnumerator()
     {
@@ -21,4 +23,11 @@ public enum HeroType
 {
     Hero,
     Villain,
+}
+[Serializable]
+public sealed class CardLocationModel
+{
+    public CardModel CardModel;
+    public string Location;
+    public int Order;
 }

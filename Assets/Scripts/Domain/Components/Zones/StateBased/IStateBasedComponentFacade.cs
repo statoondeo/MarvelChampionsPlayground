@@ -1,0 +1,1 @@
+﻿public interface IStateBasedComponentFacade : IZoneComponentFacade<IStateBasedComponent>, IStateBasedComponent { }

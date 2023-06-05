@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 public sealed class PlayerDrawUpToHandCommand : BaseSingleCommand
 {
@@ -10,7 +12,10 @@ public sealed class PlayerDrawUpToHandCommand : BaseSingleCommand
         int handCardCount = player.GetZone("HAND").Count(NoFilterCardSelector.Get());
         int handSize = (player.HeroCard.CurrentFace as IHandSizeFacade).HandSize;
         int cardToDraw = handSize - handCardCount;
-        for (int i = 0; i < cardToDraw; i++) Game.Enqueue(DrawCommand.Get(Game, player));
+        IList<ICommand> drawCommands = new List<ICommand>();
+        for(int i = 0; i < cardToDraw; i++) 
+            drawCommands.Add(DrawCommand.Get(Game, player));
+        Game.Enqueue(CompositeCommand.Get(Game, drawCommands.ToArray()));
         yield return base.Execute();
     }
 

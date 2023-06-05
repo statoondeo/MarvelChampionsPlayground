@@ -12,32 +12,28 @@ public sealed class SpinAnimation : BaseAnimation
             RoutineController routineController,
             Transform transform,
             Action beginAction,
-            Action endAction,
-            float delay = 0)
+            Action endAction)
         : base(
             routineController,
-            transform,
-            delay)
+            transform)
     {
         BeginAction = beginAction;
         EndAction = endAction;
     }
 
-    protected override IEnumerator RunAnimation()
+    protected override IEnumerator RunAnimation(float delay = 0)
     {
-        yield return RoutineController.SpinRoutine(Transform, BeginAction, EndAction, Delay);
+        yield return RoutineController.SpinRoutine(Transform, BeginAction, EndAction, delay);
     }
 
     public static IAnimation Get(
             RoutineController routineController,
             Transform transform,
             Action beginAction,
-            Action endAction,
-            float delay = 0)
+            Action endAction)
     => new SpinAnimation(
             routineController,
             transform,
             beginAction,
-            endAction,
-            delay);
+            endAction);
 }

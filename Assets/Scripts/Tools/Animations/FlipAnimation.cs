@@ -14,21 +14,19 @@ public sealed class FlipAnimation : BaseAnimation
             Transform transform,
             SpriteRenderer spriteRenderer,
             Sprite nextSprite,
-            Action midRoutineAction,
-            float delay = 0)
+            Action midRoutineAction)
         : base(
             routineController,
-            transform,
-            delay)
+            transform)
     {
         SpriteRenderer = spriteRenderer;
         NextSprite = nextSprite;
         MidRoutineAction = midRoutineAction;
     }
 
-    protected override IEnumerator RunAnimation()
+    protected override IEnumerator RunAnimation(float delay = 0)
     {
-        yield return RoutineController.FlipRoutine(Transform, SpriteRenderer, NextSprite, MidRoutineAction, Delay);
+        yield return RoutineController.FlipRoutine(Transform, SpriteRenderer, NextSprite, MidRoutineAction, delay);
     }
 
     public static IAnimation Get(
@@ -36,13 +34,11 @@ public sealed class FlipAnimation : BaseAnimation
                 Transform transform,
                 SpriteRenderer spriteRenderer,
                 Sprite nextSprite,
-                Action midRoutineAction,
-                float delay = 0)
+                Action midRoutineAction)
         => new FlipAnimation(
                 routineController,
                 transform,
                 spriteRenderer,
                 nextSprite,
-                midRoutineAction,
-                delay);
+                midRoutineAction);
 }

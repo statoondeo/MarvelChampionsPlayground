@@ -14,7 +14,7 @@ public sealed class GameController : MonoBehaviour
 
     [SerializeField] private GameObject CardSelectorPrefab;
 
-    private CardSelectorController CardSelector;
+    private BaseCardSelectorController CardSelector;
 
     public RoutineController RoutineController { get; private set; }
     private IGame Game;
@@ -43,7 +43,7 @@ public sealed class GameController : MonoBehaviour
         foreach (IZone zone in Game.GetAll(NoFilterZoneSelector.Get()))
         {
             string zoneName = zone.Label;
-            if (zoneName.Equals("DECK", System.StringComparison.OrdinalIgnoreCase)) 
+            if (zoneName.Equals("DECK", System.StringComparison.OrdinalIgnoreCase))
                 zoneName = (PlayerDeckModel.Id == zone.OwnerId ? "Player" : "Villain") + zoneName;
             BaseZoneController zoneController = Instantiate(ZonePrefabAtlasModel.GetPrefab(zoneName), transform).GetComponent<BaseZoneController>();
             zoneController.SetData(this, zone);
@@ -70,8 +70,8 @@ public sealed class GameController : MonoBehaviour
     private void Awake()
     {
         RoutineController = gameObject.AddComponent<RoutineController>();
-        CardSelector = Instantiate(CardSelectorPrefab.gameObject, transform).GetComponent<CardSelectorController>();
-        
+        CardSelector = Instantiate(CardSelectorPrefab, transform).GetComponent<BaseCardSelectorController>();
+
         Game = new GameBuilder(CardSelector)
             .WithRoutineController(RoutineController)
             .WithPlayer(PlayerDeckModel)
@@ -83,7 +83,7 @@ public sealed class GameController : MonoBehaviour
         CreateZoneControllers();
         CreateCardControllers();
 
-        foreach (BaseZoneController zoneController in ZoneControllers.GetAll(NoFilterBaseZoneControllerSelector.Get())) 
+        foreach (BaseZoneController zoneController in ZoneControllers.GetAll(NoFilterBaseZoneControllerSelector.Get()))
             zoneController.RefreshContent();
 
         StartCoroutine(Game.Execute());
@@ -91,6 +91,19 @@ public sealed class GameController : MonoBehaviour
     public void Setup()
     {
         RoutineController.StartGame();
+        Game.Start();
         Game.Setup();
+    }
+    public void TestDiscardDrawHand()
+    {
+        RoutineController.StartGame();
+        Game.Start();
+        IPlayerActor playerActor = Game.GetFirst(PlayerTypeSelector.Get(HeroType.Hero)) as IPlayerActor;
+        Game.Enqueue(
+            TransactionCommand.Get(
+                Game,
+                CompositeCommand.Get(Game,
+                    PlayerDiscardHandCommand.Get(Game, playerActor.Id),
+                    PlayerDrawUpToHandCommand.Get(Game, playerActor.Id))));
     }
 }

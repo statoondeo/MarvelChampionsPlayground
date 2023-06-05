@@ -7,5 +7,6 @@ public sealed class MinionFaceModel : FaceModel
     public int Attack;
     public int Life;
     public int Boost;
+    public string WhenRevealedCommand;
     public MinionFaceModel() => FaceType = FaceType.Minion;
 }

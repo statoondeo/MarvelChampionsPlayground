@@ -9,27 +9,23 @@ public sealed class TapAnimation : BaseAnimation
     public TapAnimation(
             RoutineController routineController,
             Transform transform,
-            bool tapped,
-            float delay = 0)
+            bool tapped)
         : base(
             routineController,
-            transform,
-            delay)
+            transform)
         => Tapped = tapped;
 
-    protected override IEnumerator RunAnimation()
+    protected override IEnumerator RunAnimation(float delay = 0)
     {
-        yield return RoutineController.TapRoutine(Transform, Tapped, Delay);
+        yield return RoutineController.TapRoutine(Transform, Tapped, delay);
     }
 
     public static IAnimation Get(
             RoutineController routineController,
             Transform transform,
-            bool tapped,
-            float delay = 0)
+            bool tapped)
     => new TapAnimation(
             routineController,
             transform,
-            tapped,
-            delay);
+            tapped);
 }

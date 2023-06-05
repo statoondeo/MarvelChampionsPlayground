@@ -1,5 +1,5 @@
 ﻿public interface IVillainActorComponent : IActorComponent<IVillainActorComponent>
 {
-    void DealEncounterCard(IActor player, int number);
+    void DealEncounterCard(IPlayerActor targetPlayer, int number);
     void DealBoostCard(int number);
 }

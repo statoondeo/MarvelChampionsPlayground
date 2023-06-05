@@ -28,7 +28,6 @@
 
     private readonly IWhenRevealedFacade WhenRevealedItem;
     public ICommand WhenRevealed => WhenRevealedItem.WhenRevealed;
-    public void Reveal() => WhenRevealedItem.Reveal();
     public void AddDecorator(ICardComponentDecorator<IWhenRevealedComponent> decorator)
         => WhenRevealedItem.AddDecorator(decorator);
     public void RemoveDecorator(ICardComponentDecorator<IWhenRevealedComponent> decorator)
@@ -87,7 +86,7 @@
             TreatFacade.Get(faceModel.Starting),
             BoostFacade.Get(faceModel.Boost),
             EnterPlayFacade.Get(SchemeEnterPlayComponent.Get()),
-            WhenRevealedFacade.Get(PermanentWhenRevealedComponent.Get(NullCommand.Get(game))));
+            WhenRevealedFacade.Get(StaticWhenRevealedComponent.Get(new CommandFactory(game).Create(faceModel.WhenRevealedCommand))));
 
     #endregion
 }

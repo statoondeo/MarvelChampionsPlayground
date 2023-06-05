@@ -2,5 +2,6 @@
 
 public sealed class MainSchemeAFaceController : MonoBehaviour
 {
-    public void SetModel(IMainSchemeAFace model) { }
+    [SerializeField] private AccelerationTokenController AccelerationTokenController;
+    public void SetModel(IMainSchemeAFace model) => AccelerationTokenController.SetModel(model);
 }

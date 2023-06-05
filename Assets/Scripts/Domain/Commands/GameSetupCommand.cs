@@ -11,7 +11,6 @@
                     TransactionCommand.Get(game, ShufflePlayersDecksCommand.Get(game)),
                     TransactionCommand.Get(game, CreateVillainDeckCommand.Get(game)),
                     TransactionCommand.Get(game, BoardInstallVillainCommand.Get(game)),
-                    TransactionCommand.Get(game, InstallMainSchemeCommand.Get(game)),
                     TransactionCommand.Get(game, MainSchemeSetupCommand.Get(game)),
                     TransactionCommand.Get(game, ResolveVillainBoardWhenRevealedCommand.Get(game)),
                     TransactionCommand.Get(game, ShuffleVillainsDecksCommand.Get(game)),

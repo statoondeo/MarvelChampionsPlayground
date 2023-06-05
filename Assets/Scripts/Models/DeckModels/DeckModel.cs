@@ -5,8 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Marvel Champions/Playable Deck")]
 public class DeckModel : ScriptableObject
 {
-    [SerializeField] private HeroDeckComponentModel HeroDeckComponentModel;
-    [SerializeField] private DeckComponentModel[] DeckComponentModels;
+    public HeroDeckComponentModel HeroDeckComponentModel;
+    public DeckComponentModel[] DeckComponentModels;
+    public CardLocationModel[] CardModels;
     public IEnumerator<CardModel> GetEnumerator()
     {
         if (HeroDeckComponentModel is null) yield break;

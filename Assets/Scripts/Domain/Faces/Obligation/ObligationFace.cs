@@ -6,6 +6,7 @@
     {
         base.SetCard(card);
         BoostItem.SetCard(card);
+        WhenRevealedItem.SetCard(card);
     }
 
     #endregion
@@ -21,6 +22,18 @@
 
     #endregion
 
+
+    #region IWhenRevealedFacade
+
+    private readonly IWhenRevealedFacade WhenRevealedItem;
+    public ICommand WhenRevealed => WhenRevealedItem.WhenRevealed;
+    public void AddDecorator(ICardComponentDecorator<IWhenRevealedComponent> decorator)
+        => WhenRevealedItem.AddDecorator(decorator);
+    public void RemoveDecorator(ICardComponentDecorator<IWhenRevealedComponent> decorator)
+        => WhenRevealedItem.RemoveDecorator(decorator);
+
+    #endregion
+
     #region Constructeur
 
     private ObligationFace(
@@ -28,7 +41,8 @@
             ITitleFacade titleFacade,
             IFaceTypeFacade cardTypeFacade,
             IClassificationFacade classificationFacade,
-            IBoostFacade boostFacade)
+            IBoostFacade boostFacade,
+            IWhenRevealedFacade whenRevealedFacade)
         : base(
             mediator,
             titleFacade,
@@ -36,21 +50,24 @@
             classificationFacade)
     {
         BoostItem = boostFacade;
+        WhenRevealedItem = whenRevealedFacade;
 
         Mediator.Register<IBoostComponent>(BoostItem);
+        Mediator.Register<IWhenRevealedComponent>(WhenRevealedItem);
     }
 
     #endregion
 
     #region Factory
 
-    public static IObligationFace Get(IMediator<ICardComponent> mediator, ObligationFaceModel faceModel)
+    public static IObligationFace Get(IGame game, IMediator<ICardComponent> mediator, ObligationFaceModel faceModel)
         => new ObligationFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
             FaceTypeFacade.Get(faceModel.FaceType),
             ClassificationFacade.Get(faceModel.Classification),
-            BoostFacade.Get(faceModel.Boost));
+            BoostFacade.Get(faceModel.Boost),
+            WhenRevealedFacade.Get(StaticWhenRevealedComponent.Get(new CommandFactory(game).Create(faceModel.WhenRevealedCommand))));
 
     #endregion
 }

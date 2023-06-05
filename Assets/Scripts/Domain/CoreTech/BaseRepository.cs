@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using static UnityEditor.Progress;
-
 public abstract class BaseRepository<TValue> : IRepository<TValue>
 {
     protected readonly ISet<TValue> Data;

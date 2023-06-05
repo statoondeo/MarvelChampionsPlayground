@@ -6,6 +6,7 @@
 
     public ICardComponentFacade<T> Facade { get; protected set; }
     public ICardComponent<T> Inner { get; protected set; }
+    protected T InnerComponent => (T)Inner;
 
     public ICardComponentDecorator<T> Wrap(ICardComponent<T> wrapped)
     {
@@ -16,7 +17,7 @@
 
     #endregion
 
-    #region ICardCOmponent
+    #region ICardComponent
 
     public void Init() => Inner.Init();
 

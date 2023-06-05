@@ -10,8 +10,18 @@
         TreatItem.SetCard(card);
         TreatThresholdItem.SetCard(card);
         WhenRevealedItem.SetCard(card);
+        TokeAccelerationItem.SetCard(card);
         Mediator.GetFacade<IEnterPlayComponent>().SetCard(card);
     }
+
+    #endregion
+
+    #region IAccelerationTokenFacade
+
+    private readonly IAccelerationTokenFacade TokeAccelerationItem;
+    public void AddDecorator(ICardComponentDecorator<IAccelerationTokenComponent> decorator) => TokeAccelerationItem.AddDecorator(decorator);
+    public void RemoveDecorator(ICardComponentDecorator<IAccelerationTokenComponent> decorator) => TokeAccelerationItem.RemoveDecorator(decorator);
+    public int AccelerationToken => TokeAccelerationItem.AccelerationToken;
 
     #endregion
 
@@ -57,7 +67,6 @@
 
     private readonly IWhenRevealedFacade WhenRevealedItem;
     public ICommand WhenRevealed => WhenRevealedItem.WhenRevealed;
-    public void Reveal() => WhenRevealedItem.Reveal();
     public void AddDecorator(ICardComponentDecorator<IWhenRevealedComponent> decorator)
         => WhenRevealedItem.AddDecorator(decorator);
     public void RemoveDecorator(ICardComponentDecorator<IWhenRevealedComponent> decorator)
@@ -77,7 +86,8 @@
             ITreatThresholdFacade treatThresholdFacade,
             ITreatAccelerationFacade treatAccelerationFacade,
             IEnterPlayFacade enterPlayFacade,
-            IWhenRevealedFacade whenRevealedFacade)
+            IWhenRevealedFacade whenRevealedFacade,
+            IAccelerationTokenFacade accelerationTokenFacade)
         : base(
              mediator,
            titleFacade,
@@ -89,6 +99,7 @@
         TreatThresholdItem = treatThresholdFacade;
         TreatAccelerationItem = treatAccelerationFacade;
         WhenRevealedItem = whenRevealedFacade;
+        TokeAccelerationItem = accelerationTokenFacade;
 
         Mediator.Register<IStadeComponent>(StadeItem);
         Mediator.Register<ITreatComponent>(TreatItem);
@@ -102,7 +113,11 @@
 
     #region Factory
 
-    public static IMainSchemeBFace Get(IGame game, IMediator<ICardComponent> mediator, MainSchemeBFaceModel faceModel)
+    public static IMainSchemeBFace Get(
+            IGame game, 
+            IMediator<ICardComponent> mediator, 
+            IAccelerationTokenFacade accelerationTokenFacade, 
+            MainSchemeBFaceModel faceModel)
         => new MainSchemeBFace(
             mediator,
             TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
@@ -113,7 +128,8 @@
             TreatThresholdFacade.Get(faceModel.Threshold),
             TreatAccelerationFacade.Get(faceModel.Stade),
             EnterPlayFacade.Get(SchemeEnterPlayComponent.Get()),
-            WhenRevealedFacade.Get(StaticWhenRevealedComponent.Get(NullCommand.Get(game))));
+            WhenRevealedFacade.Get(StaticWhenRevealedComponent.Get(new CommandFactory(game).Create(faceModel.WhenRevealedCommand))),
+            accelerationTokenFacade);
 
     #endregion
 }

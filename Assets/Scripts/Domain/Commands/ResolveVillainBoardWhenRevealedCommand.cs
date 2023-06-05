@@ -13,8 +13,8 @@ public sealed class ResolveVillainBoardWhenRevealedCommand : BaseSingleCommand
         Game.GetAll(CardSelector).ToList()
             .ForEach(item =>
             {
-                if (item.CurrentFace is ISetupFacade currentFacade)
-                Game.Enqueue(currentFacade.Setup);
+                if (item.CurrentFace is IWhenRevealedFacade currentFacade)
+                    Game.Enqueue(TransactionCommand.Get(Game, currentFacade.WhenRevealed));
             });
         yield return base.Execute();
     }

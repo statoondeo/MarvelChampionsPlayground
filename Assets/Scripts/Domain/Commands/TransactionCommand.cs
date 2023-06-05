@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public interface ITransactionHandler
-{
-    public void AddAnimation(IAnimation animationHandler);
-}
 public sealed class TransactionCommand : ICommand, ITransactionHandler
 {
     private readonly ICommand Command;
@@ -28,12 +24,10 @@ public sealed class TransactionCommand : ICommand, ITransactionHandler
                 Game.RoutineController.StartTransaction(this);
                 Game.Enqueue(Command);
                 Step++;
-                yield return null;
                 break;
             case 1:
                 while (AnimationList.Any(animation => !animation.Ended)) yield return null;
                 Step++;
-                yield return null;
                 break;
             default:
                 Game.RoutineController.StopTransaction();
@@ -41,10 +35,7 @@ public sealed class TransactionCommand : ICommand, ITransactionHandler
         }
     }
     private readonly IList<IAnimation> AnimationList;
-    public void AddAnimation(IAnimation animation)
-    {
-        AnimationList.Add(animation);
-    }
+    public void AddAnimation(IAnimation animation) => AnimationList.Add(animation);
 
     public static ICommand Get(IGame game, ICommand command) 
         => new TransactionCommand(game, command);

@@ -30,7 +30,6 @@ public sealed class MainSchemeAFace : BaseCardFace, IMainSchemeAFace
         => WhenRevealedItem.AddDecorator(decorator);
     public void RemoveDecorator(ICardComponentDecorator<IWhenRevealedComponent> decorator)
         => WhenRevealedItem.RemoveDecorator(decorator);
-    public void Reveal() => WhenRevealedItem.Reveal();
 
     #endregion
 
@@ -42,8 +41,18 @@ public sealed class MainSchemeAFace : BaseCardFace, IMainSchemeAFace
         StadeItem.SetCard(card);
         SetupItem.SetCard(card);
         WhenRevealedItem.SetCard(card);
+        TokeAccelerationItem.SetCard(card);
         Mediator.GetFacade<IEnterPlayComponent>().SetCard(card);
     }
+
+    #endregion
+
+    #region IAccelerationTokenFacade
+
+    private readonly IAccelerationTokenFacade TokeAccelerationItem;
+    public void AddDecorator(ICardComponentDecorator<IAccelerationTokenComponent> decorator) => TokeAccelerationItem.AddDecorator(decorator);
+    public void RemoveDecorator(ICardComponentDecorator<IAccelerationTokenComponent> decorator) => TokeAccelerationItem.RemoveDecorator(decorator);
+    public int AccelerationToken => TokeAccelerationItem.AccelerationToken;
 
     #endregion
 
@@ -57,7 +66,8 @@ public sealed class MainSchemeAFace : BaseCardFace, IMainSchemeAFace
             IStadeFacade stadeFacade,
             ISetupFacade setupFacade,
             IEnterPlayFacade enterPlayFacade,
-            IWhenRevealedFacade whenRevealedFacade)
+            IWhenRevealedFacade whenRevealedFacade,
+            IAccelerationTokenFacade tokeAccelerationFacade)
         : base(
             mediator,
             titleFacade,
@@ -67,10 +77,12 @@ public sealed class MainSchemeAFace : BaseCardFace, IMainSchemeAFace
         StadeItem = stadeFacade;
         SetupItem = setupFacade;
         WhenRevealedItem = whenRevealedFacade;
+        TokeAccelerationItem = tokeAccelerationFacade;
 
         Mediator.Register<IStadeComponent>(StadeItem);
         Mediator.Register<ISetupComponent>(SetupItem);
         Mediator.Register<IWhenRevealedComponent>(WhenRevealedItem);
+        Mediator.Register<IAccelerationTokenComponent>(TokeAccelerationItem);
         Mediator.Register<IEnterPlayComponent>(enterPlayFacade);
     }
 
@@ -78,7 +90,12 @@ public sealed class MainSchemeAFace : BaseCardFace, IMainSchemeAFace
 
     #region Factory
 
-    public static IMainSchemeAFace Get(IGame game, IMediator<ICardComponent> mediator, MainSchemeAFaceModel faceModel) => new MainSchemeAFace(
+    public static IMainSchemeAFace Get(
+                IGame game, 
+                IMediator<ICardComponent> mediator, 
+                IAccelerationTokenFacade tokeAccelerationFacade, 
+                MainSchemeAFaceModel faceModel) 
+        => new MainSchemeAFace(
                 mediator,
                 TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
                 FaceTypeFacade.Get(faceModel.FaceType),
@@ -86,7 +103,8 @@ public sealed class MainSchemeAFace : BaseCardFace, IMainSchemeAFace
                 StadeFacade.Get(faceModel.Stade),
                 SetupFacade.Get(new CommandFactory(game).Create(faceModel.SetupCommand)),
                 EnterPlayFacade.Get(SchemeAEnterPlayComponent.Get()),
-                WhenRevealedFacade.Get(StaticWhenRevealedComponent.Get(NullCommand.Get(game))));
+                WhenRevealedFacade.Get(StaticWhenRevealedComponent.Get(new CommandFactory(game).Create(faceModel.WhenRevealedCommand))),
+                tokeAccelerationFacade);
 
     #endregion
 }

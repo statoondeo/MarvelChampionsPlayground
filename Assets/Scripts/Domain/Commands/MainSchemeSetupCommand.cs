@@ -13,7 +13,7 @@ public sealed class MainSchemeSetupCommand : BaseSingleCommand
         Game.GetAll(CardSelector).ToList()
             .ForEach(item =>
             {
-                if (item is ISetupFacade itemFacade)
+                if (item.CurrentFace is ISetupFacade itemFacade)
                     Game.Enqueue(itemFacade.Setup);
             });
         yield return base.Execute();

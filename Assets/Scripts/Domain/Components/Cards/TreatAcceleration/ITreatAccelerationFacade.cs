@@ -1,3 +1,4 @@
-﻿public interface ITreatAccelerationFacade : 
-    ICardComponentFacade<ITreatAccelerationComponent>, 
-    ITreatAccelerationComponent { }
+﻿public interface ITreatAccelerationFacade :
+    ICardComponentFacade<ITreatAccelerationComponent>,
+    ITreatAccelerationComponent
+{ }

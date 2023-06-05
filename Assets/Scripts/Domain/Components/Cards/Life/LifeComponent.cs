@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using System;
 
 public sealed class LifeComponent : BaseCardComponent<ILifeComponent>, ILifeComponent
 {
@@ -6,8 +6,7 @@ public sealed class LifeComponent : BaseCardComponent<ILifeComponent>, ILifeComp
     {
         get
         {
-            ILifeComponent lifeFacade = Card.GetFacade<ILifeComponent>();
-            return lifeFacade.TotalLife - lifeFacade.Damage;
+            throw new NotImplementedException();
         }
     }
     private int _TotalLife;

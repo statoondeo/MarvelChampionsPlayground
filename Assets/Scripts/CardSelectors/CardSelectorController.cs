@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using UnityEngine;
+using TMPro;
 
-public sealed class CardSelectorController : MonoBehaviour, IPicker<ICard>
+using UnityEngine;
+public sealed class CardSelectorController : BaseCardSelectorController
 {
     [SerializeField] private GameObject CardSelectorItemPrefab;
     [SerializeField] private Canvas Canvas;
     [SerializeField] private Transform Content;
+    [SerializeField] private TMP_Text TitleText;
+    [SerializeField] private TMP_Text SubTitleText;
 
     private CardSelectorItemController[] CardSelectorItemControllers;
     private bool Finished;
@@ -18,8 +21,10 @@ public sealed class CardSelectorController : MonoBehaviour, IPicker<ICard>
             .Where(item => item.Selected)
             .Select(item => item.Card);
     public void EndSelection() => Finished = true;
-    public IEnumerator Pick(IEnumerable<ICard> items, IPickReceiver<ICard> receiver)
+    public override IEnumerator Pick(IEnumerable<ICard> items, IPickReceiver<ICard> receiver, string title, string subTitle)
     {
+        TitleText.text = title;
+        SubTitleText.text = subTitle;
         Finished = false;
         CardSelectorItemControllers = new CardSelectorItemController[items.Count()];
         for (int i = 0; i < CardSelectorItemControllers.Length; i++)

@@ -1,8 +1,9 @@
-﻿public sealed class StaticWhenRevealedComponent : BaseWhenRevealedComponent
-{
-    public override void Reveal() => Card.Game.Enqueue(WhenRevealed);
-    private StaticWhenRevealedComponent(ICommand command) : base(command) { }
+﻿using System;
 
-    public static IWhenRevealedComponent Get(ICommand command)
-        => new StaticWhenRevealedComponent(command);
+public sealed class StaticWhenRevealedComponent : BaseWhenRevealedComponent
+{
+    private StaticWhenRevealedComponent(Func<ICard, ICommand> commandFactory) : base(commandFactory) { }
+
+    public static IWhenRevealedComponent Get(Func<ICard, ICommand> commandFactory)
+        => new StaticWhenRevealedComponent(commandFactory);
 }

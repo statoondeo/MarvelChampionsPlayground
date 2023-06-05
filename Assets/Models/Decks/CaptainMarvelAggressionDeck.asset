@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 445d0d852bc432546b50336c50716410, type: 3}
+  m_Name: CaptainMarvelAggressionDeck
+  m_EditorClassIdentifier: 
+  HeroDeckComponentModel: {fileID: 11400000, guid: 33b4fb0bfdc93f446a6085545eedca86, type: 2}
+  DeckComponentModels:
+  - {fileID: 11400000, guid: a49b757aa8be8a44aa75327d273813fd, type: 2}
+  - {fileID: 11400000, guid: 8f7869536a81bec4dae03687a377bd9a, type: 2}
+  CardModels:
+  - CardModel: {fileID: 11400000, guid: 08b53eace62bf14418088ffdff035c16, type: 2}
+    Location: DECK
+    Order: 0
+  - CardModel: {fileID: 11400000, guid: 7510827f8ea184d4698b64b1f73d1efd, type: 2}
+    Location: DECK
+    Order: 1
+  - CardModel: {fileID: 11400000, guid: 5046dfc7a7572ea4592740bc03dfd7a9, type: 2}
+    Location: DECK
+    Order: 2
+  - CardModel: {fileID: 11400000, guid: 77f5cb3a78ad99d489bc9b5b4dfca552, type: 2}
+    Location: DECK
+    Order: 3
+  - CardModel: {fileID: 11400000, guid: 46df5c6533d89c840b039efd60217431, type: 2}
+    Location: DECK
+    Order: 4
+  - CardModel: {fileID: 11400000, guid: 46df5c6533d89c840b039efd60217431, type: 2}
+    Location: DECK
+    Order: 5
+  - CardModel: {fileID: 11400000, guid: de49986c18346fb468e4815fa340b58b, type: 2}
+    Location: DECK
+    Order: 6
+  - CardModel: {fileID: 11400000, guid: de49986c18346fb468e4815fa340b58b, type: 2}
+    Location: DECK
+    Order: 7
+  - CardModel: {fileID: 11400000, guid: 112a61bc2c3e75d4a9252b919d257bb7, type: 2}
+    Location: DECK
+    Order: 8
+  - CardModel: {fileID: 11400000, guid: 112a61bc2c3e75d4a9252b919d257bb7, type: 2}
+    Location: DECK
+    Order: 9
+  - CardModel: {fileID: 11400000, guid: 7b15700aef0de4a4a87ce1c202af6996, type: 2}
+    Location: DECK
+    Order: 10
+  - CardModel: {fileID: 11400000, guid: 7b15700aef0de4a4a87ce1c202af6996, type: 2}
+    Location: DECK
+    Order: 11
+  - CardModel: {fileID: 11400000, guid: 7b15700aef0de4a4a87ce1c202af6996, type: 2}
+    Location: DECK
+    Order: 12
+  - CardModel: {fileID: 11400000, guid: 4b3857319ca164d45857c714897950f9, type: 2}
+    Location: DECK
+    Order: 13
+  - CardModel: {fileID: 11400000, guid: 4b3857319ca164d45857c714897950f9, type: 2}
+    Location: DECK
+    Order: 14
+  - CardModel: {fileID: 11400000, guid: 4b3857319ca164d45857c714897950f9, type: 2}
+    Location: DECK
+    Order: 15
+  - CardModel: {fileID: 11400000, guid: f8c2cb64a6ba3664095a218c5c0b969e, type: 2}
+    Location: DECK
+    Order: 16
+  - CardModel: {fileID: 11400000, guid: 460a603b634d4864d8fdcc2305e4ce12, type: 2}
+    Location: DECK
+    Order: 17
+  - CardModel: {fileID: 11400000, guid: e7903064344c36a4e9ead27d5469395c, type: 2}
+    Location: DECK
+    Order: 18
+  - CardModel: {fileID: 11400000, guid: c5bd755c424ce1f408298448f7c34742, type: 2}
+    Location: DECK
+    Order: 19
+  - CardModel: {fileID: 11400000, guid: c5bd755c424ce1f408298448f7c34742, type: 2}
+    Location: DECK
+    Order: 20
+  - CardModel: {fileID: 11400000, guid: b43e9225b8a08c7438972727ccd115dd, type: 2}
+    Location: DECK
+    Order: 21

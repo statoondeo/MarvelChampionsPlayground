@@ -13,8 +13,8 @@ public abstract class BaseCardComponentController<T> : MonoBehaviour where T : I
     protected virtual void OnDisable() => AttachedFace?.RemoveListener<T>(OnChangedCallback);
     public virtual void SetModel(T model)
     {
-        Model = model.Card.CurrentFace.GetFacade<T>();
-        AttachedFace = Model.Card.CurrentFace;
+        Model = model;
+        AttachedFace = model as ICardFace;
         AttachedFace.AddListener<T>(OnChangedCallback);
         InitValues();
     }

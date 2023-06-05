@@ -16,9 +16,10 @@ MonoBehaviour:
   Title: Rhino
   SubTitle: 
   Sprite: {fileID: 21300000, guid: 3a45a7ca2cf8d56489131a243824afc4, type: 3}
-  CardType: 20
+  FaceType: 20
   Classification: 2
   Scheme: 1
   Attack: 3
   Life: 15
   Stade: 2
+  WhenRevealedCommand: SearchAndReveal,088e4603-32cc-4d04-a9ff-8cea225406f3

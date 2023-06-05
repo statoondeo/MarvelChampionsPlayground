@@ -5,4 +5,5 @@ public sealed class TreacheryFaceModel : FaceModel
 {
     public TreacheryFaceModel() => FaceType = FaceType.Treachery;
     public int Boost;
+    public string WhenRevealedCommand;
 }

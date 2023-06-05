@@ -433,7 +433,7 @@ GameObject:
   - component: {fileID: 1284742625}
   - component: {fileID: 1284742624}
   m_Layer: 5
-  m_Name: Button
+  m_Name: SetupButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -455,9 +455,9 @@ RectTransform:
   m_Father: {fileID: 2077076849}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -880, y: -525}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -80, y: -15}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1284742624
@@ -735,8 +735,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GridSize: {x: 8, y: 5}
   CellSize: {x: 4.2, y: 4.2}
-  PlayerDeckModel: {fileID: 11400000, guid: 63ebe14bf6e5f3d40b42aff90e0f27b3, type: 2}
-  VillainDeckModel: {fileID: 11400000, guid: 8dbb201994fd20a458fe98e20da808fa, type: 2}
+  PlayerDeckModel: {fileID: 11400000, guid: f5f57ca0df740784bae16ed5a847c242, type: 2}
+  VillainDeckModel: {fileID: 11400000, guid: e7c4bceebbfc7bc408cfb21dc3001cc4, type: 2}
   CardPrefabAtlasModel: {fileID: 11400000, guid: 522a0c4eb808f2c40bb3102dca7812fc, type: 2}
   ZonePrefabAtlasModel: {fileID: 11400000, guid: c5e2af7072c1a5e428f62caa553f383b, type: 2}
   CardSelectorPrefab: {fileID: 2585720395362030485, guid: fbce8cc36d7722c4ea104fcd4ebb852d, type: 3}

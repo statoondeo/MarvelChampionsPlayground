@@ -1,1 +1,1 @@
-﻿public interface IDeckZone : IZone, IShuffleComponentFacade { }
+﻿public interface IDeckZone : IZone, IShuffleComponentFacade, IStateBasedComponentFacade { }

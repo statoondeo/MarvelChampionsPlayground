@@ -4,7 +4,7 @@ public sealed class HeroCardController : BaseCardController
 {
     private AlterEgoFaceController FaceController;
     private HeroFaceController BackController;
-    [SerializeField] private LifeController LifeController;
+
     private void Awake()
     {
         FaceController = FacePanelController.GetComponent<AlterEgoFaceController>();
@@ -12,29 +12,8 @@ public sealed class HeroCardController : BaseCardController
     }
     protected override void InitValues()
     {
-        if (Card.IsLocation("BATTLEFIELD"))
-        {
-            if (Card.IsFace(0))
-            {
-                BackPanelController.SetActive(false);
-                FacePanelController.SetActive(true);
-                FaceController.SetModel(Card.CurrentFace as IAlterEgoFace);
-            }
-            else
-            {
-                FacePanelController.SetActive(false);
-                BackPanelController.SetActive(true);
-                BackController.SetModel(Card.CurrentFace as IHeroFace);
-            }
-            LifeController.gameObject.SetActive(true);
-            LifeController.SetModel(Card as IHeroCard);
-        }
-        else
-        {
-            FacePanelController.SetActive(false);
-            BackPanelController.SetActive(false);
-            LifeController.gameObject.SetActive(false);
-        }
+        FaceController.SetModel(Card.Faces[0] as IAlterEgoFace);
+        BackController.SetModel(Card.Faces[1] as IHeroFace);
     }
     public void DealDamage()
         => Card.Game.Enqueue(DealDamageCommand.Get(Card.Game, Card as IHeroCard, 1));

@@ -36,6 +36,7 @@ public sealed class RoutineController : MonoBehaviour
 
     #endregion
 
+    private float CurrentDelay;
     private bool GameStarted = false;
     public void StartGame() => GameStarted = true;
     private void Awake() => TransactionHandlers = new List<ITransactionHandler>();
@@ -43,11 +44,17 @@ public sealed class RoutineController : MonoBehaviour
     #region Transaction handler
 
     private IList<ITransactionHandler> TransactionHandlers;
-    public void StartTransaction(ITransactionHandler transactionHandler) => TransactionHandlers.Insert(0, transactionHandler);
+    public void StartTransaction(ITransactionHandler transactionHandler)
+    {
+        CurrentDelay = 0f;
+        TransactionHandlers.Insert(0, transactionHandler);
+    }
+
     public void StopTransaction() => TransactionHandlers.RemoveAt(0);
     public void AddAnimation(IAnimation animation)
     {
-        StartCoroutine(animation.Start());
+        StartCoroutine(animation.Start(CurrentDelay));
+        CurrentDelay += .01f;
         if (TransactionHandlers.Count == 0) return;
         TransactionHandlers[0].AddAnimation(animation);
     }
@@ -81,7 +88,7 @@ public sealed class RoutineController : MonoBehaviour
     {
         beginAction.Invoke();
         yield return SpinningRoutine(delay, transform, SpinTurns, SpinDuration, Easings.Get(SpinFunction));
-        beginAction.Invoke();
+        endAction.Invoke();
     }
     public IEnumerator ScaleRoutine(Transform transform, Vector2 targetScale, float delay)
         => ScaleRoutine(delay, transform, targetScale, ScaleDuration, Easings.Get(ScaleFunction));

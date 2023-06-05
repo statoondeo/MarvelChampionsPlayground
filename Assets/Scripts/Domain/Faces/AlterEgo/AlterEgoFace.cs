@@ -8,6 +8,7 @@
         RecoveryItem.SetCard(card);
         HandSizeItem.SetCard(card);
         SetupItem.SetCard(card);
+        LifeItem.SetCard(card);
     }
 
     #endregion
@@ -45,6 +46,20 @@
 
     #endregion
 
+    #region ILifeFacade
+
+    private readonly ILifeFacade LifeItem;
+    public void AddDecorator(ICardComponentDecorator<ILifeComponent> decorator) => LifeItem.AddDecorator(decorator);
+    public void RemoveDecorator(ICardComponentDecorator<ILifeComponent> decorator) => LifeItem.RemoveDecorator(decorator);
+
+    public int CurrentLife => LifeItem.CurrentLife;
+    public int TotalLife => LifeItem.TotalLife;
+    public int Damage => LifeItem.Damage;
+    public void TakeDamage(int damage) => LifeItem.TakeDamage(damage);
+    public void HealDamage(int damage) => LifeItem.HealDamage(damage);
+
+    #endregion
+
     #region Constructeur
 
     public AlterEgoFace(
@@ -54,7 +69,8 @@
             IClassificationFacade classificationFacade,
             IRecoveryFacade recoveryFacade,
             IHandSizeFacade handSizeFacade,
-            ISetupFacade setupFacade)
+            ISetupFacade setupFacade,
+            ILifeFacade lifeFacade)
         : base(
             mediator,
             titleFacade,
@@ -64,17 +80,19 @@
         RecoveryItem = recoveryFacade;
         HandSizeItem = handSizeFacade;
         SetupItem = setupFacade;
+        LifeItem = lifeFacade;
 
         Mediator.Register<IRecoveryComponent>(RecoveryItem);
         Mediator.Register<IHandSizeComponent>(HandSizeItem);
         Mediator.Register<ISetupComponent>(SetupItem);
+        Mediator.Register<ILifeComponent>(LifeItem);
     }
 
     #endregion
 
     #region Factory
 
-    public static IAlterEgoFace Get(IGame game, IMediator<ICardComponent> mediator, AlterEgoFaceModel faceModel)
+    public static IAlterEgoFace Get(IGame game, IMediator<ICardComponent> mediator, ILifeFacade lifeFacade, AlterEgoFaceModel faceModel)
         => new AlterEgoFace(
                     mediator,
                     TitleFacade.Get(faceModel.Title, faceModel.SubTitle, faceModel.Sprite),
@@ -82,7 +100,8 @@
                     ClassificationFacade.Get(faceModel.Classification),
                     RecoveryFacade.Get(faceModel.Recovery),
                     HandSizeFacade.Get(faceModel.HandSize),
-                    SetupFacade.Get(new CommandFactory(game).Create(faceModel.SetupCommand)));
+                    SetupFacade.Get(new CommandFactory(game).Create(faceModel.SetupCommand)),
+                    lifeFacade);
 
     #endregion
 }

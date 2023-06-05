@@ -1,9 +1,9 @@
-﻿public abstract class BaseWhenRevealedComponent : BaseCardComponent<IWhenRevealedComponent>, IWhenRevealedComponent
+﻿using System;
+
+public abstract class BaseWhenRevealedComponent : BaseCardComponent<IWhenRevealedComponent>, IWhenRevealedComponent
 {
-    protected BaseWhenRevealedComponent(ICommand command) : base()
-    {
-        WhenRevealed = command;
-    }
-    public ICommand WhenRevealed { get; protected set; }
-    public abstract void Reveal();
+    protected BaseWhenRevealedComponent(Func<ICard, ICommand> commandFactory) : base() => CommandFactory = commandFactory;
+    private readonly Func<ICard, ICommand> CommandFactory;
+    private ICommand Command;
+    public ICommand WhenRevealed => Command is null ? Command = CommandFactory.Invoke(Card) : Command;
 }

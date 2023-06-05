@@ -5,4 +5,6 @@
     ITreatThresholdFacade,
     ITreatAccelerationFacade, 
     IStadeFacade, 
-    IWhenRevealedFacade { }
+    IWhenRevealedFacade,
+    IAccelerationTokenFacade
+{ }

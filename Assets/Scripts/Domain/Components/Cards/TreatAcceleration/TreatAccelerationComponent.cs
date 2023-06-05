@@ -1,5 +1,5 @@
-﻿public sealed class TreatAccelerationComponent 
-    : BaseCardComponent<ITreatAccelerationComponent>, 
+﻿public sealed class TreatAccelerationComponent
+    : BaseCardComponent<ITreatAccelerationComponent>,
         ITreatAccelerationComponent
 {
     public int TreatAcceleration { get; private set; }
@@ -8,6 +8,6 @@
     {
         TreatAcceleration = treatAcceleration;
     }
-    public static ITreatAccelerationComponent Get(int treatAcceleration) 
+    public static ITreatAccelerationComponent Get(int treatAcceleration)
         => new TreatAccelerationComponent(treatAcceleration);
 }

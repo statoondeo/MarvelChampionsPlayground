@@ -16,7 +16,8 @@ MonoBehaviour:
   Title: Casser et Emporter
   SubTitle: 
   Sprite: {fileID: 21300000, guid: 84e359c95f31b0648bf77d0075cd87b4, type: 3}
-  CardType: 24
+  FaceType: 24
   Classification: 2
   Starting: 2
   Boost: 2
+  WhenRevealedCommand: Hinder,1

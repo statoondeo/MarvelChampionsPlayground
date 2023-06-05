@@ -1,1 +1,1 @@
-﻿public interface IMainSchemeCard : ICard { }
+﻿public interface IMainSchemeCard : ICard, IAccelerationTokenFacade { }

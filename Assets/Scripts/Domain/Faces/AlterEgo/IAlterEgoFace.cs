@@ -3,4 +3,5 @@
     ICoreFaceFacade, 
     IRecoveryFacade, 
     IHandSizeFacade, 
-    ISetupFacade { }
+    ISetupFacade,
+    ILifeFacade { }

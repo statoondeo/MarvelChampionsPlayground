@@ -1,9 +1,7 @@
-﻿using UnityEditorInternal.VersionControl;
-
-public sealed class LifeFacade : BaseCardComponentFacade<ILifeComponent>, ILifeFacade
+﻿public sealed class LifeFacade : BaseCardComponentFacade<ILifeComponent>, ILifeFacade
 {
     private LifeFacade(ILifeComponent item): base(item) { }
-    public int CurrentLife => Item.CurrentLife;
+    public int CurrentLife => Item.TotalLife - Item.Damage;
     public int TotalLife => Item.TotalLife;
     public int Damage => Item.Damage;
     public void TakeDamage(int damage) => Item.TakeDamage(damage);

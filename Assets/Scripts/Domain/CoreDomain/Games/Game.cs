@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 public sealed class Game : IGame
@@ -16,7 +17,8 @@ public sealed class Game : IGame
         Cards = cards;
         Players = players;
         CardPicker = cardPicker;
-        CommandControllerItem = CommandController.Get();
+        StateBasedCommandControllerItem = StateBasedCommandController.Get();
+        CommandControllerItem = CommandController.Get(StateBasedCommandControllerItem);
     }
 
     #region IRepository<IActor>
@@ -64,19 +66,62 @@ public sealed class Game : IGame
     #region IPicker<ICard>
 
     private readonly IPicker<ICard> CardPicker;
-    public IEnumerator Pick(IEnumerable<ICard> items, IPickReceiver<ICard> receiver)
-        => CardPicker.Pick(items, receiver);
+    public IEnumerator Pick(IEnumerable<ICard> items, IPickReceiver<ICard> receiver, string title, string subTitle)
+        => CardPicker.Pick(items, receiver, title, subTitle);
 
     #endregion
 
     #region ICommandController
 
-    private ICommandController CommandControllerItem;
+    private readonly ICommandController CommandControllerItem;
     public void Enqueue(ICommand command) => CommandControllerItem.Enqueue(command);
     public IEnumerator Execute() => CommandControllerItem.Execute();
+    public void Start() => CommandControllerItem.Start();
+    public void Stop() => CommandControllerItem.Stop();
+    public bool IsCommandInQueue(ICommand command) => CommandControllerItem.IsCommandInQueue(command);
 
     #endregion
 
-    public void Setup() => Enqueue(SetupCommand);
+    #region IStateBasedCommandController
+
+    private readonly IStateBasedCommandController StateBasedCommandControllerItem;
+    public void CheckStateBasedCommand() => StateBasedCommandControllerItem.CheckStateBasedCommand();
+    public void RegisterStateBasedCommand(IStateBasedCommand command) 
+        => StateBasedCommandControllerItem.RegisterStateBasedCommand(command);
+    public void UnRegisterStateBasedCommand(IStateBasedCommand command) 
+        => StateBasedCommandControllerItem.UnRegisterStateBasedCommand((IStateBasedCommand)command);
+
+    #endregion
+
+    public Action OnSetupEnded { get; set; }
+
+    public void Setup()
+    {
+        Enqueue(new CustomCommand(() => OnSetupEnded?.Invoke()));
+        Enqueue(SetupCommand);
+    }
+
     public void RegisterSetupCommand(ICommand command) => SetupCommand = command;
+
+    public int GetNumericValue(string value) 
+        => value.Contains("P", StringComparison.OrdinalIgnoreCase) 
+            ? int.Parse(value.Replace("P", string.Empty, StringComparison.OrdinalIgnoreCase)) * Count(PlayerTypeSelector.Get(HeroType.Hero)) 
+            : int.Parse(value);
+}
+public sealed class CustomCommand : ICommand
+{
+    public bool InProgress {get; private set; }
+    public bool Executed { get; private set; }
+    private readonly Action ActionToExecute;
+    public CustomCommand(Action actionToExecute)
+    {
+        ActionToExecute = actionToExecute;
+        Executed = false;
+    }
+    public IEnumerator Execute()
+    {
+        ActionToExecute.Invoke();
+        Executed = true;
+        yield return null;
+    }
 }

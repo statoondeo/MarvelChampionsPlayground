@@ -1,0 +1,160 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 445d0d852bc432546b50336c50716410, type: 3}
+  m_Name: TestEmptyDeckHeroDeck
+  m_EditorClassIdentifier: 
+  HeroDeckComponentModel: {fileID: 11400000, guid: 33b4fb0bfdc93f446a6085545eedca86, type: 2}
+  DeckComponentModels:
+  - {fileID: 11400000, guid: a49b757aa8be8a44aa75327d273813fd, type: 2}
+  - {fileID: 11400000, guid: 8f7869536a81bec4dae03687a377bd9a, type: 2}
+  CardModels:
+  - CardModel: {fileID: 11400000, guid: 08b53eace62bf14418088ffdff035c16, type: 2}
+    Location: BATTLEFIELD
+    Order: 0
+  - CardModel: {fileID: 11400000, guid: 7510827f8ea184d4698b64b1f73d1efd, type: 2}
+    Location: DECK
+    Order: 0
+  - CardModel: {fileID: 11400000, guid: 5046dfc7a7572ea4592740bc03dfd7a9, type: 2}
+    Location: DECK
+    Order: 1
+  - CardModel: {fileID: 11400000, guid: 77f5cb3a78ad99d489bc9b5b4dfca552, type: 2}
+    Location: DECK
+    Order: 2
+  - CardModel: {fileID: 11400000, guid: 46df5c6533d89c840b039efd60217431, type: 2}
+    Location: DECK
+    Order: 3
+  - CardModel: {fileID: 11400000, guid: 46df5c6533d89c840b039efd60217431, type: 2}
+    Location: HAND
+    Order: 0
+  - CardModel: {fileID: 11400000, guid: de49986c18346fb468e4815fa340b58b, type: 2}
+    Location: HAND
+    Order: 1
+  - CardModel: {fileID: 11400000, guid: de49986c18346fb468e4815fa340b58b, type: 2}
+    Location: HAND
+    Order: 2
+  - CardModel: {fileID: 11400000, guid: 112a61bc2c3e75d4a9252b919d257bb7, type: 2}
+    Location: HAND
+    Order: 3
+  - CardModel: {fileID: 11400000, guid: 112a61bc2c3e75d4a9252b919d257bb7, type: 2}
+    Location: HAND
+    Order: 4
+  - CardModel: {fileID: 11400000, guid: 7b15700aef0de4a4a87ce1c202af6996, type: 2}
+    Location: HAND
+    Order: 5
+  - CardModel: {fileID: 11400000, guid: 7b15700aef0de4a4a87ce1c202af6996, type: 2}
+    Location: DISCARD
+    Order: 0
+  - CardModel: {fileID: 11400000, guid: 7b15700aef0de4a4a87ce1c202af6996, type: 2}
+    Location: DISCARD
+    Order: 1
+  - CardModel: {fileID: 11400000, guid: 4b3857319ca164d45857c714897950f9, type: 2}
+    Location: DISCARD
+    Order: 2
+  - CardModel: {fileID: 11400000, guid: 4b3857319ca164d45857c714897950f9, type: 2}
+    Location: DISCARD
+    Order: 3
+  - CardModel: {fileID: 11400000, guid: 4b3857319ca164d45857c714897950f9, type: 2}
+    Location: DISCARD
+    Order: 4
+  - CardModel: {fileID: 11400000, guid: f8c2cb64a6ba3664095a218c5c0b969e, type: 2}
+    Location: EXIL
+    Order: 0
+  - CardModel: {fileID: 11400000, guid: 460a603b634d4864d8fdcc2305e4ce12, type: 2}
+    Location: EXIL
+    Order: 1
+  - CardModel: {fileID: 11400000, guid: e7903064344c36a4e9ead27d5469395c, type: 2}
+    Location: EXIL
+    Order: 2
+  - CardModel: {fileID: 11400000, guid: c5bd755c424ce1f408298448f7c34742, type: 2}
+    Location: EXIL
+    Order: 3
+  - CardModel: {fileID: 11400000, guid: c5bd755c424ce1f408298448f7c34742, type: 2}
+    Location: EXIL
+    Order: 4
+  - CardModel: {fileID: 11400000, guid: b43e9225b8a08c7438972727ccd115dd, type: 2}
+    Location: EXIL
+    Order: 5
+  - CardModel: {fileID: 11400000, guid: 5feb67802951f9a458893db33b0d9584, type: 2}
+    Location: DISCARD
+    Order: 5
+  - CardModel: {fileID: 11400000, guid: 5feb67802951f9a458893db33b0d9584, type: 2}
+    Location: DISCARD
+    Order: 6
+  - CardModel: {fileID: 11400000, guid: eee315e789007dc49a26c659bbc8a7c3, type: 2}
+    Location: DISCARD
+    Order: 7
+  - CardModel: {fileID: 11400000, guid: eee315e789007dc49a26c659bbc8a7c3, type: 2}
+    Location: DISCARD
+    Order: 8
+  - CardModel: {fileID: 11400000, guid: 29403a2f66f698f4fb8e35df736008de, type: 2}
+    Location: DISCARD
+    Order: 9
+  - CardModel: {fileID: 11400000, guid: 6d1017e0787c31c4b990c40e8d4648f0, type: 2}
+    Location: DISCARD
+    Order: 10
+  - CardModel: {fileID: 11400000, guid: 6d1017e0787c31c4b990c40e8d4648f0, type: 2}
+    Location: DISCARD
+    Order: 11
+  - CardModel: {fileID: 11400000, guid: 222664dfe92f283498625532dbc77e5d, type: 2}
+    Location: DISCARD
+    Order: 12
+  - CardModel: {fileID: 11400000, guid: 222664dfe92f283498625532dbc77e5d, type: 2}
+    Location: DISCARD
+    Order: 13
+  - CardModel: {fileID: 11400000, guid: 843381bbd999c88499749f9784f879d3, type: 2}
+    Location: DISCARD
+    Order: 14
+  - CardModel: {fileID: 11400000, guid: 843381bbd999c88499749f9784f879d3, type: 2}
+    Location: DISCARD
+    Order: 15
+  - CardModel: {fileID: 11400000, guid: ed4f0c7d5ede0d74b9d7cdf241641ee9, type: 2}
+    Location: DISCARD
+    Order: 16
+  - CardModel: {fileID: 11400000, guid: c6c9f9e75ae377c478491d7406dfc67e, type: 2}
+    Location: DISCARD
+    Order: 17
+  - CardModel: {fileID: 11400000, guid: c6c9f9e75ae377c478491d7406dfc67e, type: 2}
+    Location: DISCARD
+    Order: 18
+  - CardModel: {fileID: 11400000, guid: 14eea86605b7b524faad341d56aa9bcc, type: 2}
+    Location: DISCARD
+    Order: 19
+  - CardModel: {fileID: 11400000, guid: 289e6f69c3006b24399426ceac3416e1, type: 2}
+    Location: DISCARD
+    Order: 20
+  - CardModel: {fileID: 11400000, guid: b701655408674c04f9400a6fcae5c9e9, type: 2}
+    Location: DISCARD
+    Order: 21
+  - CardModel: {fileID: 11400000, guid: 628624c70edbf214db4397b0dc4ec6d3, type: 2}
+    Location: DISCARD
+    Order: 22
+  - CardModel: {fileID: 11400000, guid: b64f90d504817714fa65ac9d7ad7a33b, type: 2}
+    Location: DISCARD
+    Order: 23
+  - CardModel: {fileID: 11400000, guid: e77a125206f96004e91ff0bedb0b7a6d, type: 2}
+    Location: DISCARD
+    Order: 24
+  - CardModel: {fileID: 11400000, guid: d32c05e6e07661a4994bda3597aad38d, type: 2}
+    Location: DISCARD
+    Order: 25
+  - CardModel: {fileID: 11400000, guid: c4fe9f298909a564eb52277ff5a20a71, type: 2}
+    Location: DISCARD
+    Order: 26
+  - CardModel: {fileID: 11400000, guid: 4531c73316f50c04280ff6d8c8646b7f, type: 2}
+    Location: DISCARD
+    Order: 27
+  - CardModel: {fileID: 11400000, guid: b7cc48fe221e2394ba6ee7c3117e7158, type: 2}
+    Location: DISCARD
+    Order: 28
+  - CardModel: {fileID: 11400000, guid: d53e470bc3d03f741aa9b544ec42fab2, type: 2}
+    Location: DISCARD
+    Order: 29

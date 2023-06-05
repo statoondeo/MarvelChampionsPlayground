@@ -5,5 +5,6 @@ public sealed class SideSchemeFaceModel : FaceModel
 {
     public int Starting;
     public int Boost;
+    public string WhenRevealedCommand;
     public SideSchemeFaceModel() => FaceType = FaceType.SideScheme;
 }

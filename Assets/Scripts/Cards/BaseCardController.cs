@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class BaseCardController : MonoBehaviour, IGridItem
 {
@@ -43,6 +40,7 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
         Card = card;
         gameObject.name = (Card.CurrentFace as ITitleComponent).Title;
         SpriteRenderer.sprite = (Card.CurrentFace as ITitleComponent).Sprite;
+        Card.AddListener<ICoreCardComponent>(OnCoreCardChangedCallback);
         Card.AddListener<IFlipComponent>(OnFlippedCallback);
         Card.AddListener<ITapComponent>(OnTappedCallback);
         Card.AddListener<ILocationComponent>(OnMovedCallback);
@@ -51,12 +49,17 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
     public int GetSpriteLayer() => SpriteRenderer.sortingLayerID;
     public int SetSpriteLayer(int layerId) => SpriteRenderer.sortingLayerID = layerId;
     protected virtual void InitValues() { }
+    protected virtual void OnCoreCardChangedCallback(IComponent component)
+    {
+        transform.SetSiblingIndex(Order);
+        SpriteRenderer.sortingOrder = Order;
+    }
+
     protected virtual void OnMovedCallback(IComponent component)
     {
         GameController.ZoneControllers.GetFirst(ZoneControllerIdSelector.Get(Card.Location)).OnCardAddedCallback(this);
         InitValues();
     }
-
     protected virtual void OnFlippedCallback(IComponent component)
         => GameController.RoutineController.AddAnimation(
             FlipAnimation.Get(

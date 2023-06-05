@@ -5,4 +5,5 @@ public sealed class EnvironmentFaceModel : FaceModel
 {
     public EnvironmentFaceModel() => FaceType = FaceType.Environment;
     public int Boost;
+    public string WhenRevealedCommand;
 }

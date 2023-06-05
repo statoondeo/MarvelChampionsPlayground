@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 
 public sealed class CreateVillainDeckCommand : BaseSingleCommand
@@ -7,7 +6,6 @@ public sealed class CreateVillainDeckCommand : BaseSingleCommand
     private CreateVillainDeckCommand(IGame game) : base(game) { }
     public override IEnumerator Execute()
     {
-        List<ICommand> commands = new();
         IVillainActor villain = Game.GetFirst(PlayerTypeSelector.Get(HeroType.Villain)) as IVillainActor;
         IZone villainDeck = Game.GetFirst(ZoneNameSelector.Get(Game, villain.Id, "DECK"));
         Game.GetAll(PlayerTypeSelector.Get(HeroType.Hero)).ToList()
@@ -19,9 +17,8 @@ public sealed class CreateVillainDeckCommand : BaseSingleCommand
                         LocationSelector.Get("EXIL"),
                         OwnerIdSelector.Get(item.Id),
                         CardTypeSelector.Get(CardType.Obligation))).ToList()
-                .ForEach(card => commands.Add(MoveToCommand.Get(Game, card, villainDeck.Id)));
+                .ForEach(card => Game.Enqueue(MoveToCommand.Get(Game, card, villainDeck.Id)));
             });
-        Game.Enqueue(CompositeCommand.Get(Game, commands.ToArray()));
         yield return base.Execute();
     }
     public static ICommand Get(IGame game) => new CreateVillainDeckCommand(game);

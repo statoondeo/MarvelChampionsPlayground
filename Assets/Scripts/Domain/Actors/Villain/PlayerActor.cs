@@ -28,7 +28,7 @@
     #region IVillainActor
 
     private readonly IVillainActorComponentFacade VillainActorItem;
-    public void DealEncounterCard(IActor player, int number) => VillainActorItem.DealEncounterCard(player, number);
+    public void DealEncounterCard(IPlayerActor targetPlayer, int number) => VillainActorItem.DealEncounterCard(targetPlayer, number);
     public void DealBoostCard(int number) => VillainActorItem.DealBoostCard(number);
 
     public void AddDecorator(IActorComponentDecorator<IVillainActorComponent> decorator)

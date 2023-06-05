@@ -24,7 +24,7 @@ public sealed class MulliganCommand : BaseSingleCommand, IPickReceiver<ICard>
         switch (Step)
         {
             case 0:
-                yield return Game.Pick(Game.GetAll(CardSelector), this);
+                yield return Game.Pick(Game.GetAll(CardSelector), this, "Mulligan", "Choisissez les cartes à défausser");
                 SelectedItems.ToList().ForEach(item => Game.Enqueue(MoveToCommand.Get(Game, item, "DISCARD")));
                 Step++;
                 yield return null;

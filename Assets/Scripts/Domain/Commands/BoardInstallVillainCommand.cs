@@ -8,6 +8,9 @@ public sealed class BoardInstallVillainCommand : BaseSingleCommand
     {
         Game.GetAll(PlayerTypeSelector.Get(HeroType.Villain)).ToList()
             .ForEach(item => Game.Enqueue(InstallVillainCommand.Get(Game, item.Id)));
+        Game.GetAll(CardTypeSelector.Get(CardType.MainScheme)).ToList()
+            .ForEach(item => Game.Enqueue(MoveToCommand.Get(Game, item, "BATTLEFIELD")));
+
         yield return base.Execute();
     }
 

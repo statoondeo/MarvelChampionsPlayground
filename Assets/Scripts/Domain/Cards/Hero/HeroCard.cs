@@ -1,5 +1,7 @@
 ﻿public sealed class HeroCard : BaseCard, IHeroCard
 {
+    #region Constructor
+
     private HeroCard(
             IGame game,
             ICardTypeFacade cardTypeFacade,
@@ -31,6 +33,8 @@
         SetCard(this);
     }
 
+    #endregion
+
     #region ICardHolder
 
     private readonly IEnterPlayFacade EnterPlayItem;
@@ -60,6 +64,7 @@
 
     public static ICard Get(IGame game, string id, string ownerId, CardModel cardModel)
     {
+        ILifeFacade lifeFacade = LifeFacade.Get(((HeroCardModel)cardModel).Life);
         IMediator<ICardComponent> alterEgoMediator = CardComponentMediator.Get();
         IMediator<ICardComponent> heroMediator = CardComponentMediator.Get();
         return new HeroCard(
@@ -69,10 +74,10 @@
                     heroMediator,
                     CoreCardFacade.Get(cardModel.CardId, id, ownerId),
                     FlipFacade.Get(
-                        AlterEgoFace.Get(game, alterEgoMediator, (AlterEgoFaceModel)cardModel.Face),
-                        HeroFace.Get(heroMediator, (HeroFaceModel)cardModel.Back)),
+                        AlterEgoFace.Get(game, alterEgoMediator, lifeFacade, (AlterEgoFaceModel)cardModel.Face),
+                        HeroFace.Get(heroMediator, lifeFacade, (HeroFaceModel)cardModel.Back)),
                     TapFacade.Get(),
-                    LifeFacade.Get(((HeroCardModel)cardModel).Life),
+                    lifeFacade,
                     EnterPlayFacade.Get(HeroEnterPlayComponent.Get()),
                     LocationFacade.Get(string.Empty));
     }

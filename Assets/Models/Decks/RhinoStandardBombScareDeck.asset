@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 445d0d852bc432546b50336c50716410, type: 3}
-  m_Name: RhinoStandardBombScare
+  m_Name: RhinoStandardBombScareDeck
   m_EditorClassIdentifier: 
   HeroDeckComponentModel: {fileID: 11400000, guid: 671608ec34051c34fb9f9ce89e9a4817, type: 2}
   DeckComponentModels:

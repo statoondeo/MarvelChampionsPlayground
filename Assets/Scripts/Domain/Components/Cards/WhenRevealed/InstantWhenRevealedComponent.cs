@@ -1,12 +1,9 @@
-﻿public sealed class InstantWhenRevealedComponent : BaseWhenRevealedComponent
-{
-    public override void Reveal()
-    {
-        Card.MoveTo("STACK");
-        Card.Game.Enqueue(CompositeCommand.Get(Card.Game, WhenRevealed, MoveToCommand.Get(Card.Game, Card, "DISCARD")));
-    }
-    private InstantWhenRevealedComponent(ICommand command) : base(command) { }
+﻿using System;
 
-    public static IWhenRevealedComponent Get(ICommand command)
-        => new InstantWhenRevealedComponent(command);
+public sealed class InstantWhenRevealedComponent : BaseWhenRevealedComponent
+{
+    private InstantWhenRevealedComponent(Func<ICard, ICommand> commandFactory) : base(commandFactory) { }
+
+    public static IWhenRevealedComponent Get(Func<ICard, ICommand> commandFactory)
+        => new InstantWhenRevealedComponent(commandFactory);
 }

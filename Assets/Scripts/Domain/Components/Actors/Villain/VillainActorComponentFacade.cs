@@ -9,7 +9,7 @@
 
     #region IVillainActorComponent
 
-    public void DealEncounterCard(IActor Villain, int number) => Item.DealEncounterCard(Villain, number);
+    public void DealEncounterCard(IPlayerActor targetPlayer, int number) => Item.DealEncounterCard(targetPlayer, number);
     public void DealBoostCard(int number) => Item.DealBoostCard(number);
 
     #endregion

@@ -10,26 +10,8 @@
     }
     protected override void InitValues()
     {
-        if (Card.IsLocation("BATTLEFIELD"))
-        {
-            if (Card.CurrentFace.IsFaceType(FaceType.MainSchemeA))
-            {
-                BackPanelController.SetActive(false);
-                FacePanelController.SetActive(true);
-                FaceController.SetModel(Card.CurrentFace as IMainSchemeAFace);
-            }
-            else
-            {
-                FacePanelController.SetActive(false);
-                BackPanelController.SetActive(true);
-                BackController.SetModel(Card.CurrentFace as IMainSchemeBFace);
-            }
-        }
-        else
-        {
-            FacePanelController.SetActive(false);
-            BackPanelController.SetActive(false);
-        }
+        FaceController.SetModel(Card.Faces[0] as IMainSchemeAFace);
+        BackController.SetModel(Card.Faces[1] as IMainSchemeBFace);
     }
     public void AddTreat()
     {

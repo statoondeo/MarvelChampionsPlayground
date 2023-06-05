@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Text: {fileID: 8182611993870711579}
+  Canvas: {fileID: 6407802892966837742}
 --- !u!1 &3865853951672334886
 GameObject:
   m_ObjectHideFlags: 0

@@ -1269,3 +1269,5 @@ MonoBehaviour:
   CardSelectorItemPrefab: {fileID: 6820615133701115381, guid: ef3f4a3a2f5b8134ca56d7e401866bb5, type: 3}
   Canvas: {fileID: 2585720394142993361}
   Content: {fileID: 2585720393444550414}
+  TitleText: {fileID: 2585720393390440839}
+  SubTitleText: {fileID: 2585720394192492953}

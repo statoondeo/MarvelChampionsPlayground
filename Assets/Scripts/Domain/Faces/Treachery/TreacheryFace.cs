@@ -30,7 +30,6 @@
         => WhenRevealedItem.AddDecorator(decorator);
     public void RemoveDecorator(ICardComponentDecorator<IWhenRevealedComponent> decorator)
         => WhenRevealedItem.RemoveDecorator(decorator);
-    public void Reveal() => WhenRevealedItem.Reveal();
 
     #endregion
 
@@ -67,7 +66,7 @@
             FaceTypeFacade.Get(faceModel.FaceType),
             ClassificationFacade.Get(faceModel.Classification),
             BoostFacade.Get(faceModel.Boost),
-            WhenRevealedFacade.Get(InstantWhenRevealedComponent.Get(NullCommand.Get(game))));
+            WhenRevealedFacade.Get(StaticWhenRevealedComponent.Get(new CommandFactory(game).Create(faceModel.WhenRevealedCommand))));
 
     #endregion
 }

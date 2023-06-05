@@ -7,6 +7,7 @@ public sealed class MainSchemeBFaceModel : FaceModel
     public int Acceleration;
     public int Threshold;
     public int Stade;
+    public string WhenRevealedCommand;
     public MainSchemeBFaceModel()
     {
         FaceType = FaceType.MainSchemeA;

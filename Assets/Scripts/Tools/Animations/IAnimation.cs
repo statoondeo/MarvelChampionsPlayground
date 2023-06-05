@@ -4,5 +4,5 @@ public interface IAnimation
 {
     bool InProgress { get; }
     bool Ended { get; }
-    public IEnumerator Start();
+    public IEnumerator Start(float delay);
 }

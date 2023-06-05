@@ -1,1 +1,8 @@
-﻿public interface IHeroFace : ICardFace, ICoreFaceFacade, IThwartFacade, IAttackFacade, IDefenseFacade, IHandSizeFacade { }
+﻿public interface IHeroFace : 
+    ICardFace, 
+    ICoreFaceFacade, 
+    IThwartFacade, 
+    IAttackFacade, 
+    IDefenseFacade, 
+    IHandSizeFacade,
+    ILifeFacade { }

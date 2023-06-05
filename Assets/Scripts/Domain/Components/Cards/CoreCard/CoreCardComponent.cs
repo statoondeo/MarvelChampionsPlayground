@@ -10,9 +10,19 @@
         OwnerId = ownerId;
         Order = 0;
     }
+    private int _Order;
+    public int Order
+    {
+        get => _Order;
+        private set
+        {
+            if (_Order == value) return;
+            _Order = value;
+            Card?.Raise<ICoreCardComponent>();
+        }
+    }
     public string CardId { get; private set; }
     public string Id { get; private set; }
     public string OwnerId { get; private set; }
-    public int Order { get; private set; }
     public void SetOrder(int newOrder) => Order = newOrder;
 }
