@@ -29,3 +29,5 @@ MonoBehaviour:
     Prefab: {fileID: 1863616570376352612, guid: c55a7dcbb12640f449bf641dc2eb6da8, type: 3}
   - Type: VillainDeck
     Prefab: {fileID: 1022293936547081050, guid: 49094b51dc508e44d94cac33a48692fc, type: 3}
+  - Type: Stack
+    Prefab: {fileID: 1863616570376352612, guid: c55a7dcbb12640f449bf641dc2eb6da8, type: 3}

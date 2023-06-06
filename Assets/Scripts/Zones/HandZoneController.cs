@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+
+using UnityEngine;
 
 public sealed class HandZoneController : BaseZoneController
 {
@@ -18,9 +20,10 @@ public sealed class HandZoneController : BaseZoneController
         LeftPosition = GameController.Grid.GetWorldPosition(LeftGridPosition) - CellSize.x * Vector2.right;
         RightPosition = GameController.Grid.GetWorldPosition(RightGridPosition) + CellSize.x * Vector2.right;
         HandLength = RightPosition.x - LeftPosition.x;
+        transform.position = LeftPosition;
     }
-    public override void RefreshContent() => PlaceCards(null);
-    protected override void PlaceCards(BaseCardController cardController)
+    public override void RefreshContent() => PlaceCards();
+    protected override void PlaceCards()
     {
         if (Count == 0) return;
         if (Count == 1)
@@ -40,15 +43,18 @@ public sealed class HandZoneController : BaseZoneController
         Vector2 startPosition = new Vector2(LeftPosition.x + .5f * (HandLength - currentHandLength), LeftPosition.y);
         int i = 0;
         float cellGap = CellSize.x + gap;
-        foreach (ICard card in Zone.GetAll(NoFilterCardSelector.Get()))
-        {
-            BaseCardController controller = GameController.CardControllers.GetFirst(CardIdControllerSelector.Get(card.Id));
-            GameController.RoutineController.AddAnimation(
-                MoveAnimation.Get(
-                    GameController.RoutineController,
-                    controller.transform,
-                    startPosition + i * cellGap * Vector2.right));
-            i++;
-        }
+        Zone
+            .GetAll(NoFilterCardSelector.Get())
+            .ToList()
+            .ForEach(card =>
+            {
+                BaseCardController controller = GameController.CardControllers.GetFirst(CardIdControllerSelector.Get(card.Id));
+                GameController.RoutineController.AddAnimation(
+                    MoveAnimation.Get(
+                        GameController.RoutineController,
+                        controller.transform,
+                        startPosition + i * cellGap * Vector2.right));
+                i++;
+            });
     }
 }

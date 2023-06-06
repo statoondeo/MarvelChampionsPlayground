@@ -11,7 +11,5 @@ public sealed class CostController : BaseCardComponentController<ICostComponent>
         Text.text = Model.Cost.ToString();
         Canvas.gameObject.SetActive(((Model as ICardFace).GetFacade<ICostComponent>() is not null) && Model.Card.IsLocation("HAND"));
     }
-    public void Play()
-    {
-    }
+    public void Play() => Model.Card.Game.Enqueue(PlayCardCommand.Get(Model.Card.Game, Model.Card));
 }

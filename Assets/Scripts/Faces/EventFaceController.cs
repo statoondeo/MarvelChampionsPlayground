@@ -2,5 +2,6 @@
 
 public sealed class EventFaceController : MonoBehaviour
 {
-    public void SetModel(IEventFace model) { }
+    [SerializeField] private CostController CostController;
+    public void SetModel(IEventFace model) => CostController.SetModel(model);
 }

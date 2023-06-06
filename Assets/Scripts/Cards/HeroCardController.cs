@@ -15,6 +15,10 @@ public sealed class HeroCardController : BaseCardController
         FaceController.SetModel(Card.Faces[0] as IAlterEgoFace);
         BackController.SetModel(Card.Faces[1] as IHeroFace);
     }
+    public override void InitController()
+    {
+        base.InitController();
+    }
     public void DealDamage()
         => Card.Game.Enqueue(DealDamageCommand.Get(Card.Game, Card as IHeroCard, 1));
     public void HealDamage()

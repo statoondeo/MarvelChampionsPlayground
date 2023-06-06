@@ -40,11 +40,20 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
         Card = card;
         gameObject.name = (Card.CurrentFace as ITitleComponent).Title;
         SpriteRenderer.sprite = (Card.CurrentFace as ITitleComponent).Sprite;
+
         Card.AddListener<ICoreCardComponent>(OnCoreCardChangedCallback);
         Card.AddListener<IFlipComponent>(OnFlippedCallback);
         Card.AddListener<ITapComponent>(OnTappedCallback);
         Card.AddListener<ILocationComponent>(OnMovedCallback);
+
         InitValues();
+    }
+    public virtual void InitController()
+    {
+        OnCoreCardChangedCallback(null);
+        if (Card.CurrentFace.Equals(Card.Faces[1])) OnFlippedCallback(null);
+        if (Card.Tapped) OnTappedCallback(null);
+        //OnMovedCallback(null);
     }
     public int GetSpriteLayer() => SpriteRenderer.sortingLayerID;
     public int SetSpriteLayer(int layerId) => SpriteRenderer.sortingLayerID = layerId;
@@ -54,10 +63,9 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
         transform.SetSiblingIndex(Order);
         SpriteRenderer.sortingOrder = Order;
     }
-
     protected virtual void OnMovedCallback(IComponent component)
     {
-        GameController.ZoneControllers.GetFirst(ZoneControllerIdSelector.Get(Card.Location)).OnCardAddedCallback(this);
+        //GameController.ZoneControllers.GetFirst(ZoneControllerIdSelector.Get(Card.Location)).OnCardAddedCallback(this);
         InitValues();
     }
     protected virtual void OnFlippedCallback(IComponent component)

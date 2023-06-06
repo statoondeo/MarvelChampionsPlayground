@@ -10,21 +10,7 @@
     }
     protected override void InitValues()
     {
-        if (Card.IsLocation("STACK"))
-        {
-            FacePanelController.SetActive(false);
-            BackPanelController.SetActive(false);
-            return;
-        }
-        if (Card.IsFace(0))
-        {
-            BackPanelController.SetActive(false);
-            FacePanelController.SetActive(true);
-            FaceController.SetModel(Card.CurrentFace as IEventFace);
-            return;
-        }
-        FacePanelController.SetActive(false);
-        BackPanelController.SetActive(true);
-        BackController.SetModel(Card.CurrentFace as IBackFace);
+        FaceController.SetModel(Card.Faces[0] as IEventFace);
+        BackController.SetModel(Card.Faces[1] as IBackFace);
     }
 }

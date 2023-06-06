@@ -10,25 +10,7 @@
     }
     protected override void InitValues()
     {
-        if (Card.IsLocation("BATTLEFIELD"))
-        {
-            if (Card.IsFace(0))
-            {
-                BackPanelController.SetActive(false);
-                FacePanelController.SetActive(true);
-                FaceController.SetModel(Card.CurrentFace as ISupportFace);
-            }
-            else
-            {
-                FacePanelController.SetActive(false);
-                BackPanelController.SetActive(true);
-                BackController.SetModel(Card.CurrentFace as IBackFace);
-            }
-        }
-        else
-        {
-            FacePanelController.SetActive(false);
-            BackPanelController.SetActive(false);
-        }
+        FaceController.SetModel(Card.Faces[0] as ISupportFace);
+        BackController.SetModel(Card.Faces[1] as IBackFace);
     }
 }

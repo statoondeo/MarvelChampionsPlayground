@@ -1,7 +1,5 @@
 ﻿using System.Collections;
 
-using UnityEngine;
-
 public sealed class MoveToCommand : BaseSingleCommand
 {
     private readonly string Location;
@@ -19,3 +17,4 @@ public sealed class MoveToCommand : BaseSingleCommand
 
     public static ICommand Get(IGame game, ICard card, string location) => new MoveToCommand(game, card, location);
 }
+

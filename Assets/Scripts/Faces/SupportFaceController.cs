@@ -2,5 +2,6 @@
 
 public sealed class SupportFaceController : MonoBehaviour
 {
-    public void SetModel(ISupportFace model) { }
+    [SerializeField] private CostController CostController;
+    public void SetModel(ISupportFace model) => CostController.SetModel(model);
 }

@@ -6,8 +6,7 @@ using Unity.VisualScripting;
 
 using UnityEngine;
 using UnityEngine.UI;
-
-public sealed class TestGameController : MonoBehaviour 
+public sealed class TestGameController : MonoBehaviour
 {
     [SerializeField] private PrefabAtlasModel PrefabAtlasModel;
 

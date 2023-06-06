@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+
+using UnityEngine;
+
 public abstract class BaseZoneController : MonoBehaviour, IGridItem
 {
     protected IZone Zone;
@@ -19,10 +22,24 @@ public abstract class BaseZoneController : MonoBehaviour, IGridItem
         GameController = gameController;
         Zone = zone;
         gameObject.name = Zone.Label;
-
+        Zone.AddListener<ICoreZoneComponent>(OnCardAddedCallback);
         transform.GetComponent<ZoneCounterController>()?.SetData(zone);
     }
-    public virtual void OnCardAddedCallback(BaseCardController cardController) => PlaceCards(cardController);
-    protected abstract void PlaceCards(BaseCardController cardController);
+    public virtual void OnCardAddedCallback(IZoneComponent component) => PlaceCards();
+    protected virtual void PlaceCards() 
+        => Zone
+            .GetAll(NoFilterCardSelector.Get())
+            .ToList()
+            .ForEach(card =>
+            {
+                BaseCardController cardController = GameController.CardControllers.GetFirst(CardIdControllerSelector.Get(card.Id));
+                if (cardController.Position == Position) return;
+                cardController.SetPosition(Position);
+                GameController.RoutineController.AddAnimation(
+                    MoveAnimation.Get(
+                        GameController.RoutineController,
+                        cardController.transform,
+                        GameController.Grid.GetWorldPosition(Position)));
+            });
     public abstract void RefreshContent();
 }

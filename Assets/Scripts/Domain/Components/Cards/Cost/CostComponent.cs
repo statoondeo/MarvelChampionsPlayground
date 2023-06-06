@@ -1,10 +1,7 @@
-﻿public sealed class CostComponent : BaseCardComponent<ICostComponent>, ICostComponent
+﻿public abstract class BaseCostComponent : BaseCardComponent<ICostComponent>, ICostComponent
 {
     public int Cost { get; private set; }
-    private CostComponent(int cost) : base()
-    {
-        Cost = cost;
-    }
-    public static ICostComponent Get(int cost) => new CostComponent(cost);
-
+    protected BaseCostComponent(int cost) : base() => Cost = cost;
+    public void Play() => Card.MoveTo("STACK");
+    public abstract void Resolve();
 }

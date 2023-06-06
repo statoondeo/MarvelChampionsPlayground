@@ -2,5 +2,7 @@
 {
     private CostFacade(ICostComponent item) : base(item) {}
     public int Cost => Item.Cost;
-    public static ICostFacade Get(int cost) => new CostFacade(CostComponent.Get(cost));
+    public void Play() => Item.Play();
+    public void Resolve() => Item.Resolve();
+    public static ICostFacade Get(ICostComponent item) => new CostFacade(item);
 }

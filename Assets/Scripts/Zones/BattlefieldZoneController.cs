@@ -1,10 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using TMPro;
-
-using Unity.VisualScripting;
-
 using UnityEngine;
 
 public sealed class BattlefieldZoneController : BaseZoneController
@@ -20,27 +16,24 @@ public sealed class BattlefieldZoneController : BaseZoneController
             if (GameController.Grid.IsEmpty(position)) return position;
         return Vector2Int.zero;
     }
-    public override void RefreshContent()
-    {
-        foreach (ICoreCardComponent card in Zone.GetAll(NoFilterCardSelector.Get()))
-            PlaceCards(GameController.CardControllers.GetFirst(CardIdControllerSelector.Get(card.Id)));
-    }
-    public override void OnCardAddedCallback(BaseCardController card)
-    {
-        base.OnCardAddedCallback(card);
-        GameController.CardControllers.GetFirst(CardIdControllerSelector.Get(card.Id)).AddComponent<DragAndDropController>();
-    }
-    protected override void PlaceCards(BaseCardController cardController)
-    {
-        cardController.SetPosition(
-            GetEmptySlot(
-                cardController.CardType, 
-                GameController.PlayerControllers.GetFirst(PlayerIdControllerSelector.Get(cardController.OwnerId)).BattlefieldPosition));
-        GameController.Grid.Set(cardController.Position, cardController);
-        GameController.RoutineController.AddAnimation(
-            MoveAnimation.Get(
-                GameController.RoutineController,
-                cardController.transform, 
-                GameController.Grid.GetWorldPosition(cardController.Position)));
-    }
+    public override void RefreshContent() => PlaceCards();
+    protected override void PlaceCards() 
+        => Zone
+            .GetAll(NoFilterCardSelector.Get())
+            .ToList()
+            .ForEach(card =>
+            {
+                BaseCardController cardController = GameController.CardControllers.GetFirst(CardIdControllerSelector.Get(card.Id));
+                if (GameController.Grid.Get(cardController.Position).Equals(cardController)) return;
+                cardController.SetPosition(
+                    GetEmptySlot(
+                        cardController.CardType,
+                        GameController.PlayerControllers.GetFirst(PlayerIdControllerSelector.Get(cardController.OwnerId)).BattlefieldPosition));
+                GameController.Grid.Set(cardController.Position, cardController);
+                GameController.RoutineController.AddAnimation(
+                    MoveAnimation.Get(
+                        GameController.RoutineController,
+                        cardController.transform,
+                        GameController.Grid.GetWorldPosition(cardController.Position)));
+            });
 }

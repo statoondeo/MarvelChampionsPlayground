@@ -6,6 +6,7 @@ public sealed class GameBuilder
 {
 
     private const string BATTLEFIELD = "BATTLEFIELD";
+    private const string STACK = "STACK";
     private const string DECK = "DECK";
 
     private readonly IPicker<ICard> CardPicker;
@@ -36,8 +37,10 @@ public sealed class GameBuilder
             CardPicker);
         game.RegisterSetupCommand(GameSetupCommand.Get(game));
         ZoneFactory zoneFactory = new();
-        IZone battlefield = zoneFactory.Create(game, BATTLEFIELD, null);
-        game.Add(battlefield);
+        IZone battlefieldZone = zoneFactory.Create(game, BATTLEFIELD, null);
+        IZone stackZone = zoneFactory.Create(game, STACK, null);
+        game.Add(battlefieldZone);
+        game.Add(stackZone);
 
         game.RoutineController = RoutineController;
 
@@ -54,10 +57,12 @@ public sealed class GameBuilder
         Players.ForEach(actor =>
         {
             IActor player = game.GetFirst(PlayerIdSelector.Get(actor.Id));
-            player.RegisterZoneId(BATTLEFIELD, battlefield.Id);
+            player.RegisterZoneId(BATTLEFIELD, battlefieldZone.Id);
+            player.RegisterZoneId(STACK, stackZone.Id);
             foreach (string zoneName in actor.SetupModel.Zones)
             {
                 if (BATTLEFIELD.Equals(zoneName)) continue;
+                if (STACK.Equals(zoneName)) continue;
                 IZone zone = zoneFactory.Create(game, zoneName, player);
                 player.RegisterZoneId(zoneName, zone.Id);
                 if (zone is IStateBasedComponent deckZone)

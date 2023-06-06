@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Linq;
 
 using UnityEngine;
 public sealed class GameController : MonoBehaviour
@@ -17,7 +18,7 @@ public sealed class GameController : MonoBehaviour
     private BaseCardSelectorController CardSelector;
 
     public RoutineController RoutineController { get; private set; }
-    private IGame Game;
+    public IGame Game { get; private set; }
     public IGrid Grid { get; private set; }
     public IRepository<BaseCardController> CardControllers { get; private set; }
     public IRepository<BaseZoneController> ZoneControllers { get; private set; }
@@ -83,27 +84,18 @@ public sealed class GameController : MonoBehaviour
         CreateZoneControllers();
         CreateCardControllers();
 
-        foreach (BaseZoneController zoneController in ZoneControllers.GetAll(NoFilterBaseZoneControllerSelector.Get()))
-            zoneController.RefreshContent();
+        ZoneControllers
+            .GetAll(NoFilterBaseZoneControllerSelector.Get())
+            .ToList()
+            .ForEach(controller => controller.RefreshContent());
 
-        StartCoroutine(Game.Execute());
+        CardControllers
+            .GetAll(NoFilterCardControllerSelector.Get())
+            .ToList()
+            .ForEach(controller => controller.InitController());
     }
-    public void Setup()
+    private IEnumerator Start()
     {
-        RoutineController.StartGame();
-        Game.Start();
-        Game.Setup();
-    }
-    public void TestDiscardDrawHand()
-    {
-        RoutineController.StartGame();
-        Game.Start();
-        IPlayerActor playerActor = Game.GetFirst(PlayerTypeSelector.Get(HeroType.Hero)) as IPlayerActor;
-        Game.Enqueue(
-            TransactionCommand.Get(
-                Game,
-                CompositeCommand.Get(Game,
-                    PlayerDiscardHandCommand.Get(Game, playerActor.Id),
-                    PlayerDrawUpToHandCommand.Get(Game, playerActor.Id))));
+        yield return StartCoroutine(Game.Execute());
     }
 }
