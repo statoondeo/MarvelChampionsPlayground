@@ -4,6 +4,7 @@
 public sealed class EventFaceModel : FaceModel
 {
     public int Cost;
+    public string Effect;
     public int Energy;
     public int Mental;
     public int Physic;

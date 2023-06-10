@@ -1,4 +1,6 @@
-﻿public sealed class AllyFace : BaseCardFace, IAllyFace
+﻿using System.Collections;
+
+public sealed class AllyFace : BaseCardFace, IAllyFace
 {
     #region Constructor
 
@@ -87,7 +89,7 @@
     private readonly ICostFacade CostItem;
     public int Cost => CostItem.Cost;
     public void Play() => CostItem.Play();
-    public void Resolve() => CostItem.Resolve();
+    public IEnumerator Resolve() => CostItem.Resolve();
     public void AddDecorator(ICardComponentDecorator<ICostComponent> decorator)
         => CostItem.AddDecorator(decorator);
     public void RemoveDecorator(ICardComponentDecorator<ICostComponent> decorator)

@@ -9,4 +9,9 @@ public abstract class BasePicker<T> : IPicker<T>
         receiver.Receive(items);
         yield return null;
     }
+    public IEnumerator Pick(ISelector<T> itemSelector, IPickReceiver<T> receiver, string title, string subTitle)
+    {
+        receiver.Receive(null);
+        yield return null;
+    }
 }

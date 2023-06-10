@@ -32,14 +32,18 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
     [SerializeField] protected Transform ImageTransform;
     protected GameController GameController;
     protected RoutineController RoutineController;
+    protected CardSelectorItemController CardSelectorItemController;
 
-    public virtual void SetData(GameController gameController, RoutineController routineController, ICard card)
+    protected virtual void Awake() => CardSelectorItemController = GetComponentInChildren<CardSelectorItemController>();
+    public virtual void SetData(GameController gameController, RoutineController routineController, ISelectionMediator selectionMediator, ICard card)
     {
         GameController = gameController;
         RoutineController = routineController;
         Card = card;
         gameObject.name = (Card.CurrentFace as ITitleComponent).Title;
         SpriteRenderer.sprite = (Card.CurrentFace as ITitleComponent).Sprite;
+        CardSelectorItemController.SetCard(Card);
+        CardSelectorItemController.SetSelectionMediator(selectionMediator);
 
         Card.AddListener<ICoreCardComponent>(OnCoreCardChangedCallback);
         Card.AddListener<IFlipComponent>(OnFlippedCallback);
@@ -53,7 +57,6 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
         OnCoreCardChangedCallback(null);
         if (Card.CurrentFace.Equals(Card.Faces[1])) OnFlippedCallback(null);
         if (Card.Tapped) OnTappedCallback(null);
-        //OnMovedCallback(null);
     }
     public int GetSpriteLayer() => SpriteRenderer.sortingLayerID;
     public int SetSpriteLayer(int layerId) => SpriteRenderer.sortingLayerID = layerId;
@@ -63,11 +66,7 @@ public abstract class BaseCardController : MonoBehaviour, IGridItem
         transform.SetSiblingIndex(Order);
         SpriteRenderer.sortingOrder = Order;
     }
-    protected virtual void OnMovedCallback(IComponent component)
-    {
-        //GameController.ZoneControllers.GetFirst(ZoneControllerIdSelector.Get(Card.Location)).OnCardAddedCallback(this);
-        InitValues();
-    }
+    protected virtual void OnMovedCallback(IComponent component) => InitValues();
     protected virtual void OnFlippedCallback(IComponent component)
         => GameController.RoutineController.AddAnimation(
             FlipAnimation.Get(

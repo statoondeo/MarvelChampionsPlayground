@@ -33,7 +33,7 @@ public sealed class TestGameController : MonoBehaviour
 
         Card = new GameBuilder(null).WithPlayer(DeckModel).Build().GetFirst(CardTypeSelector.Get(cardType));
         StartCoroutine(Card.Game.Execute());
-        CardController.SetData(null, routineController, Card);
+        //CardController.SetData(null, routineController, Card);
         Card.AddListener<ILocationComponent>(OnLocationChanged);
 
         OnLocationChanged(null);

@@ -1,7 +1,9 @@
-﻿public abstract class BaseCostComponent : BaseCardComponent<ICostComponent>, ICostComponent
+﻿using System.Collections;
+
+public abstract class BaseCostComponent : BaseCardComponent<ICostComponent>, ICostComponent
 {
     public int Cost { get; private set; }
     protected BaseCostComponent(int cost) : base() => Cost = cost;
     public void Play() => Card.MoveTo("STACK");
-    public abstract void Resolve();
+    public abstract IEnumerator Resolve();
 }

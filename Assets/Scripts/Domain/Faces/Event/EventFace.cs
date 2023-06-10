@@ -1,4 +1,6 @@
-﻿public sealed class EventFace : BaseCardFace, IEventFace
+﻿using System.Collections;
+
+public sealed class EventFace : BaseCardFace, IEventFace
 {
     #region ICardHolder
 
@@ -16,7 +18,7 @@
     private readonly ICostFacade CostItem;
     public int Cost => CostItem.Cost;
     public void Play() => CostItem.Play();
-    public void Resolve() => CostItem.Resolve();
+    public IEnumerator Resolve() => CostItem.Resolve();
     public void AddDecorator(ICardComponentDecorator<ICostComponent> decorator)
         => CostItem.AddDecorator(decorator);
     public void RemoveDecorator(ICardComponentDecorator<ICostComponent> decorator)
@@ -73,7 +75,7 @@
             FaceTypeFacade.Get(faceModel.FaceType),
             ClassificationFacade.Get(faceModel.Classification),
             ResourceGeneratorFacade.Get(faceModel.Energy, faceModel.Mental, faceModel.Physic, faceModel.Wild),
-            CostFacade.Get(InstantCostComponent.Get(faceModel.Cost)));
+            CostFacade.Get(new CostComponentFactory().Create(faceModel.FaceType, faceModel.Cost, faceModel.Effect)));
 
     #endregion
 }

@@ -9,4 +9,9 @@ public sealed class NoCardSelectorController : BaseCardSelectorController
         receiver.Receive(Enumerable.Empty<ICard>());
         yield return null;
     }
+    public override IEnumerator Pick(ISelector<ICard> itemSelector, IPickReceiver<ICard> receiver, string title, string subTitle)
+    {
+        receiver.Receive(Enumerable.Empty<ICard>());
+        yield return null;
+    }
 }

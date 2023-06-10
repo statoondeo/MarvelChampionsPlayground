@@ -8,3 +8,4 @@ public interface IEvent<T>
     void Raise();
     void Register(T reference);
 }
+

@@ -16,9 +16,10 @@ MonoBehaviour:
   Title: "Emp\xEAcher les Conflits"
   SubTitle: 
   Sprite: {fileID: 21300000, guid: b70ef0e96f7a43249be280c07ab45981, type: 3}
-  CardType: 13
+  FaceType: 13
   Classification: 1
   Cost: 2
+  Effect: CRISIS_INTERDICTION
   Energy: 1
   Mental: 0
   Physic: 0

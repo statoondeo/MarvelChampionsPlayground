@@ -5,8 +5,9 @@ public sealed class HeroCardController : BaseCardController
     private AlterEgoFaceController FaceController;
     private HeroFaceController BackController;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         FaceController = FacePanelController.GetComponent<AlterEgoFaceController>();
         BackController = BackPanelController.GetComponent<HeroFaceController>();
     }

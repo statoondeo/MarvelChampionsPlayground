@@ -3,8 +3,9 @@
     private ResourceFaceController FaceController;
     private BackFaceController BackController;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         FaceController = FacePanelController.GetComponent<ResourceFaceController>();
         BackController = BackPanelController.GetComponent<BackFaceController>();
     }

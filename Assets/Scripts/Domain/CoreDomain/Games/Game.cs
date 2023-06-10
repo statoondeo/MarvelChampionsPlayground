@@ -68,6 +68,8 @@ public sealed class Game : IGame
     private readonly IPicker<ICard> CardPicker;
     public IEnumerator Pick(IEnumerable<ICard> items, IPickReceiver<ICard> receiver, string title, string subTitle)
         => CardPicker.Pick(items, receiver, title, subTitle);
+    public IEnumerator Pick(ISelector<ICard> itemSelector, IPickReceiver<ICard> receiver, string title, string subTitle)
+        => CardPicker.Pick(itemSelector, receiver, title, subTitle);
 
     #endregion
 

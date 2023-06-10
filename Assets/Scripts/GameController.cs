@@ -15,7 +15,9 @@ public sealed class GameController : MonoBehaviour
 
     [SerializeField] private GameObject CardSelectorPrefab;
 
-    private BaseCardSelectorController CardSelector;
+    [SerializeField] private SelectionController SelectionController;
+
+    private CardSelectorController CardSelector;
 
     public RoutineController RoutineController { get; private set; }
     public IGame Game { get; private set; }
@@ -64,14 +66,15 @@ public sealed class GameController : MonoBehaviour
             BaseCardController cardController = Instantiate(CardPrefabAtlasModel
                     .GetPrefab(card.CardType.ToString()), transform)
                     .GetComponent<BaseCardController>();
-            cardController.SetData(this, RoutineController, card);
+            cardController.SetData(this, RoutineController, SelectionController.Mediator, card);
             CardControllers.Add(cardController);
         }
     }
     private void Awake()
     {
         RoutineController = gameObject.AddComponent<RoutineController>();
-        CardSelector = Instantiate(CardSelectorPrefab, transform).GetComponent<BaseCardSelectorController>();
+        CardSelector = Instantiate(CardSelectorPrefab, transform).GetComponent<CardSelectorController>();
+        CardSelector.SetSelectionMediator(SelectionController.Mediator);
 
         Game = new GameBuilder(CardSelector)
             .WithRoutineController(RoutineController)

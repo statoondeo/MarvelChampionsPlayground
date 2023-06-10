@@ -1,41 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 using TMPro;
 
 using UnityEngine;
-public sealed class CardSelectorController : BaseCardSelectorController
+
+public sealed class CardSelectorController : BaseCardSelectorController, IPicker<ICard>
 {
-    [SerializeField] private GameObject CardSelectorItemPrefab;
     [SerializeField] private Canvas Canvas;
-    [SerializeField] private Transform Content;
     [SerializeField] private TMP_Text TitleText;
     [SerializeField] private TMP_Text SubTitleText;
 
-    private CardSelectorItemController[] CardSelectorItemControllers;
-    private bool Finished;
+    private IList<ICard> SelectedCards;
+    private bool Finished = false;
+    private ISelectionMediator Mediator;
 
-    private IEnumerable<ICard> GetSelectedCards() 
-        => CardSelectorItemControllers
-            .Where(item => item.Selected)
-            .Select(item => item.Card);
+    private void Awake() => SelectedCards = new List<ICard>();
+    public void SetSelectionMediator(ISelectionMediator mediator)
+    {
+        Mediator = mediator;
+        Mediator.AddListener(SelectionEvent.OnItemSelected, OnItemSelectedCallback);
+        Mediator.AddListener(SelectionEvent.OnItemUnSelected, OnItemUnSelectedCallback);
+    }
+    private void OnItemSelectedCallback(ISelectionEventParam eventParam)
+        => SelectedCards.Add((eventParam as OnItemSelectionEventParam).Item);
+    private void OnItemUnSelectedCallback(ISelectionEventParam eventParam)
+        => SelectedCards.Remove((eventParam as OnItemSelectionEventParam).Item);
     public void EndSelection() => Finished = true;
     public override IEnumerator Pick(IEnumerable<ICard> items, IPickReceiver<ICard> receiver, string title, string subTitle)
     {
+        yield return null;
+    }
+     public override IEnumerator Pick(ISelector<ICard> itemSelector, IPickReceiver<ICard> receiver, string title, string subTitle)
+   {
+        SelectedCards.Clear();
+        Finished = false;
         TitleText.text = title;
         SubTitleText.text = subTitle;
-        Finished = false;
-        CardSelectorItemControllers = new CardSelectorItemController[items.Count()];
-        for (int i = 0; i < CardSelectorItemControllers.Length; i++)
-        {
-            CardSelectorItemControllers[i] = Instantiate(CardSelectorItemPrefab, Content).GetComponent<CardSelectorItemController>();
-            CardSelectorItemControllers[i].SetCard(items.ElementAt(i));
-        }
         Canvas.gameObject.SetActive(true);
+        Mediator.Raise(SelectionEvent.OnSelectionStarted, OnSelectionStartedEventParam.Get(itemSelector));
         yield return new WaitUntil(() => Finished);
+        receiver.Receive(SelectedCards);
+        Mediator.Raise(SelectionEvent.OnSelectionEnded, null);
         Canvas.gameObject.SetActive(false);
-        receiver.Receive(GetSelectedCards());
         yield return null;
     }
 }

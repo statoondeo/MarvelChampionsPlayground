@@ -3,8 +3,9 @@
     private VillainFaceController FaceController;
     private VillainFaceController BackController;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         FaceController = FacePanelController.GetComponent<VillainFaceController>();
         BackController = BackPanelController.GetComponent<VillainFaceController>();
     }

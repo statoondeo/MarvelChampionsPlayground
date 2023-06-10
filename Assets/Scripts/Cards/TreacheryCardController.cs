@@ -3,8 +3,9 @@
     private TreacheryFaceController FaceController;
     private BackFaceController BackController;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         FaceController = FacePanelController.GetComponent<TreacheryFaceController>();
         BackController = BackPanelController.GetComponent<BackFaceController>();
     }

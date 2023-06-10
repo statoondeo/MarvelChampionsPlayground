@@ -1,27 +1,59 @@
 ﻿using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
-public sealed class CardSelectorItemController : MonoBehaviour, IPointerClickHandler
+public sealed class CardSelectorItemController : MonoBehaviour
 {
-    public bool Selected { get; private set; }
+    public bool IsActive { get; private set; }
+    public bool IsSelectable { get; private set; }
+    public bool IsSelected { get; private set; }
     public ICard Card { get; private set; }
-    [SerializeField] private Image TickImage;
-    private Image Image;
 
-    private void SwitchSelected()
+    [SerializeField] private SpriteRenderer SelectedImage;
+    [SerializeField] private SpriteRenderer SelectableImage;
+
+    private ISelectionMediator Mediator;
+    private void Start() => Reset();
+    private void Reset()
     {
-        Selected = !Selected;
-        TickImage.enabled = Selected;
+        SelectedImage.gameObject.SetActive(false);
+        SelectableImage.gameObject.SetActive(false);
+    }
+    private void MakeSelectable() => SelectableImage.gameObject.SetActive(IsActive && !IsSelectable);
+    private void MakeSelection(bool isSelected)
+    {
+        if (!IsActive || !IsSelectable) return;
+        IsSelected = isSelected;
+        SelectedImage.gameObject.SetActive(IsSelected);
+        Mediator.Raise(IsSelected ? SelectionEvent.OnItemSelected : SelectionEvent.OnItemUnSelected, OnItemSelectionEventParam.Get(Card));
     }
     public void SetCard(ICard card, bool selected = false)
     {
-        Image = GetComponent<Image>();
         Card = card;
-        Image.sprite = Card.CurrentFace.GetFacade<ITitleComponent>().Sprite;
-        Selected = selected;
-        TickImage.enabled = Selected;
-
+        MakeSelection(selected);
     }
-    public void OnPointerClick(PointerEventData eventData) => SwitchSelected();
+    public void SetSelectionMediator(ISelectionMediator mediator)
+    {
+        Mediator = mediator;
+        Mediator.AddListener(SelectionEvent.OnSelectionStarted, OnSelectionStartedCallback);
+        Mediator.AddListener(SelectionEvent.OnSelectionEnded, OnSelectionEndedCallback);
+    }
+    private void OnSelectionStartedCallback(ISelectionEventParam eventParam)
+    {
+        if (eventParam is not OnSelectionStartedEventParam onSelectionStartedEventParam) return;
+        IsActive = true;
+        IsSelectable = onSelectionStartedEventParam.Selector.Match(Card);
+        MakeSelectable();
+        MakeSelection(onSelectionStartedEventParam.IsSelected);
+    }
+    private void OnSelectionEndedCallback(ISelectionEventParam eventParam)
+    {
+        IsActive = false;
+        Reset();
+    }
+    private void OnMouseOver()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            MakeSelection(!IsSelected);
+        }
+    }
 }
